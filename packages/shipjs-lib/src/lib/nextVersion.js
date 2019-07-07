@@ -1,0 +1,57 @@
+import {
+  GIT_COMMIT_PREFIX_PATCH,
+  GIT_COMMIT_PREFIX_MINOR,
+  GIT_COMMIT_BREAKING_CHANGE,
+} from './const';
+import { inc } from 'semver';
+import currentVersion from './currentVersion';
+import silentExec from './shell/silentExec';
+
+export function nextVersionFromCommitMessages(version, titles, bodies) {
+  if (bodies.toUpperCase().includes(GIT_COMMIT_BREAKING_CHANGE)) {
+    return inc(version, 'major');
+  }
+  let patch = false;
+  let minor = false;
+  titles.split('\n').forEach(title => {
+    const prefix = title
+      .trim()
+      .split(':')[0]
+      .toLowerCase();
+    if (GIT_COMMIT_PREFIX_PATCH.includes(prefix)) {
+      patch = true;
+    }
+    if (GIT_COMMIT_PREFIX_MINOR.includes(prefix)) {
+      minor = true;
+    }
+  });
+
+  if (minor) {
+    return inc(version, 'minor');
+  } else if (patch) {
+    return inc(version, 'patch');
+  } else {
+    throw new Error('Cannot calculate next version');
+  }
+}
+
+function getTitles(version, dir) {
+  const cmd = `git log v${version}..HEAD --pretty=format:"%s"`;
+  return silentExec(cmd, { dir })
+    .toString()
+    .trim();
+}
+
+function getBodies(version, dir) {
+  const cmd = `git log v${version}..HEAD --pretty=format:"%b"`;
+  return silentExec(cmd, { dir })
+    .toString()
+    .trim();
+}
+
+export default function nextVersion(dir = '.') {
+  const version = currentVersion(dir);
+  const titles = getTitles(version, dir);
+  const bodies = getBodies(version, dir);
+  return nextVersionFromCommitMessages(version, titles, bodies);
+}

@@ -1,0 +1,16 @@
+{
+  "name": "ship",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "eee": "babel-node src/index.js"
+  },
+  "author": "Algolia <support@algolia.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/node": "^7.5.0",
+    "@babel/preset-env": "^7.5.0"
+  }
+}
