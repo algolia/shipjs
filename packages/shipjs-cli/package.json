@@ -1,19 +1,56 @@
 {
   "name": "shipjs",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.0",
+  "author": "Eunjae Lee",
   "bin": {
-    "ship": "./bin/ship"
+    "ship": "./bin/run"
   },
-  "scripts": {
-    "prepare": "ship prepare"
+  "bugs": "https://github.com/packages/shipjs/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2",
+    "tslib": "^1"
   },
-  "author": "Algolia <support@algolia.com>",
-  "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.5.0",
-    "@babel/node": "^7.5.0",
-    "@babel/preset-env": "^7.5.0"
-  }
+    "@oclif/dev-cli": "^1",
+    "@oclif/tslint": "^3",
+    "@types/node": "^10",
+    "globby": "^8",
+    "ts-node": "^8",
+    "tslint": "^5",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/packages/shipjs",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "ship",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "packages/shipjs",
+  "scripts": {
+    "prepare": "ship prepare",
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "tslint -p . -t stylish",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
 }
