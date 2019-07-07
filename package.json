@@ -1,0 +1,15 @@
+{
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Algolia <support@algolia.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "examples/*",
+    "examples/sandbox/*"
+  ]
+}
