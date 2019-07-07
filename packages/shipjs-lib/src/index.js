@@ -1,6 +1,6 @@
-export { default as currentVersion } from './lib/currentVersion';
+export { default as currentVersion } from './lib/util/currentVersion';
 export {
   default as hasTagForCurrentVersion,
-} from './lib/hasTagForCurrentVersion';
-export { default as nextVersion } from './lib/nextVersion';
-export { default as updateVersion } from './lib/updateVersion';
+} from './lib/util/hasTagForCurrentVersion';
+export { default as nextVersion } from './lib/util/nextVersion';
+export { default as updateVersion } from './lib/util/updateVersion';

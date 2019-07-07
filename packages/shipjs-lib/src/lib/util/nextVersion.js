@@ -2,10 +2,10 @@ import {
   GIT_COMMIT_PREFIX_PATCH,
   GIT_COMMIT_PREFIX_MINOR,
   GIT_COMMIT_BREAKING_CHANGE,
-} from './const';
+} from '../const';
 import { inc } from 'semver';
 import currentVersion from './currentVersion';
-import silentExec from './shell/silentExec';
+import silentExec from '../shell/silentExec';
 
 export function nextVersionFromCommitMessages(version, titles, bodies) {
   if (bodies.toUpperCase().includes(GIT_COMMIT_BREAKING_CHANGE)) {

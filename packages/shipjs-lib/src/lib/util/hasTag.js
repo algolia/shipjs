@@ -1,4 +1,4 @@
-import silentExec from './shell/silentExec';
+import silentExec from '../shell/silentExec';
 
 export default function hasTag(tag, dir = '.') {
   return (

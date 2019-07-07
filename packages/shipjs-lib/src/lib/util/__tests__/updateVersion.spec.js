@@ -1,4 +1,4 @@
-import silentExec from '../shell/silentExec';
+import silentExec from '../../shell/silentExec';
 import currentVersion from '../currentVersion';
 import updateVersion from '../updateVersion';
 import path from 'path';

@@ -1,4 +1,4 @@
-import silentExec from '../shell/silentExec';
+import silentExec from '../../shell/silentExec';
 import nextVersion, { nextVersionFromCommitMessages } from '../nextVersion';
 import { inc } from 'semver';
 

@@ -1,5 +1,5 @@
 import currentVersion from '../currentVersion';
-import silentExec from '../shell/silentExec';
+import silentExec from '../../shell/silentExec';
 
 describe('currentVersion', () => {
   it('gets current version', () => {

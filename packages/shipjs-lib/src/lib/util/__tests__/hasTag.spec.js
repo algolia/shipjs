@@ -1,5 +1,5 @@
 import hasTag from '../hasTag';
-import silentExec from '../shell/silentExec';
+import silentExec from '../../shell/silentExec';
 
 describe('hasTag', () => {
   it('checks if it does not have tag', () => {

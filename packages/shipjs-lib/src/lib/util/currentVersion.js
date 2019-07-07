@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { PACKAGE_JSON } from './const';
+import { PACKAGE_JSON } from '../const';
 
 export default function currentVersion(dir = '.') {
   const { version } = JSON.parse(
