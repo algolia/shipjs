@@ -1,12 +1,14 @@
 {
-  "name": "ship",
+  "name": "shipjs",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
     "ship": "./bin/ship"
   },
-  "scripts": {},
+  "scripts": {
+    "prepare": "ship prepare"
+  },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
   "devDependencies": {
