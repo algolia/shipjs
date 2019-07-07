@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "eee": "babel-node src/index.js"
+  "bin": {
+    "ship": "./bin/ship"
   },
+  "scripts": {},
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
   "devDependencies": {

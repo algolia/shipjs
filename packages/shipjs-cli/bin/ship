@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+babel-node ../src/index.js

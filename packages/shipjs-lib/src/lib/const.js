@@ -13,3 +13,7 @@ export const GIT_COMMIT_PREFIX_PATCH = [
 export const GIT_COMMIT_PREFIX_MINOR = ['feat'];
 
 export const GIT_COMMIT_BREAKING_CHANGE = 'BREAKING CHANGE';
+
+export const BASE_BRANCH = 'master';
+
+export const RELEASE_BRANCH = 'releases';
