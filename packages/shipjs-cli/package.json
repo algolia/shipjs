@@ -47,6 +47,7 @@
   "repository": "packages/shipjs",
   "scripts": {
     "prepare": "ship prepare",
+    "hello": "ship hello",
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "tslint -p . -t stylish",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",

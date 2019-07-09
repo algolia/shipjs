@@ -1,18 +1,21 @@
 import validate from '../validate';
 import isWorkingTreeClean from '../../git/isWorkingTreeClean';
 import currentBranch from '../../git/currentBranch';
+import hasTagForCurrentVersion from '../../util/hasTagForCurrentVersion';
 import { BASE_BRANCH } from '../../const';
 jest.mock('../../git/isWorkingTreeClean');
 jest.mock('../../git/currentBranch');
+jest.mock('../../util/hasTagForCurrentVersion');
 
 const defaultOpts = {
-  baseBranch: BASE_BRANCH,
+  baseBranches: [BASE_BRANCH],
 };
 
 describe('Validate', () => {
   beforeEach(() => {
     isWorkingTreeClean.mockImplementation(() => true);
     currentBranch.mockImplementation(() => 'master');
+    hasTagForCurrentVersion.mockImplementation(() => true);
   });
 
   it('returns error if working tree is not clean', () => {
@@ -43,13 +46,26 @@ describe('Validate', () => {
     expect(result).toBe(true);
   });
 
+  it('returns error if there is no git tag for current version', () => {
+    hasTagForCurrentVersion.mockImplementation(() => false);
+    const result = validate(defaultOpts);
+    expect(result).not.toBe(true);
+    expect(result.length).toBe(1);
+    expect(result[0]).toMatchInlineSnapshot(`"no_tag_for_current_version"`);
+  });
+
+  it('does not return error if there is git tag for current version', () => {
+    hasTagForCurrentVersion.mockImplementation(() => true);
+    const result = validate(defaultOpts);
+    expect(result).toBe(true);
+  });
+
   it('returns more than one error', () => {
     isWorkingTreeClean.mockImplementation(() => false);
     currentBranch.mockImplementation(() => 'aaa');
+    hasTagForCurrentVersion.mockImplementation(() => false);
     const result = validate(defaultOpts);
     expect(result).not.toBe(true);
-    expect(result.length).toBe(2);
-    expect(result[0]).toMatchInlineSnapshot(`"working_tree_not_clean"`);
-    expect(result[1]).toMatchInlineSnapshot(`"current_branch_incorrect"`);
+    expect(result.length).toBe(3);
   });
 });

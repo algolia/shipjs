@@ -46,6 +46,14 @@ describe('nextVersionFromCommitMessages', () => {
     const actual = nextVersionFromCommitMessages(version, titles, bodies);
     expect(actual).toBe(inc(version, 'major'));
   });
+
+  it('gets a null with no commit messages', () => {
+    const version = '0.0.1';
+    const titles = '';
+    const bodies = '';
+    const actual = nextVersionFromCommitMessages(version, titles, bodies);
+    expect(actual).toBe(null);
+  });
 });
 
 describe('nextVersion', () => {
@@ -65,5 +73,11 @@ describe('nextVersion', () => {
     silentExec('./tests/bootstrap-examples/major-version-up.sh');
     const actual = nextVersion('sandbox/major-version-up');
     expect(actual).toBe('1.0.0');
+  });
+
+  it('gets a null with no commit messages', () => {
+    silentExec('./tests/bootstrap-examples/empty.sh no-commit-log');
+    const actual = nextVersion('sandbox/no-commit-log');
+    expect(actual).toBe(null);
   });
 });

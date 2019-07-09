@@ -31,7 +31,7 @@ export function nextVersionFromCommitMessages(version, titles, bodies) {
   } else if (patch) {
     return inc(version, 'patch');
   } else {
-    throw new Error('Cannot calculate next version');
+    return null;
   }
 }
 
