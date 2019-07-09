@@ -1,9 +1,11 @@
 import silentExec from '../../shell/silentExec';
-import nextVersion, { nextVersionFromCommitMessages } from '../nextVersion';
+import getNextVersion, {
+  getNextVersionFromCommitMessages,
+} from '../getNextVersion';
 import { inc } from 'semver';
 
-describe('nextVersionFromCommitMessages', () => {
-  it('gets nextVersionFromCommitMessages with patch updated', () => {
+describe('getNextVersionFromCommitMessages', () => {
+  it('getNextVersionFromCommitMessages with patch updated', () => {
     const version = '0.0.1';
     const titles = `fix: abc
       docs: abc
@@ -13,11 +15,11 @@ describe('nextVersionFromCommitMessages', () => {
       test: abc
       chore: abc`;
     const bodies = '';
-    const actual = nextVersionFromCommitMessages(version, titles, bodies);
+    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
     expect(actual).toBe(inc(version, 'patch'));
   });
 
-  it('gets nextVersionFromCommitMessages with minor updated', () => {
+  it('getNextVersionFromCommitMessages with minor updated', () => {
     const version = '0.0.1';
     const titles = `fix: abc
       docs: abc
@@ -28,11 +30,11 @@ describe('nextVersionFromCommitMessages', () => {
       chore: abc
       feat: abc`;
     const bodies = '';
-    const actual = nextVersionFromCommitMessages(version, titles, bodies);
+    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
     expect(actual).toBe(inc(version, 'minor'));
   });
 
-  it('gets nextVersionFromCommitMessages with major updated', () => {
+  it('getNextVersionFromCommitMessages with major updated', () => {
     const version = '0.0.1';
     const titles = `fix: abc
       docs: abc
@@ -43,7 +45,7 @@ describe('nextVersionFromCommitMessages', () => {
       chore: abc
       feat: abc`;
     const bodies = 'BREAKING CHANGE: this breaks the previous behavior.';
-    const actual = nextVersionFromCommitMessages(version, titles, bodies);
+    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
     expect(actual).toBe(inc(version, 'major'));
   });
 
@@ -51,33 +53,33 @@ describe('nextVersionFromCommitMessages', () => {
     const version = '0.0.1';
     const titles = '';
     const bodies = '';
-    const actual = nextVersionFromCommitMessages(version, titles, bodies);
+    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
     expect(actual).toBe(null);
   });
 });
 
-describe('nextVersion', () => {
-  it('gets nextVersionFromCommitMessages with patch updated', () => {
+describe('getNextVersion', () => {
+  it('gets next version with patch updated', () => {
     silentExec('./tests/bootstrap-examples/patch-version-up.sh');
-    const actual = nextVersion('sandbox/patch-version-up');
+    const actual = getNextVersion('sandbox/patch-version-up');
     expect(actual).toBe('0.0.2');
   });
 
-  it('gets nextVersionFromCommitMessages with minor updated', () => {
+  it('gets next version with minor updated', () => {
     silentExec('./tests/bootstrap-examples/minor-version-up.sh');
-    const actual = nextVersion('sandbox/minor-version-up');
+    const actual = getNextVersion('sandbox/minor-version-up');
     expect(actual).toBe('0.1.0');
   });
 
-  it('gets nextVersionFromCommitMessages with major updated', () => {
+  it('gets next version with major updated', () => {
     silentExec('./tests/bootstrap-examples/major-version-up.sh');
-    const actual = nextVersion('sandbox/major-version-up');
+    const actual = getNextVersion('sandbox/major-version-up');
     expect(actual).toBe('1.0.0');
   });
 
   it('gets a null with no commit messages', () => {
     silentExec('./tests/bootstrap-examples/empty.sh no-commit-log');
-    const actual = nextVersion('sandbox/no-commit-log');
+    const actual = getNextVersion('sandbox/no-commit-log');
     expect(actual).toBe(null);
   });
 });

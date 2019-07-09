@@ -8,12 +8,21 @@
   },
   "scripts": {
     "prepare": "ship prepare",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "yarn test --watch"
   },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^2.4.2",
     "esm": "^3.2.25",
     "shipjs-lib": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0",
+    "jest-watch-typeahead": "^0.3.1"
   }
 }

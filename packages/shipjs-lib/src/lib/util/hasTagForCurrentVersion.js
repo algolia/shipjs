@@ -1,7 +1,7 @@
 import hasTag from './hasTag';
-import currentVersion from './currentVersion';
+import getCurrentVersion from './getCurrentVersion';
 
 export default function hasTagForCurrentVersion(dir = '.') {
-  const tag = `v${currentVersion(dir)}`;
+  const tag = `v${getCurrentVersion(dir)}`;
   return hasTag(tag, dir);
 }

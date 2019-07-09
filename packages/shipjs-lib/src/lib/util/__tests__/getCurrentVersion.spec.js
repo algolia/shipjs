@@ -1,9 +1,9 @@
-import currentVersion from '../currentVersion';
+import getCurrentVersion from '../getCurrentVersion';
 import silentExec from '../../shell/silentExec';
 
-describe('currentVersion', () => {
+describe('getCurrentVersion', () => {
   it('gets current version', () => {
     silentExec('./tests/bootstrap-examples/empty.sh nothing');
-    expect(currentVersion('sandbox/nothing')).toBe('0.0.1');
+    expect(getCurrentVersion('sandbox/nothing')).toBe('0.0.1');
   });
 });

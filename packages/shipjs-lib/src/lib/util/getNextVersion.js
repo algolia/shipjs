@@ -4,10 +4,10 @@ import {
   GIT_COMMIT_BREAKING_CHANGE,
 } from '../const';
 import { inc } from 'semver';
-import currentVersion from './currentVersion';
+import getCurrentVersion from './getCurrentVersion';
 import silentExec from '../shell/silentExec';
 
-export function nextVersionFromCommitMessages(version, titles, bodies) {
+export function getNextVersionFromCommitMessages(version, titles, bodies) {
   if (bodies.toUpperCase().includes(GIT_COMMIT_BREAKING_CHANGE)) {
     return inc(version, 'major');
   }
@@ -49,9 +49,9 @@ function getBodies(version, dir) {
     .trim();
 }
 
-export default function nextVersion(dir = '.') {
-  const version = currentVersion(dir);
+export default function getNextVersion(dir = '.') {
+  const version = getCurrentVersion(dir);
   const titles = getTitles(version, dir);
   const bodies = getBodies(version, dir);
-  return nextVersionFromCommitMessages(version, titles, bodies);
+  return getNextVersionFromCommitMessages(version, titles, bodies);
 }
