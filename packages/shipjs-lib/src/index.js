@@ -4,4 +4,4 @@ export {
 } from './lib/util/hasTagForCurrentVersion';
 export { default as getNextVersion } from './lib/util/getNextVersion';
 export { default as updateVersion } from './lib/util/updateVersion';
-export { validate } from './lib/prepare';
+export { default as validate } from './lib/prepare/validate';
