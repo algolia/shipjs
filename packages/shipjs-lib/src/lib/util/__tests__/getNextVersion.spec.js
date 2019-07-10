@@ -19,7 +19,36 @@ describe('getNextVersionFromCommitMessages', () => {
     expect(actual).toBe(inc(version, 'patch'));
   });
 
+  it('getNextVersionFromCommitMessages of scoped commits with patch updated', () => {
+    const version = '0.0.1';
+    const titles = `fix(a): abc
+      docs(ab): abc
+      style(abc): abc
+      refactor(abcd): abc
+      perf(abcde): abc
+      test(abcdef): abc
+      chore(abcdefg): abc`;
+    const bodies = '';
+    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
+    expect(actual).toBe(inc(version, 'patch'));
+  });
+
   it('getNextVersionFromCommitMessages with minor updated', () => {
+    const version = '0.0.1';
+    const titles = `fix(a): abc
+      docs(ab): abc
+      style(abc): abc
+      refactor(abcd): abc
+      perf(abcde): abc
+      test(abcdef): abc
+      chore(abcdefg): abc
+      feat(abcdefgh): abc`;
+    const bodies = '';
+    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
+    expect(actual).toBe(inc(version, 'minor'));
+  });
+
+  it('getNextVersionFromCommitMessages of scoped commits with minor updated', () => {
     const version = '0.0.1';
     const titles = `fix: abc
       docs: abc

@@ -14,10 +14,18 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
   let patch = false;
   let minor = false;
   titles.split('\n').forEach(title => {
-    const prefix = title
-      .trim()
-      .split(':')[0]
-      .toLowerCase();
+    title = title.trim();
+    if (!title) {
+      return;
+    }
+    const match = title.match(/(.*?)(\(.*?\))?:.*/);
+    if (!match || !match[1]) {
+      console.error(
+        `Skipping this commit message. Out of convention.\n  > ${title}`
+      );
+      return;
+    }
+    const prefix = match[1].toLowerCase();
     if (GIT_COMMIT_PREFIX_PATCH.includes(prefix)) {
       patch = true;
     }

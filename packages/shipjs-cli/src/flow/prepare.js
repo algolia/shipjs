@@ -4,6 +4,7 @@ import {
   getNextVersion,
   updateVersion,
   validate,
+  exec,
 } from 'shipjs-lib';
 import loadConfig from '../config/loadConfig';
 import { info, warning, error } from '../color';
@@ -21,12 +22,13 @@ function printValidationError(result, { currentVersion, baseBranches }) {
     error('Failed to prepare a release for the following reason(s).')
   );
   result.forEach(reason => {
-    console.log(warning(`  - ${messageMap[reason]}`));
+    console.log(info(`  - ${messageMap[reason]}`));
   });
 }
 
 export default (dir = '.') => {
   const { baseBranches } = loadConfig(dir);
+  console.log(info('Validating...'));
   const result = validate({
     dir,
     baseBranches,
@@ -35,5 +37,13 @@ export default (dir = '.') => {
   if (result !== true) {
     return printValidationError(result, { currentVersion, baseBranches });
   }
-  console.log(result);
+  console.log(info('Validation passed!'));
+  const run = command => {
+    console.log('$', command);
+    exec(command, { dir });
+  };
+
+  run('git pull');
+  const nextVersion = getNextVersion(dir);
+  console.log({ currentVersion, nextVersion });
 };
