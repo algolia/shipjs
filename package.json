@@ -9,9 +9,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "examples/*",
-    "examples/sandbox/*"
+    "packages/*"
   ],
   "name": "shipjs",
   "devDependencies": {
