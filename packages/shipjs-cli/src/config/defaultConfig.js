@@ -1,5 +1,7 @@
 export default {
+  remote: 'origin',
   baseBranches: ['master'],
+  packageJsons: ['package.json'],
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
   versionUpdated: ({ version, exec }) => {},
   changelogUpdated: ({ exec }) => {},

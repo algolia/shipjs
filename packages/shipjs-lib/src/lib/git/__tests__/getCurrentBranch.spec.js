@@ -1,9 +1,9 @@
 import silentExec from '../../shell/silentExec';
-import currentBranch from '../currentBranch';
+import getCurrentBranch from '../getCurrentBranch';
 
-describe('currentBranch', () => {
+describe('getCurrentBranch', () => {
   it('gets current branch', () => {
     silentExec('./tests/bootstrap-examples/current-branch.sh');
-    expect(currentBranch('sandbox/current-branch')).toBe('master');
+    expect(getCurrentBranch('sandbox/current-branch')).toBe('master');
   });
 });

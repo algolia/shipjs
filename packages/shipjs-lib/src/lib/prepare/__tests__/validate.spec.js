@@ -1,10 +1,10 @@
 import validate from '../validate';
 import isWorkingTreeClean from '../../git/isWorkingTreeClean';
-import currentBranch from '../../git/currentBranch';
+import getCurrentBranch from '../../git/getCurrentBranch';
 import hasTagForCurrentVersion from '../../util/hasTagForCurrentVersion';
 import { BASE_BRANCH } from '../../const';
 jest.mock('../../git/isWorkingTreeClean');
-jest.mock('../../git/currentBranch');
+jest.mock('../../git/getCurrentBranch');
 jest.mock('../../util/hasTagForCurrentVersion');
 
 const defaultOpts = {
@@ -14,7 +14,7 @@ const defaultOpts = {
 describe('Validate', () => {
   beforeEach(() => {
     isWorkingTreeClean.mockImplementation(() => true);
-    currentBranch.mockImplementation(() => 'master');
+    getCurrentBranch.mockImplementation(() => 'master');
     hasTagForCurrentVersion.mockImplementation(() => true);
   });
 
@@ -33,7 +33,7 @@ describe('Validate', () => {
   });
 
   it('returns error if current branch is not correct', () => {
-    currentBranch.mockImplementation(() => 'aaa');
+    getCurrentBranch.mockImplementation(() => 'aaa');
     const result = validate(defaultOpts);
     expect(result).not.toBe(true);
     expect(result.length).toBe(1);
@@ -41,7 +41,7 @@ describe('Validate', () => {
   });
 
   it('does not return error if current branch is correct', () => {
-    currentBranch.mockImplementation(() => 'master');
+    getCurrentBranch.mockImplementation(() => 'master');
     const result = validate(defaultOpts);
     expect(result).toBe(true);
   });
@@ -62,7 +62,7 @@ describe('Validate', () => {
 
   it('returns more than one error', () => {
     isWorkingTreeClean.mockImplementation(() => false);
-    currentBranch.mockImplementation(() => 'aaa');
+    getCurrentBranch.mockImplementation(() => 'aaa');
     hasTagForCurrentVersion.mockImplementation(() => false);
     const result = validate(defaultOpts);
     expect(result).not.toBe(true);
