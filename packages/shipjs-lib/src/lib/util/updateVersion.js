@@ -3,8 +3,9 @@ import { resolve } from 'path';
 
 export default function updateVersion(packageJsons, nextVersion, dir = '.') {
   packageJsons.forEach(packageJson => {
-    const json = JSON.parse(readFileSync(resolve(dir, packageJson)).toString());
+    const filePath = resolve(dir, packageJson);
+    const json = JSON.parse(readFileSync(filePath).toString());
     json.version = nextVersion;
-    writeFileSync(packageJson, JSON.stringify(json, null, 2));
+    writeFileSync(filePath, JSON.stringify(json, null, 2));
   });
 }

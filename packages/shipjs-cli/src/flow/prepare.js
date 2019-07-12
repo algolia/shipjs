@@ -9,13 +9,33 @@ import {
   validate as orgValidate,
   exec,
 } from 'shipjs-lib';
+import tempWrite from 'temp-write';
 import loadConfig from '../config/loadConfig';
 import { info, warning, error } from '../color';
+import { resolve, basename } from 'path';
+import { existsSync } from 'fs';
 
-const run = (command, dir) => {
-  console.log('$', command);
-  exec(command, { dir });
-};
+function run(command, dir) {
+  if (!dir) {
+    throw new Error('`dir` is missing');
+  }
+  console.log('$', info(command));
+  const { code } = exec(command, { dir });
+  if (code !== 0) {
+    console.log(error('The following command failed:'));
+    console.log(`  > ${command}`);
+    process.exit(1);
+  }
+}
+
+function checkHub() {
+  const exists = exec('hub --version').code === 0;
+  if (!exists) {
+    console.log(error('You need to install `hub` first.'));
+    console.log('  > https://github.com/github/hub#installation');
+    process.exit(1);
+  }
+}
 
 function printValidationError(result, { currentVersion, baseBranches }) {
   const messageMap = {
@@ -35,20 +55,18 @@ function printValidationError(result, { currentVersion, baseBranches }) {
 }
 
 function validate({ config, dir }) {
-  console.log(info('Validating...'));
   const { baseBranches } = config;
   const result = orgValidate({
     dir,
     baseBranches,
   });
   const currentVersion = getCurrentVersion(dir);
-  const currentBaseBranch = getCurrentBranch(dir);
+  const baseBranch = getCurrentBranch(dir);
   if (result !== true) {
     printValidationError(result, { currentVersion, baseBranches });
     process.exit(1);
   }
-  console.log(info('Validation passed!'));
-  return { currentVersion, currentBaseBranch };
+  return { currentVersion, baseBranch };
 }
 
 function pullAndGetNextVersion({ dir }) {
@@ -87,37 +105,82 @@ function updateVersions({ config, nextVersion, dir }) {
   versionUpdated({ version: nextVersion, exec });
 }
 
+function installDependencies({ config, dir }) {
+  const isYarn = existsSync(resolve(dir, 'yarn.lock'));
+  const command = config.installDependencies({ isYarn });
+  run(command, dir);
+}
+
 function updateChangelog({ config, dir }) {
   const { conventionalChangelogArgs, changelogUpdated } = config;
   run(`conventional-changelog ${conventionalChangelogArgs}`, dir);
   changelogUpdated({ exec });
 }
 
-function commitChanges({ nextVersion, dir }) {
+function commitChanges({ nextVersion, dir, config }) {
+  const { formatCommitMessage } = config;
+  const message = formatCommitMessage({ nextVersion });
+  const filePath = tempWrite.sync(message);
   run('git add .', dir);
-  run(`git commit -m "chore: release v${nextVersion}"`, dir);
+  run(`git commit --file=${filePath}`, dir);
 }
 
-function getDestinationBranchName({ currentBaseBranch, config }) {
+function getDestinationBranchName({ baseBranch, config }) {
   const { mergeReleaseBranchTo } = config;
-  if (mergeReleaseBranchTo.currentBranch === true) {
-    return currentBaseBranch;
+  if (mergeReleaseBranchTo.baseBranch === true) {
+    return baseBranch;
   } else if (typeof mergeReleaseBranchTo.getName === 'function') {
-    return mergeReleaseBranchTo.getName({ currentBranch: currentBaseBranch });
+    return mergeReleaseBranchTo.getName({ baseBranch });
   }
 }
 
-function createPullRequest({ currentBaseBranch, config }) {
+function getRepoURL({ dir }) {
+  const repoName = basename(
+    exec('git config --get remote.origin.url', { dir, silent: true })
+      .toString()
+      .trim(),
+    '.git'
+  );
+  const repoURL = exec(`hub browse -u ${repoName}`, { dir, silent: true })
+    .toString()
+    .trim();
+  return repoURL;
+}
+
+function createPullRequest({
+  baseBranch,
+  releaseBranch,
+  currentVersion,
+  nextVersion,
+  config,
+  dir,
+}) {
+  const { mergeReleaseBranchTo, formatPullRequestMessage } = config;
   const destinationBranch = getDestinationBranchName({
-    currentBaseBranch,
+    baseBranch,
     config,
   });
-  // TODO: create a PR
+  const repoURL = getRepoURL({ dir });
+  const message = formatPullRequestMessage({
+    repoURL,
+    baseBranch,
+    releaseBranch,
+    destinationBranch,
+    mergeReleaseBranchTo,
+    currentVersion,
+    nextVersion,
+  });
+  const filePath = tempWrite.sync(message);
+  run(
+    `hub pull-request --base ${destinationBranch} --browse --push --file ${filePath}`,
+    dir
+  );
 }
 
 function prepare(dir = '.') {
+  checkHub();
   const config = loadConfig(dir);
-  const { currentVersion, currentBaseBranch } = validate({ config, dir });
+  const { currentVersion, baseBranch } = validate({ config, dir });
   const { nextVersion } = pullAndGetNextVersion({ dir });
   const { releaseBranch } = prepareReleaseBranch({
     config,
@@ -126,9 +189,17 @@ function prepare(dir = '.') {
   });
   run(`git checkout -b ${releaseBranch}`, dir);
   updateVersions({ config, nextVersion, dir });
+  installDependencies({ config, dir });
   updateChangelog({ config, dir });
-  commitChanges({ nextVersion, dir });
-  createPullRequest({ currentBaseBranch, config });
+  commitChanges({ nextVersion, dir, config });
+  createPullRequest({
+    baseBranch,
+    releaseBranch,
+    currentVersion,
+    nextVersion,
+    config,
+    dir,
+  });
 }
 
 export default prepare;

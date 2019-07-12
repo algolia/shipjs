@@ -16,7 +16,8 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "esm": "^3.2.25",
-    "shipjs-lib": "*"
+    "shipjs-lib": "*",
+    "temp-write": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
