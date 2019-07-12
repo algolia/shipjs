@@ -6,7 +6,7 @@ import { inc } from 'semver';
 
 describe('getNextVersionFromCommitMessages', () => {
   it('getNextVersionFromCommitMessages with patch updated', () => {
-    const version = '0.0.1';
+    const version = '1.2.3';
     const titles = `fix: abc
       docs: abc
       style: abc
@@ -16,11 +16,11 @@ describe('getNextVersionFromCommitMessages', () => {
       chore: abc`;
     const bodies = '';
     const actual = getNextVersionFromCommitMessages(version, titles, bodies);
-    expect(actual).toBe(inc(version, 'patch'));
+    expect(actual).toBe('1.2.4');
   });
 
   it('getNextVersionFromCommitMessages of scoped commits with patch updated', () => {
-    const version = '0.0.1';
+    const version = '1.2.3';
     const titles = `fix(a): abc
       docs(ab): abc
       style(abc): abc
@@ -30,11 +30,11 @@ describe('getNextVersionFromCommitMessages', () => {
       chore(abcdefg): abc`;
     const bodies = '';
     const actual = getNextVersionFromCommitMessages(version, titles, bodies);
-    expect(actual).toBe(inc(version, 'patch'));
+    expect(actual).toBe('1.2.4');
   });
 
   it('getNextVersionFromCommitMessages with minor updated', () => {
-    const version = '0.0.1';
+    const version = '1.2.3';
     const titles = `fix(a): abc
       docs(ab): abc
       style(abc): abc
@@ -45,11 +45,11 @@ describe('getNextVersionFromCommitMessages', () => {
       feat(abcdefgh): abc`;
     const bodies = '';
     const actual = getNextVersionFromCommitMessages(version, titles, bodies);
-    expect(actual).toBe(inc(version, 'minor'));
+    expect(actual).toBe('1.3.0');
   });
 
   it('getNextVersionFromCommitMessages of scoped commits with minor updated', () => {
-    const version = '0.0.1';
+    const version = '1.2.3';
     const titles = `fix: abc
       docs: abc
       style: abc
@@ -60,7 +60,7 @@ describe('getNextVersionFromCommitMessages', () => {
       feat: abc`;
     const bodies = '';
     const actual = getNextVersionFromCommitMessages(version, titles, bodies);
-    expect(actual).toBe(inc(version, 'minor'));
+    expect(actual).toBe('1.3.0');
   });
 
   it('getNextVersionFromCommitMessages with major updated', () => {
@@ -75,7 +75,7 @@ describe('getNextVersionFromCommitMessages', () => {
       feat: abc`;
     const bodies = 'BREAKING CHANGE: this breaks the previous behavior.';
     const actual = getNextVersionFromCommitMessages(version, titles, bodies);
-    expect(actual).toBe(inc(version, 'major'));
+    expect(actual).toBe('1.0.0');
   });
 
   it('gets a null with no commit messages', () => {
@@ -84,6 +84,34 @@ describe('getNextVersionFromCommitMessages', () => {
     const bodies = '';
     const actual = getNextVersionFromCommitMessages(version, titles, bodies);
     expect(actual).toBe(null);
+  });
+
+  it('throws when there is a commit message out of convention', () => {
+    const version = '0.0.1';
+    const titles = `hello: abc`;
+    const bodies = '';
+    expect(() => {
+      getNextVersionFromCommitMessages(version, titles, bodies);
+    }).toThrow();
+  });
+
+  it('increases version with postfixes', () => {
+    const list = ['alpha', 'beta', 'rc', 'canary', 'whatever'];
+    list.forEach(tag => {
+      const version = `0.0.1-${tag}.123`;
+      // Even if there is a `feat` commit, it still increases the number only.
+      const titles = `fix: abc
+        docs: abc
+        style: abc
+        refactor: abc
+        perf: abc
+        test: abc
+        chore: abc
+        feat: abc`;
+      const bodies = '';
+      const actual = getNextVersionFromCommitMessages(version, titles, bodies);
+      expect(actual).toBe(`0.0.1-${tag}.124`);
+    });
   });
 });
 
@@ -110,5 +138,12 @@ describe('getNextVersion', () => {
     silentExec('./tests/bootstrap-examples/empty.sh no-commit-log');
     const actual = getNextVersion('sandbox/no-commit-log');
     expect(actual).toBe(null);
+  });
+
+  it('throws when there is a commit message out of convention', () => {
+    silentExec('./tests/bootstrap-examples/out-of-convention.sh');
+    expect(() => {
+      getNextVersion('sandbox/out-of-convention');
+    }).toThrow();
   });
 });

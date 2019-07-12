@@ -1,6 +1,6 @@
 export const PACKAGE_JSON = 'package.json';
 
-export const GIT_COMMIT_PREFIX_PATCH = [
+export const GIT_COMMIT_PREFIX_PATCH = new Set([
   'fix',
   'docs',
   'style',
@@ -8,9 +8,9 @@ export const GIT_COMMIT_PREFIX_PATCH = [
   'perf',
   'test',
   'chore',
-];
+]);
 
-export const GIT_COMMIT_PREFIX_MINOR = ['feat'];
+export const GIT_COMMIT_PREFIX_MINOR = new Set(['feat']);
 
 export const GIT_COMMIT_BREAKING_CHANGE = 'BREAKING CHANGE';
 

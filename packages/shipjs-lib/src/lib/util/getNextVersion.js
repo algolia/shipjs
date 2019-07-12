@@ -3,34 +3,35 @@ import {
   GIT_COMMIT_PREFIX_MINOR,
   GIT_COMMIT_BREAKING_CHANGE,
 } from '../const';
-import { inc } from 'semver';
+import { inc, prerelease } from 'semver';
 import getCurrentVersion from './getCurrentVersion';
 import silentExec from '../shell/silentExec';
 
 export function getNextVersionFromCommitMessages(version, titles, bodies) {
+  if (prerelease(version)) {
+    return inc(version, 'prerelease');
+  }
   if (bodies.toUpperCase().includes(GIT_COMMIT_BREAKING_CHANGE)) {
     return inc(version, 'major');
   }
   let patch = false;
   let minor = false;
-  titles.split('\n').forEach(title => {
-    title = title.trim();
+  titles.split('\n').forEach(rawTitle => {
+    const title = rawTitle.trim();
     if (!title) {
       return;
     }
     const match = title.match(/(.*?)(\(.*?\))?:.*/);
     if (!match || !match[1]) {
-      console.error(
-        `Skipping this commit message. Out of convention.\n  > ${title}`
-      );
-      return;
+      throw new Error(`Invalid commit message format.\n  > ${title}`);
     }
     const prefix = match[1].toLowerCase();
-    if (GIT_COMMIT_PREFIX_PATCH.includes(prefix)) {
+    if (GIT_COMMIT_PREFIX_PATCH.has(prefix)) {
       patch = true;
-    }
-    if (GIT_COMMIT_PREFIX_MINOR.includes(prefix)) {
+    } else if (GIT_COMMIT_PREFIX_MINOR.has(prefix)) {
       minor = true;
+    } else {
+      throw new Error(`Out of convention.\n  > ${title}`);
     }
   });
 
