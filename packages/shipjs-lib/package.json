@@ -28,7 +28,6 @@
     "shelljs": "^0.8.3"
   },
   "dependencies": {
-    "replace-in-file": "^4.1.1",
     "semver": "^6.2.0"
   }
 }

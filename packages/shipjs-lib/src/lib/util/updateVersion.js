@@ -1,13 +1,9 @@
-import replace from 'replace-in-file';
+import { readFileSync, writeFileSync } from 'fs';
 
-export default function updateVersion(
-  packageJsons,
-  currentVersion,
-  nextVersion
-) {
-  replace.sync({
-    files: packageJsons,
-    from: `"version": "${currentVersion}"`,
-    to: `"version": "${nextVersion}"`,
+export default function updateVersion(packageJsons, nextVersion) {
+  packageJsons.forEach(packageJson => {
+    const json = JSON.parse(readFileSync(packageJson).toString());
+    json.version = nextVersion;
+    writeFileSync(packageJson, JSON.stringify(json, null, 2));
   });
 }
