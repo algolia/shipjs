@@ -21,6 +21,8 @@ describe('loadConfig', () => {
 
   it('should merge with defaultConfig', () => {
     const config = loadConfig('test', 'ship2.config.js');
-    expect(config.baseBranches).toBe(defaultConfig.baseBranches);
+    ['baseBranches', 'conventionalChangelogArgs'].forEach(key => {
+      expect(config[key]).toBe(defaultConfig[key]);
+    });
   });
 });

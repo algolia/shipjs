@@ -1,5 +1,5 @@
 module.exports = {
-  versionUpdated(version) {
+  versionUpdated({ version }) {
     console.log(`new version: ${version}`);
   },
 };
