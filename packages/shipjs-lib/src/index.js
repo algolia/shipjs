@@ -8,9 +8,14 @@ export { default as updateVersion } from './lib/util/updateVersion';
 export { default as isValidVersion } from './lib/util/isValidVersion';
 
 /* branch-related */
-export { default as hasLocalBranch } from './lib/util/hasLocalBranch';
-export { default as hasRemoteBranch } from './lib/util/hasRemoteBranch';
+export { default as hasLocalBranch } from './lib/git/hasLocalBranch';
+export { default as hasRemoteBranch } from './lib/git/hasRemoteBranch';
 export { default as getCurrentBranch } from './lib/git/getCurrentBranch';
+
+/* commit-related */
+export {
+  default as getLatestCommitMessage,
+} from './lib/git/getLatestCommitMessage';
 
 /* prepare */
 export { default as validate } from './lib/prepare/validate';

@@ -1,7 +1,9 @@
 import prepare from './flow/prepare';
+import release from './flow/release';
 
 const flowMap = {
   prepare,
+  release,
 };
 
 export function cli(args) {

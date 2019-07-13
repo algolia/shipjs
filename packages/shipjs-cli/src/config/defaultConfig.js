@@ -42,4 +42,18 @@ export default {
   //     }
   //   },
   // },
+  shouldRelease: ({
+    commitMessage,
+    currentVersion,
+    currentBranch,
+    mergeReleaseBranchTo,
+  }) => {
+    if (mergeReleaseBranchTo.baseBranch === true) {
+      return `chore: release v${currentVersion}` === commitMessage.trim();
+    } else {
+      return currentBranch.indexOf('releases/') === 0;
+    }
+  },
+  releaseCommand: 'npm run release',
+  formatTagName: ({ currentVersion, currentBranch }) => `v${currentVersion}`,
 };

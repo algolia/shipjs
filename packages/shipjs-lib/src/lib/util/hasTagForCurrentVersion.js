@@ -1,4 +1,4 @@
-import hasTag from './hasTag';
+import hasTag from '../git/hasTag';
 import getCurrentVersion from './getCurrentVersion';
 
 export default function hasTagForCurrentVersion(dir = '.') {
