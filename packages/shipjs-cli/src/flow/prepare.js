@@ -6,27 +6,16 @@ import {
   hasLocalBranch,
   hasRemoteBranch,
   getCurrentBranch,
+  getRepoURL,
   validate as orgValidate,
   exec,
 } from 'shipjs-lib';
 import tempWrite from 'temp-write';
+import { resolve } from 'path';
+import { existsSync } from 'fs';
 import loadConfig from '../config/loadConfig';
 import { info, warning, error } from '../color';
-import { resolve, basename } from 'path';
-import { existsSync } from 'fs';
-
-function run(command, dir) {
-  if (!dir) {
-    throw new Error('`dir` is missing');
-  }
-  console.log('$', info(command));
-  const { code } = exec(command, { dir });
-  if (code !== 0) {
-    console.log(error('The following command failed:'));
-    console.log(`  > ${command}`);
-    process.exit(1);
-  }
-}
+import run from '../util/run';
 
 function checkHub() {
   const exists = exec('hub --version').code === 0;
@@ -79,24 +68,24 @@ function pullAndGetNextVersion({ dir }) {
   return { nextVersion };
 }
 
-function prepareReleaseBranch({ config, nextVersion, dir }) {
-  const { getReleaseBranchName, remote } = config;
-  const releaseBranch = getReleaseBranchName({ nextVersion });
-  if (hasLocalBranch(releaseBranch, dir)) {
-    console.log(error(`The branch "${releaseBranch}" already exists locally.`));
+function prepareStagingBranch({ config, nextVersion, dir }) {
+  const { getStagingBranchName, remote } = config;
+  const stagingBranch = getStagingBranchName({ nextVersion });
+  if (hasLocalBranch(stagingBranch, dir)) {
+    console.log(error(`The branch "${stagingBranch}" already exists locally.`));
     console.log('Delete the local branch and try again. For example,');
-    console.log(`  $ git branch -d ${releaseBranch}`);
+    console.log(`  $ git branch -d ${stagingBranch}`);
     process.exit(1);
   }
-  if (hasRemoteBranch(remote, releaseBranch, dir)) {
+  if (hasRemoteBranch(remote, stagingBranch, dir)) {
     console.log(
-      error(`The branch "${releaseBranch}" already exists remotely.`)
+      error(`The branch "${stagingBranch}" already exists remotely.`)
     );
     console.log('Delete the remote branch and try again. For example,');
-    console.log(`  $ git push ${remote} :${releaseBranch}`);
+    console.log(`  $ git push ${remote} :${stagingBranch}`);
     process.exit(1);
   }
-  return { releaseBranch };
+  return { stagingBranch };
 }
 
 function updateVersions({ config, nextVersion, dir }) {
@@ -107,7 +96,7 @@ function updateVersions({ config, nextVersion, dir }) {
 
 function installDependencies({ config, dir }) {
   const isYarn = existsSync(resolve(dir, 'yarn.lock'));
-  const command = config.installDependencies({ isYarn });
+  const command = config.installCommand({ isYarn });
   run(command, dir);
 }
 
@@ -126,36 +115,23 @@ function commitChanges({ nextVersion, dir, config }) {
 }
 
 function getDestinationBranchName({ baseBranch, config }) {
-  const { mergeReleaseBranchTo } = config;
-  if (mergeReleaseBranchTo.baseBranch === true) {
+  const { mergeStrategy } = config;
+  if (mergeStrategy.backToBaseBranch === true) {
     return baseBranch;
-  } else if (typeof mergeReleaseBranchTo.getName === 'function') {
-    return mergeReleaseBranchTo.getName({ baseBranch });
+  } else if (mergeStrategy.toReleaseBranch === true) {
+    return mergeStrategy.getReleaseBranchName({ baseBranch });
   }
-}
-
-function getRepoURL({ dir }) {
-  const repoName = basename(
-    exec('git config --get remote.origin.url', { dir, silent: true })
-      .toString()
-      .trim(),
-    '.git'
-  );
-  const repoURL = exec(`hub browse -u ${repoName}`, { dir, silent: true })
-    .toString()
-    .trim();
-  return repoURL;
 }
 
 function createPullRequest({
   baseBranch,
-  releaseBranch,
+  stagingBranch,
   currentVersion,
   nextVersion,
   config,
   dir,
 }) {
-  const { mergeReleaseBranchTo, formatPullRequestMessage } = config;
+  const { mergeStrategy, formatPullRequestMessage } = config;
   const destinationBranch = getDestinationBranchName({
     baseBranch,
     config,
@@ -164,9 +140,9 @@ function createPullRequest({
   const message = formatPullRequestMessage({
     repoURL,
     baseBranch,
-    releaseBranch,
+    stagingBranch,
     destinationBranch,
-    mergeReleaseBranchTo,
+    mergeStrategy,
     currentVersion,
     nextVersion,
   });
@@ -182,19 +158,19 @@ function prepare(dir = '.') {
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
   const { nextVersion } = pullAndGetNextVersion({ dir });
-  const { releaseBranch } = prepareReleaseBranch({
+  const { stagingBranch } = prepareStagingBranch({
     config,
     nextVersion,
     dir,
   });
-  run(`git checkout -b ${releaseBranch}`, dir);
+  run(`git checkout -b ${stagingBranch}`, dir);
   updateVersions({ config, nextVersion, dir });
   installDependencies({ config, dir });
   updateChangelog({ config, dir });
   commitChanges({ nextVersion, dir, config });
   createPullRequest({
     baseBranch,
-    releaseBranch,
+    stagingBranch,
     currentVersion,
     nextVersion,
     config,

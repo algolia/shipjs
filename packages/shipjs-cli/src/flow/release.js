@@ -6,8 +6,8 @@ import {
 } from 'shipjs-lib';
 import { info, warning, error } from '../color';
 
-function validate({ config }) {
-  const { mergeReleaseBranchTo, shouldRelease } = config;
+function validate({ config, dir }) {
+  const { mergeStrategy, shouldRelease } = config;
   const commitMessage = getLatestCommitMessage(dir);
   const currentVersion = getCurrentVersion(dir);
   const currentBranch = getCurrentBranch(dir);
@@ -16,7 +16,7 @@ function validate({ config }) {
       commitMessage,
       currentVersion,
       currentBranch,
-      mergeReleaseBranchTo,
+      mergeStrategy,
     })
   ) {
     console.log(warning('Skipping a release due to the unmet conditions.'));
@@ -24,9 +24,14 @@ function validate({ config }) {
   }
 }
 
+function runTest({ config, dir }) {
+  const { testCommandBeforeRelease } = config;
+}
+
 function release(dir = '.') {
   const config = loadConfig(dir);
-  validate({ config });
+  validate({ config, dir });
+  runTest({ config, dir });
 }
 
 export default release;
