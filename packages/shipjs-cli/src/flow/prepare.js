@@ -11,11 +11,10 @@ import {
   exec,
 } from 'shipjs-lib';
 import tempWrite from 'temp-write';
-import { resolve } from 'path';
-import { existsSync } from 'fs';
 import loadConfig from '../config/loadConfig';
-import { info, warning, error } from '../color';
+import { info, error } from '../color';
 import run from '../util/run';
+import detectYarn from '../util/detectYarn';
 
 function checkHub() {
   const exists = exec('hub --version').code === 0;
@@ -95,7 +94,7 @@ function updateVersions({ config, nextVersion, dir }) {
 }
 
 function installDependencies({ config, dir }) {
-  const isYarn = existsSync(resolve(dir, 'yarn.lock'));
+  const isYarn = detectYarn(dir);
   const command = config.installCommand({ isYarn });
   run(command, dir);
 }

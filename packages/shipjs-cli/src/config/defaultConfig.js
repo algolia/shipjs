@@ -32,6 +32,11 @@ export default {
   mergeStrategy: {
     backToBaseBranch: false,
     toReleaseBranch: true,
+    branchMappings: [
+      { baseBranch: 'master', releaseBranch: 'releases/stable' },
+      { baseBranch: 'legacy', releaseBranch: 'releases/legacy' },
+      { baseBranch: 'next', releaseBranch: 'releases/next' },
+    ],
     getReleaseBranchName: ({ baseBranch }) => {
       if (baseBranch === 'master') {
         return 'releases/stable';
@@ -49,11 +54,12 @@ export default {
     if (mergeStrategy.backToBaseBranch === true) {
       return `chore: release v${currentVersion}` === commitMessage.trim();
     } else if (mergeStrategy.toReleaseBranch === true) {
-      return currentBranch.indexOf('releases/') === 0;
+      return currentBranch.indexOf('releases/') === 0; // FIXME: use `branchMappings`
     }
   },
-  releaseCommand: 'npm run release',
-  formatTagName: ({ currentVersion, currentBranch }) => `v${currentVersion}`,
+  buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),
+  publishCommand: ({ isYarn }) => 'npm run release',
+  getTagName: ({ currentVersion }) => `v${currentVersion}`,
   testCommandBeforeRelease: ({ isYarn }) =>
     isYarn ? 'yarn test' : 'npm run test',
 };
