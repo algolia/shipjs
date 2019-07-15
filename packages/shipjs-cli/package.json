@@ -7,15 +7,18 @@
     "ship": "bin/ship"
   },
   "scripts": {
-    "prepare": "ship prepare",
+    "test:prepare": "ship prepare",
     "test": "jest",
     "test:watch": "yarn test --watch"
   },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
   "dependencies": {
+    "arg": "^4.1.1",
     "chalk": "^2.4.2",
+    "change-case": "^3.1.0",
     "esm": "^3.2.25",
+    "inquirer": "^6.5.0",
     "shipjs-lib": "*",
     "temp-write": "^4.0.0"
   },

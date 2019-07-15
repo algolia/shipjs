@@ -51,10 +51,19 @@ export default {
     currentBranch,
     mergeStrategy,
   }) => {
+    const correctCommitMessage =
+      `chore: release v${currentVersion}` === commitMessage.trim();
+    if (!correctCommitMessage) {
+      return false;
+    }
     if (mergeStrategy.backToBaseBranch === true) {
-      return `chore: release v${currentVersion}` === commitMessage.trim();
+      return mergeStrategy.branchMappings.some(
+        m => m.baseBranch === currentBranch
+      );
     } else if (mergeStrategy.toReleaseBranch === true) {
-      return currentBranch.indexOf('releases/') === 0; // FIXME: use `branchMappings`
+      return mergeStrategy.branchMappings.some(
+        m => m.releaseBranch === currentBranch
+      );
     }
   },
   buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),

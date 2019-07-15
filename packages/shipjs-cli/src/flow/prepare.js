@@ -11,6 +11,7 @@ import {
   exec,
 } from 'shipjs-lib';
 import tempWrite from 'temp-write';
+import inquirer from 'inquirer';
 import loadConfig from '../config/loadConfig';
 import { info, error } from '../color';
 import run from '../util/run';
@@ -65,6 +66,35 @@ function pullAndGetNextVersion({ dir }) {
     process.exit(1);
   }
   return { nextVersion };
+}
+
+async function confirmNextVersion({ yes, currentVersion, nextVersion }) {
+  console.log(`The current version: ${currentVersion}`);
+  console.log(`The next version: ${info(nextVersion)}`);
+  if (yes) {
+    return nextVersion;
+  }
+  const { correct } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'correct',
+      message: 'Is this next version correct?',
+      default: true,
+    },
+  ]);
+  if (correct) {
+    return nextVersion;
+  } else {
+    const { userTypedVersion } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'userTypedVersion',
+        message: 'What is the next version?',
+        default: nextVersion,
+      },
+    ]);
+    return userTypedVersion;
+  }
 }
 
 function prepareStagingBranch({ config, nextVersion, dir }) {
@@ -152,11 +182,12 @@ function createPullRequest({
   );
 }
 
-function prepare(dir = '.') {
+async function prepare({ dir = '.', yes = false }) {
   checkHub();
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
-  const { nextVersion } = pullAndGetNextVersion({ dir });
+  let { nextVersion } = pullAndGetNextVersion({ dir });
+  nextVersion = await confirmNextVersion({ yes, currentVersion, nextVersion });
   const { stagingBranch } = prepareStagingBranch({
     config,
     nextVersion,
@@ -177,4 +208,16 @@ function prepare(dir = '.') {
   });
 }
 
-export default prepare;
+const arg = {
+  '--dir': String,
+  '--yes': Boolean,
+
+  // Aliases
+  '-d': '--dir',
+  '-y': '--yes',
+};
+
+export default {
+  arg,
+  fn: prepare,
+};
