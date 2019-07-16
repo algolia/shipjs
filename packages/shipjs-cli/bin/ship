@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+require = require('esm')(module /*, options*/);
+
+(async function() {
+  await require('../src/cli').cli(process.argv);
+})();

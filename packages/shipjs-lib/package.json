@@ -1,0 +1,33 @@
+{
+  "name": "shipjs-lib",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "yarn test --watch",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "author": "Algolia <support@algolia.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "babel-eslint": "^10.0.2",
+    "babel-jest": "^24.8.0",
+    "eslint": "^6.0.1",
+    "eslint-config-algolia": "^13.4.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jest": "^22.7.2",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
+    "jest-watch-typeahead": "^0.3.1",
+    "prettier": "^1.18.2",
+    "shelljs": "^0.8.3"
+  },
+  "dependencies": {
+    "semver": "^6.2.0"
+  }
+}
