@@ -17,6 +17,7 @@
     "arg": "^4.1.1",
     "chalk": "^2.4.2",
     "change-case": "^3.1.0",
+    "conventional-changelog-cli": "^2.0.21",
     "esm": "^3.2.25",
     "inquirer": "^6.5.0",
     "shipjs-lib": "*",
@@ -26,7 +27,6 @@
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
     "babel-jest": "^24.8.0",
-    "conventional-changelog-cli": "^2.0.21",
     "jest": "^24.8.0",
     "jest-watch-typeahead": "^0.3.1"
   }
