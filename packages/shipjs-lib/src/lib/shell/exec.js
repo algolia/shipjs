@@ -1,6 +1,7 @@
-import { exec as execOrg, pwd, cd } from 'shelljs';
+import shell from 'shelljs';
 
 export default function exec(command, opts = {}) {
+  const { exec: execOrg, pwd, cd } = shell;
   const { dir, ...restOpts } = opts;
   let result;
   if (typeof dir === 'undefined') {
