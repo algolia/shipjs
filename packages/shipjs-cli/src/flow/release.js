@@ -4,9 +4,34 @@ import {
   getCurrentBranch,
   getLatestCommitMessage,
 } from 'shipjs-lib';
-import { info, warning, error } from '../color';
+import { info, warning, error, bold, underline } from '../color';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
+
+function printHelp() {
+  const indent = line => `\t${line}`;
+
+  const messages = [
+    bold('NAME'),
+    indent('ship release - Release it.'),
+    '',
+    bold('USAGE'),
+    indent(`ship prepare [--help] [--dir <${underline('PATH')}>]`),
+    '',
+    bold('OPTIONS'),
+    indent('-h, --help'),
+    indent('  Print this help'),
+    '',
+    indent(`-d, --dir ${underline('PATH')}`),
+    indent(
+      `  Specify the ${underline(
+        'PATH'
+      )} of the repository (default: the current directory).`
+    ),
+    '',
+  ];
+  console.log(messages.join('\n'));
+}
 
 function validate({ config, dir }) {
   const { mergeStrategy, shouldRelease } = config;
@@ -59,7 +84,11 @@ function gitPush({ config, dir }) {
   }
 }
 
-function release(dir = '.') {
+function release({ help = false, dir = '.' }) {
+  if (help) {
+    printHelp();
+    return;
+  }
   const config = loadConfig(dir);
   validate({ config, dir });
   const isYarn = detectYarn(dir);
@@ -70,4 +99,16 @@ function release(dir = '.') {
   gitPush({ config, dir });
 }
 
-export default release;
+const arg = {
+  '--dir': String,
+  '--help': Boolean,
+
+  // Aliases
+  '-d': '--dir',
+  '-h': '--help',
+};
+
+export default {
+  arg,
+  fn: release,
+};

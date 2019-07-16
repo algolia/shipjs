@@ -13,9 +13,37 @@ import {
 import tempWrite from 'temp-write';
 import inquirer from 'inquirer';
 import loadConfig from '../config/loadConfig';
-import { info, error } from '../color';
+import { info, error, bold, underline } from '../color';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
+
+function printHelp() {
+  const indent = line => `\t${line}`;
+
+  const messages = [
+    bold('NAME'),
+    indent('ship prepare - Prepare a release.'),
+    '',
+    bold('USAGE'),
+    indent(`ship prepare [--help] [--dir <${underline('PATH')}>] [--yes]`),
+    '',
+    bold('OPTIONS'),
+    indent('-h, --help'),
+    indent('  Print this help'),
+    '',
+    indent(`-d, --dir ${underline('PATH')}`),
+    indent(
+      `  Specify the ${underline(
+        'PATH'
+      )} of the repository (default: the current directory).`
+    ),
+    '',
+    indent('-y, --yes'),
+    indent('  Skip all the interactive prompts and use the default values.'),
+    '',
+  ];
+  console.log(messages.join('\n'));
+}
 
 function checkHub() {
   const exists = exec('hub --version').code === 0;
@@ -182,7 +210,11 @@ function createPullRequest({
   );
 }
 
-async function prepare({ dir = '.', yes = false }) {
+async function prepare({ help = false, dir = '.', yes = false }) {
+  if (help) {
+    printHelp();
+    return;
+  }
   checkHub();
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
@@ -211,10 +243,12 @@ async function prepare({ dir = '.', yes = false }) {
 const arg = {
   '--dir': String,
   '--yes': Boolean,
+  '--help': Boolean,
 
   // Aliases
   '-d': '--dir',
   '-y': '--yes',
+  '-h': '--help',
 };
 
 export default {
