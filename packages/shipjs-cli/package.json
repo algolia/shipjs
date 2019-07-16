@@ -4,13 +4,19 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "ship": "bin/ship"
+    "ship": "./bin/ship"
   },
   "scripts": {
+    "prepare": "rollup -c",
     "test:prepare": "ship prepare",
     "test": "jest",
-    "test:watch": "yarn test --watch"
+    "test:watch": "yarn test --watch",
+    "build": "rollup -c"
   },
+  "files": [
+    "bin/ship",
+    "index.js"
+  ],
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
   "dependencies": {
@@ -18,7 +24,6 @@
     "chalk": "^2.4.2",
     "change-case": "^3.1.0",
     "conventional-changelog-cli": "^2.0.21",
-    "esm": "^3.2.25",
     "inquirer": "^6.5.0",
     "shipjs-lib": "*",
     "temp-write": "^4.0.0"
@@ -28,6 +33,10 @@
     "@babel/preset-env": "^7.5.4",
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
-    "jest-watch-typeahead": "^0.3.1"
+    "jest-watch-typeahead": "^0.3.1",
+    "rollup": "^1.17.0",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
   }
 }
