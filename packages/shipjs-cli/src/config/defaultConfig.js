@@ -67,7 +67,7 @@ export default {
     }
   },
   buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),
-  publishCommand: ({ isYarn }) => 'npm run release',
+  publishCommand: ({ isYarn }) => 'npm publish',
   getTagName: ({ currentVersion }) => `v${currentVersion}`,
   testCommandBeforeRelease: ({ isYarn }) =>
     isYarn ? 'yarn test' : 'npm run test',
