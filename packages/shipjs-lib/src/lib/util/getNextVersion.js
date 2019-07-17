@@ -45,15 +45,15 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
 }
 
 function getTitles(version, dir) {
-  const cmd = `git log v${version}..HEAD --pretty=format:"%s"`;
-  return silentExec(cmd, { dir })
+  const cmd = `git log v${version}..HEAD --pretty=format:%s`;
+  return silentExec(cmd, { dir, ignoreError: true })
     .toString()
     .trim();
 }
 
 function getBodies(version, dir) {
-  const cmd = `git log v${version}..HEAD --pretty=format:"%b"`;
-  return silentExec(cmd, { dir })
+  const cmd = `git log v${version}..HEAD --pretty=format:%b`;
+  return silentExec(cmd, { dir, ignoreError: true })
     .toString()
     .trim();
 }
