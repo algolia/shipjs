@@ -51,12 +51,14 @@ export default function generateChangelog({ options: orgOptions, dir }) {
     if (options.append) {
       changelogStream
         .pipe(
-          fs.createWriteStream(outfile, {
+          fs.createWriteStream(options.outfile, {
             flags: 'a',
           })
         )
         .on('finish', function() {
-          standardChangelog.checkpoint('appended changes to %s', [outfile]);
+          standardChangelog.checkpoint('appended changes to %s', [
+            options.outfile,
+          ]);
           resolve();
         });
     } else {
@@ -67,9 +69,11 @@ export default function generateChangelog({ options: orgOptions, dir }) {
         .pipe(fs.createWriteStream(tmp))
         .on('finish', function() {
           fs.createReadStream(tmp)
-            .pipe(fs.createWriteStream(outfile))
+            .pipe(fs.createWriteStream(options.outfile))
             .on('finish', function() {
-              standardChangelog.checkpoint('output changes to %s', [outfile]);
+              standardChangelog.checkpoint('output changes to %s', [
+                options.outfile,
+              ]);
               rimraf.sync(tmp);
               resolve();
             });
