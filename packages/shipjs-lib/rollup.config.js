@@ -22,7 +22,7 @@ export default [
   {
     onwarn,
     input: 'src/index.js',
-    output: [{ file: pkg.module, format: 'es' }],
+    output: [{ file: pkg.main, format: 'es' }],
     external: [
       'fs',
       'path',
