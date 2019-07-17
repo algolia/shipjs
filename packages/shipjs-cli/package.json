@@ -7,11 +7,9 @@
     "ship": "./bin/ship"
   },
   "scripts": {
-    "prepare": "rollup -c",
     "test:prepare": "ship prepare",
     "test": "jest",
-    "test:watch": "yarn test --watch",
-    "build": "rollup -c"
+    "test:watch": "yarn test --watch"
   },
   "files": [
     "bin/ship",
@@ -24,6 +22,7 @@
     "arg": "^4.1.1",
     "chalk": "^2.4.2",
     "change-case": "^3.1.0",
+    "esm": "^3.2.25",
     "inquirer": "^6.5.0",
     "rimraf": "^2.6.3",
     "shipjs-lib": "*",
@@ -36,10 +35,6 @@
     "@babel/preset-env": "^7.5.4",
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
-    "jest-watch-typeahead": "^0.3.1",
-    "rollup": "^1.17.0",
-    "rollup-plugin-commonjs": "^10.0.1",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "jest-watch-typeahead": "^0.3.1"
   }
 }
