@@ -1,16 +1,30 @@
-import shell from 'shelljs';
+import execa from 'execa';
 
-export default function exec(command, opts = {}) {
-  const { exec: execOrg, pwd, cd } = shell;
-  const { dir, ...restOpts } = opts;
-  let result;
-  if (typeof dir === 'undefined') {
-    result = execOrg(command, restOpts);
-  } else {
-    const initialPath = pwd();
-    cd(dir);
-    result = execOrg(command, restOpts);
-    cd(initialPath);
+export default function exec(
+  command,
+  { dir, ignoreError = false, silent = false } = {}
+) {
+  const arr = command.split(' ');
+  try {
+    const result = execa.sync(arr[0], arr.slice(1), { cwd: dir });
+    if (!silent) {
+      /* eslint-disable no-console */
+      console.log(result.stdout);
+      console.log(result.stderr);
+      /* eslint-enable no-console */
+    }
+    return {
+      toString: () => result.stdout,
+      code: result.exitCode,
+    };
+  } catch (err) {
+    if (ignoreError) {
+      return {
+        toString: () => '',
+        code: err.exitCode,
+      };
+    } else {
+      throw err;
+    }
   }
-  return result;
 }

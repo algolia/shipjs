@@ -16,6 +16,7 @@ import loadConfig from '../config/loadConfig';
 import { info, error, bold, underline } from '../color';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
+import generateChangelog from '../util/generateChangelog';
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -40,6 +41,12 @@ function printHelp() {
     '',
     indent('-y, --yes'),
     indent('  Skip all the interactive prompts and use the default values.'),
+    '',
+    indent('-f, --first-release'),
+    indent('  Generate the CHANGELOG for the first time'),
+    '',
+    indent(`-r, --release-count ${underline('COUNT')}`),
+    indent('  How many releases to be generated from the latest'),
     '',
   ];
   console.log(messages.join('\n'));
@@ -157,9 +164,14 @@ function installDependencies({ config, dir }) {
   run(command, dir);
 }
 
-function updateChangelog({ config, dir }) {
+async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
   const { conventionalChangelogArgs, changelogUpdated } = config;
-  run(`conventional-changelog ${conventionalChangelogArgs}`, dir);
+  const options = {
+    ...conventionalChangelogArgs,
+    firstRelease,
+    releaseCount,
+  };
+  await generateChangelog({ options, dir });
   changelogUpdated({ exec });
 }
 
@@ -210,7 +222,13 @@ function createPullRequest({
   );
 }
 
-async function prepare({ help = false, dir = '.', yes = false }) {
+async function prepare({
+  help = false,
+  dir = '.',
+  yes = false,
+  firstRelease = false,
+  releaseCount,
+}) {
   if (help) {
     printHelp();
     return;
@@ -228,7 +246,7 @@ async function prepare({ help = false, dir = '.', yes = false }) {
   run(`git checkout -b ${stagingBranch}`, dir);
   updateVersions({ config, nextVersion, dir });
   installDependencies({ config, dir });
-  updateChangelog({ config, dir });
+  await updateChangelog({ config, firstRelease, releaseCount, dir });
   commitChanges({ nextVersion, dir, config });
   createPullRequest({
     baseBranch,
@@ -244,11 +262,15 @@ const arg = {
   '--dir': String,
   '--yes': Boolean,
   '--help': Boolean,
+  '--first-release': Boolean,
+  '--release-count': Number,
 
   // Aliases
   '-d': '--dir',
   '-y': '--yes',
   '-h': '--help',
+  '-f': '--first-release',
+  '-r': '--release-count',
 };
 
 export default {

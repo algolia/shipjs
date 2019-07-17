@@ -3,6 +3,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "t": "yarn workspace shipjs test:prepare -d ../../../shipjs-test-example",
+    "build": "yarn workspace shipjs-lib build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Algolia <support@algolia.com>",

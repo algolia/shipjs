@@ -2,7 +2,7 @@
   "name": "shipjs-lib",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/index.esm.js",
   "scripts": {
     "prepare": "rollup -c",
     "test": "jest",
@@ -32,10 +32,10 @@
     "prettier": "^1.18.2",
     "rollup": "^1.17.0",
     "rollup-plugin-commonjs": "^10.0.1",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "shelljs": "^0.8.3"
+    "rollup-plugin-node-resolve": "^5.2.0"
   },
   "dependencies": {
+    "execa": "^2.0.3",
     "semver": "^6.2.0"
   }
 }
