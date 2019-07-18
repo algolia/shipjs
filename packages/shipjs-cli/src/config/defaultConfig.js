@@ -34,8 +34,8 @@ export default {
     return lines.join('\n');
   },
   mergeStrategy: {
-    backToBaseBranch: false,
-    toReleaseBranch: true,
+    backToBaseBranch: true,
+    toReleaseBranch: false,
     branchMappings: [
       { baseBranch: 'master', releaseBranch: 'releases/stable' },
       { baseBranch: 'legacy', releaseBranch: 'releases/legacy' },
