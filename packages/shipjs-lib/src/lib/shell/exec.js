@@ -23,7 +23,6 @@ export default function exec(
         code: err.exitCode,
       };
     } else {
-      console.error({ err, command, dir, ignoreError, silent });
       throw err;
     }
   }

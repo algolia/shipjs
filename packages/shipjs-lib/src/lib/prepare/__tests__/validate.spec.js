@@ -23,7 +23,7 @@ describe('Validate', () => {
     const result = validate(defaultOpts);
     expect(result).not.toBe(true);
     expect(result.length).toBe(1);
-    expect(result[0]).toMatchInlineSnapshot(`"working_tree_not_clean"`);
+    expect(result[0]).toMatchInlineSnapshot(`"workingTreeNotClean"`);
   });
 
   it('does not return error if working tree is clean', () => {
@@ -37,7 +37,7 @@ describe('Validate', () => {
     const result = validate(defaultOpts);
     expect(result).not.toBe(true);
     expect(result.length).toBe(1);
-    expect(result[0]).toMatchInlineSnapshot(`"current_branch_incorrect"`);
+    expect(result[0]).toMatchInlineSnapshot(`"currentBranchIncorrect"`);
   });
 
   it('does not return error if current branch is correct', () => {
@@ -51,7 +51,7 @@ describe('Validate', () => {
     const result = validate(defaultOpts);
     expect(result).not.toBe(true);
     expect(result.length).toBe(1);
-    expect(result[0]).toMatchInlineSnapshot(`"no_tag_for_current_version"`);
+    expect(result[0]).toMatchInlineSnapshot(`"noTagForCurrentVersion"`);
   });
 
   it('does not return error if there is git tag for current version', () => {

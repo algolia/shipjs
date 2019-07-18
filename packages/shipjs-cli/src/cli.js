@@ -10,6 +10,7 @@ const flowMap = {
 
 function removeDoubleDash(opts) {
   return Object.entries(opts).reduce((acc, [key, value]) => {
+    // eslint-disable-next-line no-param-reassign
     acc[camelCase(key)] = value;
     return acc;
   }, {});

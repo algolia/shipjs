@@ -4,9 +4,14 @@ import {
   getCurrentBranch,
   getLatestCommitMessage,
 } from 'shipjs-lib';
-import { info, warning, error, bold, underline } from '../color';
+import { warning, bold, underline } from '../color';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
+
+// eslint-disable-next-line no-console
+const print = console.log;
+// eslint-disable-next-line no-process-exit
+const exitProcess = code => process.exit(code);
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -30,7 +35,7 @@ function printHelp() {
     ),
     '',
   ];
-  console.log(messages.join('\n'));
+  print(messages.join('\n'));
 }
 
 function validate({ config, dir }) {
@@ -46,8 +51,8 @@ function validate({ config, dir }) {
       mergeStrategy,
     })
   ) {
-    console.log(warning('Skipping a release due to the unmet conditions.'));
-    process.exit(0);
+    print(warning('Skipping a release due to the unmet conditions.'));
+    exitProcess(0);
   }
 }
 
