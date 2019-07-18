@@ -3,9 +3,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "t": "yarn workspace shipjs test:prepare -d ../../../shipjs-test-example",
     "build": "yarn workspace shipjs-lib build",
-    "test": "yarn workspace shipjs-lib test && yarn workspace shipjs test"
+    "test": "yarn workspace shipjs-lib test && yarn workspace shipjs test",
+    "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh"
   },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",

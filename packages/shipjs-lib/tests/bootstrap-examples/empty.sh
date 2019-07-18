@@ -5,9 +5,9 @@ rm -rf sandbox/$PROJECT_NAME && \
 mkdir -p sandbox/$PROJECT_NAME && \
 WORKING_DIRECTORY=`pwd` && \
 cd sandbox/$PROJECT_NAME && \
-npm init -y && \
-npm version 0.0.1 --allow-same-version && \
-git config --global user.email "shipjs@test.com" && \
-git config --global user.name "shipjs" && \
 git init && \
+git config user.email "shipjs@test.com" && \
+git config user.name "shipjs" && \
+npm init -y && \
+npx json -I -f package.json -e 'this.version = "0.0.1"' && \
 cd $WORKING_DIRECTORY
