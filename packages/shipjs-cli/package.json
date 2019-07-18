@@ -37,14 +37,14 @@
   "devDependencies": {
     "@babel/core": "7.5.5",
     "@babel/preset-env": "7.5.5",
-    "babel-eslint": "^10.0.2",
+    "babel-eslint": "10.0.2",
     "babel-jest": "24.8.0",
-    "eslint": "^6.0.1",
-    "eslint-config-algolia": "^13.4.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jest": "^22.10.0",
-    "eslint-plugin-prettier": "^3.1.0",
+    "eslint": "6.0.1",
+    "eslint-config-algolia": "13.4.0",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-jest": "22.10.0",
+    "eslint-plugin-prettier": "3.1.0",
     "jest": "24.8.0",
     "jest-watch-typeahead": "0.3.1"
   }
