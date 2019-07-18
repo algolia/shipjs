@@ -13,7 +13,7 @@ import {
 } from 'shipjs-lib';
 import tempWrite from 'temp-write';
 import inquirer from 'inquirer';
-import { info, error, bold, underline } from '../color';
+import { info, warning, error, bold, underline } from '../color';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
 import generateChangelog from '../util/generateChangelog';
@@ -188,7 +188,42 @@ function getDestinationBranchName({ baseBranch, config }) {
   if (mergeStrategy.backToBaseBranch === true) {
     return baseBranch;
   } else if (mergeStrategy.toReleaseBranch === true) {
-    return mergeStrategy.getReleaseBranchName({ baseBranch });
+    return mergeStrategy.branchMappings.find(
+      mapping => mapping.baseBranch === baseBranch
+    ).releaseBranch;
+  }
+}
+
+function validateBeforePullRequest({
+  config,
+  dir,
+  baseBranch,
+  stagingBranch,
+  destinationBranch,
+}) {
+  const { remote, mergeStrategy } = config;
+  if (
+    mergeStrategy.toReleaseBranch === true &&
+    !hasRemoteBranch(remote, destinationBranch, dir)
+  ) {
+    console.log(
+      warning('You want to release using a dedicated release branch.')
+    );
+    console.log(
+      warning(
+        `The name of the branch is \`${destinationBranch}\`, but you don't have it yet.`
+      )
+    );
+    console.log(
+      warning('Create that branch pointing to a latest stable commit.')
+    );
+    console.log(warning('After that, try again.'));
+    console.log('');
+    console.log(warning('Rolling back for now...'));
+    run(`git checkout ${baseBranch}`, dir);
+    run(`git branch -D ${stagingBranch}`, dir);
+
+    process.exit(0);
   }
 }
 
@@ -204,6 +239,13 @@ function createPullRequest({
   const destinationBranch = getDestinationBranchName({
     baseBranch,
     config,
+  });
+  validateBeforePullRequest({
+    config,
+    dir,
+    baseBranch,
+    stagingBranch,
+    destinationBranch,
   });
   const repoURL = getRepoURL({ dir });
   const message = formatPullRequestMessage({

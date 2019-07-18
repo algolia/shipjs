@@ -41,13 +41,6 @@ export default {
       { baseBranch: 'legacy', releaseBranch: 'releases/legacy' },
       { baseBranch: 'next', releaseBranch: 'releases/next' },
     ],
-    getReleaseBranchName: ({ baseBranch }) => {
-      if (baseBranch === 'master') {
-        return 'releases/stable';
-      } else {
-        return `releases/${baseBranch}`;
-      }
-    },
   },
   shouldRelease: ({
     commitMessage,
