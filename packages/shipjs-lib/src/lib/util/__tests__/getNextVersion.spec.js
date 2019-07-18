@@ -2,7 +2,6 @@ import silentExec from '../../shell/silentExec';
 import getNextVersion, {
   getNextVersionFromCommitMessages,
 } from '../getNextVersion';
-import { inc } from 'semver';
 
 describe('getNextVersionFromCommitMessages', () => {
   it('getNextVersionFromCommitMessages with patch updated', () => {

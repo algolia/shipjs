@@ -9,8 +9,13 @@ import { grey, error } from '../color';
 
 const Readable = stream.Readable;
 
+// eslint-disable-next-line no-console
+const consoleWarn = console.warn;
+// eslint-disable-next-line no-console
+const consoleError = console.error;
+
 export default function generateChangelog({ options: orgOptions, dir }) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     const infile = orgOptions.infile
       ? path.resolve(dir, orgOptions.infile)
       : undefined;
@@ -18,7 +23,7 @@ export default function generateChangelog({ options: orgOptions, dir }) {
       ? path.resolve(dir, orgOptions.outfile)
       : undefined;
     const options = {
-      warn: orgOptions.verbose && console.warn.bind(console),
+      warn: orgOptions.verbose && consoleWarn.bind(console),
       ...orgOptions,
       outfile: orgOptions.sameFile ? outfile || infile : outfile,
       infile,
@@ -27,11 +32,11 @@ export default function generateChangelog({ options: orgOptions, dir }) {
 
     const outputError = err => {
       if (options.verbose) {
-        console.error(grey(err.stack));
+        consoleError(grey(err.stack));
       } else {
-        console.error(error(err.toString()));
+        consoleError(error(err.toString()));
       }
-      process.exit(1);
+      process.exit(1); // eslint-disable-line no-process-exit
     };
 
     const changelogStream = standardChangelog(options, undefined, {}).on(
@@ -62,7 +67,7 @@ export default function generateChangelog({ options: orgOptions, dir }) {
           resolve();
         });
     } else {
-      var tmp = tempfile();
+      const tmp = tempfile();
 
       changelogStream
         .pipe(addStream(readStream))

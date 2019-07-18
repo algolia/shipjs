@@ -3,9 +3,9 @@ import isWorkingTreeClean from '../git/isWorkingTreeClean';
 import getCurrentBranch from '../git/getCurrentBranch';
 import hasTagForCurrentVersion from '../util/hasTagForCurrentVersion';
 
-const WORKING_TREE_NOT_CLEAN = 'working_tree_not_clean';
-const CURRENT_BRANCH_INCORRECT = 'current_branch_incorrect';
-const NO_TAG_FOR_CURRENT_VERSION = 'no_tag_for_current_version';
+const WORKING_TREE_NOT_CLEAN = 'workingTreeNotClean';
+const CURRENT_BRANCH_INCORRECT = 'currentBranchIncorrect';
+const NO_TAG_FOR_CURRENT_VERSION = 'noTagForCurrentVersion';
 
 export default function validate({
   dir = '.',

@@ -61,6 +61,8 @@ export default {
       return mergeStrategy.branchMappings.some(
         m => m.releaseBranch === currentBranch
       );
+    } else {
+      throw new Error('Unknown merge strategy');
     }
   },
   buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),

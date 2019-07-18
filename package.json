@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "yarn workspace shipjs-lib build",
+    "lint": "yarn workspace shipjs-lib lint && yarn workspace shipjs lint",
     "test": "yarn workspace shipjs-lib test && yarn workspace shipjs test",
     "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh",
     "release:prepare": "npx shipjs prepare",
