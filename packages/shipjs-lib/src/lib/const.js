@@ -1,5 +1,3 @@
-export const PACKAGE_JSON = 'package.json';
-
 export const GIT_COMMIT_PREFIX_PATCH = new Set([
   'fix',
   'docs',

@@ -1,8 +1,9 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
-import { PACKAGE_JSON } from '../const';
+import loadConfig from '../config/loadConfig';
 
 export default function getCurrentVersion(dir = '.') {
-  const { version } = JSON.parse(readFileSync(resolve(dir, PACKAGE_JSON)));
+  const { packageJsons } = loadConfig(dir);
+  const { version } = JSON.parse(readFileSync(resolve(dir, packageJsons[0])));
   return version;
 }

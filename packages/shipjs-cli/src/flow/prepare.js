@@ -9,10 +9,10 @@ import {
   getRepoURL,
   validate as orgValidate,
   exec,
+  loadConfig,
 } from 'shipjs-lib';
 import tempWrite from 'temp-write';
 import inquirer from 'inquirer';
-import loadConfig from '../config/loadConfig';
 import { info, error, bold, underline } from '../color';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';

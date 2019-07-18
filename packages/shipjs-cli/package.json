@@ -9,7 +9,7 @@
   "scripts": {
     "test:run:prepare": "ship prepare",
     "test:run:release": "ship release",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "yarn test --watch"
   },
   "files": [

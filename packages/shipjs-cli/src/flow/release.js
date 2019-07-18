@@ -1,5 +1,5 @@
-import loadConfig from '../config/loadConfig';
 import {
+  loadConfig,
   getCurrentVersion,
   getCurrentBranch,
   getLatestCommitMessage,
