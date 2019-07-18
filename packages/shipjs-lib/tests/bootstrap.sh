@@ -29,6 +29,7 @@ npm init -y
 npx json -I -f package.json -e 'this.version = "0.0.1"'
 git add package.json
 git commit -m "chore: version 0.0.1"
+git tag v0.0.1
 
 touch abc
 git add abc
