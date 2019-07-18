@@ -1,4 +1,4 @@
-import { exec } from 'shipjs-lib';
+import { exec } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 import { info, error } from '../color';
 
 // eslint-disable-next-line no-console
