@@ -9,7 +9,7 @@ import {
   validate as orgValidate,
   exec,
   loadConfig,
-} from 'shipjs-lib';
+} from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 import tempWrite from 'temp-write';
 import inquirer from 'inquirer';
 import { info, warning, error, bold, underline } from '../color';
