@@ -22,3 +22,6 @@ export { default as validate } from './lib/prepare/validate';
 /* shell */
 export { default as exec } from './lib/shell/exec';
 export { default as silentExec } from './lib/shell/silentExec';
+
+/* config */
+export { default as loadConfig } from './lib/config/loadConfig';
