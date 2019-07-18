@@ -52,6 +52,15 @@ function printHelp() {
   console.log(messages.join('\n'));
 }
 
+function wrapExecWithDir(exec, dir) {
+  return opts => {
+    exec({
+      dir,
+      ...opts,
+    });
+  };
+}
+
 function checkHub() {
   const exists = exec('hub --version').code === 0;
   if (!exists) {
@@ -155,7 +164,7 @@ function prepareStagingBranch({ config, nextVersion, dir }) {
 function updateVersions({ config, nextVersion, dir }) {
   const { packageJsons, versionUpdated } = config;
   updateVersion(packageJsons, nextVersion, dir);
-  versionUpdated({ version: nextVersion, exec });
+  versionUpdated({ version: nextVersion, exec: wrapExecWithDir(exec, dir) });
 }
 
 function installDependencies({ config, dir }) {
@@ -172,7 +181,7 @@ async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
     releaseCount,
   };
   await generateChangelog({ options, dir });
-  changelogUpdated({ exec });
+  changelogUpdated({ exec: wrapExecWithDir(exec, dir) });
 }
 
 function commitChanges({ nextVersion, dir, config }) {
