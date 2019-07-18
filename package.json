@@ -5,7 +5,9 @@
   "scripts": {
     "build": "yarn workspace shipjs-lib build",
     "test": "yarn workspace shipjs-lib test && yarn workspace shipjs test",
-    "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh"
+    "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh",
+    "release:prepare": "ship prepare",
+    "release": "ship release"
   },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
@@ -15,6 +17,7 @@
   ],
   "name": "shipjs",
   "devDependencies": {
-    "lerna": "3.15.0"
+    "lerna": "3.15.0",
+    "shipjs": "0.0.4"
   }
 }
