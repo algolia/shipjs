@@ -29,7 +29,7 @@
     "eslint-plugin-prettier": "3.1.0",
     "jest": "24.8.0",
     "jest-watch-typeahead": "0.3.1",
-    "json": "^9.0.6",
+    "json": "9.0.6",
     "prettier": "1.18.2",
     "rollup": "1.17.0",
     "rollup-plugin-commonjs": "10.0.1",
