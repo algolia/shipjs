@@ -4,9 +4,8 @@ export default function exec(
   command,
   { dir, ignoreError = false, silent = false } = {}
 ) {
-  const arr = command.split(' ');
   try {
-    const result = execa.sync(arr[0], arr.slice(1), { cwd: dir });
+    const result = execa.commandSync(command, { cwd: dir });
     if (!silent) {
       /* eslint-disable no-console */
       console.log(result.stdout);
@@ -24,6 +23,7 @@ export default function exec(
         code: err.exitCode,
       };
     } else {
+      console.error(err);
       throw err;
     }
   }
