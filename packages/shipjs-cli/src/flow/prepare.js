@@ -53,8 +53,8 @@ function printHelp() {
 }
 
 function wrapExecWithDir(exec, dir) {
-  return opts => {
-    exec({
+  return (command, opts = {}) => {
+    exec(command, {
       dir,
       ...opts,
     });
