@@ -1,6 +1,5 @@
 import {
   getCurrentVersion,
-  hasTagForCurrentVersion,
   getNextVersion,
   updateVersion,
   hasLocalBranch,
@@ -17,6 +16,11 @@ import { info, warning, error, bold, underline } from '../color';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
 import generateChangelog from '../util/generateChangelog';
+
+// eslint-disable-next-line no-console
+const print = console.log;
+// eslint-disable-next-line no-process-exit
+const exitProcess = code => process.exit(code);
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -49,10 +53,10 @@ function printHelp() {
     indent('  How many releases to be generated from the latest'),
     '',
   ];
-  console.log(messages.join('\n'));
+  print(messages.join('\n'));
 }
 
-function wrapExecWithDir(exec, dir) {
+function wrapExecWithDir(dir) {
   return (command, opts = {}) => {
     exec(command, {
       dir,
@@ -64,26 +68,24 @@ function wrapExecWithDir(exec, dir) {
 function checkHub() {
   const exists = exec('hub --version').code === 0;
   if (!exists) {
-    console.log(error('You need to install `hub` first.'));
-    console.log('  > https://github.com/github/hub#installation');
-    process.exit(1);
+    print(error('You need to install `hub` first.'));
+    print('  > https://github.com/github/hub#installation');
+    exitProcess(1);
   }
 }
 
 function printValidationError(result, { currentVersion, baseBranches }) {
   const messageMap = {
-    working_tree_not_clean: 'The working tree is not clean.',
-    current_branch_incorrect: `The current branch must be one of ${JSON.stringify(
+    workingTreeNotClean: 'The working tree is not clean.',
+    currentBranchIncorrect: `The current branch must be one of ${JSON.stringify(
       baseBranches
     )}`,
-    no_tag_for_current_version: `There is no git tag for the current version (v${currentVersion})`,
+    noTagForCurrentVersion: `There is no git tag for the current version (v${currentVersion})`,
   };
 
-  console.log(
-    error('Failed to prepare a release for the following reason(s).')
-  );
+  print(error('Failed to prepare a release for the following reason(s).'));
   result.forEach(reason => {
-    console.log(info(`  - ${messageMap[reason]}`));
+    print(info(`  - ${messageMap[reason]}`));
   });
 }
 
@@ -97,7 +99,7 @@ function validate({ config, dir }) {
   const baseBranch = getCurrentBranch(dir);
   if (result !== true) {
     printValidationError(result, { currentVersion, baseBranches });
-    process.exit(1);
+    exitProcess(1);
   }
   return { currentVersion, baseBranch };
 }
@@ -106,15 +108,15 @@ function pullAndGetNextVersion({ dir }) {
   run('git pull', dir);
   const nextVersion = getNextVersion(dir);
   if (nextVersion === null) {
-    console.log(error('Nothing to release!'));
-    process.exit(1);
+    print(error('Nothing to release!'));
+    exitProcess(1);
   }
   return { nextVersion };
 }
 
 async function confirmNextVersion({ yes, currentVersion, nextVersion }) {
-  console.log(`The current version: ${currentVersion}`);
-  console.log(`The next version: ${info(nextVersion)}`);
+  print(`The current version: ${currentVersion}`);
+  print(`The next version: ${info(nextVersion)}`);
   if (yes) {
     return nextVersion;
   }
@@ -145,18 +147,16 @@ function prepareStagingBranch({ config, nextVersion, dir }) {
   const { getStagingBranchName, remote } = config;
   const stagingBranch = getStagingBranchName({ nextVersion });
   if (hasLocalBranch(stagingBranch, dir)) {
-    console.log(error(`The branch "${stagingBranch}" already exists locally.`));
-    console.log('Delete the local branch and try again. For example,');
-    console.log(`  $ git branch -d ${stagingBranch}`);
-    process.exit(1);
+    print(error(`The branch "${stagingBranch}" already exists locally.`));
+    print('Delete the local branch and try again. For example,');
+    print(`  $ git branch -d ${stagingBranch}`);
+    exitProcess(1);
   }
   if (hasRemoteBranch(remote, stagingBranch, dir)) {
-    console.log(
-      error(`The branch "${stagingBranch}" already exists remotely.`)
-    );
-    console.log('Delete the remote branch and try again. For example,');
-    console.log(`  $ git push ${remote} :${stagingBranch}`);
-    process.exit(1);
+    print(error(`The branch "${stagingBranch}" already exists remotely.`));
+    print('Delete the remote branch and try again. For example,');
+    print(`  $ git push ${remote} :${stagingBranch}`);
+    exitProcess(1);
   }
   return { stagingBranch };
 }
@@ -167,7 +167,7 @@ function updateVersions({ config, nextVersion, dir }) {
   versionUpdated({
     version: nextVersion,
     dir,
-    exec: wrapExecWithDir(exec, dir),
+    exec: wrapExecWithDir(dir),
   });
 }
 
@@ -185,7 +185,7 @@ async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
     releaseCount,
   };
   await generateChangelog({ options, dir });
-  changelogUpdated({ exec: wrapExecWithDir(exec, dir) });
+  changelogUpdated({ exec: wrapExecWithDir(dir) });
 }
 
 function commitChanges({ nextVersion, dir, config }) {
@@ -204,6 +204,8 @@ function getDestinationBranchName({ baseBranch, config }) {
     return mergeStrategy.branchMappings.find(
       mapping => mapping.baseBranch === baseBranch
     ).releaseBranch;
+  } else {
+    throw new Error('Unknown mergeStrategy');
   }
 }
 
@@ -219,24 +221,20 @@ function validateBeforePullRequest({
     mergeStrategy.toReleaseBranch === true &&
     !hasRemoteBranch(remote, destinationBranch, dir)
   ) {
-    console.log(
-      warning('You want to release using a dedicated release branch.')
-    );
-    console.log(
+    print(warning('You want to release using a dedicated release branch.'));
+    print(
       warning(
         `The name of the branch is \`${destinationBranch}\`, but you don't have it yet.`
       )
     );
-    console.log(
-      warning('Create that branch pointing to a latest stable commit.')
-    );
-    console.log(warning('After that, try again.'));
-    console.log('');
-    console.log(warning('Rolling back for now...'));
+    print(warning('Create that branch pointing to a latest stable commit.'));
+    print(warning('After that, try again.'));
+    print('');
+    print(warning('Rolling back for now...'));
     run(`git checkout ${baseBranch}`, dir);
     run(`git branch -D ${stagingBranch}`, dir);
 
-    process.exit(0);
+    exitProcess(0);
   }
 }
 
