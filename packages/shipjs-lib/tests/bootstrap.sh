@@ -9,17 +9,21 @@ if [ -z "$REPO_NAME" ]; then
   exit 1
 fi
 
-if [ -d "./packages/shipjs-lib/sandbox/$REPO_NAME" ]; then
-  echo "It already exists: ./packages/shipjs-lib/sandbox/$REPO_NAME"
+if [ -d "../$REPO_NAME" ]; then
+  echo "It already exists: ../$REPO_NAME"
   exit 1
 fi
 
-mkdir -p ./packages/shipjs-lib/sandbox/$REPO_NAME
-cd ./packages/shipjs-lib/sandbox/$REPO_NAME
+mkdir -p ../$REPO_NAME
+cd ../$REPO_NAME
 git init
 touch README.md
 git add README.md
 git commit -m "chore: add README.md"
+
+echo "node_modules" > .gitignore
+git add .gitignore
+git commit -m "chore: add .gitignore"
 
 npm init -y
 npx json -I -f package.json -e 'this.version = "0.0.1"'
@@ -47,7 +51,7 @@ echo ""
 echo ""
 echo "All is ready. Try the following:"
 echo ""
-echo "  $ cd ./packages/shipjs-lib/sandbox/$REPO_NAME"
+echo "  $ cd ../$REPO_NAME"
 echo "  $ yarn release:prepare"
 echo ""
 echo "It will open a pull-request."
