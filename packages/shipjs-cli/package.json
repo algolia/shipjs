@@ -29,7 +29,7 @@
     "esm": "^3.2.25",
     "inquirer": "^6.5.0",
     "rimraf": "^2.6.3",
-    "shipjs-lib": "*",
+    "shipjs-lib": "^0.0.5",
     "standard-changelog": "^2.0.11",
     "temp-write": "^4.0.0",
     "tempfile": "^3.0.0"

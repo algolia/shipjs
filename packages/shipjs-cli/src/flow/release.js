@@ -3,7 +3,7 @@ import {
   getCurrentVersion,
   getCurrentBranch,
   getLatestCommitMessage,
-} from 'shipjs-lib';
+} from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 import { warning, bold, underline } from '../color';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
