@@ -4823,7 +4823,7 @@ json5@^2.1.0:
   dependencies:
     minimist "^1.2.0"
 
-json@^9.0.6:
+json@9.0.6:
   version "9.0.6"
   resolved "https://registry.yarnpkg.com/json/-/json-9.0.6.tgz#7972c2a5a48a42678db2730c7c2c4ee6e4e24585"
   integrity sha1-eXLCpaSKQmeNsnMMfCxO5uTiRYU=
