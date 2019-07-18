@@ -164,7 +164,11 @@ function prepareStagingBranch({ config, nextVersion, dir }) {
 function updateVersions({ config, nextVersion, dir }) {
   const { packageJsons, versionUpdated } = config;
   updateVersion(packageJsons, nextVersion, dir);
-  versionUpdated({ version: nextVersion, exec: wrapExecWithDir(exec, dir) });
+  versionUpdated({
+    version: nextVersion,
+    dir,
+    exec: wrapExecWithDir(exec, dir),
+  });
 }
 
 function installDependencies({ config, dir }) {

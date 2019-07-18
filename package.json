@@ -12,9 +12,14 @@
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "shipjs-lib/execa"
+    ]
+  },
   "name": "shipjs",
   "devDependencies": {
     "lerna": "3.15.0",
