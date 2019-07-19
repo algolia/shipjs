@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "execa": "^2.0.3",
+    "parse-github-url": "^1.0.2",
     "semver": "^6.2.0"
   }
 }

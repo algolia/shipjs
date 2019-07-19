@@ -1,15 +1,10 @@
-import { basename } from 'path';
 import silentExec from '../shell/silentExec';
+import gh from 'parse-github-url';
 
 export default function getRepoURL({ dir }) {
-  const repoName = basename(
-    silentExec('git config --get remote.origin.url', { dir })
-      .toString()
-      .trim(),
-    '.git'
-  );
-  const repoURL = silentExec(`hub browse -u ${repoName}`, { dir })
+  const url = silentExec('git config --get remote.origin.url', { dir })
     .toString()
     .trim();
-  return repoURL;
+  const { repo } = gh(url);
+  return `https://github.com/${repo}`;
 }
