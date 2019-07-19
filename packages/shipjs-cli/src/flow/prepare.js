@@ -161,10 +161,10 @@ function prepareStagingBranch({ config, nextVersion, dir }) {
   return { stagingBranch };
 }
 
-function updateVersions({ config, nextVersion, dir }) {
+async function updateVersions({ config, nextVersion, dir }) {
   const { packageJsons, versionUpdated } = config;
   updateVersion(packageJsons, nextVersion, dir);
-  versionUpdated({
+  await versionUpdated({
     version: nextVersion,
     dir,
     exec: wrapExecWithDir(dir),
@@ -178,18 +178,18 @@ function installDependencies({ config, dir }) {
 }
 
 async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
-  const { conventionalChangelogArgs, changelogUpdated } = config;
+  const { conventionalChangelogArgs } = config;
   const options = {
     ...conventionalChangelogArgs,
     firstRelease,
     releaseCount,
   };
   await generateChangelog({ options, dir });
-  changelogUpdated({ exec: wrapExecWithDir(dir) });
 }
 
-function commitChanges({ nextVersion, dir, config }) {
-  const { formatCommitMessage } = config;
+async function commitChanges({ nextVersion, dir, config }) {
+  const { formatCommitMessage, beforeCommitChanges } = config;
+  await beforeCommitChanges({ exec: wrapExecWithDir(dir) });
   const message = formatCommitMessage({ nextVersion });
   const filePath = tempWrite.sync(message);
   run('git add .', dir);
@@ -297,10 +297,10 @@ async function prepare({
     dir,
   });
   run(`git checkout -b ${stagingBranch}`, dir);
-  updateVersions({ config, nextVersion, dir });
+  await updateVersions({ config, nextVersion, dir });
   installDependencies({ config, dir });
   await updateChangelog({ config, firstRelease, releaseCount, dir });
-  commitChanges({ nextVersion, dir, config });
+  await commitChanges({ nextVersion, dir, config });
   createPullRequest({
     baseBranch,
     stagingBranch,
