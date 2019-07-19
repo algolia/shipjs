@@ -9,7 +9,7 @@ export default {
   },
   installCommand: ({ isYarn }) => (isYarn ? 'yarn install' : 'npm install'),
   versionUpdated: ({ version, exec }) => {},
-  changelogUpdated: ({ exec }) => {},
+  beforeCommitChanges: ({ exec }) => {},
   getStagingBranchName: ({ nextVersion }) => `releases/v${nextVersion}`,
   formatCommitMessage: ({ nextVersion }) => `chore: release v${nextVersion}`,
   formatPullRequestMessage: ({
