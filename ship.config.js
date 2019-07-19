@@ -8,9 +8,9 @@ module.exports = {
     "packages/shipjs-cli/package.json"
   ],
   versionUpdated: ({ version, dir, exec }) => {
-    const filePath = path.resolve(dir, "lerna.json");
-    const json = JSON.parse(fs.readFileSync(filePath).toString());
-    json.version = version;
-    fs.writeFileSync(filePath, `${JSON.stringify(json, null, 2)}\n`);
+    exec(`npx json -I -f lerna.json -e 'this.version = "${version}"'`);
+    exec(
+      `npx json -I -f packages/shipjs-cli/package.json -e 'this.dependencies["shipjs-lib"] = "${version}"'`
+    );
   }
 };
