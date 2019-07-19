@@ -6752,6 +6752,14 @@ shellwords@^0.1.1:
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
 
+shipjs-lib@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/shipjs-lib/-/shipjs-lib-0.0.5.tgz#f3d9ff505101babb7a56a14424d69f2ed5ce931a"
+  integrity sha512-x9SnpntZdH9ZgYclkH7vI5+fU3QU2B9AL5kHx9l7/H4xr5fUP542HKUD0fPL1BS9oywAPsFBamR+5t+gUdIH7A==
+  dependencies:
+    execa "^2.0.3"
+    semver "^6.2.0"
+
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
