@@ -259,7 +259,7 @@ function createPullRequest({
   dir,
 }) {
   print(info('# Creating a pull-request'));
-  const { mergeStrategy, formatPullRequestMessage } = config;
+  const { mergeStrategy, formatPullRequestMessage, remote } = config;
   const destinationBranch = getDestinationBranchName({
     baseBranch,
     config,
@@ -282,6 +282,7 @@ function createPullRequest({
     nextVersion,
   });
   const filePath = tempWrite.sync(message);
+  run(`git ${remote} prune origin`);
   run(
     `hub pull-request --base ${destinationBranch} --browse --push --file ${filePath}`,
     dir
