@@ -1,6 +1,6 @@
 import {
   getCurrentVersion,
-  getNextVersion,
+  getNextVersion as orgGetNextVersion,
   updateVersion,
   hasLocalBranch,
   hasRemoteBranch,
@@ -13,14 +13,11 @@ import {
 import tempWrite from 'temp-write';
 import inquirer from 'inquirer';
 import { info, warning, error, bold, underline } from '../color';
+import print from '../util/print';
+import exitProcess from '../util/exitProcess';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
 import generateChangelog from '../util/generateChangelog';
-
-// eslint-disable-next-line no-console
-const print = console.log;
-// eslint-disable-next-line no-process-exit
-const exitProcess = code => process.exit(code);
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -104,9 +101,14 @@ function validate({ config, dir }) {
   return { currentVersion, baseBranch };
 }
 
-function pullAndGetNextVersion({ dir }) {
+function pull({ dir }) {
+  print(info('# Updating from remote'));
   run('git pull', dir);
-  const nextVersion = getNextVersion(dir);
+}
+
+function getNextVersion({ dir }) {
+  print(info('# Calculating the next version'));
+  const nextVersion = orgGetNextVersion(dir);
   if (nextVersion === null) {
     print(error('Nothing to release!'));
     exitProcess(1);
@@ -144,6 +146,7 @@ async function confirmNextVersion({ yes, currentVersion, nextVersion }) {
 }
 
 function prepareStagingBranch({ config, nextVersion, dir }) {
+  print(info('# Preparing a staging branch'));
   const { getStagingBranchName, remote } = config;
   const stagingBranch = getStagingBranchName({ nextVersion });
   if (hasLocalBranch(stagingBranch, dir)) {
@@ -161,7 +164,13 @@ function prepareStagingBranch({ config, nextVersion, dir }) {
   return { stagingBranch };
 }
 
+function checkoutToStagingBranch({ stagingBranch, dir }) {
+  print(info('# Checking out to the staging branch'));
+  run(`git checkout -b ${stagingBranch}`, dir);
+}
+
 async function updateVersions({ config, nextVersion, dir }) {
+  print(info('# Updating the version'));
   const { packageJsons, versionUpdated } = config;
   updateVersion(packageJsons, nextVersion, dir);
   await versionUpdated({
@@ -172,12 +181,14 @@ async function updateVersions({ config, nextVersion, dir }) {
 }
 
 function installDependencies({ config, dir }) {
+  print(info('# Installing the dependencies'));
   const isYarn = detectYarn(dir);
   const command = config.installCommand({ isYarn });
   run(command, dir);
 }
 
 async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
+  print(info('# Updating the changelog'));
   const { conventionalChangelogArgs } = config;
   const options = {
     ...conventionalChangelogArgs,
@@ -188,6 +199,7 @@ async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
 }
 
 async function commitChanges({ nextVersion, dir, config }) {
+  print(info('# Commiting the changes'));
   const { formatCommitMessage, beforeCommitChanges } = config;
   await beforeCommitChanges({ exec: wrapExecWithDir(dir) });
   const message = formatCommitMessage({ nextVersion });
@@ -246,6 +258,7 @@ function createPullRequest({
   config,
   dir,
 }) {
+  print(info('# Creating a pull-request'));
   const { mergeStrategy, formatPullRequestMessage } = config;
   const destinationBranch = getDestinationBranchName({
     baseBranch,
@@ -289,14 +302,15 @@ async function prepare({
   checkHub();
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
-  let { nextVersion } = pullAndGetNextVersion({ dir });
+  pull({ dir });
+  let { nextVersion } = getNextVersion({ dir });
   nextVersion = await confirmNextVersion({ yes, currentVersion, nextVersion });
   const { stagingBranch } = prepareStagingBranch({
     config,
     nextVersion,
     dir,
   });
-  run(`git checkout -b ${stagingBranch}`, dir);
+  checkoutToStagingBranch({ stagingBranch, dir });
   await updateVersions({ config, nextVersion, dir });
   installDependencies({ config, dir });
   await updateChangelog({ config, firstRelease, releaseCount, dir });
@@ -309,6 +323,7 @@ async function prepare({
     config,
     dir,
   });
+  print(info('All Done.'));
 }
 
 const arg = {
