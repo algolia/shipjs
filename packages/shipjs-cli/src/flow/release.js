@@ -4,14 +4,11 @@ import {
   getCurrentBranch,
   getLatestCommitMessage,
 } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
-import { warning, bold, underline } from '../color';
+import { warning, info, bold, underline } from '../color';
+import print from '../util/print';
+import exitProcess from '../util/exitProcess';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
-
-// eslint-disable-next-line no-console
-const print = console.log;
-// eslint-disable-next-line no-process-exit
-const exitProcess = code => process.exit(code);
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -57,21 +54,25 @@ function validate({ config, dir }) {
 }
 
 function runTest({ isYarn, config, dir }) {
+  print(info('# Running test'));
   const { testCommandBeforeRelease } = config;
   run(testCommandBeforeRelease({ isYarn }), dir);
 }
 
 function runBuild({ isYarn, config, dir }) {
+  print(info('# Building'));
   const { buildCommand } = config;
   run(buildCommand({ isYarn }), dir);
 }
 
 function runPublish({ isYarn, config, dir }) {
+  print(info('# Publishing'));
   const { publishCommand } = config;
   run(publishCommand({ isYarn }), dir);
 }
 
 function createGitTag({ config, dir }) {
+  print(info('# Creating a git tag'));
   const { getTagName } = config;
   const currentVersion = getCurrentVersion(dir);
   const tagName = getTagName({ currentVersion });
@@ -80,6 +81,7 @@ function createGitTag({ config, dir }) {
 }
 
 function gitPush({ config, dir }) {
+  print(info('# Pushing to the remote'));
   const { mergeStrategy } = config;
   if (mergeStrategy.backToBaseBranch === true) {
     run('git push --tags', dir);
