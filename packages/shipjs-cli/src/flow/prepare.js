@@ -282,7 +282,7 @@ function createPullRequest({
     nextVersion,
   });
   const filePath = tempWrite.sync(message);
-  run(`git ${remote} prune origin`, dir);
+  run(`git remote prune ${remote}`, dir);
   run(
     `hub pull-request --base ${destinationBranch} --browse --push --file ${filePath}`,
     dir
