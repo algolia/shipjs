@@ -54,25 +54,25 @@ function validate({ config, dir }) {
 }
 
 function runTest({ isYarn, config, dir }) {
-  print(info('# Running test'));
+  print(info('- Running test'));
   const { testCommandBeforeRelease } = config;
   run(testCommandBeforeRelease({ isYarn }), dir);
 }
 
 function runBuild({ isYarn, config, dir }) {
-  print(info('# Building'));
+  print(info('- Building'));
   const { buildCommand } = config;
   run(buildCommand({ isYarn }), dir);
 }
 
 function runPublish({ isYarn, config, dir }) {
-  print(info('# Publishing'));
+  print(info('- Publishing'));
   const { publishCommand } = config;
   run(publishCommand({ isYarn }), dir);
 }
 
 function createGitTag({ config, dir }) {
-  print(info('# Creating a git tag'));
+  print(info('- Creating a git tag'));
   const { getTagName } = config;
   const currentVersion = getCurrentVersion(dir);
   const tagName = getTagName({ currentVersion });
@@ -81,7 +81,7 @@ function createGitTag({ config, dir }) {
 }
 
 function gitPush({ config, dir }) {
-  print(info('# Pushing to the remote'));
+  print(info('- Pushing to the remote'));
   const { mergeStrategy } = config;
   if (mergeStrategy.backToBaseBranch === true) {
     run('git push --tags', dir);
@@ -104,6 +104,7 @@ function release({ help = false, dir = '.' }) {
   runPublish({ isYarn, config, dir });
   createGitTag({ config, dir });
   gitPush({ config, dir });
+  print(info('All Done.'));
 }
 
 const arg = {

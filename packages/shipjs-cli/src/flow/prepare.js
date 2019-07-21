@@ -102,12 +102,12 @@ function validate({ config, dir }) {
 }
 
 function pull({ dir }) {
-  print(info('# Updating from remote'));
+  print(info('- Updating from remote'));
   run('git pull', dir);
 }
 
 function getNextVersion({ dir }) {
-  print(info('# Calculating the next version'));
+  print(info('- Calculating the next version'));
   const nextVersion = orgGetNextVersion(dir);
   if (nextVersion === null) {
     print(error('Nothing to release!'));
@@ -146,7 +146,7 @@ async function confirmNextVersion({ yes, currentVersion, nextVersion }) {
 }
 
 function prepareStagingBranch({ config, nextVersion, dir }) {
-  print(info('# Preparing a staging branch'));
+  print(info('- Preparing a staging branch'));
   const { getStagingBranchName, remote } = config;
   const stagingBranch = getStagingBranchName({ nextVersion });
   if (hasLocalBranch(stagingBranch, dir)) {
@@ -165,12 +165,12 @@ function prepareStagingBranch({ config, nextVersion, dir }) {
 }
 
 function checkoutToStagingBranch({ stagingBranch, dir }) {
-  print(info('# Checking out to the staging branch'));
+  print(info('- Checking out to the staging branch'));
   run(`git checkout -b ${stagingBranch}`, dir);
 }
 
 async function updateVersions({ config, nextVersion, dir }) {
-  print(info('# Updating the version'));
+  print(info('- Updating the version'));
   const { packageJsons, versionUpdated } = config;
   updateVersion(packageJsons, nextVersion, dir);
   await versionUpdated({
@@ -181,14 +181,14 @@ async function updateVersions({ config, nextVersion, dir }) {
 }
 
 function installDependencies({ config, dir }) {
-  print(info('# Installing the dependencies'));
+  print(info('- Installing the dependencies'));
   const isYarn = detectYarn(dir);
   const command = config.installCommand({ isYarn });
   run(command, dir);
 }
 
 async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
-  print(info('# Updating the changelog'));
+  print(info('- Updating the changelog'));
   const { conventionalChangelogArgs } = config;
   const options = {
     ...conventionalChangelogArgs,
@@ -199,7 +199,7 @@ async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
 }
 
 async function commitChanges({ nextVersion, dir, config }) {
-  print(info('# Commiting the changes'));
+  print(info('- Commiting the changes'));
   const { formatCommitMessage, beforeCommitChanges } = config;
   await beforeCommitChanges({ exec: wrapExecWithDir(dir) });
   const message = formatCommitMessage({ nextVersion });
@@ -258,7 +258,7 @@ function createPullRequest({
   config,
   dir,
 }) {
-  print(info('# Creating a pull-request'));
+  print(info('- Creating a pull-request'));
   const { mergeStrategy, formatPullRequestMessage, remote } = config;
   const destinationBranch = getDestinationBranchName({
     baseBranch,
@@ -282,7 +282,7 @@ function createPullRequest({
     nextVersion,
   });
   const filePath = tempWrite.sync(message);
-  run(`git ${remote} prune origin`);
+  run(`git ${remote} prune origin`, dir);
   run(
     `hub pull-request --base ${destinationBranch} --browse --push --file ${filePath}`,
     dir
