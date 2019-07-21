@@ -1,33 +1,29 @@
-import execa from 'execa';
-import tempWrite from 'temp-write';
-import fs from 'fs';
+// eslint-disable-next-line import/no-commonjs
+const shell = require('shelljs');
 
 export default function exec(
   command,
-  { dir, ignoreError = false, silent = false } = {}
+  { dir = '.', ignoreError = false, silent = false } = {}
 ) {
-  try {
-    const filePath = tempWrite.sync(command);
-    fs.chmodSync(filePath, '755');
-    const result = execa.sync(command, { shell: true, cwd: dir });
-    if (!silent) {
-      /* eslint-disable no-console */
-      console.log(result.stdout);
-      console.log(result.stderr);
-      /* eslint-enable no-console */
-    }
+  const result = shell.exec(command, { silent, cwd: dir });
+  if (result.code === 0) {
+    return result;
+  } else if (ignoreError) {
     return {
-      toString: () => result.stdout,
-      code: result.exitCode,
+      toString: () => '',
+      code: result.code,
     };
-  } catch (err) {
-    if (ignoreError) {
-      return {
-        toString: () => '',
-        code: err.exitCode,
-      };
-    } else {
-      throw err;
-    }
+  } else {
+    throw new Error(
+      JSON.stringify(
+        {
+          message: `Exit code is ${result.code}`,
+          command,
+          result,
+        },
+        null,
+        2
+      )
+    );
   }
 }

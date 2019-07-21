@@ -16,9 +16,6 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": [
-      "shipjs-lib/execa"
     ]
   },
   "name": "shipjs",
