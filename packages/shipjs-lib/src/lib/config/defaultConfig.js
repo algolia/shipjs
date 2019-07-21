@@ -48,8 +48,9 @@ export default {
     currentBranch,
     mergeStrategy,
   }) => {
-    const correctCommitMessage =
-      `chore: release v${currentVersion}` === commitMessage.trim();
+    const correctCommitMessage = commitMessage
+      .trim()
+      .startsWith(`chore: release v${currentVersion}`);
     if (!correctCommitMessage) {
       return false;
     }
