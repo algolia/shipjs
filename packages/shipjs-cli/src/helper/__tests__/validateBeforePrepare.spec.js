@@ -3,7 +3,7 @@ import {
   isWorkingTreeClean,
   getCurrentBranch,
   hasTagForCurrentVersion,
-} from 'shipjs-lib';
+} from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 jest.mock('shipjs-lib');
 
 const defaultOpts = {

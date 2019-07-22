@@ -2,7 +2,7 @@ import {
   isWorkingTreeClean,
   getCurrentBranch,
   hasTagForCurrentVersion,
-} from 'shipjs-lib';
+} from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 
 const WORKING_TREE_NOT_CLEAN = 'workingTreeNotClean';
 const CURRENT_BRANCH_INCORRECT = 'currentBranchIncorrect';
