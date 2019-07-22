@@ -3,9 +3,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepare": "yarn build",
     "build": "yarn workspace shipjs-lib build",
     "lint": "yarn workspace shipjs-lib lint && yarn workspace shipjs lint",
     "test": "yarn workspace shipjs-lib test && yarn workspace shipjs test",
+    "tw1": "yarn workspace shipjs-lib test:watch",
+    "tw2": "yarn workspace shipjs test:watch",
     "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh",
     "release:prepare": "npx shipjs prepare",
     "release": "npx shipjs release"

@@ -15,9 +15,7 @@ export {
   default as getLatestCommitMessage,
 } from './lib/git/getLatestCommitMessage';
 export { default as getRepoURL } from './lib/git/getRepoURL';
-
-/* prepare */
-export { default as validate } from './lib/prepare/validate';
+export { default as isWorkingTreeClean } from './lib/git/isWorkingTreeClean';
 
 /* shell */
 export { default as exec } from './lib/shell/exec';
