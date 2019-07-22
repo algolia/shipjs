@@ -45,7 +45,7 @@ jobs:
           command: yarn lint
       - run:
           name: Unit Tests
-          command: yarn test --maxWorkers=4
+          command: yarn test
 
 workflows:
   version: 2
