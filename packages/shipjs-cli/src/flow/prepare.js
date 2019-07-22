@@ -6,7 +6,6 @@ import {
   hasRemoteBranch,
   getCurrentBranch,
   getRepoURL,
-  validate as orgValidate,
   exec,
   loadConfig,
 } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
@@ -20,6 +19,7 @@ import run from '../util/run';
 import detectYarn from '../util/detectYarn';
 import generateChangelog from '../util/generateChangelog';
 import getDestinationBranchName from '../helper/getDestinationBranchName';
+import validateBeforePrepare from '../helper/validateBeforePrepare';
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -90,7 +90,7 @@ function printValidationError(result, { currentVersion, baseBranches }) {
 
 function validate({ config, dir }) {
   const { baseBranches } = config;
-  const result = orgValidate({
+  const result = validateBeforePrepare({
     dir,
     baseBranches,
   });

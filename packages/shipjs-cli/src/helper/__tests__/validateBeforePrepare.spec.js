@@ -1,14 +1,13 @@
-import validate from '../validate';
-import isWorkingTreeClean from '../../git/isWorkingTreeClean';
-import getCurrentBranch from '../../git/getCurrentBranch';
-import hasTagForCurrentVersion from '../../util/hasTagForCurrentVersion';
-import { BASE_BRANCH } from '../../const';
-jest.mock('../../git/isWorkingTreeClean');
-jest.mock('../../git/getCurrentBranch');
-jest.mock('../../util/hasTagForCurrentVersion');
+import validate from '../validateBeforePrepare';
+import {
+  isWorkingTreeClean,
+  getCurrentBranch,
+  hasTagForCurrentVersion,
+} from 'shipjs-lib';
+jest.mock('shipjs-lib');
 
 const defaultOpts = {
-  baseBranches: [BASE_BRANCH],
+  baseBranches: ['master'],
 };
 
 describe('Validate', () => {
