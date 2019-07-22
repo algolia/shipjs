@@ -27,20 +27,19 @@ export default {
       '## Release Summary',
       `- Version change: \`v${currentVersion}\` → \`v${nextVersion}\``,
       `- Merge: \`${stagingBranch}\` → \`${destinationBranch}\``,
-      mergeStrategy.backToBaseBranch === true
+      mergeStrategy.toSameBranch.includes(baseBranch)
         ? `- [Compare the changes between the versions](${repoURL}/compare/v${currentVersion}...${stagingBranch})`
         : '',
     ];
     return lines.join('\n');
   },
   mergeStrategy: {
-    backToBaseBranch: true,
-    toReleaseBranch: false,
-    branchMappings: [
-      { baseBranch: 'master', releaseBranch: 'releases/stable' },
-      { baseBranch: 'legacy', releaseBranch: 'releases/legacy' },
-      { baseBranch: 'next', releaseBranch: 'releases/next' },
-    ],
+    toSameBranch: ['master'],
+    // toReleaseBranch: {
+    //   master: 'releases/stable',
+    //   legacy: 'releases/legacy',
+    //   next: 'releases/next',
+    // },
   },
   shouldRelease: ({
     commitMessage,
@@ -59,27 +58,17 @@ export default {
         `chore: release v${currentVersion}`
       );
     }
-    if (mergeStrategy.backToBaseBranch === true) {
-      const result = baseBranches.some(
-        baseBranch => baseBranch === currentBranch
-      );
-      return (
-        result ||
-        `The current branch needs to be one of [${baseBranches.join(', ')}]`
-      );
-    } else if (mergeStrategy.toReleaseBranch === true) {
-      const result = mergeStrategy.branchMappings.some(
-        m => m.releaseBranch === currentBranch
-      );
-      return (
-        result ||
-        `The current branch needs to be one of [${mergeStrategy.branchMappings
-          .map(m => m.baseBranch)
-          .join(', ')}]`
-      );
-    } else {
-      throw new Error('Unknown merge strategy');
+    if (
+      mergeStrategy.toSameBranch.includes(currentBranch) ||
+      Object.values(mergeStrategy.toReleaseBranch).includes(currentBranch)
+    ) {
+      return true;
     }
+
+    return `The current branch needs to be one of [${[
+      ...mergeStrategy.toSameBranch,
+      ...Object.values(mergeStrategy.toReleaseBranch),
+    ].join(', ')}]`;
   },
   buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),
   publishCommand: ({ isYarn }) => 'npm publish',

@@ -10,6 +10,7 @@ import printStep from '../util/printStep';
 import exitProcess from '../util/exitProcess';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
+import getBranchNameToMergeBack from '../helper/getBranchNameToMergeBack';
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -84,12 +85,21 @@ function createGitTag({ config, dir }) {
 
 function gitPush({ config, dir }) {
   printStep('Pushing to the remote');
+  const currentBranch = getCurrentBranch(dir);
   const { mergeStrategy } = config;
-  if (mergeStrategy.backToBaseBranch === true) {
+  const destinationBranch = getBranchNameToMergeBack({
+    currentBranch,
+    mergeStrategy,
+  });
+  if (currentBranch === destinationBranch) {
     run('git push --tags', dir);
-  } else if (mergeStrategy.toReleaseBranch === true) {
-    // 1. merge back to current branch
-    // 2. git push --tags
+  } else {
+    // currentBranch: 'release/legacy'
+    // destinationBranch: 'legacy'
+    // flow: legacy -> release/legacy -> (here) legacy
+    run(`git checkout ${destinationBranch}`, dir);
+    run(`git merge ${currentBranch}`, dir);
+    run('git push --tags', dir);
   }
 }
 

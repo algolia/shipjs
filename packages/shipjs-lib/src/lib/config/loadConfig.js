@@ -4,9 +4,17 @@ import defaultConfig from './defaultConfig';
 
 export default function loadConfig(dir = '.', filename = 'ship.config.js') {
   const fullPath = resolve(dir, filename);
-  const config = existsSync(fullPath) ? require(fullPath) : {};
-  return {
+  const userConfig = existsSync(fullPath) ? require(fullPath) : {};
+  const config = {
     ...defaultConfig,
-    ...config,
+    ...userConfig,
   };
+
+  config.mergeStrategy = {
+    toSameBranch: [],
+    toReleaseBranch: {},
+    ...config.mergeStrategy,
+  };
+
+  return config;
 }
