@@ -19,6 +19,7 @@ import exitProcess from '../util/exitProcess';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
 import generateChangelog from '../util/generateChangelog';
+import getDestinationBranchName from '../helper/getDestinationBranchName';
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -100,6 +101,31 @@ function validate({ config, dir }) {
     exitProcess(1);
   }
   return { currentVersion, baseBranch };
+}
+
+function validateMergeStrategy({ config }) {
+  const { mergeStrategy } = config;
+  const releaseBranches = Object.values(mergeStrategy.toReleaseBranch);
+  const uniqueReleaseBranches = new Set(releaseBranches);
+  if (releaseBranches.length !== uniqueReleaseBranches.size) {
+    print(error('Invalid `mergeStrategy` in your configuration.'));
+    print(error('  : Release branch should be unique per base branch.'));
+    print(warning(JSON.stringify(mergeStrategy, null, 2)));
+    exitProcess(1);
+  }
+
+  const { toSameBranch } = mergeStrategy;
+  if (
+    new Set([...toSameBranch, ...releaseBranches]).size !==
+    toSameBranch.length + releaseBranches.length
+  ) {
+    print(error('Invalid `mergeStrategy` in your configuration.'));
+    print(
+      error(
+        '  : You cannot put a same branch name both in `toSameBranch` and `toReleaseBranch`'
+      )
+    );
+  }
 }
 
 function pull({ dir }) {
@@ -209,19 +235,6 @@ async function commitChanges({ nextVersion, dir, config }) {
   run(`git commit --file=${filePath}`, dir);
 }
 
-function getDestinationBranchName({ baseBranch, config }) {
-  const { mergeStrategy } = config;
-  if (mergeStrategy.backToBaseBranch === true) {
-    return baseBranch;
-  } else if (mergeStrategy.toReleaseBranch === true) {
-    return mergeStrategy.branchMappings.find(
-      mapping => mapping.baseBranch === baseBranch
-    ).releaseBranch;
-  } else {
-    throw new Error('Unknown mergeStrategy');
-  }
-}
-
 function validateBeforePullRequest({
   config,
   dir,
@@ -229,9 +242,9 @@ function validateBeforePullRequest({
   stagingBranch,
   destinationBranch,
 }) {
-  const { remote, mergeStrategy } = config;
+  const { remote } = config;
   if (
-    mergeStrategy.toReleaseBranch === true &&
+    baseBranch !== destinationBranch &&
     !hasRemoteBranch(remote, destinationBranch, dir)
   ) {
     print(warning('You want to release using a dedicated release branch.'));
@@ -263,7 +276,7 @@ function createPullRequest({
   const { mergeStrategy, formatPullRequestMessage, remote } = config;
   const destinationBranch = getDestinationBranchName({
     baseBranch,
-    config,
+    mergeStrategy,
   });
   validateBeforePullRequest({
     config,
@@ -304,6 +317,7 @@ async function prepare({
   checkHub();
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
+  validateMergeStrategy({ config });
   pull({ dir });
   let { nextVersion } = getNextVersion({ dir });
   nextVersion = await confirmNextVersion({ yes, currentVersion, nextVersion });
