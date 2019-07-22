@@ -14,5 +14,5 @@ module.exports = {
     );
   },
   publishCommand: () =>
-    `(cd packages/ship-lib && npm publish) && (cd packages/ship-cli && npm publish)`
+    `(cd packages/shipjs-lib && npm publish) && (cd packages/shipjs-cli && npm publish)`
 };
