@@ -14,6 +14,7 @@ import tempWrite from 'temp-write';
 import inquirer from 'inquirer';
 import { info, warning, error, bold, underline } from '../color';
 import print from '../util/print';
+import printStep from '../util/printStep';
 import exitProcess from '../util/exitProcess';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
@@ -102,12 +103,12 @@ function validate({ config, dir }) {
 }
 
 function pull({ dir }) {
-  print(info('- Updating from remote'));
+  printStep('Updating from remote');
   run('git pull', dir);
 }
 
 function getNextVersion({ dir }) {
-  print(info('- Calculating the next version'));
+  printStep('Calculating the next version');
   const nextVersion = orgGetNextVersion(dir);
   if (nextVersion === null) {
     print(error('Nothing to release!'));
@@ -146,7 +147,7 @@ async function confirmNextVersion({ yes, currentVersion, nextVersion }) {
 }
 
 function prepareStagingBranch({ config, nextVersion, dir }) {
-  print(info('- Preparing a staging branch'));
+  printStep('Preparing a staging branch');
   const { getStagingBranchName, remote } = config;
   const stagingBranch = getStagingBranchName({ nextVersion });
   if (hasLocalBranch(stagingBranch, dir)) {
@@ -165,12 +166,12 @@ function prepareStagingBranch({ config, nextVersion, dir }) {
 }
 
 function checkoutToStagingBranch({ stagingBranch, dir }) {
-  print(info('- Checking out to the staging branch'));
+  printStep('Checking out to the staging branch');
   run(`git checkout -b ${stagingBranch}`, dir);
 }
 
 async function updateVersions({ config, nextVersion, dir }) {
-  print(info('- Updating the version'));
+  printStep('Updating the version');
   const { packageJsons, versionUpdated } = config;
   updateVersion(packageJsons, nextVersion, dir);
   await versionUpdated({
@@ -181,14 +182,14 @@ async function updateVersions({ config, nextVersion, dir }) {
 }
 
 function installDependencies({ config, dir }) {
-  print(info('- Installing the dependencies'));
+  printStep('Installing the dependencies');
   const isYarn = detectYarn(dir);
   const command = config.installCommand({ isYarn });
   run(command, dir);
 }
 
 async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
-  print(info('- Updating the changelog'));
+  printStep('Updating the changelog');
   const { conventionalChangelogArgs } = config;
   const options = {
     ...conventionalChangelogArgs,
@@ -199,7 +200,7 @@ async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
 }
 
 async function commitChanges({ nextVersion, dir, config }) {
-  print(info('- Commiting the changes'));
+  printStep('Commiting the changes');
   const { formatCommitMessage, beforeCommitChanges } = config;
   await beforeCommitChanges({ exec: wrapExecWithDir(dir) });
   const message = formatCommitMessage({ nextVersion });
@@ -258,7 +259,7 @@ function createPullRequest({
   config,
   dir,
 }) {
-  print(info('- Creating a pull-request'));
+  printStep('Creating a pull-request');
   const { mergeStrategy, formatPullRequestMessage, remote } = config;
   const destinationBranch = getDestinationBranchName({
     baseBranch,
@@ -324,7 +325,7 @@ async function prepare({
     config,
     dir,
   });
-  print(info('All Done.'));
+  printStep('All Done.');
 }
 
 const arg = {
