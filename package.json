@@ -3,6 +3,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepare": "yarn build",
     "build": "yarn workspace shipjs-lib build",
     "lint": "yarn workspace shipjs-lib lint && yarn workspace shipjs lint",
     "test": "yarn workspace shipjs-lib test && yarn workspace shipjs test",
