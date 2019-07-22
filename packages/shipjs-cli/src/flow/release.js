@@ -4,7 +4,7 @@ import {
   getCurrentBranch,
   getLatestCommitMessage,
 } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
-import { warning, info, bold, underline } from '../color';
+import { warning, error, info, bold, underline } from '../color';
 import print from '../util/print';
 import exitProcess from '../util/exitProcess';
 import run from '../util/run';
@@ -36,19 +36,20 @@ function printHelp() {
 }
 
 function validate({ config, dir }) {
-  const { mergeStrategy, shouldRelease } = config;
+  const { baseBranches, mergeStrategy, shouldRelease } = config;
   const commitMessage = getLatestCommitMessage(dir);
   const currentVersion = getCurrentVersion(dir);
   const currentBranch = getCurrentBranch(dir);
-  if (
-    !shouldRelease({
-      commitMessage,
-      currentVersion,
-      currentBranch,
-      mergeStrategy,
-    })
-  ) {
-    print(warning('Skipping a release due to the unmet conditions.'));
+  const validationResult = shouldRelease({
+    commitMessage,
+    currentVersion,
+    baseBranches,
+    currentBranch,
+    mergeStrategy,
+  });
+  if (validationResult !== true) {
+    print(warning('Skipping a release due to the following reason:'));
+    print(error(`  > ${validationResult}`));
     exitProcess(0);
   }
 }

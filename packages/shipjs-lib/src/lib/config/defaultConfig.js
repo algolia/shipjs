@@ -45,6 +45,7 @@ export default {
   shouldRelease: ({
     commitMessage,
     currentVersion,
+    baseBranches,
     currentBranch,
     mergeStrategy,
   }) => {
@@ -52,15 +53,29 @@ export default {
       .trim()
       .startsWith(`chore: release v${currentVersion}`);
     if (!correctCommitMessage) {
-      return false;
+      return (
+        'The commit message should have started with the following:' +
+        '\n' +
+        `chore: release v${currentVersion}`
+      );
     }
     if (mergeStrategy.backToBaseBranch === true) {
-      return mergeStrategy.branchMappings.some(
-        m => m.baseBranch === currentBranch
+      const result = baseBranches.some(
+        baseBranch => baseBranch === currentBranch
+      );
+      return (
+        result ||
+        `The current branch needs to be one of [${baseBranches.join(', ')}]`
       );
     } else if (mergeStrategy.toReleaseBranch === true) {
-      return mergeStrategy.branchMappings.some(
+      const result = mergeStrategy.branchMappings.some(
         m => m.releaseBranch === currentBranch
+      );
+      return (
+        result ||
+        `The current branch needs to be one of [${mergeStrategy.branchMappings
+          .map(m => m.baseBranch)
+          .join(', ')}]`
       );
     } else {
       throw new Error('Unknown merge strategy');
