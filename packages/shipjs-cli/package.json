@@ -1,6 +1,6 @@
 {
   "name": "shipjs",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -29,7 +29,7 @@
     "esm": "^3.2.25",
     "inquirer": "^6.5.0",
     "rimraf": "^2.6.3",
-    "shipjs-lib": "0.0.7",
+    "shipjs-lib": "0.0.8",
     "standard-changelog": "^2.0.11",
     "temp-write": "^4.0.0",
     "tempfile": "^3.0.0"
