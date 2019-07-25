@@ -128,9 +128,9 @@ function validateMergeStrategy({ config }) {
   }
 }
 
-function pull({ dir }) {
+function pull({ dir, dryRun }) {
   printStep('Updating from remote');
-  run('git pull', dir);
+  run('git pull', dir, dryRun);
 }
 
 function getNextVersion({ dir }) {
@@ -143,10 +143,15 @@ function getNextVersion({ dir }) {
   return { nextVersion };
 }
 
-async function confirmNextVersion({ yes, currentVersion, nextVersion }) {
+async function confirmNextVersion({
+  yes,
+  currentVersion,
+  nextVersion,
+  dryRun,
+}) {
   print(`The current version: ${currentVersion}`);
   print(`The next version: ${info(nextVersion)}`);
-  if (yes) {
+  if (yes || dryRun) {
     return nextVersion;
   }
   const { correct } = await inquirer.prompt([
@@ -191,13 +196,16 @@ function prepareStagingBranch({ config, nextVersion, dir }) {
   return { stagingBranch };
 }
 
-function checkoutToStagingBranch({ stagingBranch, dir }) {
+function checkoutToStagingBranch({ stagingBranch, dir, dryRun }) {
   printStep('Checking out to the staging branch');
-  run(`git checkout -b ${stagingBranch}`, dir);
+  run(`git checkout -b ${stagingBranch}`, dir, dryRun);
 }
 
-async function updateVersions({ config, nextVersion, dir }) {
+async function updateVersions({ config, nextVersion, dir, dryRun }) {
   printStep('Updating the version');
+  if (dryRun) {
+    return;
+  }
   const { packageJsons, versionUpdated } = config;
   updateVersion(packageJsons, nextVersion, dir);
   await versionUpdated({
@@ -207,15 +215,24 @@ async function updateVersions({ config, nextVersion, dir }) {
   });
 }
 
-function installDependencies({ config, dir }) {
+function installDependencies({ config, dir, dryRun }) {
   printStep('Installing the dependencies');
   const isYarn = detectYarn(dir);
   const command = config.installCommand({ isYarn });
-  run(command, dir);
+  run(command, dir, dryRun);
 }
 
-async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
+async function updateChangelog({
+  config,
+  firstRelease,
+  releaseCount,
+  dir,
+  dryRun,
+}) {
   printStep('Updating the changelog');
+  if (dryRun) {
+    return;
+  }
   const { conventionalChangelogArgs } = config;
   const options = {
     ...conventionalChangelogArgs,
@@ -225,11 +242,17 @@ async function updateChangelog({ config, firstRelease, releaseCount, dir }) {
   await generateChangelog({ options, dir });
 }
 
-async function commitChanges({ nextVersion, dir, config }) {
+async function commitChanges({ nextVersion, dir, config, dryRun }) {
   printStep('Commiting the changes');
   const { formatCommitMessage, beforeCommitChanges } = config;
-  await beforeCommitChanges({ exec: wrapExecWithDir(dir) });
   const message = formatCommitMessage({ nextVersion });
+  if (dryRun) {
+    print('$', info('git add .'));
+    print('$', info('git commit'));
+    print(`  git commit message: ${message}`);
+    return;
+  }
+  await beforeCommitChanges({ exec: wrapExecWithDir(dir) });
   const filePath = tempWrite.sync(message);
   run('git add .', dir);
   run(`git commit --file=${filePath}`, dir);
@@ -241,6 +264,7 @@ function validateBeforePullRequest({
   baseBranch,
   stagingBranch,
   destinationBranch,
+  dryRun,
 }) {
   const { remote } = config;
   if (
@@ -257,8 +281,8 @@ function validateBeforePullRequest({
     print(warning('After that, try again.'));
     print('');
     print(warning('Rolling back for now...'));
-    run(`git checkout ${baseBranch}`, dir);
-    run(`git branch -D ${stagingBranch}`, dir);
+    run(`git checkout ${baseBranch}`, dir, dryRun);
+    run(`git branch -D ${stagingBranch}`, dir, dryRun);
 
     exitProcess(0);
   }
@@ -271,6 +295,7 @@ function createPullRequest({
   nextVersion,
   config,
   dir,
+  dryRun,
 }) {
   printStep('Creating a pull-request');
   const { mergeStrategy, formatPullRequestMessage, remote } = config;
@@ -284,6 +309,7 @@ function createPullRequest({
     baseBranch,
     stagingBranch,
     destinationBranch,
+    dryRun,
   });
   const repoURL = getRepoURL({ dir });
   const message = formatPullRequestMessage({
@@ -296,11 +322,14 @@ function createPullRequest({
     nextVersion,
   });
   const filePath = tempWrite.sync(message);
-  run(`git remote prune ${remote}`, dir);
+  run(`git remote prune ${remote}`, dir, dryRun);
   run(
     `hub pull-request --base ${destinationBranch} --browse --push --file ${filePath}`,
-    dir
+    dir,
+    dryRun
   );
+  run(`cat ${filePath}`, dir);
+  print('');
 }
 
 async function prepare({
@@ -309,28 +338,37 @@ async function prepare({
   yes = false,
   firstRelease = false,
   releaseCount,
+  dryRun = false,
 }) {
   if (help) {
     printHelp();
     return;
   }
+  if (dryRun) {
+    print(warning(bold(underline('This is a dry-run!'))));
+  }
   checkHub();
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
   validateMergeStrategy({ config });
-  pull({ dir });
+  pull({ dir, dryRun });
   let { nextVersion } = getNextVersion({ dir });
-  nextVersion = await confirmNextVersion({ yes, currentVersion, nextVersion });
+  nextVersion = await confirmNextVersion({
+    yes,
+    currentVersion,
+    nextVersion,
+    dryRun,
+  });
   const { stagingBranch } = prepareStagingBranch({
     config,
     nextVersion,
     dir,
   });
-  checkoutToStagingBranch({ stagingBranch, dir });
-  await updateVersions({ config, nextVersion, dir });
-  installDependencies({ config, dir });
-  await updateChangelog({ config, firstRelease, releaseCount, dir });
-  await commitChanges({ nextVersion, dir, config });
+  checkoutToStagingBranch({ stagingBranch, dir, dryRun });
+  await updateVersions({ config, nextVersion, dir, dryRun });
+  installDependencies({ config, dir, dryRun });
+  await updateChangelog({ config, firstRelease, releaseCount, dir, dryRun });
+  await commitChanges({ nextVersion, dir, config, dryRun });
   createPullRequest({
     baseBranch,
     stagingBranch,
@@ -338,6 +376,7 @@ async function prepare({
     nextVersion,
     config,
     dir,
+    dryRun,
   });
   printStep('All Done.');
 }
@@ -348,6 +387,7 @@ const arg = {
   '--help': Boolean,
   '--first-release': Boolean,
   '--release-count': Number,
+  '--dry-run': Boolean,
 
   // Aliases
   '-d': '--dir',
@@ -355,6 +395,7 @@ const arg = {
   '-h': '--help',
   '-f': '--first-release',
   '-r': '--release-count',
+  '-D': '--dry-run',
 };
 
 export default {
