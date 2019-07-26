@@ -203,10 +203,12 @@ function checkoutToStagingBranch({ stagingBranch, dir, dryRun }) {
 
 async function updateVersions({ config, nextVersion, dir, dryRun }) {
   printStep('Updating the version');
+  const { packageJsons, versionUpdated } = config;
   if (dryRun) {
+    print(`-> ${info(packageJsons.join(', '))}`);
+    print(`-> execute ${info('versionUpdated()')} callback.`);
     return;
   }
-  const { packageJsons, versionUpdated } = config;
   updateVersion(packageJsons, nextVersion, dir);
   await versionUpdated({
     version: nextVersion,
@@ -345,7 +347,12 @@ async function prepare({
     return;
   }
   if (dryRun) {
-    print(warning(bold(underline('This is a dry-run!'))));
+    print(warning(bold('##########################')));
+    print(warning(bold('#                        #')));
+    print(warning(bold(`#   This is a dry-run!   #`)));
+    print(warning(bold('#                        #')));
+    print(warning(bold('##########################')));
+    print('');
   }
   checkHub();
   const config = loadConfig(dir);
