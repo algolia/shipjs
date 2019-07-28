@@ -56,34 +56,34 @@ function validate({ config, dir }) {
   }
 }
 
-function runTest({ isYarn, config, dir }) {
+function runTest({ isYarn, config, dir, dryRun }) {
   printStep('Running test');
   const { testCommandBeforeRelease } = config;
-  run(testCommandBeforeRelease({ isYarn }), dir);
+  run(testCommandBeforeRelease({ isYarn }), dir, dryRun);
 }
 
-function runBuild({ isYarn, config, dir }) {
+function runBuild({ isYarn, config, dir, dryRun }) {
   printStep('Building');
   const { buildCommand } = config;
-  run(buildCommand({ isYarn }), dir);
+  run(buildCommand({ isYarn }), dir, dryRun);
 }
 
-function runPublish({ isYarn, config, dir }) {
+function runPublish({ isYarn, config, dir, dryRun }) {
   printStep('Publishing');
   const { publishCommand } = config;
-  run(publishCommand({ isYarn }), dir);
+  run(publishCommand({ isYarn }), dir, dryRun);
 }
 
-function createGitTag({ config, dir }) {
+function createGitTag({ config, dir, dryRun }) {
   printStep('Creating a git tag');
   const { getTagName } = config;
   const currentVersion = getCurrentVersion(dir);
   const tagName = getTagName({ currentVersion });
   const command = `git tag ${tagName}`;
-  run(command, dir);
+  run(command, dir, dryRun);
 }
 
-function gitPush({ config, dir }) {
+function gitPush({ config, dir, dryRun }) {
   printStep('Pushing to the remote');
   const currentBranch = getCurrentBranch(dir);
   const { mergeStrategy } = config;
@@ -92,40 +92,50 @@ function gitPush({ config, dir }) {
     mergeStrategy,
   });
   if (currentBranch === destinationBranch) {
-    run('git push --tags', dir);
+    run('git push --tags', dir, dryRun);
   } else {
     // currentBranch: 'release/legacy'
     // destinationBranch: 'legacy'
     // flow: legacy -> release/legacy -> (here) legacy
-    run(`git checkout ${destinationBranch}`, dir);
-    run(`git merge ${currentBranch}`, dir);
-    run('git push --tags', dir);
+    run(`git checkout ${destinationBranch}`, dir, dryRun);
+    run(`git merge ${currentBranch}`, dir, dryRun);
+    run('git push --tags', dir, dryRun);
   }
 }
 
-function release({ help = false, dir = '.' }) {
+function release({ help = false, dir = '.', dryRun = false }) {
   if (help) {
     printHelp();
     return;
   }
+  if (dryRun) {
+    print(warning(bold('##########################')));
+    print(warning(bold('#                        #')));
+    print(warning(bold(`#   This is a dry-run!   #`)));
+    print(warning(bold('#                        #')));
+    print(warning(bold('##########################')));
+    print('');
+  }
   const config = loadConfig(dir);
   validate({ config, dir });
   const isYarn = detectYarn(dir);
-  runTest({ isYarn, config, dir });
-  runBuild({ isYarn, config, dir });
-  runPublish({ isYarn, config, dir });
-  createGitTag({ config, dir });
-  gitPush({ config, dir });
+  runTest({ isYarn, config, dir, dryRun });
+  runBuild({ isYarn, config, dir, dryRun });
+  runPublish({ isYarn, config, dir, dryRun });
+  createGitTag({ config, dir, dryRun });
+  gitPush({ config, dir, dryRun });
   print(info('All Done.'));
 }
 
 const arg = {
   '--dir': String,
   '--help': Boolean,
+  '--dry-run': Boolean,
 
   // Aliases
   '-d': '--dir',
   '-h': '--help',
+  '-D': '--dry-run',
 };
 
 export default {
