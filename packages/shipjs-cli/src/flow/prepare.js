@@ -7,6 +7,7 @@ import {
   getCurrentBranch,
   getRepoURL,
   exec,
+  silentExec,
   loadConfig,
 } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 import tempWrite from 'temp-write';
@@ -20,6 +21,7 @@ import detectYarn from '../util/detectYarn';
 import generateChangelog from '../util/generateChangelog';
 import getDestinationBranchName from '../helper/getDestinationBranchName';
 import validateBeforePrepare from '../helper/validateBeforePrepare';
+import printDryRunBanner from '../util/printDryRunBanner';
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -65,7 +67,7 @@ function wrapExecWithDir(dir) {
 }
 
 function checkHub() {
-  const exists = exec('hub --version').code === 0;
+  const exists = silentExec('hub --version').code === 0;
   if (!exists) {
     print(error('You need to install `hub` first.'));
     print('  > https://github.com/github/hub#installation');
@@ -98,7 +100,7 @@ function validate({ config, dir }) {
   const baseBranch = getCurrentBranch(dir);
   if (result !== true) {
     printValidationError(result, { currentVersion, baseBranches });
-    exitProcess(1);
+    // exitProcess(1);
   }
   return { currentVersion, baseBranch };
 }
@@ -347,12 +349,7 @@ async function prepare({
     return;
   }
   if (dryRun) {
-    print(warning(bold('##########################')));
-    print(warning(bold('#                        #')));
-    print(warning(bold(`#   This is a dry-run!   #`)));
-    print(warning(bold('#                        #')));
-    print(warning(bold('##########################')));
-    print('');
+    printDryRunBanner();
   }
   checkHub();
   const config = loadConfig(dir);
