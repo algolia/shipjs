@@ -11,6 +11,7 @@ import exitProcess from '../util/exitProcess';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
 import getBranchNameToMergeBack from '../helper/getBranchNameToMergeBack';
+import printDryRunBanner from '../util/printDryRunBanner';
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -109,12 +110,7 @@ function release({ help = false, dir = '.', dryRun = false }) {
     return;
   }
   if (dryRun) {
-    print(warning(bold('##########################')));
-    print(warning(bold('#                        #')));
-    print(warning(bold(`#   This is a dry-run!   #`)));
-    print(warning(bold('#                        #')));
-    print(warning(bold('##########################')));
-    print('');
+    printDryRunBanner();
   }
   const config = loadConfig(dir);
   validate({ config, dir });
