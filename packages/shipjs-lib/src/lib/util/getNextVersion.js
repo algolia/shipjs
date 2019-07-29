@@ -21,6 +21,9 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
     if (!title) {
       return;
     }
+    if (title.startsWith('Merge branch')) {
+      return;
+    }
     const match = title.match(/(.*?)(\(.*?\))?:.*/);
     if (!match || !match[1]) {
       throw new Error(`Invalid commit message format.\n  > ${title}`);
