@@ -82,25 +82,27 @@ function createGitTag({ config, dir, dryRun }) {
   const tagName = getTagName({ currentVersion });
   const command = `git tag ${tagName}`;
   run(command, dir, dryRun);
+  return tagName;
 }
 
-function gitPush({ config, dir, dryRun }) {
+function gitPush({ tagName, config, dir, dryRun }) {
   printStep('Pushing to the remote');
   const currentBranch = getCurrentBranch(dir);
-  const { mergeStrategy } = config;
+  const { mergeStrategy, remote } = config;
   const destinationBranch = getBranchNameToMergeBack({
     currentBranch,
     mergeStrategy,
   });
+  const pushCommand = `git push && git push ${remote} ${tagName}`;
   if (currentBranch === destinationBranch) {
-    run('git push --tags', dir, dryRun);
+    run(pushCommand, dir, dryRun);
   } else {
     // currentBranch: 'release/legacy'
     // destinationBranch: 'legacy'
     // flow: legacy -> release/legacy -> (here) legacy
     run(`git checkout ${destinationBranch}`, dir, dryRun);
     run(`git merge ${currentBranch}`, dir, dryRun);
-    run('git push --tags', dir, dryRun);
+    run(pushCommand, dir, dryRun);
   }
 }
 
@@ -118,8 +120,8 @@ function release({ help = false, dir = '.', dryRun = false }) {
   runTest({ isYarn, config, dir, dryRun });
   runBuild({ isYarn, config, dir, dryRun });
   runPublish({ isYarn, config, dir, dryRun });
-  createGitTag({ config, dir, dryRun });
-  gitPush({ config, dir, dryRun });
+  const tagName = createGitTag({ config, dir, dryRun });
+  gitPush({ tagName, config, dir, dryRun });
   print(info('All Done.'));
 }
 
