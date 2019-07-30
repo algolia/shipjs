@@ -36,8 +36,8 @@
     "rollup-plugin-node-resolve": "5.2.0"
   },
   "dependencies": {
-    "parse-github-url": "^1.0.2",
-    "semver": "^6.2.0",
-    "shelljs": "^0.8.3"
+    "parse-github-url": "1.0.2",
+    "semver": "6.2.0",
+    "shelljs": "0.8.3"
   }
 }

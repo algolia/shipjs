@@ -22,14 +22,14 @@
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
   "dependencies": {
-    "arg": "^4.1.1",
-    "chalk": "^2.4.2",
-    "change-case": "^3.1.0",
-    "conventional-changelog-cli": "^2.0.23",
-    "esm": "^3.2.25",
-    "inquirer": "^6.5.0",
+    "arg": "4.1.1",
+    "chalk": "2.4.2",
+    "change-case": "3.1.0",
+    "conventional-changelog-cli": "2.0.23",
+    "esm": "3.2.25",
+    "inquirer": "6.5.0",
     "shipjs-lib": "0.0.8",
-    "temp-write": "^4.0.0"
+    "temp-write": "4.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",
