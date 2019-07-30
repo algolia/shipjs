@@ -12,13 +12,13 @@ import {
 } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 import tempWrite from 'temp-write';
 import inquirer from 'inquirer';
+import path from 'path';
 import { info, warning, error, bold, underline } from '../color';
 import print from '../util/print';
 import printStep from '../util/printStep';
 import exitProcess from '../util/exitProcess';
 import run from '../util/run';
 import detectYarn from '../util/detectYarn';
-import generateChangelog from '../util/generateChangelog';
 import getDestinationBranchName from '../helper/getDestinationBranchName';
 import validateBeforePrepare from '../helper/validateBeforePrepare';
 import printDryRunBanner from '../util/printDryRunBanner';
@@ -226,24 +226,21 @@ function installDependencies({ config, dir, dryRun }) {
   run(command, dir, dryRun);
 }
 
-async function updateChangelog({
-  config,
-  firstRelease,
-  releaseCount,
-  dir,
-  dryRun,
-}) {
+function updateChangelog({ config, firstRelease, releaseCount, dir, dryRun }) {
   printStep('Updating the changelog');
-  if (dryRun) {
-    return;
-  }
   const { conventionalChangelogArgs } = config;
-  const options = {
-    ...conventionalChangelogArgs,
-    firstRelease,
-    releaseCount,
-  };
-  await generateChangelog({ options, dir });
+  const args = [
+    conventionalChangelogArgs,
+    releaseCount ? `-r ${releaseCount}` : undefined,
+    firstRelease ? '-r 0' : undefined,
+  ]
+    .filter(Boolean)
+    .join(' ');
+  const execPath = path.resolve(
+    require.main.filename,
+    '../../node_modules/.bin/conventional-changelog'
+  );
+  run(`${execPath} ${args}`, dir, dryRun);
 }
 
 async function commitChanges({ nextVersion, dir, config, dryRun }) {
@@ -371,7 +368,7 @@ async function prepare({
   checkoutToStagingBranch({ stagingBranch, dir, dryRun });
   await updateVersions({ config, nextVersion, dir, dryRun });
   installDependencies({ config, dir, dryRun });
-  await updateChangelog({ config, firstRelease, releaseCount, dir, dryRun });
+  updateChangelog({ config, firstRelease, releaseCount, dir, dryRun });
   await commitChanges({ nextVersion, dir, config, dryRun });
   createPullRequest({
     baseBranch,
