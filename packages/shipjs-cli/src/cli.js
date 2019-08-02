@@ -2,6 +2,9 @@ import prepare from './flow/prepare';
 import release from './flow/release';
 import parseArgs from 'arg';
 import { camelCase } from 'change-case';
+import { bold } from './color';
+import print from './util/print';
+import version from './version';
 
 const flowMap = {
   prepare,
@@ -16,9 +19,32 @@ function removeDoubleDash(opts) {
   }, {});
 }
 
+function printVersion() {
+  print(version);
+  print('');
+}
+
+function printHelp() {
+  print(bold('USAGE'));
+  print(`\t${bold('shipjs prepare')} --help`);
+  print(`\t  : Prepare a release.`);
+  print('');
+  print(`\t${bold('shipjs release')} --help`);
+  print(`\t  : Release it.`);
+  print('');
+}
+
 export async function cli(argv) {
   const flowName = argv[2];
-  const { fn, arg: argSpec } = flowMap[flowName];
+  if ((flowName || '').trim() === '--version') {
+    printVersion();
+    return;
+  }
+  const { fn, arg: argSpec } = flowMap[flowName] || {};
+  if (!fn) {
+    printHelp();
+    return;
+  }
   const opts = removeDoubleDash(
     parseArgs(argSpec, { permissive: false, argv })
   );

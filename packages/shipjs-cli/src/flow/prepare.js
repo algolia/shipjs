@@ -26,32 +26,45 @@ import printDryRunBanner from '../util/printDryRunBanner';
 function printHelp() {
   const indent = line => `\t${line}`;
 
+  const help = `--help`;
+  const dir = `--dir ${underline('PATH')}`;
+  const yes = `--yes`;
+  const firstRelease = `--first-release`;
+  const releaseCount = `--release-count ${underline('COUNT')}`;
+  const dryRun = `--dry-run`;
+  const all = [help, dir, yes, firstRelease, releaseCount, dryRun]
+    .map(x => `[${x}]`)
+    .join(' ');
+
   const messages = [
     bold('NAME'),
     indent('shipjs prepare - Prepare a release.'),
     '',
     bold('USAGE'),
-    indent(`shipjs prepare [--help] [--dir <${underline('PATH')}>] [--yes]`),
+    indent(`shipjs prepare ${all}`),
     '',
     bold('OPTIONS'),
-    indent('-h, --help'),
+    indent(`-h, ${help}`),
     indent('  Print this help'),
     '',
-    indent(`-d, --dir ${underline('PATH')}`),
+    indent(`-d, ${dir}`),
     indent(
       `  Specify the ${underline(
         'PATH'
       )} of the repository (default: the current directory).`
     ),
     '',
-    indent('-y, --yes'),
+    indent(`-y, ${yes}`),
     indent('  Skip all the interactive prompts and use the default values.'),
     '',
-    indent('-f, --first-release'),
+    indent(`-f, ${firstRelease}`),
     indent('  Generate the CHANGELOG for the first time'),
     '',
-    indent(`-r, --release-count ${underline('COUNT')}`),
+    indent(`-r, ${releaseCount}`),
     indent('  How many releases to be generated from the latest'),
+    '',
+    indent(`-D, ${dryRun}`),
+    indent('  Displays the steps without actually doing them.'),
     '',
   ];
   print(messages.join('\n'));
