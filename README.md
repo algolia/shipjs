@@ -8,7 +8,9 @@
   </a>
 </p>
 
-Ship.js helps you with a better release process.
+<p align="center">
+  Ship.js helps you with a better release process.
+</p>
 
 ## Why 🤷🏻‍
 
