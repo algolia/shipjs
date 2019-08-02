@@ -12,6 +12,9 @@ module.exports = {
     exec(
       `npx json -I -f packages/shipjs-cli/package.json -e 'this.dependencies["shipjs-lib"] = "${version}"'`
     );
+    exec(
+      `echo "export default '${version}';" > packages/shipjs-cli/src/version.js`
+    );
   },
   publishCommand: () =>
     `(cd packages/shipjs-lib && npm publish) && (cd packages/shipjs-cli && npm publish)`
