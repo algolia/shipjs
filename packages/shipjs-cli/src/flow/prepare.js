@@ -227,6 +227,9 @@ function installDependencies({ config, dir, dryRun }) {
 }
 
 function updateChangelog({ config, firstRelease, releaseCount, dir, dryRun }) {
+  if (config.updateChangelog !== true) {
+    return;
+  }
   printStep('Updating the changelog');
   const { conventionalChangelogArgs } = config;
   const args = [
