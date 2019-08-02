@@ -39,14 +39,13 @@ function printHelp() {
 }
 
 function validate({ config, dir }) {
-  const { baseBranches, mergeStrategy, shouldRelease } = config;
+  const { mergeStrategy, shouldRelease } = config;
   const commitMessage = getLatestCommitMessage(dir);
   const currentVersion = getCurrentVersion(dir);
   const currentBranch = getCurrentBranch(dir);
   const validationResult = shouldRelease({
     commitMessage,
     currentVersion,
-    baseBranches,
     currentBranch,
     mergeStrategy,
   });

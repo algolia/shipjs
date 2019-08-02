@@ -1,6 +1,5 @@
 export default {
   remote: 'origin',
-  baseBranches: ['master'],
   packageJsons: ['package.json'],
   updateChangelog: true,
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
@@ -41,7 +40,6 @@ export default {
   shouldRelease: ({
     commitMessage,
     currentVersion,
-    baseBranches,
     currentBranch,
     mergeStrategy,
   }) => {
