@@ -10,8 +10,8 @@
     "tw1": "yarn workspace shipjs-lib test:watch",
     "tw2": "yarn workspace shipjs test:watch",
     "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh",
-    "release:prepare": "npx shipjs prepare",
-    "release": "npx shipjs release"
+    "shipjs:prepare": "npx shipjs prepare",
+    "shipjs:release": "npx shipjs release"
   },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
