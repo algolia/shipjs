@@ -51,6 +51,8 @@ OPTIONS
 
 At the root of your project, you can create `ship.config.js` file to customize the process.
 
+All the configs are optional. It's okay not to configure anything at all as long as it meets your needs.
+
 ### `slackIncomingHook`
 
 ```js
