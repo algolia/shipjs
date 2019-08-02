@@ -1,4 +1,4 @@
-# 🛳 Ship.js
+<h1 align="center">🛳 Ship.js</h1>
 
 <p align="center">
   <img alt="npm" src="https://img.shields.io/npm/v/shipjs">
