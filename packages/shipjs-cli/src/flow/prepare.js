@@ -90,8 +90,14 @@ function printValidationError(result, { currentVersion, baseBranches }) {
   });
 }
 
+function getBaseBranches({ mergeStrategy }) {
+  const { toSameBranch, toReleaseBranch } = mergeStrategy;
+  return [...toSameBranch, ...Object.keys(toReleaseBranch)];
+}
+
 function validate({ config, dir }) {
-  const { baseBranches } = config;
+  const { mergeStrategy } = config;
+  const baseBranches = getBaseBranches({ mergeStrategy });
   const result = validateBeforePrepare({
     dir,
     baseBranches,

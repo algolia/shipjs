@@ -2,9 +2,7 @@ import loadConfig, { loadWithUserConfig } from '../loadConfig';
 import defaultConfig from '../defaultConfig';
 import path from 'path';
 
-const baseConfig = expect.objectContaining({
-  baseBranches: expect.any(Array),
-});
+const baseConfig = expect.objectContaining({});
 
 const d = dirName => path.resolve(__dirname, dirName);
 
@@ -28,7 +26,7 @@ describe('loadWithUserConfig', () => {
     const config = loadWithUserConfig({
       versionUpdated() {},
     });
-    ['baseBranches', 'conventionalChangelogArgs'].forEach(key => {
+    ['conventionalChangelogArgs'].forEach(key => {
       expect(config[key]).toBe(defaultConfig[key]);
     });
   });
