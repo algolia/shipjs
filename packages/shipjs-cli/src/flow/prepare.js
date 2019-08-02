@@ -141,6 +141,11 @@ function pull({ dir, dryRun }) {
   run('git pull', dir, dryRun);
 }
 
+function push({ dir, dryRun }) {
+  printStep('Push to remote');
+  run('git push', dir, dryRun);
+}
+
 function getNextVersion({ dir }) {
   printStep('Calculating the next version');
   const nextVersion = orgGetNextVersion(dir);
@@ -362,6 +367,7 @@ async function prepare({
   const { currentVersion, baseBranch } = validate({ config, dir });
   validateMergeStrategy({ config });
   pull({ dir, dryRun });
+  push({ dir, dryRun });
   let { nextVersion } = getNextVersion({ dir });
   nextVersion = await confirmNextVersion({
     yes,
