@@ -4,18 +4,18 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "ship": "./bin/ship"
+    "shipjs": "./bin/shipjs"
   },
   "scripts": {
-    "test:run:prepare": "ship prepare",
-    "test:run:release": "ship release",
+    "test:run:prepare": "shipjs prepare",
+    "test:run:release": "shipjs release",
     "test": "jest",
     "test:watch": "yarn test --watch",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix"
   },
   "files": [
-    "bin/ship",
+    "bin/shipjs",
     "src",
     "index.js"
   ],
