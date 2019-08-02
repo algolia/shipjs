@@ -2,6 +2,7 @@ export default {
   remote: 'origin',
   baseBranches: ['master'],
   packageJsons: ['package.json'],
+  updateChangelog: true,
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
   installCommand: ({ isYarn }) => (isYarn ? 'yarn install' : 'npm install'),
   versionUpdated: ({ version, exec }) => {},
