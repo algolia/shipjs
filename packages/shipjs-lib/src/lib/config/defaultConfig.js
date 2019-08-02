@@ -66,10 +66,7 @@ export default {
     ].join(', ')}]`;
   },
   buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),
-  publishCommand: ({ isYarn }) =>
-    isYarn
-      ? 'yarn publish --no-git-tag-version --non-interactive'
-      : 'npm publish',
+  publishCommand: ({ isYarn, defaultCommand }) => defaultCommand,
   getTagName: ({ currentVersion }) => `v${currentVersion}`,
   testCommandBeforeRelease: ({ isYarn }) =>
     isYarn ? 'yarn test' : 'npm run test',
