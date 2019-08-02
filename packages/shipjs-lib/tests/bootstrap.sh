@@ -40,8 +40,8 @@ git add abc
 git commit -m "fix(abc): fix a bug"
 
 yarn add shipjs -D
-npx json -I -f package.json -e 'this.scripts["release:prepare"] = "ship prepare"'
-npx json -I -f package.json -e 'this.scripts["release"] = "ship release"'
+npx json -I -f package.json -e 'this.scripts["release:prepare"] = "shipjs prepare"'
+npx json -I -f package.json -e 'this.scripts["release"] = "shipjs release"'
 git add .
 git commit -m "chore: add shipjs"
 

@@ -18,10 +18,10 @@ function printHelp() {
 
   const messages = [
     bold('NAME'),
-    indent('ship release - Release it.'),
+    indent('shipjs release - Release it.'),
     '',
     bold('USAGE'),
-    indent(`ship prepare [--help] [--dir <${underline('PATH')}>]`),
+    indent(`shipjs prepare [--help] [--dir <${underline('PATH')}>]`),
     '',
     bold('OPTIONS'),
     indent('-h, --help'),

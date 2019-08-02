@@ -28,10 +28,10 @@ function printHelp() {
 
   const messages = [
     bold('NAME'),
-    indent('ship prepare - Prepare a release.'),
+    indent('shipjs prepare - Prepare a release.'),
     '',
     bold('USAGE'),
-    indent(`ship prepare [--help] [--dir <${underline('PATH')}>] [--yes]`),
+    indent(`shipjs prepare [--help] [--dir <${underline('PATH')}>] [--yes]`),
     '',
     bold('OPTIONS'),
     indent('-h, --help'),
