@@ -1,6 +1,6 @@
 {
   "name": "shipjs",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -29,7 +29,7 @@
     "conventional-changelog-cli": "2.0.23",
     "esm": "3.2.25",
     "inquirer": "6.5.0",
-    "shipjs-lib": "0.0.8",
+    "shipjs-lib": "0.1.0",
     "temp-write": "4.0.0"
   },
   "devDependencies": {
