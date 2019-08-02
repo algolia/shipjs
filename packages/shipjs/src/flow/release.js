@@ -83,7 +83,10 @@ function runBuild({ isYarn, config, dir, dryRun }) {
 function runPublish({ isYarn, config, dir, dryRun }) {
   printStep('Publishing');
   const { publishCommand } = config;
-  run(publishCommand({ isYarn }), dir, dryRun);
+  const defaultCommand = isYarn
+    ? 'yarn publish --no-git-tag-version --non-interactive'
+    : 'npm publish';
+  run(publishCommand({ isYarn, defaultCommand }), dir, dryRun);
 }
 
 function createGitTag({ config, dir, dryRun }) {

@@ -16,6 +16,6 @@ module.exports = {
       `echo "export default '${version}';" > packages/shipjs/src/version.js`
     );
   },
-  publishCommand: () =>
-    `(cd packages/shipjs-lib && npm publish) && (cd packages/shipjs && npm publish)`
+  publishCommand: ({ defaultCommand }) =>
+    `(cd packages/shipjs-lib && ${defaultCommand}) && (cd packages/shipjs && ${defaultCommand})`
 };
