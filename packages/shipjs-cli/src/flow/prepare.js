@@ -106,7 +106,7 @@ function validate({ config, dir }) {
   const baseBranch = getCurrentBranch(dir);
   if (result !== true) {
     printValidationError(result, { currentVersion, baseBranches });
-    // exitProcess(1);
+    exitProcess(1);
   }
   return { currentVersion, baseBranch };
 }
