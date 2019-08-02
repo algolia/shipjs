@@ -73,4 +73,66 @@ export default {
   getTagName: ({ currentVersion }) => `v${currentVersion}`,
   testCommandBeforeRelease: ({ isYarn }) =>
     isYarn ? 'yarn test' : 'npm run test',
+  appName: undefined,
+  slackIncomingHook: undefined,
+  slack: {
+    default: {
+      username: 'Ship.js',
+    },
+    releaseStart: ({
+      appName,
+      version,
+      latestCommitHash,
+      latestCommitUrl,
+    }) => ({
+      pretext: `:rocket: Starting to release *${appName}@${version}*`,
+      fields: [
+        {
+          title: 'Branch',
+          value: 'master',
+          short: true,
+        },
+        {
+          title: 'Commit',
+          value: `*<${latestCommitUrl}|${latestCommitHash}>*`,
+          short: true,
+        },
+        {
+          title: 'Version',
+          value: version,
+          short: true,
+        },
+      ],
+    }),
+    releaseSuccess: ({
+      appName,
+      version,
+      latestCommitHash,
+      latestCommitUrl,
+      repoURL,
+    }) => ({
+      pretext: `:tada: Successfully released *${appName}@${version}*`,
+      fields: [
+        {
+          title: 'Branch',
+          value: 'master',
+          short: true,
+        },
+        {
+          title: 'Commit',
+          value: `*<${latestCommitUrl}|${latestCommitHash}>*`,
+          short: true,
+        },
+        {
+          title: 'Version',
+          value: version,
+          short: true,
+        },
+        {
+          title: 'CHANGELOG',
+          value: `${repoURL}/blob/master/CHANGELOG.md`,
+        },
+      ],
+    }),
+  },
 };

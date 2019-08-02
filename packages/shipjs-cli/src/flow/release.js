@@ -3,6 +3,10 @@ import {
   getCurrentVersion,
   getCurrentBranch,
   getLatestCommitMessage,
+  getLatestCommitHash,
+  getCommitUrl,
+  getAppName,
+  getRepoURL,
 } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 import { warning, error, info, bold, underline } from '../color';
 import print from '../util/print';
@@ -12,6 +16,7 @@ import run from '../util/run';
 import detectYarn from '../util/detectYarn';
 import getBranchNameToMergeBack from '../helper/getBranchNameToMergeBack';
 import printDryRunBanner from '../util/printDryRunBanner';
+import { notifyReleaseStart, notifyReleaseSuccess } from '../util/slack';
 
 function printHelp() {
   const indent = line => `\t${line}`;
@@ -115,12 +120,32 @@ function release({ help = false, dir = '.', dryRun = false }) {
   }
   const config = loadConfig(dir);
   validate({ config, dir });
+  const appName = getAppName(dir);
+  const version = getCurrentVersion(dir);
+  const latestCommitHash = getLatestCommitHash(dir);
+  const latestCommitUrl = getCommitUrl(latestCommitHash, dir);
+  const repoURL = getRepoURL(dir);
+  notifyReleaseStart({
+    config,
+    appName,
+    version,
+    latestCommitHash,
+    latestCommitUrl,
+  });
   const isYarn = detectYarn(dir);
   runTest({ isYarn, config, dir, dryRun });
   runBuild({ isYarn, config, dir, dryRun });
   runPublish({ isYarn, config, dir, dryRun });
   const tagName = createGitTag({ config, dir, dryRun });
   gitPush({ tagName, config, dir, dryRun });
+  notifyReleaseSuccess({
+    config,
+    appName,
+    version,
+    latestCommitHash,
+    latestCommitUrl,
+    repoURL,
+  });
   print(info('All Done.'));
 }
 

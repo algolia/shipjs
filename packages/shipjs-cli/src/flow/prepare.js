@@ -321,7 +321,7 @@ function createPullRequest({
     destinationBranch,
     dryRun,
   });
-  const repoURL = getRepoURL({ dir });
+  const repoURL = getRepoURL(dir);
   const message = formatPullRequestMessage({
     repoURL,
     baseBranch,

@@ -22,6 +22,7 @@
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
   "dependencies": {
+    "@slack/webhook": "^5.0.1",
     "arg": "4.1.1",
     "chalk": "2.4.2",
     "change-case": "3.1.0",

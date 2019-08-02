@@ -15,6 +15,8 @@ export {
   default as getLatestCommitMessage,
 } from './lib/git/getLatestCommitMessage';
 export { default as getRepoURL } from './lib/git/getRepoURL';
+export { default as getLatestCommitHash } from './lib/git/getLatestCommitHash';
+export { default as getCommitUrl } from './lib/git/getCommitUrl';
 export { default as isWorkingTreeClean } from './lib/git/isWorkingTreeClean';
 
 /* shell */
@@ -23,3 +25,6 @@ export { default as silentExec } from './lib/shell/silentExec';
 
 /* config */
 export { default as loadConfig } from './lib/config/loadConfig';
+
+/* etc */
+export { default as getAppName } from './lib/util/getAppName';
