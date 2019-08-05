@@ -16,6 +16,9 @@ module.exports = {
       `echo "export default '${version}';" > packages/shipjs/src/version.js`
     );
   },
+  beforeCommitChanges: ({ exec }) => {
+    exec(`npx markdown-toc -i --bullets="-" GUIDE.md`);
+  },
   publishCommand: ({ defaultCommand }) =>
     `(cd packages/shipjs-lib && ${defaultCommand}) && (cd packages/shipjs && ${defaultCommand})`
 };

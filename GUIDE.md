@@ -1,53 +1,38 @@
 # Guide
 
-## Commands
+<!-- toc -->
 
-### `shipjs prepare`
+- [Useful Configurations](#useful-configurations)
+  - [`slackIncomingHook`](#slackincominghook)
+  - [`mergeStrategy`](#mergestrategy)
+    - [`toSameBranch` strategy](#tosamebranch-strategy)
+    - [`toReleaseBranch` strategy](#toreleasebranch-strategy)
+- [All Configurations](#all-configurations)
+- [Commands](#commands)
+  - [`shipjs prepare`](#shipjs-prepare)
+  - [`shipjs release`](#shipjs-release)
 
-```
-$ shipjs prepare --help
-NAME
-        shipjs prepare - Prepare a release.
+<!-- tocstop -->
 
-USAGE
-        shipjs prepare [--help] [--dir <PATH>] [--yes]
+## Integrate with CI
 
-OPTIONS
-        -h, --help
-          Print this help
-
-        -d, --dir PATH
-          Specify the PATH of the repository (default: the current directory).
-
-        -y, --yes
-          Skip all the interactive prompts and use the default values.
-
-        -f, --first-release
-          Generate the CHANGELOG for the first time
-
-        -r, --release-count COUNT
-          How many releases to be generated from the latest
-```
-
-### `shipjs release`
-
-```
-$ shipjs release --help
-NAME
-        shipjs release - Release it.
-
-USAGE
-        shipjs prepare [--help] [--dir <PATH>]
-
-OPTIONS
-        -h, --help
-          Print this help
-
-        -d, --dir PATH
-          Specify the PATH of the repository (default: the current directory).
+```yml
+version: 2
+jobs:
+  build:
+    docker:
+      - image: "circleci/node:latest"
+    steps:
+      - checkout
+      - run:
+          name: install
+          command: yarn install
+      - run:
+          name: release
+          command: yarn shipjs:release
 ```
 
-## Recommended Configurations
+## Useful Configurations
 
 At the root of your project, you can create `ship.config.js` file to customize the process.
 
@@ -130,4 +115,57 @@ You see the slight difference between two strategies?
 
 ## All Configurations
 
-(coming soon)
+[See here for all configurations](./CONFIG.md)
+
+## Commands
+
+### `shipjs prepare`
+
+```
+$ shipjs prepare --help
+NAME
+        shipjs prepare - Prepare a release.
+
+USAGE
+        shipjs prepare [--help] [--dir PATH] [--yes] [--first-release] [--release-count COUNT] [--dry-run]
+
+OPTIONS
+        -h, --help
+          Print this help
+
+        -d, --dir PATH
+          Specify the PATH of the repository (default: the current directory).
+
+        -y, --yes
+          Skip all the interactive prompts and use the default values.
+
+        -f, --first-release
+          Generate the CHANGELOG for the first time
+
+        -r, --release-count COUNT
+          How many releases to be generated from the latest
+
+        -D, --dry-run
+          Displays the steps without actually doing them.
+```
+
+### `shipjs release`
+
+```
+$ shipjs release --help
+NAME
+        shipjs release - Release it.
+
+USAGE
+        shipjs prepare [--help] [--dir PATH] [--dry-run]
+
+OPTIONS
+        -h, --help
+          Print this help
+
+        -d, --dir PATH
+          Specify the PATH of the repository (default: the current directory).
+
+        -D, --dry-run
+          Displays the steps without actually doing them.
+```
