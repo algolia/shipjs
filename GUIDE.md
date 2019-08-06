@@ -14,7 +14,9 @@
 
 <!-- tocstop -->
 
-## Integrate with CI
+## Integrate with Circle CI
+
+A minimal `.circleci/config.yml` looks like the following:
 
 ```yml
 version: 2
@@ -25,12 +27,36 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install
+          name: Install
           command: yarn install
       - run:
-          name: release
+          name: Try to Release
           command: yarn shipjs:release
 ```
+
+Everytime Circle CI runs the flow above, `yarn shipjs:release` will be executed, and it will check if it's a condition to release. It will by default check if the latest commit message is in convention and the current branch is the right one for release.
+
+### NPM Token
+
+For CircleCI to release the package to NPM, we need to setup an NPM token.
+
+1. Login at [https://www.npmjs.com/](https://www.npmjs.com/), click your profile icon and go to "Tokens".
+2. Click "Create New Token" and make sure the access level is "Read and Publish".
+3. Copy the token and go to the "Project Settings" at your CircleCI dashboard.
+4. Find "Environment Variables" under "BUILD SETTINGS".
+5. Click "Add Variable".
+   - "Name" is `NPM_AUTH_TOKEN`
+   - For "Value", paste the token that was generated at NPM.
+
+### Github Token
+
+After releasing it, Ship.js will create a git tag and push it to remote. In order to do that, Ship.js requires a github token with such access.
+
+1. Go to the "Project Settings" at your CircleCI dashboard.
+2. Go to "Checkout SSH Keys" under "PERMISSIONS".
+3. Find "Add user key" section, and click the button to create the user key.
+
+Integration with other CIs should be similar to this.
 
 ## Useful Configurations
 
