@@ -2,6 +2,7 @@
 
 <!-- toc -->
 
+- [Installation](#installation)
 - [Integrate with Circle CI](#integrate-with-circle-ci)
   - [NPM Token](#npm-token)
   - [GitHub Token](#github-token)
@@ -10,6 +11,7 @@
   - [`mergeStrategy`](#mergestrategy)
     - [`toSameBranch` strategy](#tosamebranch-strategy)
     - [`toReleaseBranch` strategy](#toreleasebranch-strategy)
+  - [Release projects somewhere other than NPM](#release-projects-somewhere-other-than-npm)
 - [All Configurations](#all-configurations)
 - [Commands](#commands)
   - [`shipjs prepare`](#shipjs-prepare)
