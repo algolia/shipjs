@@ -2,6 +2,9 @@
 
 <!-- toc -->
 
+- [Integrate with Circle CI](#integrate-with-circle-ci)
+  - [NPM Token](#npm-token)
+  - [GitHub Token](#github-token)
 - [Useful Configurations](#useful-configurations)
   - [`slackIncomingHook`](#slackincominghook)
   - [`mergeStrategy`](#mergestrategy)
@@ -34,27 +37,25 @@ jobs:
           command: yarn shipjs:release
 ```
 
-Everytime Circle CI runs the flow above, `yarn shipjs:release` will be executed, and it will check if it's a condition to release. It will by default check if the latest commit message is in convention and the current branch is the right one for release.
+Every time Circle CI runs the flow above, `yarn shipjs:release` will be executed, and it will check if it's a condition to release. It will, by default, check the latest commit message and the current branch.
 
 ### NPM Token
 
-For CircleCI to release the package to NPM, we need to setup an NPM token.
+Setup an NPM token to allow Ship.js(at CircleCI) to release the package to NPM.
 
 1. Login at [https://www.npmjs.com/](https://www.npmjs.com/), click your profile icon and go to "Tokens".
-2. Click "Create New Token" and make sure the access level is "Read and Publish".
-3. Copy the token and go to the "Project Settings" at your CircleCI dashboard.
-4. Find "Environment Variables" under "BUILD SETTINGS".
-5. Click "Add Variable".
-   - "Name" is `NPM_AUTH_TOKEN`
-   - For "Value", paste the token that was generated at NPM.
+2. Click "Create New Token", make sure the access level is "Read and Publish" and copy the token.
+3. At CircleCI, go to "Project Settings" → "BUILD SETTINGS" → "Environment Variables".
+4. Click "Add Variable".
+   - Name: `NPM_AUTH_TOKEN`
+   - Value: Paste the token from clipboard.
 
-### Github Token
+### GitHub Token
 
-After releasing it, Ship.js will create a git tag and push it to remote. In order to do that, Ship.js requires a github token with such access.
+Setup a GitHub token to allow Ship.js(at CircleCI) to create a git tag and push it to remote after release.
 
-1. Go to the "Project Settings" at your CircleCI dashboard.
-2. Go to "Checkout SSH Keys" under "PERMISSIONS".
-3. Find "Add user key" section, and click the button to create the user key.
+1. At CircleCI, go to the "Project Settings" → "PERMISSIONS" → "Checkout SSH Keys".
+2. Find "Add user key" section, and click the button to create the user key.
 
 Integration with other CIs should be similar to this.
 
