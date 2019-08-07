@@ -32,7 +32,7 @@ defaults: &defaults
 
 version: 2
 jobs:
-  test_unit:
+  test:
     <<: *defaults
     steps:
       - checkout
@@ -46,9 +46,22 @@ jobs:
       - run:
           name: Unit Tests
           command: yarn test
-
+  release_if_needed:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: *install_yarn_version
+      - restore_cache: *restore_yarn_cache
+      - run: *run_yarn_install
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Try to Release
+          command: yarn shipjs:release
 workflows:
   version: 2
   ci:
     jobs:
-      - test_unit
+      - test
+      - release_if_needed:
+          requires:
+            - test
