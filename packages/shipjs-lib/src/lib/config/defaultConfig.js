@@ -29,6 +29,7 @@ export default {
     ];
     return lines.join('\n');
   },
+  pullRequestReviewer: undefined,
   mergeStrategy: {
     toSameBranch: ['master'],
     // toReleaseBranch: {

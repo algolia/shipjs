@@ -326,7 +326,12 @@ function createPullRequest({
   dryRun,
 }) {
   printStep('Creating a pull-request');
-  const { mergeStrategy, formatPullRequestMessage, remote } = config;
+  const {
+    mergeStrategy,
+    formatPullRequestMessage,
+    pullRequestReviewer,
+    remote,
+  } = config;
   const destinationBranch = getDestinationBranchName({
     baseBranch,
     mergeStrategy,
@@ -351,11 +356,17 @@ function createPullRequest({
   });
   const filePath = tempWrite.sync(message);
   run(`git remote prune ${remote}`, dir, dryRun);
-  run(
-    `hub pull-request --base ${destinationBranch} --browse --push --file ${filePath}`,
-    dir,
-    dryRun
-  );
+  const createPullRequestCommand = [
+    'hub pull-request',
+    `--base ${destinationBranch}`,
+    '--browse',
+    '--push',
+    pullRequestReviewer ? `--reviewer ${pullRequestReviewer}` : undefined,
+    `--file ${filePath}`,
+  ]
+    .filter(Boolean)
+    .join(' ');
+  run(createPullRequestCommand, dir, dryRun);
   run(`cat ${filePath}`, dir);
   print('');
 }
