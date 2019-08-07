@@ -2,5 +2,10 @@
 
 require = require('esm')(module /*, options*/);
 (async function() {
-  await require('../src/cli').cli(process.argv);
+  try {
+    await require('../src/cli').cli(process.argv);
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
 })();
