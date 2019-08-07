@@ -17,6 +17,23 @@
 
 <!-- tocstop -->
 
+## Installation
+
+```bash
+npm install --save-dev shipjs
+
+or
+
+yarn add -D shipjs
+```
+
+Add the following to the `scripts` section in your `package.json`.
+
+```js
+"shipjs:prepare": "shipjs prepare",
+"shipjs:release": "shipjs release",
+```
+
 ## Integrate with Circle CI
 
 A minimal `.circleci/config.yml` looks like the following:
@@ -139,6 +156,20 @@ When you review and merge the PR, your CI will run `shipjs release` and it will
 5. push to git remote
 
 You see the slight difference between two strategies?
+
+### Release projects somewhere other than NPM
+
+You can use Ship.js to release projects somewhere other than NPM.
+
+For example,
+
+```js
+module.exports = {
+  publishCommand: () => "npx now"
+};
+```
+
+By default, `publishCommand` returns `yarn publish` or `npm publish`. You can override it like the above to release it to wherever you want.
 
 ## All Configurations
 
