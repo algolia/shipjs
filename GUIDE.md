@@ -1,53 +1,65 @@
 # Guide
 
-## Commands
+<!-- toc -->
 
-### `shipjs prepare`
+- [Integrate with Circle CI](#integrate-with-circle-ci)
+  - [NPM Token](#npm-token)
+  - [GitHub Token](#github-token)
+- [Useful Configurations](#useful-configurations)
+  - [`slackIncomingHook`](#slackincominghook)
+  - [`mergeStrategy`](#mergestrategy)
+    - [`toSameBranch` strategy](#tosamebranch-strategy)
+    - [`toReleaseBranch` strategy](#toreleasebranch-strategy)
+- [All Configurations](#all-configurations)
+- [Commands](#commands)
+  - [`shipjs prepare`](#shipjs-prepare)
+  - [`shipjs release`](#shipjs-release)
 
-```
-$ shipjs prepare --help
-NAME
-        shipjs prepare - Prepare a release.
+<!-- tocstop -->
 
-USAGE
-        shipjs prepare [--help] [--dir <PATH>] [--yes]
+## Integrate with Circle CI
 
-OPTIONS
-        -h, --help
-          Print this help
+A minimal `.circleci/config.yml` looks like the following:
 
-        -d, --dir PATH
-          Specify the PATH of the repository (default: the current directory).
-
-        -y, --yes
-          Skip all the interactive prompts and use the default values.
-
-        -f, --first-release
-          Generate the CHANGELOG for the first time
-
-        -r, --release-count COUNT
-          How many releases to be generated from the latest
-```
-
-### `shipjs release`
-
-```
-$ shipjs release --help
-NAME
-        shipjs release - Release it.
-
-USAGE
-        shipjs prepare [--help] [--dir <PATH>]
-
-OPTIONS
-        -h, --help
-          Print this help
-
-        -d, --dir PATH
-          Specify the PATH of the repository (default: the current directory).
+```yml
+version: 2
+jobs:
+  build:
+    docker:
+      - image: "circleci/node:latest"
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: yarn install
+      - run:
+          name: Try to Release
+          command: yarn shipjs:release
 ```
 
-## Recommended Configurations
+Every time Circle CI runs the flow above, `yarn shipjs:release` will be executed, and it will check if it's a condition to release. It will, by default, check the latest commit message and the current branch.
+
+### NPM Token
+
+Setup an NPM token to allow Ship.js(at CircleCI) to release the package to NPM.
+
+1. Login at [https://www.npmjs.com/](https://www.npmjs.com/), click your profile icon and go to "Tokens".
+2. Click "Create New Token", make sure the access level is "Read and Publish" and copy the token.
+3. At CircleCI, go to "Project Settings" → "BUILD SETTINGS" → "Environment Variables".
+4. Click "Add Variable".
+   - Name: `NPM_AUTH_TOKEN`
+   - Value: Paste the token from clipboard.
+
+### GitHub Token
+
+Setup a GitHub token to allow Ship.js(at CircleCI) to create a git tag and push it to remote after release.
+
+1. At CircleCI, go to the "Project Settings" → "PERMISSIONS" → "Checkout SSH Keys".
+2. Find "Add user key" section, and click the button to create the user key.
+
+Integration with other CIs should be similar to this.
+
+## Useful Configurations
 
 At the root of your project, you can create `ship.config.js` file to customize the process.
 
@@ -130,4 +142,57 @@ You see the slight difference between two strategies?
 
 ## All Configurations
 
-(coming soon)
+[See here for all configurations](./CONFIG.md)
+
+## Commands
+
+### `shipjs prepare`
+
+```
+$ shipjs prepare --help
+NAME
+        shipjs prepare - Prepare a release.
+
+USAGE
+        shipjs prepare [--help] [--dir PATH] [--yes] [--first-release] [--release-count COUNT] [--dry-run]
+
+OPTIONS
+        -h, --help
+          Print this help
+
+        -d, --dir PATH
+          Specify the PATH of the repository (default: the current directory).
+
+        -y, --yes
+          Skip all the interactive prompts and use the default values.
+
+        -f, --first-release
+          Generate the CHANGELOG for the first time
+
+        -r, --release-count COUNT
+          How many releases to be generated from the latest
+
+        -D, --dry-run
+          Displays the steps without actually doing them.
+```
+
+### `shipjs release`
+
+```
+$ shipjs release --help
+NAME
+        shipjs release - Release it.
+
+USAGE
+        shipjs prepare [--help] [--dir PATH] [--dry-run]
+
+OPTIONS
+        -h, --help
+          Print this help
+
+        -d, --dir PATH
+          Specify the PATH of the repository (default: the current directory).
+
+        -D, --dry-run
+          Displays the steps without actually doing them.
+```
