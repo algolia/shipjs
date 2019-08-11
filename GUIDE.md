@@ -3,6 +3,7 @@
 <!-- toc -->
 
 - [Installation](#installation)
+  - [Dry Mode](#dry-mode)
 - [Integrate with Circle CI](#integrate-with-circle-ci)
   - [NPM Token](#npm-token)
   - [GitHub Token](#github-token)
@@ -12,6 +13,7 @@
     - [`toSameBranch` strategy](#tosamebranch-strategy)
     - [`toReleaseBranch` strategy](#toreleasebranch-strategy)
   - [Release projects somewhere other than NPM](#release-projects-somewhere-other-than-npm)
+  - [Release your monorepo project](#release-your-monorepo-project)
 - [All Configurations](#all-configurations)
 - [Commands](#commands)
   - [`shipjs prepare`](#shipjs-prepare)
@@ -35,6 +37,18 @@ Add the following to the `scripts` section in your `package.json`.
 "shipjs:prepare": "shipjs prepare",
 "shipjs:release": "shipjs release",
 ```
+
+### Dry Mode
+
+If you're not sure, you can always run it in dry mode.
+
+```bash
+$ shipjs prepare --dry-run
+or
+$ shipjs release --dry-run
+```
+
+It will show you which steps are going to be executed without actually executing them.
 
 ## Integrate with Circle CI
 
@@ -172,6 +186,30 @@ module.exports = {
 ```
 
 By default, `publishCommand` returns `yarn publish` or `npm publish`. You can override it like the above to release it to wherever you want.
+
+### Release your monorepo project
+
+Ship.js currently supports monorepo project unless you want independent versioning in your packages.
+
+Let's say you have the following package.json files:
+
+- package.json
+- packages/first-package/package.json
+- packages/second-package/package.json
+- example/package.json
+
+```js
+module.exports = {
+  packageJsons: [
+    "package.json",
+    "packages/first-package/package.json",
+    "packages/second-package/package.json",
+    "example/package.json"
+  ]
+};
+```
+
+With the config above, Ship.js will read the current version from the first entry from the array, which is `package.json`. After figuring out the next version, the next version will be updated to the all package.json files.
 
 ## All Configurations
 
