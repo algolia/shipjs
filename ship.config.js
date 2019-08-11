@@ -20,5 +20,6 @@ module.exports = {
     exec(`npx markdown-toc -i --bullets="-" GUIDE.md`);
   },
   publishCommand: ({ defaultCommand }) =>
-    `(cd packages/shipjs-lib && ${defaultCommand}) && (cd packages/shipjs && ${defaultCommand})`
+    `(cd packages/shipjs-lib && ${defaultCommand}) && (cd packages/shipjs && ${defaultCommand})`,
+  pullRequestReviewer: "eunjae-lee"
 };
