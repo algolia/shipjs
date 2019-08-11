@@ -32,7 +32,8 @@ function printHelp() {
   const firstRelease = `--first-release`;
   const releaseCount = `--release-count ${underline('COUNT')}`;
   const dryRun = `--dry-run`;
-  const all = [help, dir, yes, firstRelease, releaseCount, dryRun]
+  const noBrowse = `--no-browse`;
+  const all = [help, dir, yes, firstRelease, releaseCount, dryRun, noBrowse]
     .map(x => `[${x}]`)
     .join(' ');
 
@@ -65,6 +66,9 @@ function printHelp() {
     '',
     indent(`-D, ${dryRun}`),
     indent('  Displays the steps without actually doing them.'),
+    '',
+    indent(`-N, ${noBrowse}`),
+    indent('  Do not open a browser after creating a pull-request.'),
     '',
   ];
   print(messages.join('\n'));
@@ -428,6 +432,7 @@ const arg = {
   '--first-release': Boolean,
   '--release-count': Number,
   '--dry-run': Boolean,
+  '--no-browse': Boolean,
 
   // Aliases
   '-d': '--dir',
@@ -436,6 +441,7 @@ const arg = {
   '-f': '--first-release',
   '-r': '--release-count',
   '-D': '--dry-run',
+  '-N': '--no-browse',
 };
 
 export default {
