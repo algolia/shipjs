@@ -236,7 +236,11 @@ workflows:
   prepare_release_every_tuesday:
     triggers:
       - schedule:
-        cron: "0 9 * * 2"
+          cron: "0 9 * * 2"
+          filters:
+            branches:
+              only:
+                - master
     jobs:
       - prepare_release
 ```
