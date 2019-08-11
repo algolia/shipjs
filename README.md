@@ -14,11 +14,22 @@
 
 ## Why 🤷🏻‍
 
-Coding is fun, debugging and testing is okay, but releasing is NOT.
+Coding is fun, debugging and testing are okay, but releasing is NOT.
 
-There are things to do before release and after release.
+When releasing, you normally do the following:
 
-And when we do it manually, it's very easy to forget something.
+- Update the version in `package.json`
+- `yarn build && yarn publish`
+- Update the changelog
+- Create a git tag
+
+### What can go wrong?
+
+- Different environment across members.
+- Potential mistake by figuring out the next version manually.
+- The whole process happening on your local machine.
+  - You're releasing alone.
+  - It occupies your time.
 
 ## How❓
 
