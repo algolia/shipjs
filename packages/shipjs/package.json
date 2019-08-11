@@ -30,7 +30,7 @@
     "change-case": "3.1.0",
     "conventional-changelog-cli": "2.0.23",
     "esm": "3.2.25",
-    "inquirer": "6.5.0",
+    "inquirer": "6.5.1",
     "shipjs-lib": "0.2.0",
     "temp-write": "4.0.0"
   },
