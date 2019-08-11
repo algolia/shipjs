@@ -46,6 +46,17 @@ jobs:
       - run:
           name: Unit Tests
           command: yarn test
+  prepare_release:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: *install_yarn_version
+      - restore_cache: *restore_yarn_cache
+      - run: *run_yarn_install
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Prepare release
+          command: yarn shipjs:prepare --no-browse
   release_if_needed:
     <<: *defaults
     steps:
@@ -65,3 +76,9 @@ workflows:
       - release_if_needed:
           requires:
             - test
+  prepare_release_every_tuesday:
+    triggers:
+      - schedule:
+        cron: "0 9 * * 2"
+    jobs:
+      - prepare_release

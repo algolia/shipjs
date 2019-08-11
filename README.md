@@ -37,6 +37,8 @@ In Ship.js, the release process consists of three parts.
 
 ### 1. Preparation
 
+![Preview](preview.gif)
+
 - Figure out next version.
 - Update the version and changelog.
 - Create a pull-request.
