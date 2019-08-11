@@ -211,6 +211,42 @@ module.exports = {
 
 With the config above, Ship.js will read the current version from the first entry from the array, which is `package.json`. After figuring out the next version, the next version will be updated to the all package.json files.
 
+### Release your project periodically
+
+By running `yarn shipjs:prepare`, you will get a pull-request for next release. What if you automate even this?
+
+You can configure your CI to run `yarn shipjs:prepare` periodically.
+
+```yml
+version: 2
+jobs:
+  prepare_release:
+    docker:
+      - image: "circleci/node:latest"
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: yarn install
+      - run:
+          name: Prepare release
+          command: yarn shipjs:prepare --no-browse
+workflows:
+  version: 2
+  prepare_release_every_tuesday:
+    triggers:
+      - schedule:
+          cron: "0 9 * * 2"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - prepare_release
+```
+
+This way, the command will run at 9am every Tuesday.
+
 ## All Configurations
 
 [See here for all configurations](./CONFIG.md)
