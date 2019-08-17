@@ -63,7 +63,7 @@ function validate({ config, dir }) {
   });
   if (validationResult !== true) {
     print(warning('Skipping a release due to the following reason:'));
-    print(error(`  > ${validationResult}`));
+    print(info(`  > ${validationResult}`));
     exitProcess(0);
   }
 }
