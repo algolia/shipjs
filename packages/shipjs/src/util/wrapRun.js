@@ -1,14 +1,8 @@
-import { exec } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
-import { info, error } from '../color';
-
-// eslint-disable-next-line no-console
-const print = console.log;
-
-export default function run(command, dir, dryRun = false) {
+export default ({ exec, print, error }) => (command, dir, dryRun = false) => {
   if (!dir) {
     throw new Error('`dir` is missing');
   }
-  print('$', info(command));
+  print(`$ ${command}`);
   if (dryRun) {
     return;
   }
@@ -18,4 +12,4 @@ export default function run(command, dir, dryRun = false) {
     print(`  > ${command}`);
     process.exit(1); // eslint-disable-line no-process-exit
   }
-}
+};
