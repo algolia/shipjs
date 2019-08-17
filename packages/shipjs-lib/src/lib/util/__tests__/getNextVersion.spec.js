@@ -14,7 +14,11 @@ describe('getNextVersionFromCommitMessages', () => {
       test: abc
       chore: abc`;
     const bodies = '';
-    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
+    const { version: actual } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
     expect(actual).toBe('1.2.4');
   });
 
@@ -28,7 +32,11 @@ describe('getNextVersionFromCommitMessages', () => {
       test(abcdef): abc
       chore(abcdefg): abc`;
     const bodies = '';
-    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
+    const { version: actual } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
     expect(actual).toBe('1.2.4');
   });
 
@@ -43,7 +51,11 @@ describe('getNextVersionFromCommitMessages', () => {
       chore(abcdefg): abc
       feat(abcdefgh): abc`;
     const bodies = '';
-    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
+    const { version: actual } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
     expect(actual).toBe('1.3.0');
   });
 
@@ -58,7 +70,11 @@ describe('getNextVersionFromCommitMessages', () => {
       chore: abc
       feat: abc`;
     const bodies = '';
-    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
+    const { version: actual } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
     expect(actual).toBe('1.3.0');
   });
 
@@ -73,7 +89,11 @@ describe('getNextVersionFromCommitMessages', () => {
       chore: abc
       feat: abc`;
     const bodies = 'BREAKING CHANGE: this breaks the previous behavior.';
-    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
+    const { version: actual } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
     expect(actual).toBe('1.0.0');
   });
 
@@ -81,7 +101,11 @@ describe('getNextVersionFromCommitMessages', () => {
     const version = '0.0.1';
     const titles = '';
     const bodies = '';
-    const actual = getNextVersionFromCommitMessages(version, titles, bodies);
+    const { version: actual } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
     expect(actual).toBe(null);
   });
 
@@ -89,9 +113,12 @@ describe('getNextVersionFromCommitMessages', () => {
     const version = '0.0.1';
     const titles = `hello: abc`;
     const bodies = '';
-    expect(() => {
-      getNextVersionFromCommitMessages(version, titles, bodies);
-    }).toThrow();
+    const { ignoredMessages } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
+    expect(ignoredMessages).toEqual([titles]);
   });
 
   it('increases version with postfixes', () => {
@@ -108,7 +135,11 @@ describe('getNextVersionFromCommitMessages', () => {
         chore: abc
         feat: abc`;
       const bodies = '';
-      const actual = getNextVersionFromCommitMessages(version, titles, bodies);
+      const { version: actual } = getNextVersionFromCommitMessages(
+        version,
+        titles,
+        bodies
+      );
       expect(actual).toBe(`0.0.1-${tag}.124`);
     });
   });
@@ -117,32 +148,31 @@ describe('getNextVersionFromCommitMessages', () => {
 describe('getNextVersion', () => {
   it('gets next version with patch updated', () => {
     silentExec('./tests/bootstrap-examples/patch-version-up.sh');
-    const actual = getNextVersion('sandbox/patch-version-up');
+    const { version: actual } = getNextVersion('sandbox/patch-version-up');
     expect(actual).toBe('0.0.2');
   });
 
   it('gets next version with minor updated', () => {
     silentExec('./tests/bootstrap-examples/minor-version-up.sh');
-    const actual = getNextVersion('sandbox/minor-version-up');
+    const { version: actual } = getNextVersion('sandbox/minor-version-up');
     expect(actual).toBe('0.1.0');
   });
 
   it('gets next version with major updated', () => {
     silentExec('./tests/bootstrap-examples/major-version-up.sh');
-    const actual = getNextVersion('sandbox/major-version-up');
+    const { version: actual } = getNextVersion('sandbox/major-version-up');
     expect(actual).toBe('1.0.0');
   });
 
   it('gets a null with no commit messages', () => {
     silentExec('./tests/bootstrap-examples/empty.sh no-commit-log');
-    const actual = getNextVersion('sandbox/no-commit-log');
+    const { version: actual } = getNextVersion('sandbox/no-commit-log');
     expect(actual).toBe(null);
   });
 
   it('throws when there is a commit message out of convention', () => {
     silentExec('./tests/bootstrap-examples/out-of-convention.sh');
-    expect(() => {
-      getNextVersion('sandbox/out-of-convention');
-    }).toThrow();
+    const { ignoredMessages } = getNextVersion('sandbox/out-of-convention');
+    expect(ignoredMessages).toEqual(['hello: add a']);
   });
 });
