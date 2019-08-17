@@ -255,7 +255,17 @@ workflows:
       - prepare_release
 ```
 
-Now, every Tuesday at 9am, new pull-request will be created. GitHub will send this notification to you(normally via email). All you need is to review the pull-request and merge it. Then the rest will be automatically done.
+`GITHUB_TOKEN` is required for CircleCI to create a pull-request.
+
+1. Go to https://github.com/settings/tokens/new
+2. Check "repo(Full control of private repositories)"
+3. Generate/copy the token
+4. At CircleCI, go to "Project Settings" → "BUILD SETTINGS" → "Environment Variables".
+5. Click "Add Variable".
+   - Name: `GITHUB_TOKEN`
+   - Value: Paste the token from clipboard.
+
+Now, every Tuesday at 9am, new pull-request will be created. All you need to do is review the pull-request and merge it. Then the rest will be automatically done.
 
 ## All Configurations
 
