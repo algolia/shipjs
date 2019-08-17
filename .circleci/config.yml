@@ -63,7 +63,7 @@ jobs:
             brew install hub
       - run:
           name: Prepare release
-          command: yarn shipjs:prepare --no-browse
+          command: yarn shipjs:prepare --yes --no-browse
   release_if_needed:
     <<: *defaults
     steps:

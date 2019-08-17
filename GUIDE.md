@@ -211,9 +211,9 @@ module.exports = {
 
 With the config above, Ship.js will read the current version from the first entry from the array, which is `package.json`. After figuring out the next version, the next version will be updated to the all package.json files.
 
-### Release your project periodically
+### Schedule your release
 
-By running `yarn shipjs:prepare`, you will get a pull-request for next release. What if you automate even this?
+By running `yarn shipjs:prepare`, you will get a pull-request for next release. What if you even automate this?
 
 You can configure your CI to run `yarn shipjs:prepare` periodically.
 
@@ -229,8 +229,15 @@ jobs:
           name: Install
           command: yarn install
       - run:
+          name: Install hub
+          command: |
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+            /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
+            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+            brew install hub
+      - run:
           name: Prepare release
-          command: yarn shipjs:prepare --no-browse
+          command: yarn shipjs:prepare --yes --no-browse
 workflows:
   version: 2
   prepare_release_every_tuesday:
@@ -245,7 +252,7 @@ workflows:
       - prepare_release
 ```
 
-This way, the command will run at 9am every Tuesday.
+Now, every Tuesday at 9am, new pull-request will be created. GitHub will send this notification to you(normally via email). All you need is to review the pull-request and merge it. Then the rest will be automatically done.
 
 ## All Configurations
 
