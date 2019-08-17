@@ -1,126 +1,20 @@
-import {
-  loadConfig,
-  getCurrentVersion,
-  getCurrentBranch,
-  getLatestCommitMessage,
-  getLatestCommitHash,
-  getCommitUrl,
-  getAppName,
-  getRepoURL,
-} from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
-import { warning, info, bold, underline } from '../color';
-import print from '../util/print';
-import printStep from '../util/printStep';
-import exitProcess from '../util/exitProcess';
-import run from '../util/run';
-import detectYarn from '../util/detectYarn';
-import getBranchNameToMergeBack from '../helper/getBranchNameToMergeBack';
-import printDryRunBanner from '../util/printDryRunBanner';
-import { notifyReleaseStart, notifyReleaseSuccess } from '../util/slack';
+import { loadConfig } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 
-function printHelp() {
-  const indent = line => `\t${line}`;
-  const help = `--help`;
-  const dir = `--dir ${underline('PATH')}`;
-  const dryRun = `--dry-run`;
-  const all = [help, dir, dryRun].map(x => `[${x}]`).join(' ');
+import printHelp from '../step/release/printHelp';
+import printDryRunBanner from '../step/printDryRunBanner';
+import validate from '../step/release/validate';
+import gatherRepoInfo from '../step/release/gatherRepoInfo';
+import notifyReleaseStart from '../step/release/notifyReleaseStart';
+import detectYarn from '../step/detectYarn';
+import runTest from '../step/release/runTest';
+import runBuild from '../step/release/runBuild';
+import runPublish from '../step/release/runPublish';
+import createGitTag from '../step/release/createGitTag';
+import gitPush from '../step/release/gitPush';
+import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess';
+import finished from '../step/finished';
 
-  const messages = [
-    bold('NAME'),
-    indent('shipjs release - Release it.'),
-    '',
-    bold('USAGE'),
-    indent(`shipjs prepare ${all}`),
-    '',
-    bold('OPTIONS'),
-    indent(`-h, ${help}`),
-    indent('  Print this help'),
-    '',
-    indent(`-d, ${dir}`),
-    indent(
-      `  Specify the ${underline(
-        'PATH'
-      )} of the repository (default: the current directory).`
-    ),
-    '',
-    indent(`-D, ${dryRun}`),
-    indent('  Displays the steps without actually doing them.'),
-    '',
-  ];
-  print(messages.join('\n'));
-}
-
-function validate({ config, dir }) {
-  const { mergeStrategy, shouldRelease } = config;
-  const commitMessage = getLatestCommitMessage(dir);
-  const currentVersion = getCurrentVersion(dir);
-  const currentBranch = getCurrentBranch(dir);
-  const validationResult = shouldRelease({
-    commitMessage,
-    currentVersion,
-    currentBranch,
-    mergeStrategy,
-  });
-  if (validationResult !== true) {
-    print(warning('Skipping a release due to the following reason:'));
-    print(info(`  > ${validationResult}`));
-    exitProcess(0);
-  }
-}
-
-function runTest({ isYarn, config, dir, dryRun }) {
-  printStep('Running test');
-  const { testCommandBeforeRelease } = config;
-  run(testCommandBeforeRelease({ isYarn }), dir, dryRun);
-}
-
-function runBuild({ isYarn, config, dir, dryRun }) {
-  printStep('Building');
-  const { buildCommand } = config;
-  run(buildCommand({ isYarn }), dir, dryRun);
-}
-
-function runPublish({ isYarn, config, dir, dryRun }) {
-  printStep('Publishing');
-  const { publishCommand } = config;
-  const defaultCommand = isYarn
-    ? 'yarn publish --no-git-tag-version --non-interactive'
-    : 'npm publish';
-  run(publishCommand({ isYarn, defaultCommand }), dir, dryRun);
-}
-
-function createGitTag({ config, dir, dryRun }) {
-  printStep('Creating a git tag');
-  const { getTagName } = config;
-  const currentVersion = getCurrentVersion(dir);
-  const tagName = getTagName({ currentVersion });
-  const command = `git tag ${tagName}`;
-  run(command, dir, dryRun);
-  return tagName;
-}
-
-function gitPush({ tagName, config, dir, dryRun }) {
-  printStep('Pushing to the remote');
-  const currentBranch = getCurrentBranch(dir);
-  const { mergeStrategy, remote } = config;
-  const destinationBranch = getBranchNameToMergeBack({
-    currentBranch,
-    mergeStrategy,
-  });
-  const pushCommand = `git push && git push ${remote} ${tagName}`;
-  if (currentBranch === destinationBranch) {
-    run(pushCommand, dir, dryRun);
-  } else {
-    // currentBranch: 'release/legacy'
-    // destinationBranch: 'legacy'
-    // flow: legacy -> release/legacy -> (here) legacy
-    run(`git checkout ${destinationBranch}`, dir, dryRun);
-    run(`git merge ${currentBranch}`, dir, dryRun);
-    run(pushCommand, dir, dryRun);
-  }
-}
-
-function release({ help = false, dir = '.', dryRun = false }) {
+async function release({ help = false, dir = '.', dryRun = false }) {
   if (help) {
     printHelp();
     return;
@@ -130,25 +24,27 @@ function release({ help = false, dir = '.', dryRun = false }) {
   }
   const config = loadConfig(dir);
   validate({ config, dir });
-  const appName = getAppName(dir);
-  const version = getCurrentVersion(dir);
-  const latestCommitHash = getLatestCommitHash(dir);
-  const latestCommitUrl = getCommitUrl(latestCommitHash, dir);
-  const repoURL = getRepoURL(dir);
-  notifyReleaseStart({
+  const {
+    appName,
+    version,
+    latestCommitHash,
+    latestCommitUrl,
+    repoURL,
+  } = gatherRepoInfo({ dir });
+  await notifyReleaseStart({
     config,
     appName,
     version,
     latestCommitHash,
     latestCommitUrl,
   });
-  const isYarn = detectYarn(dir);
+  const isYarn = detectYarn({ dir });
   runTest({ isYarn, config, dir, dryRun });
   runBuild({ isYarn, config, dir, dryRun });
   runPublish({ isYarn, config, dir, dryRun });
-  const tagName = createGitTag({ config, dir, dryRun });
+  const { tagName } = createGitTag({ config, dir, dryRun });
   gitPush({ tagName, config, dir, dryRun });
-  notifyReleaseSuccess({
+  await notifyReleaseSuccess({
     config,
     appName,
     version,
@@ -156,7 +52,7 @@ function release({ help = false, dir = '.', dryRun = false }) {
     latestCommitUrl,
     repoURL,
   });
-  print(info('All Done.'));
+  finished();
 }
 
 const arg = {
