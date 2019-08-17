@@ -55,6 +55,13 @@ jobs:
       - run: *run_yarn_install
       - save_cache: *save_yarn_cache
       - run:
+          name: Install hub
+          command: |
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+            /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
+            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+            brew install hub
+      - run:
           name: Prepare release
           command: yarn shipjs:prepare --no-browse
   release_if_needed:
