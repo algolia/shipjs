@@ -8,7 +8,7 @@ import {
   getAppName,
   getRepoURL,
 } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
-import { warning, error, info, bold, underline } from '../color';
+import { warning, info, bold, underline } from '../color';
 import print from '../util/print';
 import printStep from '../util/printStep';
 import exitProcess from '../util/exitProcess';
@@ -63,7 +63,7 @@ function validate({ config, dir }) {
   });
   if (validationResult !== true) {
     print(warning('Skipping a release due to the following reason:'));
-    print(error(`  > ${validationResult}`));
+    print(info(`  > ${validationResult}`));
     exitProcess(0);
   }
 }
