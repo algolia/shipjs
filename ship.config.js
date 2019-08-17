@@ -1,6 +1,3 @@
-const fs = require("fs");
-const path = require("path");
-
 module.exports = {
   packageJsons: [
     "package.json",
@@ -20,6 +17,5 @@ module.exports = {
     exec(`npx markdown-toc -i --bullets="-" GUIDE.md`);
   },
   publishCommand: ({ defaultCommand }) =>
-    `(cd packages/shipjs-lib && ${defaultCommand}) && (cd packages/shipjs && ${defaultCommand})`,
-  pullRequestReviewer: "eunjae-lee"
+    `(cd packages/shipjs-lib && ${defaultCommand}) && (cd packages/shipjs && ${defaultCommand})`
 };
