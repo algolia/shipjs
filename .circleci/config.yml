@@ -56,7 +56,7 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Install hub
-          command: sudo apt install hub
+          command: sudo apt install linuxbrew-wrapper && linuxbrew install hub && PATH="~/.linuxbrew/bin:$PATH"
       - run:
           name: Prepare release
           command: yarn shipjs:prepare --no-browse
