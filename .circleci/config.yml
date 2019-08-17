@@ -54,9 +54,12 @@ jobs:
       - restore_cache: *restore_yarn_cache
       - run: *run_yarn_install
       - save_cache: *save_yarn_cache
-      - run: sudo apt install -y linuxbrew-wrapper
-      - run: yes '' | linuxbrew install hub
-      - run: PATH="~/.linuxbrew/bin:$PATH"
+      - run:
+          name: Install hub
+          command: |
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+            echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+            brew install hub
       - run:
           name: Prepare release
           command: yarn shipjs:prepare --no-browse
