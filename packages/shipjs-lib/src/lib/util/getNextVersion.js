@@ -9,13 +9,14 @@ import silentExec from '../shell/silentExec';
 
 export function getNextVersionFromCommitMessages(version, titles, bodies) {
   if (prerelease(version)) {
-    return inc(version, 'prerelease');
+    return { version: inc(version, 'prerelease') };
   }
   if (bodies.toUpperCase().includes(GIT_COMMIT_BREAKING_CHANGE)) {
-    return inc(version, 'major');
+    return { version: inc(version, 'major') };
   }
   let patch = false;
   let minor = false;
+  const ignoredMessages = [];
   titles.split('\n').forEach(rawTitle => {
     const title = rawTitle.trim();
     if (!title) {
@@ -26,7 +27,8 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
     }
     const match = title.match(/(.*?)(\(.*?\))?:.*/);
     if (!match || !match[1]) {
-      throw new Error(`Invalid commit message format.\n  > ${title}`);
+      ignoredMessages.push(title);
+      return;
     }
     const prefix = match[1].toLowerCase();
     if (GIT_COMMIT_PREFIX_PATCH.has(prefix)) {
@@ -34,16 +36,16 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
     } else if (GIT_COMMIT_PREFIX_MINOR.has(prefix)) {
       minor = true;
     } else {
-      throw new Error(`Out of convention.\n  > ${title}`);
+      ignoredMessages.push(title);
     }
   });
 
   if (minor) {
-    return inc(version, 'minor');
+    return { version: inc(version, 'minor'), ignoredMessages };
   } else if (patch) {
-    return inc(version, 'patch');
+    return { version: inc(version, 'patch'), ignoredMessages };
   } else {
-    return null;
+    return { version: null, ignoredMessages };
   }
 }
 
