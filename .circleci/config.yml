@@ -63,7 +63,10 @@ jobs:
             brew install hub
       - run:
           name: Prepare release
-          command: yarn shipjs:prepare --yes --no-browse
+          command: |
+            git config --global user.email "karis612@gmail.com"
+            git config --global user.name "Eunjae Lee"
+            yarn shipjs:prepare --yes --no-browse
   release_if_needed:
     <<: *defaults
     steps:
