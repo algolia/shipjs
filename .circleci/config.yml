@@ -58,7 +58,8 @@ jobs:
           name: Install hub
           command: |
             sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+            echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> ~/.profile
+            source ~/.profile
             brew install hub
       - run:
           name: Prepare release
