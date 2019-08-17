@@ -14,6 +14,7 @@
     - [`toReleaseBranch` strategy](#toreleasebranch-strategy)
   - [Release projects somewhere other than NPM](#release-projects-somewhere-other-than-npm)
   - [Release your monorepo project](#release-your-monorepo-project)
+  - [Schedule your release](#schedule-your-release)
 - [All Configurations](#all-configurations)
 - [Commands](#commands)
   - [`shipjs prepare`](#shipjs-prepare)
