@@ -5,7 +5,7 @@ import wrapRun from '../util/wrapRun';
 import { info, warning, error, bold, underline, slateblue } from '../color';
 
 const makeSpaces = num => ' '.repeat(num);
-const indentPrint = indent => text => print(`${makeSpaces(indent)}${text}`);
+const indentPrint = indent => (...args) => print(makeSpaces(indent), ...args);
 
 export default function runStep({ title }, stepFn) {
   if (title) {

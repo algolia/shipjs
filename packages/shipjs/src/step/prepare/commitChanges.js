@@ -11,7 +11,9 @@ export default async ({ nextVersion, dir, config, dryRun }) =>
       if (dryRun) {
         print('$', info('git add .'));
         print('$', info('git commit'));
-        print(`  git commit message: ${message}`);
+        print('  |');
+        print(`  | ${message}`);
+        print('  |');
         return;
       }
       await beforeCommitChanges({ exec: wrapExecWithDir(dir) });
