@@ -268,6 +268,18 @@ workflows:
 
 Now, every Tuesday at 9am, new pull-request will be created. All you need to do is review the pull-request and merge it. Then the rest will be automatically done.
 
+### Assign Reviewers
+
+You can assign reviewers on your release pull-request.
+
+```js
+module.exports = {
+  pullRequestReviewer: "reviewer-user-name"
+};
+```
+
+One thing to be aware is, you cannot assign yourself as reviewer. You can put github username of your team or team mates. The value is a comma-separated list(no spaces around the comma).
+
 ## All Configurations
 
 [See here for all configurations](./CONFIG.md)
