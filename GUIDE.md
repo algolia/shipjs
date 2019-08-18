@@ -15,6 +15,7 @@
   - [Release projects somewhere other than NPM](#release-projects-somewhere-other-than-npm)
   - [Release your monorepo project](#release-your-monorepo-project)
   - [Schedule your release](#schedule-your-release)
+  - [Assign Reviewers](#assign-reviewers)
 - [All Configurations](#all-configurations)
 - [Commands](#commands)
   - [`shipjs prepare`](#shipjs-prepare)
