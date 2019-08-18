@@ -269,6 +269,8 @@ workflows:
 
 Now, every Tuesday at 9am, new pull-request will be created. All you need to do is review the pull-request and merge it. Then the rest will be automatically done.
 
+If you're using CircleCI 2.0, you can manually trigger the job using API call. You can refer to [this document](https://circleci.com/docs/2.0/api-job-trigger/), but it won't work in CircleCI 2.1.
+
 ### Assign Reviewers
 
 You can assign reviewers on your release pull-request.
@@ -280,6 +282,8 @@ module.exports = {
 ```
 
 One thing to be aware is, you cannot assign yourself as reviewer. You can put github username of your team or team mates. The value is a comma-separated list(no spaces around the comma).
+
+The assignees will receive a notification from GitHub when the pull-request is created. Whenever they review and merge the pull-request, it will be automatically released by the prior configuration you've done [above](#integrate-with-circle-ci).
 
 ## All Configurations
 
