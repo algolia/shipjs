@@ -16,6 +16,6 @@ module.exports = {
   beforeCommitChanges: ({ exec }) => {
     exec(`npx markdown-toc -i --bullets="-" GUIDE.md`);
   },
-  publishCommand: ({ defaultCommand }) =>
-    `(cd packages/shipjs-lib && ${defaultCommand}) && (cd packages/shipjs && ${defaultCommand})`
+  publishCommand: () =>
+    `lerna exec -- yarn publish --no-git-tag-version --non-interactive`
 };
