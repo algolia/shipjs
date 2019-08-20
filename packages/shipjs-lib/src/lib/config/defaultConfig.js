@@ -77,6 +77,26 @@ export default {
     default: {
       username: 'Ship.js',
     },
+    prepared: ({ appName, version, pullRequestUrl }) => ({
+      pretext: `:writing_hand: The release for *${appName}@${version}* is prepared!`,
+      fields: [
+        {
+          title: 'Branch',
+          value: 'master',
+          short: true,
+        },
+        {
+          title: 'Version',
+          value: version,
+          short: true,
+        },
+        {
+          title: 'Pull-Request',
+          value: pullRequestUrl,
+          short: false,
+        },
+      ],
+    }),
     releaseStart: ({
       appName,
       version,
