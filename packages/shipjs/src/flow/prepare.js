@@ -25,6 +25,7 @@ async function prepare({
   firstRelease = false,
   releaseCount,
   dryRun = false,
+  noBrowse = false,
 }) {
   if (help) {
     printHelp();
@@ -61,6 +62,7 @@ async function prepare({
     stagingBranch,
     currentVersion,
     nextVersion,
+    noBrowse,
     config,
     dir,
     dryRun,

@@ -8,6 +8,7 @@ export default ({
   stagingBranch,
   currentVersion,
   nextVersion,
+  noBrowse,
   config,
   dir,
   dryRun,
@@ -60,7 +61,7 @@ export default ({
       const createPullRequestCommand = [
         'hub pull-request',
         `--base ${destinationBranch}`,
-        '--browse',
+        noBrowse ? undefined : '--browse',
         '--push',
         pullRequestReviewer ? `--reviewer ${pullRequestReviewer}` : undefined,
         `--file ${filePath}`,
