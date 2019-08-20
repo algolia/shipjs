@@ -69,9 +69,12 @@ export default ({
         .filter(Boolean)
         .join(' ');
       run(createPullRequestCommand, dir, dryRun);
+      const pullRequestUrl = `${repoURL}/pulls`;
       print('  |');
       message.split('\n').forEach(line => print(`  |  ${line}`));
       print('  |');
       print('');
+
+      return { pullRequestUrl };
     }
   );

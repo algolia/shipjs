@@ -1,4 +1,4 @@
-import { loadConfig } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { getAppName, loadConfig } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 
 import printHelp from '../step/prepare/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';
@@ -16,6 +16,7 @@ import installDependencies from '../step/prepare/installDependencies';
 import updateChangelog from '../step/prepare/updateChangelog';
 import commitChanges from '../step/prepare/commitChanges';
 import createPullRequest from '../step/prepare/createPullRequest';
+import notifyPrepared from '../step/prepare/notifyPrepared';
 import finished from '../step/finished';
 
 async function prepare({
@@ -57,7 +58,7 @@ async function prepare({
   installDependencies({ config, dir, dryRun });
   updateChangelog({ config, firstRelease, releaseCount, dir, dryRun });
   await commitChanges({ nextVersion, dir, config, dryRun });
-  createPullRequest({
+  const { pullRequestUrl } = createPullRequest({
     baseBranch,
     stagingBranch,
     currentVersion,
@@ -67,6 +68,8 @@ async function prepare({
     dir,
     dryRun,
   });
+  const appName = getAppName(dir);
+  notifyPrepared({ config, appName, version: nextVersion, pullRequestUrl });
   finished();
 }
 

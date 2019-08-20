@@ -14,6 +14,29 @@ async function sendSlackMessage({ config, sendArguments }) {
 }
 
 // https://api.slack.com/docs/messages/builder
+export async function notifyPrepared({
+  config,
+  appName,
+  version,
+  pullRequestUrl,
+}) {
+  const { slack = {} } = config;
+  const { prepared } = slack;
+  if (!prepared) {
+    return;
+  }
+
+  const sendArguments =
+    typeof prepared === 'string'
+      ? prepared
+      : prepared({ appName, version, pullRequestUrl });
+
+  await sendSlackMessage({
+    config,
+    sendArguments,
+  });
+}
+
 export async function notifyReleaseStart({
   config,
   appName,
