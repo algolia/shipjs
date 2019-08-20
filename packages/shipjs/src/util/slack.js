@@ -3,7 +3,7 @@ import { IncomingWebhook } from '@slack/webhook';
 async function sendSlackMessage({ config, sendArguments }) {
   const { slackIncomingHook, slack } = config;
 
-  if (!slackIncomingHook) {
+  if (!slackIncomingHook || !sendArguments) {
     return;
   }
   const webhook = new IncomingWebhook(slackIncomingHook);
@@ -27,9 +27,9 @@ export async function notifyPrepared({
   }
 
   const sendArguments =
-    typeof prepared === 'string'
-      ? prepared
-      : prepared({ appName, version, pullRequestUrl });
+    typeof prepared === 'function'
+      ? prepared({ appName, version, pullRequestUrl })
+      : prepared;
 
   await sendSlackMessage({
     config,
@@ -51,9 +51,9 @@ export async function notifyReleaseStart({
   }
 
   const sendArguments =
-    typeof releaseStart === 'string'
-      ? releaseStart
-      : releaseStart({ appName, version, latestCommitHash, latestCommitUrl });
+    typeof releaseStart === 'function'
+      ? releaseStart({ appName, version, latestCommitHash, latestCommitUrl })
+      : releaseStart;
 
   await sendSlackMessage({
     config,
@@ -76,15 +76,15 @@ export async function notifyReleaseSuccess({
   }
 
   const sendArguments =
-    typeof releaseSuccess === 'string'
-      ? releaseSuccess
-      : releaseSuccess({
+    typeof releaseSuccess === 'function'
+      ? releaseSuccess({
           appName,
           version,
           latestCommitHash,
           latestCommitUrl,
           repoURL,
-        });
+        })
+      : releaseSuccess;
 
   await sendSlackMessage({
     config,
