@@ -14,9 +14,9 @@ export default ({ tagName, config, dir, dryRun }) =>
     if (currentBranch === destinationBranch) {
       run(pushCommand, dir, dryRun);
     } else {
-      // currentBranch: 'release/legacy'
-      // destinationBranch: 'legacy'
-      // flow: legacy -> release/legacy -> (here) legacy
+      // currentBranch: 'master'
+      // destinationBranch: 'develop'
+      // flow: develop -> master -> (here) develop
       run(`git checkout ${destinationBranch}`, dir, dryRun);
       run(`git merge ${currentBranch}`, dir, dryRun);
       run(pushCommand, dir, dryRun);
