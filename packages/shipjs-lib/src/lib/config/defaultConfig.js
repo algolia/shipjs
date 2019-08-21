@@ -26,6 +26,9 @@ export default {
       mergeStrategy.toSameBranch.includes(baseBranch)
         ? `- [Compare the changes between the versions](${repoURL}/compare/v${currentVersion}...${stagingBranch})`
         : '',
+      '',
+      '---',
+      '_This is an automatically generated PR by [Ship.js](https://github.com/algolia/shipjs)_',
     ];
     return lines.join('\n');
   },
