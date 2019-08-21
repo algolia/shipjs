@@ -36,8 +36,8 @@ yarn add -D shipjs
 Add the following to the `scripts` section in your `package.json`.
 
 ```js
-"shipjs:prepare": "shipjs prepare",
-"shipjs:release": "shipjs release",
+"release:prepare": "shipjs prepare",
+"release:trigger": "shipjs release",
 ```
 
 ### Install `hub`
@@ -90,10 +90,10 @@ jobs:
           command: yarn install
       - run:
           name: Try to Release
-          command: yarn shipjs:release
+          command: yarn release:trigger
 ```
 
-Every time Circle CI runs the flow above, `yarn shipjs:release` will be executed, and it will check if it's a condition to release. It will, by default, check the latest commit message and the current branch.
+Every time Circle CI runs the flow above, `yarn release:trigger` will be executed, and it will check if it's a condition to release. It will, by default, check the latest commit message and the current branch.
 
 ### NPM Token
 
@@ -236,9 +236,9 @@ With the config above, Ship.js will read the current version from the first entr
 
 ### Schedule your release
 
-By running `yarn shipjs:prepare`, you will get a pull-request for next release. What if you even automate this?
+By running `yarn release:prepare`, you will get a pull-request for next release. What if you even automate this?
 
-You can configure your CI to run `yarn shipjs:prepare` periodically.
+You can configure your CI to run `yarn release:prepare` periodically.
 
 ```yml
 version: 2
@@ -263,7 +263,7 @@ jobs:
           command: |
             git config --global user.email "you@example.com"
             git config --global user.name "Your Name"
-            yarn shipjs:prepare --yes --no-browse
+            yarn release:prepare --yes --no-browse
 workflows:
   version: 2
   prepare_release_every_tuesday:

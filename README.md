@@ -109,8 +109,8 @@ yarn add -D shipjs
 Add the following to the `scripts` section in your `package.json`.
 
 ```js
-"shipjs:prepare": "shipjs prepare",
-"shipjs:release": "shipjs release",
+"release:prepare": "shipjs prepare",
+"release:trigger": "shipjs release",
 ```
 
 Do you want to set it up now? Then, let's move on to the [guide](./GUIDE.md).
