@@ -40,6 +40,27 @@ Add the following to the `scripts` section in your `package.json`.
 "shipjs:release": "shipjs release",
 ```
 
+### Install `hub`
+
+To use Ship.js, you need to install `hub`.
+
+```bash
+brew install hub
+```
+
+To configure `hub`, create a file `~/.config/hub` and fill the following content:
+
+```
+github.com:
+- user: YOUR-GITHUB-USERNAME
+  oauth_token: YOUR-PERSONAL-ACCESS-TOKEN
+  protocol: https
+```
+
+You can get an access token from [here](https://github.com/settings/tokens).
+
+Or you can simply run `hub api` and it will generate the token and write the config file for you.
+
 ### Dry Mode
 
 If you're not sure, you can always run it in dry mode.
