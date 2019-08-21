@@ -39,13 +39,16 @@ describe('defaultConfig', () => {
         nextVersion,
       });
       expect(message).toMatchInlineSnapshot(`
-                                        "chore: release v0.1.1
+        "chore: release v0.1.1
 
-                                        ## Release Summary
-                                        - Version change: \`v0.1.0\` → \`v0.1.1\`
-                                        - Merge: \`releases/v0.1.1\` → \`master\`
-                                        - [Compare the changes between the versions](https://github.com/algolia/shipjs/compare/v0.1.0...releases/v0.1.1)"
-                              `);
+        ## Release Summary
+        - Version change: \`v0.1.0\` → \`v0.1.1\`
+        - Merge: \`releases/v0.1.1\` → \`master\`
+        - [Compare the changes between the versions](https://github.com/algolia/shipjs/compare/v0.1.0...releases/v0.1.1)
+
+        ---
+        _This is an automatically generated PR by [Ship.js](https://github.com/algolia/shipjs)_"
+      `);
       expect(message).toEqual(
         expect.stringContaining('Compare the changes between the versions')
       );
@@ -70,13 +73,16 @@ describe('defaultConfig', () => {
           nextVersion,
         })
       ).toMatchInlineSnapshot(`
-                                "chore: release v0.1.1
+        "chore: release v0.1.1
 
-                                ## Release Summary
-                                - Version change: \`v0.1.0\` → \`v0.1.1\`
-                                - Merge: \`releases/v0.1.1\` → \`release/stable\`
-                                "
-                        `);
+        ## Release Summary
+        - Version change: \`v0.1.0\` → \`v0.1.1\`
+        - Merge: \`releases/v0.1.1\` → \`release/stable\`
+
+
+        ---
+        _This is an automatically generated PR by [Ship.js](https://github.com/algolia/shipjs)_"
+      `);
     });
   });
 
