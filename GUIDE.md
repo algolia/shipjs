@@ -223,7 +223,7 @@ Let's say you have the following package.json files:
 
 ```js
 module.exports = {
-  packageJsons: [
+  filesToBump: [
     "package.json",
     "packages/first-package/package.json",
     "packages/second-package/package.json",

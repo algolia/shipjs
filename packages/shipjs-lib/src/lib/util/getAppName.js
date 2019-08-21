@@ -3,10 +3,10 @@ import { resolve } from 'path';
 import loadConfig from '../config/loadConfig';
 
 export default function getAppName(dir = '.') {
-  const { appName, packageJsons } = loadConfig(dir);
+  const { appName, filesToBump } = loadConfig(dir);
   if (appName) {
     return appName;
   }
-  const { name } = JSON.parse(readFileSync(resolve(dir, packageJsons[0])));
+  const { name } = JSON.parse(readFileSync(resolve(dir, filesToBump[0])));
   return name;
 }

@@ -1,5 +1,5 @@
 module.exports = {
-  packageJsons: [
+  filesToBump: [
     "package.json",
     "packages/shipjs-lib/package.json",
     "packages/shipjs/package.json"
