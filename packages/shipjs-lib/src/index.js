@@ -6,6 +6,7 @@ export {
 export { default as getNextVersion } from './lib/util/getNextVersion';
 export { default as updateVersion } from './lib/util/updateVersion';
 export { default as isValidVersion } from './lib/util/isValidVersion';
+export { default as getReleaseTag } from './lib/util/getReleaseTag';
 
 /* git */
 export { default as hasLocalBranch } from './lib/git/hasLocalBranch';
