@@ -59,7 +59,7 @@ github.com:
 
 You can get an access token from [here](https://github.com/settings/tokens).
 
-Or you can simply run `hub api` and it will generate the token and write the config file for you.
+Or you can simply run `hub api`, follow the instruction and it will generate the token and write the config file for you.
 
 ### Dry Mode
 

@@ -7,10 +7,13 @@ export default () =>
       title: 'Checking if `hub` exists.',
     },
     ({ print, error, exitProcess }) => {
-      const exists = silentExec('hub --version').code === 0;
+      const exists =
+        silentExec('hub --version', { ignoreError: true }).code === 0;
       if (!exists) {
         print(error('You need to install `hub` first.'));
-        print('  > https://github.com/github/hub#installation');
+        print(
+          '  > https://github.com/algolia/shipjs/blob/master/GUIDE.md#install-hub'
+        );
         exitProcess(1);
       }
     }
