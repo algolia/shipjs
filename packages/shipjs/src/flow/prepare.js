@@ -6,7 +6,7 @@ import checkHub from '../step/checkHub';
 import validate from '../step/prepare/validate';
 import validateMergeStrategy from '../step/prepare/validateMergeStrategy';
 import pull from '../step/pull';
-import push from '../step/push';
+import push from '../step/prepare/push';
 import getNextVersion from '../step/prepare/getNextVersion';
 import confirmNextVersion from '../step/prepare/confirmNextVersion';
 import prepareStagingBranch from '../step/prepare/prepareStagingBranch';
@@ -40,7 +40,7 @@ async function prepare({
   const { currentVersion, baseBranch } = validate({ config, dir });
   validateMergeStrategy({ config });
   pull({ dir, dryRun });
-  push({ dir, dryRun });
+  push({ config, currentBranch: baseBranch, dir, dryRun });
   let { nextVersion } = getNextVersion({ dir });
   nextVersion = await confirmNextVersion({
     yes,
