@@ -1,6 +1,6 @@
 export default {
   remote: 'origin',
-  packageJsons: ['package.json'],
+  filesToBump: ['package.json'],
   updateChangelog: true,
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
   installCommand: ({ isYarn }) => (isYarn ? 'yarn install' : 'npm install'),

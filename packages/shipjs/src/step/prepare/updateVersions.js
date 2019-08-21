@@ -4,13 +4,15 @@ import wrapExecWithDir from '../../util/wrapExecWithDir';
 
 export default async ({ config, nextVersion, dir, dryRun }) =>
   await runStep({ title: 'Updating the version.' }, async ({ print, info }) => {
-    const { packageJsons, versionUpdated } = config;
+    const { filesToBump, versionUpdated } = config;
     if (dryRun) {
-      print(`-> ${info(packageJsons.join(', '))}`);
+      filesToBump.forEach(file => {
+        print(`-> ${info(file)}`);
+      });
       print(`-> execute ${info('versionUpdated()')} callback.`);
       return;
     }
-    updateVersion(packageJsons, nextVersion, dir);
+    updateVersion(filesToBump, nextVersion, dir);
     await versionUpdated({
       version: nextVersion,
       dir,
