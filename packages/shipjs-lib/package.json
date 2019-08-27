@@ -32,7 +32,7 @@
     "json": "9.0.6",
     "prettier": "1.18.2",
     "rollup": "1.20.2",
-    "rollup-plugin-commonjs": "10.0.2",
+    "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0"
   },
   "dependencies": {
