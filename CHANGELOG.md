@@ -1,3 +1,21 @@
+# [1.0.0](https://github.com/algolia/shipjs/compare/v0.4.0...v1.0.0) (2019-08-27)
+
+
+### Bug Fixes
+
+* git push with upstream specified ([#206](https://github.com/algolia/shipjs/issues/206)) ([ef5eccd](https://github.com/algolia/shipjs/commit/ef5eccd))
+* print error message when hub doesn't exist ([#205](https://github.com/algolia/shipjs/issues/205)) ([9ba45ff](https://github.com/algolia/shipjs/commit/9ba45ff))
+* throw when hub is installed but not configured ([#208](https://github.com/algolia/shipjs/issues/208)) ([a4c769c](https://github.com/algolia/shipjs/commit/a4c769c))
+* **deps:** update dependency inquirer to v6.5.2 ([#217](https://github.com/algolia/shipjs/issues/217)) ([8f5fa77](https://github.com/algolia/shipjs/commit/8f5fa77))
+
+
+### Features
+
+* add tag at NPM when it's prerelease like beta, rc, ... ([#212](https://github.com/algolia/shipjs/issues/212)) ([91ba961](https://github.com/algolia/shipjs/commit/91ba961))
+* rename packageJsons to filesToBump ([#209](https://github.com/algolia/shipjs/issues/209)) ([5753300](https://github.com/algolia/shipjs/commit/5753300))
+
+
+
 # [0.4.0](https://github.com/algolia/shipjs/compare/v0.3.4...v0.4.0) (2019-08-20)
 
 

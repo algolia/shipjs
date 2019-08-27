@@ -3,6 +3,7 @@
 <!-- toc -->
 
 - [Installation](#installation)
+  - [Install `hub`](#install-hub)
   - [Dry Mode](#dry-mode)
 - [Integrate with Circle CI](#integrate-with-circle-ci)
   - [NPM Token](#npm-token)
