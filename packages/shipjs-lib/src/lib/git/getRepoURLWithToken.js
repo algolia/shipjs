@@ -1,8 +1,8 @@
 import getRemoteOriginUrl from './getRemoteOriginUrl';
 import gh from 'parse-github-url';
 
-export default function getRepoURL(remote, dir) {
+export default function getRepoURLWithToken(token, remote, dir) {
   const url = getRemoteOriginUrl(remote, dir);
   const { repo } = gh(url);
-  return `https://github.com/${repo}`;
+  return `https://${token}@github.com/${repo}`;
 }

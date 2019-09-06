@@ -46,7 +46,7 @@ export default ({
         run(`git branch -D ${stagingBranch}`, dir, dryRun);
         exitProcess(0);
       }
-      const repoURL = getRepoURL(dir);
+      const repoURL = getRepoURL(remote, dir);
       const message = formatPullRequestMessage({
         repoURL,
         baseBranch,
