@@ -11,7 +11,8 @@ import getNextVersion from '../step/prepare/getNextVersion';
 import confirmNextVersion from '../step/prepare/confirmNextVersion';
 import prepareStagingBranch from '../step/prepare/prepareStagingBranch';
 import checkoutToStagingBranch from '../step/prepare/checkoutToStagingBranch';
-import updateVersions from '../step/prepare/updateVersions';
+import updateVersion from '../step/prepare/updateVersion';
+import updateVersionMonorepo from '../step/prepare/updateVersionMonorepo';
 import installDependencies from '../step/prepare/installDependencies';
 import updateChangelog from '../step/prepare/updateChangelog';
 import commitChanges from '../step/prepare/commitChanges';
@@ -54,7 +55,10 @@ async function prepare({
     dir,
   });
   checkoutToStagingBranch({ stagingBranch, dir, dryRun });
-  await updateVersions({ config, nextVersion, dir, dryRun });
+  const updateVersionFn = config.monorepo
+    ? updateVersionMonorepo
+    : updateVersion;
+  await updateVersionFn({ config, nextVersion, dir, dryRun });
   installDependencies({ config, dir, dryRun });
   updateChangelog({ config, firstRelease, releaseCount, dir, dryRun });
   await commitChanges({ nextVersion, dir, config, dryRun });

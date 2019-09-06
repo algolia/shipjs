@@ -29,3 +29,4 @@ export { default as loadConfig } from './lib/config/loadConfig';
 
 /* etc */
 export { default as getAppName } from './lib/util/getAppName';
+export { default as expandPackageList } from './lib/util/expandPackageList';
