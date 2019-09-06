@@ -8,7 +8,7 @@ import version from './version';
 
 const flowMap = {
   prepare,
-  release,
+  trigger: release,
 };
 
 function removeDoubleDash(opts) {
@@ -29,8 +29,8 @@ function printHelp() {
   print(`\t${bold('shipjs prepare')} --help`);
   print(`\t  : Prepare a release.`);
   print('');
-  print(`\t${bold('shipjs release')} --help`);
-  print(`\t  : Release it.`);
+  print(`\t${bold('shipjs trigger')} --help`);
+  print(`\t  : Trigger the release.`);
   print('');
 }
 

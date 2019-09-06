@@ -58,7 +58,7 @@ When you think it's ready to ship, merge the pull-request.
 - Release it to NPM.
 - Create a git tag for the version.
 
-This is done with a command `shipjs release`.
+This is done with a command `shipjs trigger`.
 
 You will probably configure this to run on your CI. It means the longest process is done somewhere else, not occupying your working environment.
 
@@ -89,8 +89,8 @@ If you added more commits to this pull-request, you need to `Squash & merge` for
 ### 3. Actual Release
 
 - Your CI service will be triggered because there is a new commit in `master` branch, which is `chore: releases v1.0.1`.
-- You already have configured your CI to run `shipjs release` on `master` branch.
-- `shipjs release` knows the latest commit is for release, so it continues.
+- You already have configured your CI to run `shipjs trigger` on `master` branch.
+- `shipjs trigger` knows the latest commit is for release, so it continues.
 - Send a slack message to notify the beginning of the release.
 - Run test, build and release it to NPM.
 - `git tag v1.0.1`
@@ -110,7 +110,7 @@ Add the following to the `scripts` section in your `package.json`.
 
 ```js
 "release:prepare": "shipjs prepare",
-"release:trigger": "shipjs release",
+"release:trigger": "shipjs trigger",
 ```
 
 Do you want to set it up now? Then, let's move on to the [guide](./GUIDE.md).

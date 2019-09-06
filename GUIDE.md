@@ -20,7 +20,7 @@
 - [All Configurations](#all-configurations)
 - [Commands](#commands)
   - [`shipjs prepare`](#shipjs-prepare)
-  - [`shipjs release`](#shipjs-release)
+  - [`shipjs trigger`](#shipjs-trigger)
 
 <!-- tocstop -->
 
@@ -38,7 +38,7 @@ Add the following to the `scripts` section in your `package.json`.
 
 ```js
 "release:prepare": "shipjs prepare",
-"release:trigger": "shipjs release",
+"release:trigger": "shipjs trigger",
 ```
 
 ### Install `hub`
@@ -69,7 +69,7 @@ If you're not sure, you can always run it in dry mode.
 ```bash
 $ shipjs prepare --dry-run
 or
-$ shipjs release --dry-run
+$ shipjs trigger --dry-run
 ```
 
 It will show you which steps are going to be executed without actually executing them.
@@ -133,7 +133,7 @@ module.exports = {
 };
 ```
 
-With this configured, `shipjs release` will send messages to your Slack channel at the beginning and the end of the release.
+With this configured, `shipjs trigger` will send messages to your Slack channel at the beginning and the end of the release.
 
 ### `mergeStrategy`
 
@@ -176,7 +176,7 @@ When you run `shipjs prepare` on `legacy` branch, it will
 - create a pull-request from the staging branch to `legacy` branch
 
 Let's assume you configured your CI to monitor `legacy` branch.
-When you review and merge the PR, your CI will run `shipjs release` and it will
+When you review and merge the PR, your CI will run `shipjs trigger` and it will
 
 1. run tests
 2. release to NPM
@@ -190,7 +190,7 @@ When you run `shipjs prepare` on `develop` branch, it will
 - checkout to a staging branch(e.g. `releases/v2.4.3`)
 - create a pull-request from the staging branch to `master` branch
 
-When you review and merge the PR, your CI will run `shipjs release` and it will
+When you review and merge the PR, your CI will run `shipjs trigger` and it will
 
 1. run tests
 2. release to NPM
@@ -338,12 +338,12 @@ OPTIONS
           Displays the steps without actually doing them.
 ```
 
-### `shipjs release`
+### `shipjs trigger`
 
 ```
-$ shipjs release --help
+$ shipjs trigger --help
 NAME
-        shipjs release - Release it.
+        shipjs trigger - Trigger a release.
 
 USAGE
         shipjs prepare [--help] [--dir PATH] [--dry-run]
