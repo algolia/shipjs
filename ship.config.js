@@ -1,11 +1,21 @@
+const fs = require("fs");
+const path = require("path");
+
 module.exports = {
   versionUpdated: ({ version, dir, exec }) => {
-    exec(`npx json -I -f lerna.json -e 'this.version = "${version}"'`);
-    exec(
-      `npx json -I -f packages/shipjs/package.json -e 'this.dependencies["shipjs-lib"] = "${version}"'`
-    );
-    exec(
-      `echo "export default '${version}';" > packages/shipjs/src/version.js`
+    // update lerna.json
+    const lernaConfigPath = path.resolve(dir, "lerna.json");
+    const lerna = JSON.parse(fs.readFileSync(lernaConfigPath).toString());
+    lerna.version = version;
+    fs.writeFileSync(lernaConfigPath, JSON.stringify(lerna, null, 2));
+
+    // update dependency
+    exec(`cd packages/shipjs && yarn add shipjs-lib@${version}`);
+
+    // update `version.js`
+    fs.writeFileSync(
+      path.resolve(dir, "packages/shipjs/src/version.js"),
+      "export default '${version}';"
     );
   },
   beforeCommitChanges: ({ exec }) => {
