@@ -1,9 +1,4 @@
 module.exports = {
-  filesToBump: [
-    "package.json",
-    "packages/shipjs-lib/package.json",
-    "packages/shipjs/package.json"
-  ],
   versionUpdated: ({ version, dir, exec }) => {
     exec(`npx json -I -f lerna.json -e 'this.version = "${version}"'`);
     exec(

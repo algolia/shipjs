@@ -1,6 +1,10 @@
 export default {
   remote: 'origin',
-  filesToBump: ['package.json'],
+  // monorepo: {
+  //   packagesToBump: ['packages/*', 'examples/*'],
+  //   packagesToPublish: ['packages/*'],
+  //   independent: true,
+  // },
   updateChangelog: true,
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
   installCommand: ({ isYarn }) => (isYarn ? 'yarn install' : 'npm install'),
