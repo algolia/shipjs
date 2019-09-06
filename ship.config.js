@@ -9,7 +9,7 @@ module.exports = {
     );
   },
   beforeCommitChanges: ({ exec }) => {
-    exec(`npx markdown-toc -i --bullets="-" GUIDE.md`);
+    exec("yarn toc");
   },
   publishCommand: () =>
     `lerna exec -- yarn publish --no-git-tag-version --non-interactive`

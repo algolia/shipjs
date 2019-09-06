@@ -11,7 +11,8 @@
     "tw2": "yarn workspace shipjs test:watch",
     "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh",
     "release:prepare": "npx shipjs prepare",
-    "release:trigger": "npx shipjs release"
+    "release:trigger": "npx shipjs release",
+    "toc": "npx markdown-toc -i --bullets=\"-\" GUIDE.md"
   },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
