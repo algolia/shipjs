@@ -111,10 +111,13 @@ Setup an NPM token to allow Ship.js(at CircleCI) to release the package to NPM.
 
 Setup a GitHub token to allow Ship.js(at CircleCI) to create a git tag and push it to remote after release.
 
-1. At CircleCI, go to the "Project Settings" → "PERMISSIONS" → "Checkout SSH Keys".
-2. Find "Add user key" section, and click the button to create the user key.
-
-Integration with other CIs should be similar to this.
+1. Go to https://github.com/settings/tokens/new
+2. Check "repo(Full control of private repositories)"
+3. Generate/copy the token
+4. At CircleCI, go to "Project Settings" → "BUILD SETTINGS" → "Environment Variables".
+5. Click "Add Variable".
+   - Name: `GITHUB_TOKEN`
+   - Value: Paste the token from clipboard.
 
 ## Useful Configurations
 
@@ -279,19 +282,11 @@ workflows:
       - prepare_release
 ```
 
-`GITHUB_TOKEN` is required for CircleCI to create a pull-request.
-
-1. Go to https://github.com/settings/tokens/new
-2. Check "repo(Full control of private repositories)"
-3. Generate/copy the token
-4. At CircleCI, go to "Project Settings" → "BUILD SETTINGS" → "Environment Variables".
-5. Click "Add Variable".
-   - Name: `GITHUB_TOKEN`
-   - Value: Paste the token from clipboard.
+`GITHUB_TOKEN` is required for CircleCI to create a pull-request. Make sure you have configured it as an environment variable at your CI service.
 
 Now, every Tuesday at 9am, new pull-request will be created. All you need to do is review the pull-request and merge it. Then the rest will be automatically done.
 
-If you're using CircleCI v2.0, you can manually trigger the job using API call. You can refer to [this document](https://circleci.com/docs/2.0/api-job-trigger/), but it won't work in CircleCI v2.1.
+If you're using CircleCI v2.0, you can also manually trigger the job using API call. You can refer to [this document](https://circleci.com/docs/2.0/api-job-trigger/), but it won't work in CircleCI v2.1.
 
 ### Assign Reviewers
 
