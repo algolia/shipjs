@@ -10,7 +10,7 @@
     "test:run": "shipjs",
     "test:run:version": "shipjs --version",
     "test:run:prepare": "shipjs prepare",
-    "test:run:release": "shipjs release",
+    "test:run:trigger": "shipjs trigger",
     "test": "jest",
     "test:watch": "yarn test --watch",
     "lint": "eslint .",

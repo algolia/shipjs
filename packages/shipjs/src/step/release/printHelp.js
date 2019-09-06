@@ -10,7 +10,7 @@ export default () =>
 
     const messages = [
       bold('NAME'),
-      indent('shipjs release - Release it.'),
+      indent('shipjs trigger - Trigger release.'),
       '',
       bold('USAGE'),
       indent(`shipjs prepare ${all}`),
