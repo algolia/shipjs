@@ -3,7 +3,7 @@ export default {
   // monorepo: {
   //   packagesToBump: ['packages/*', 'examples/*'],
   //   packagesToPublish: ['packages/*'],
-  //   independent: true,
+  //   independentVersion: true,
   // },
   updateChangelog: true,
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
@@ -74,7 +74,7 @@ export default {
     ].join(', ')}]`;
   },
   buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),
-  publishCommand: ({ isYarn, defaultCommand }) => defaultCommand,
+  publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand,
   getTagName: ({ currentVersion }) => `v${currentVersion}`,
   testCommandBeforeRelease: ({ isYarn }) =>
     isYarn ? 'yarn test' : 'npm run test',
