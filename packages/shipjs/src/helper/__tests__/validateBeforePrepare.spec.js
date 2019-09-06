@@ -1,9 +1,5 @@
 import validate from '../validateBeforePrepare';
-import {
-  isWorkingTreeClean,
-  getCurrentBranch,
-  hasTagForCurrentVersion,
-} from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { isWorkingTreeClean, getCurrentBranch, hasTag } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 jest.mock('shipjs-lib');
 
 const defaultOpts = {
@@ -14,7 +10,7 @@ describe('Validate', () => {
   beforeEach(() => {
     isWorkingTreeClean.mockImplementation(() => true);
     getCurrentBranch.mockImplementation(() => 'master');
-    hasTagForCurrentVersion.mockImplementation(() => true);
+    hasTag.mockImplementation(() => true);
   });
 
   it('returns error if working tree is not clean', () => {
@@ -46,7 +42,7 @@ describe('Validate', () => {
   });
 
   it('returns error if there is no git tag for current version', () => {
-    hasTagForCurrentVersion.mockImplementation(() => false);
+    hasTag.mockImplementation(() => false);
     const result = validate(defaultOpts);
     expect(result).not.toBe(true);
     expect(result.length).toBe(1);
@@ -54,7 +50,7 @@ describe('Validate', () => {
   });
 
   it('does not return error if there is git tag for current version', () => {
-    hasTagForCurrentVersion.mockImplementation(() => true);
+    hasTag.mockImplementation(() => true);
     const result = validate(defaultOpts);
     expect(result).toBe(true);
   });
@@ -62,7 +58,7 @@ describe('Validate', () => {
   it('returns more than one error', () => {
     isWorkingTreeClean.mockImplementation(() => false);
     getCurrentBranch.mockImplementation(() => 'aaa');
-    hasTagForCurrentVersion.mockImplementation(() => false);
+    hasTag.mockImplementation(() => false);
     const result = validate(defaultOpts);
     expect(result).not.toBe(true);
     expect(result.length).toBe(3);

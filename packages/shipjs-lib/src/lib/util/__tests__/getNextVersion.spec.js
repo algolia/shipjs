@@ -148,31 +148,46 @@ describe('getNextVersionFromCommitMessages', () => {
 describe('getNextVersion', () => {
   it('gets next version with patch updated', () => {
     silentExec('./tests/bootstrap-examples/patch-version-up.sh');
-    const { version: actual } = getNextVersion('sandbox/patch-version-up');
+    const { version: actual } = getNextVersion(
+      '0.0.1',
+      'sandbox/patch-version-up'
+    );
     expect(actual).toBe('0.0.2');
   });
 
   it('gets next version with minor updated', () => {
     silentExec('./tests/bootstrap-examples/minor-version-up.sh');
-    const { version: actual } = getNextVersion('sandbox/minor-version-up');
+    const { version: actual } = getNextVersion(
+      '0.0.1',
+      'sandbox/minor-version-up'
+    );
     expect(actual).toBe('0.1.0');
   });
 
   it('gets next version with major updated', () => {
     silentExec('./tests/bootstrap-examples/major-version-up.sh');
-    const { version: actual } = getNextVersion('sandbox/major-version-up');
+    const { version: actual } = getNextVersion(
+      '0.0.1',
+      'sandbox/major-version-up'
+    );
     expect(actual).toBe('1.0.0');
   });
 
   it('gets a null with no commit messages', () => {
     silentExec('./tests/bootstrap-examples/empty.sh no-commit-log');
-    const { version: actual } = getNextVersion('sandbox/no-commit-log');
+    const { version: actual } = getNextVersion(
+      '0.0.1',
+      'sandbox/no-commit-log'
+    );
     expect(actual).toBe(null);
   });
 
   it('throws when there is a commit message out of convention', () => {
     silentExec('./tests/bootstrap-examples/out-of-convention.sh');
-    const { ignoredMessages } = getNextVersion('sandbox/out-of-convention');
+    const { ignoredMessages } = getNextVersion(
+      '0.0.1',
+      'sandbox/out-of-convention'
+    );
     expect(ignoredMessages).toEqual(['hello: add a']);
   });
 });

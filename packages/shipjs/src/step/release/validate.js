@@ -9,9 +9,12 @@ export default ({ config, dir }) =>
   runStep(
     { title: 'Checking the current status.' },
     ({ print, info, warning, exitProcess }) => {
-      const { mergeStrategy, shouldRelease } = config;
+      const { mergeStrategy, shouldRelease, monorepo } = config;
       const commitMessage = getLatestCommitMessage(dir);
-      const currentVersion = getCurrentVersion(dir);
+      const currentVersion =
+        monorepo && monorepo.readVersionFrom
+          ? getCurrentVersion(dir, monorepo.readVersionFrom)
+          : getCurrentVersion(dir);
       const currentBranch = getCurrentBranch(dir);
       const validationResult = shouldRelease({
         commitMessage,
@@ -24,5 +27,8 @@ export default ({ config, dir }) =>
         print(info(`  > ${validationResult}`));
         exitProcess(0);
       }
+      return {
+        currentVersion,
+      };
     }
   );

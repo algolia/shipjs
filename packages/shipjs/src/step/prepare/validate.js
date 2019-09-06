@@ -35,13 +35,18 @@ export default ({ config, dir }) =>
       title: 'Checking the current status.',
     },
     ({ print, info, error, exitProcess }) => {
-      const { mergeStrategy } = config;
+      const { mergeStrategy, monorepo, getTagName } = config;
       const baseBranches = getBaseBranches({ mergeStrategy });
+      const currentVersion =
+        monorepo && monorepo.readVersionFrom
+          ? getCurrentVersion(dir, monorepo.readVersionFrom)
+          : getCurrentVersion(dir);
+      const currentTagName = getTagName({ version: currentVersion });
       const result = validateBeforePrepare({
         dir,
+        currentTagName,
         baseBranches,
       });
-      const currentVersion = getCurrentVersion(dir);
       const baseBranch = getCurrentBranch(dir);
       if (result !== true) {
         printValidationError({

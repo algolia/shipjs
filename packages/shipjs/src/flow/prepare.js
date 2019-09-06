@@ -42,7 +42,7 @@ async function prepare({
   validateMergeStrategy({ config });
   pull({ dir, dryRun });
   push({ config, currentBranch: baseBranch, dir, dryRun });
-  let { nextVersion } = getNextVersion({ dir });
+  let { nextVersion } = getNextVersion({ currentVersion, dir });
   nextVersion = await confirmNextVersion({
     yes,
     currentVersion,
