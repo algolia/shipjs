@@ -23,6 +23,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
     printDryRunBanner();
   }
   const config = loadConfig(dir);
+  const { remote } = config;
   const { currentVersion: version } = validate({ config, dir });
   const {
     appName,
@@ -30,7 +31,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
     latestCommitUrl,
     repoURL,
     releaseTag,
-  } = gatherRepoInfo({ version, dir });
+  } = gatherRepoInfo({ remote, version, dir });
   await notifyReleaseStart({
     config,
     appName,

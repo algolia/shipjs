@@ -17,7 +17,10 @@ export default () =>
         exitProcess(1);
       }
       const configured =
-        silentExec('yes "" | hub api user', { ignoreError: true }).code === 0;
+        silentExec(
+          `yes "" | GITHUB_TOKEN=${process.env.GITHUB_TOKEN} hub api user`,
+          { ignoreError: true }
+        ).code === 0;
       if (!configured) {
         print(error('You need to configure `hub`.'));
         print(
