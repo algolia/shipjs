@@ -1,5 +1,4 @@
 import {
-  getCurrentVersion,
   getLatestCommitHash,
   getCommitUrl,
   getAppName,
@@ -8,10 +7,9 @@ import {
 } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 import runStep from '../runStep';
 
-export default ({ dir }) =>
+export default ({ version, dir }) =>
   runStep({ title: 'Gathering repository information.' }, () => {
     const appName = getAppName(dir);
-    const version = getCurrentVersion(dir);
     const latestCommitHash = getLatestCommitHash(dir);
     const latestCommitUrl = getCommitUrl(latestCommitHash, dir);
     const repoURL = getRepoURL(dir);

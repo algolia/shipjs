@@ -23,15 +23,14 @@ async function release({ help = false, dir = '.', dryRun = false }) {
     printDryRunBanner();
   }
   const config = loadConfig(dir);
-  validate({ config, dir });
+  const { currentVersion: version } = validate({ config, dir });
   const {
     appName,
-    version,
     latestCommitHash,
     latestCommitUrl,
     repoURL,
     releaseTag,
-  } = gatherRepoInfo({ dir });
+  } = gatherRepoInfo({ version, dir });
   await notifyReleaseStart({
     config,
     appName,
@@ -43,7 +42,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   runTest({ isYarn, config, dir, dryRun });
   runBuild({ isYarn, config, dir, dryRun });
   runPublish({ isYarn, config, releaseTag, dir, dryRun });
-  const { tagName } = createGitTag({ config, dir, dryRun });
+  const { tagName } = createGitTag({ version, config, dir, dryRun });
   gitPush({ tagName, config, dir, dryRun });
   await notifyReleaseSuccess({
     config,

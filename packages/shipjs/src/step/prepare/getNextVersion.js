@@ -1,11 +1,12 @@
 import { getNextVersion } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 import runStep from '../runStep';
 
-export default ({ dir }) =>
+export default ({ currentVersion, dir }) =>
   runStep(
     { title: 'Calculating the next version.' },
     ({ print, warning, error, exitProcess }) => {
       const { version: nextVersion, ignoredMessages = [] } = getNextVersion(
+        currentVersion,
         dir
       );
       if (ignoredMessages.length > 0) {

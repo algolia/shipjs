@@ -1,9 +1,4 @@
 module.exports = {
-  filesToBump: [
-    "package.json",
-    "packages/shipjs-lib/package.json",
-    "packages/shipjs/package.json"
-  ],
   versionUpdated: ({ version, dir, exec }) => {
     exec(`npx json -I -f lerna.json -e 'this.version = "${version}"'`);
     exec(
@@ -14,7 +9,7 @@ module.exports = {
     );
   },
   beforeCommitChanges: ({ exec }) => {
-    exec(`npx markdown-toc -i --bullets="-" GUIDE.md`);
+    exec("yarn toc");
   },
   publishCommand: () =>
     `lerna exec -- yarn publish --no-git-tag-version --non-interactive`

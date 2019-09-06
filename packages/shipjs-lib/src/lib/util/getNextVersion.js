@@ -4,7 +4,6 @@ import {
   GIT_COMMIT_BREAKING_CHANGE,
 } from '../const';
 import { inc, prerelease } from 'semver';
-import getCurrentVersion from './getCurrentVersion';
 import silentExec from '../shell/silentExec';
 
 export function getNextVersionFromCommitMessages(version, titles, bodies) {
@@ -63,9 +62,8 @@ function getBodies(version, dir) {
     .trim();
 }
 
-export default function getNextVersion(dir = '.') {
-  const version = getCurrentVersion(dir);
-  const titles = getTitles(version, dir);
-  const bodies = getBodies(version, dir);
-  return getNextVersionFromCommitMessages(version, titles, bodies);
+export default function getNextVersion(currentVersion, dir = '.') {
+  const titles = getTitles(currentVersion, dir);
+  const bodies = getBodies(currentVersion, dir);
+  return getNextVersionFromCommitMessages(currentVersion, titles, bodies);
 }

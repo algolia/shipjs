@@ -1,6 +1,10 @@
 export default {
   remote: 'origin',
-  filesToBump: ['package.json'],
+  // monorepo: {
+  //   readVersionFrom: 'package.json',
+  //   packagesToBump: ['packages/*', 'examples/*'],
+  //   packagesToPublish: ['packages/*'],
+  // },
   updateChangelog: true,
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
   installCommand: ({ isYarn }) => (isYarn ? 'yarn install' : 'npm install'),
@@ -70,8 +74,8 @@ export default {
     ].join(', ')}]`;
   },
   buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),
-  publishCommand: ({ isYarn, defaultCommand }) => defaultCommand,
-  getTagName: ({ currentVersion }) => `v${currentVersion}`,
+  publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand,
+  getTagName: ({ version }) => `v${version}`,
   testCommandBeforeRelease: ({ isYarn }) =>
     isYarn ? 'yarn test' : 'npm run test',
   appName: undefined,

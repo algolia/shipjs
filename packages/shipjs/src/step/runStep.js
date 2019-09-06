@@ -12,7 +12,7 @@ export default function runStep({ title }, stepFn) {
     print(bold(slateblue(`› ${title}`)));
   }
   return stepFn({
-    run: wrapRun({ exec, print, info, error }),
+    run: wrapRun({ exec, print, error }),
     print: indentPrint(2),
     info,
     warning,

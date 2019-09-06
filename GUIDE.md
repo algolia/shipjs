@@ -3,6 +3,7 @@
 <!-- toc -->
 
 - [Installation](#installation)
+  - [Install `hub`](#install-hub)
   - [Dry Mode](#dry-mode)
 - [Integrate with Circle CI](#integrate-with-circle-ci)
   - [NPM Token](#npm-token)
@@ -212,27 +213,27 @@ By default, `publishCommand` returns `yarn publish` or `npm publish`. You can ov
 
 ### Release your monorepo project
 
-Ship.js currently supports monorepo project unless you want independent versioning in your packages.
-
-Let's say you have the following package.json files:
-
-- package.json
-- packages/first-package/package.json
-- packages/second-package/package.json
-- example/package.json
+Ship.js currently supports monorepo project(Independent versioning is not supported at the moment).
 
 ```js
 module.exports = {
-  filesToBump: [
-    "package.json",
-    "packages/first-package/package.json",
-    "packages/second-package/package.json",
-    "example/package.json"
-  ]
+  monorepo: {
+    readVersionFrom: 'package.json',
+    packagesToBump: ['packages/*', 'examples/*'],
+    packagesToPublish: ['packages/*'],
+  }
 };
 ```
 
-With the config above, Ship.js will read the current version from the first entry from the array, which is `package.json`. After figuring out the next version, the next version will be updated to the all package.json files.
+With the config above, `prepare` command will
+
+1. Read the current version from `package.json` file at the project root directory.
+2. Calculate the next version based on commit messages.
+3. Update the next version over `package.json` files in `['packages/*', 'examples/*']`.
+
+And `release` command will publish packages in `['packages/*']`.
+
+When Ship.js handles `packagesToBump` and `packagesToPublish`, it will only list directories with `package.json` inside them.
 
 ### Schedule your release
 
