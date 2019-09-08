@@ -234,7 +234,7 @@ With the config above, `prepare` command will
 2. Calculate the next version based on commit messages.
 3. Update the next version over `package.json` files in `['packages/*', 'examples/*']`.
 
-And `release` command will publish packages in `['packages/*']`.
+And `trigger` command will publish packages in `['packages/*']`.
 
 When Ship.js handles `packagesToBump` and `packagesToPublish`, it will only list directories with `package.json` inside them.
 
