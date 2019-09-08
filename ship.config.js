@@ -2,6 +2,11 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = {
+  monorepo: {
+    readVersionFrom: "package.json",
+    packagesToBump: ["packages/*"],
+    packagesToPublish: ["packages/*"]
+  },
   versionUpdated: ({ version, dir, exec }) => {
     const updateVersion = (filePath, expression) => {
       exec(`npx json -I -f ${filePath} -e '${expression} = "${version}"'`);
@@ -19,7 +24,7 @@ module.exports = {
     // update `version.js`
     fs.writeFileSync(
       path.resolve(dir, "packages/shipjs/src/version.js"),
-      "export default '${version}';"
+      `export default '${version}';`
     );
   },
   beforeCommitChanges: ({ exec }) => {
