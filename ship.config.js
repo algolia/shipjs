@@ -15,6 +15,9 @@ module.exports = {
     // update lerna.json
     updateVersion("lerna.json", "this.version");
 
+    // update package.json
+    updateVersion("package.json", "this.version");
+
     // update dependency
     updateVersion(
       "packages/shipjs/package.json",
@@ -24,12 +27,10 @@ module.exports = {
     // update `version.js`
     fs.writeFileSync(
       path.resolve(dir, "packages/shipjs/src/version.js"),
-      `export default '${version}';`
+      `export default '${version}';\n`
     );
   },
   beforeCommitChanges: ({ exec }) => {
     exec("yarn toc");
-  },
-  publishCommand: () =>
-    `lerna exec -- yarn publish --no-git-tag-version --non-interactive`
+  }
 };
