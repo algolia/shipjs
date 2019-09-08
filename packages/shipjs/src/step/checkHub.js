@@ -16,11 +16,11 @@ export default () =>
         );
         exitProcess(1);
       }
+      const token = process.env.GITHUB_TOKEN || '';
       const configured =
-        silentExec(
-          `yes "" | GITHUB_TOKEN=${process.env.GITHUB_TOKEN} hub api user`,
-          { ignoreError: true }
-        ).code === 0;
+        silentExec(`yes "" | GITHUB_TOKEN=${token} hub api user`, {
+          ignoreError: true,
+        }).code === 0;
       if (!configured) {
         print(error('You need to configure `hub`.'));
         print(
