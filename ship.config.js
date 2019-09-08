@@ -24,7 +24,7 @@ module.exports = {
     // update `version.js`
     fs.writeFileSync(
       path.resolve(dir, "packages/shipjs/src/version.js"),
-      `export default '${version}';`
+      `export default '${version}';\n`
     );
   },
   beforeCommitChanges: ({ exec }) => {
