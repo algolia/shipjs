@@ -1,4 +1,5 @@
 import { loadConfig } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { resolve } from 'path';
 
 import printHelp from '../step/release/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';
@@ -14,7 +15,7 @@ import gitPush from '../step/release/gitPush';
 import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess';
 import finished from '../step/finished';
 
-async function release({ help = false, dir = '.', dryRun = false }) {
+async function release({ help = false, dir = resolve('.'), dryRun = false }) {
   if (help) {
     printHelp();
     return;

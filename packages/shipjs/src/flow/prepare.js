@@ -1,4 +1,5 @@
 import { getAppName, loadConfig } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { resolve } from 'path';
 
 import printHelp from '../step/prepare/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';
@@ -22,7 +23,7 @@ import finished from '../step/finished';
 
 async function prepare({
   help = false,
-  dir = '.',
+  dir = resolve('.'),
   yes = false,
   firstRelease = false,
   releaseCount,
