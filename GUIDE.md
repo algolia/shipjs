@@ -221,7 +221,7 @@ Ship.js currently supports monorepo project(Independent versioning is not suppor
 ```js
 module.exports = {
   monorepo: {
-    readVersionFrom: 'package.json',
+    readVersionFrom: 'package.json',  // or `lerna.json`, or whatever a json file you can read the latest `version` from.
     packagesToBump: ['packages/*', 'examples/*'],
     packagesToPublish: ['packages/*'],
   }
@@ -237,6 +237,33 @@ With the config above, `prepare` command will
 And `trigger` command will publish packages in `['packages/*']`.
 
 When Ship.js handles `packagesToBump` and `packagesToPublish`, it will only list directories with `package.json` inside them.
+
+### Extra work on updating version
+
+After bumping the version, you may want to do extra work regarding the version. Ship.js provides `versionUpdated` hook.
+
+```js
+const fs = require('fs');
+const path = require('path');
+
+module.exports = {
+  versionUpdated: ({ version, dir, exec }) => {
+    // update `lerna.json`
+    const lernaConfigPath = path.resolve(dir, 'lerna.json');
+    const lernaConfig = JSON.parse(fs.readFileSync(lernaConfigPath).toString());
+    lernaConfig.version = version;
+    fs.writeFileSync(lernaConfigPath, JSON.stringify(lernaConfig, null, 2));
+
+    // update `src/lib/version.js`
+    const versionPath = path.resolve(dir, 'src/lib/version.js');
+    fs.writeFileSync(versionPath, `export default "${version}";\n`);
+
+    // update dependencies in monorepo
+    exec(`yarn workspace example-foo add my-lib@${version}`);
+    exec(`yarn workspace example-bar add my-lib@${version}`);
+  },
+}
+```
 
 ### Schedule your release
 

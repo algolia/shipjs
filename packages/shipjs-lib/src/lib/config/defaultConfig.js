@@ -9,7 +9,7 @@ export default {
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
   installCommand: ({ isYarn }) =>
     isYarn ? 'yarn install --silent' : 'npm install',
-  versionUpdated: ({ version, exec }) => {},
+  versionUpdated: ({ version, dir, exec }) => {},
   beforeCommitChanges: ({ exec }) => {},
   getStagingBranchName: ({ nextVersion }) => `releases/v${nextVersion}`,
   formatCommitMessage: ({ nextVersion }) => `chore: release v${nextVersion}`,
