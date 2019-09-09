@@ -7,7 +7,8 @@ export default {
   // },
   updateChangelog: true,
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
-  installCommand: ({ isYarn }) => (isYarn ? 'yarn install' : 'npm install'),
+  installCommand: ({ isYarn }) =>
+    isYarn ? 'yarn install --silent' : 'npm install',
   versionUpdated: ({ version, exec }) => {},
   beforeCommitChanges: ({ exec }) => {},
   getStagingBranchName: ({ nextVersion }) => `releases/v${nextVersion}`,
