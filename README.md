@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  Ship.js helps you with a better release process.
+  Take control of what is going to be your next release.
 </p>
 
 ## Why 🤷🏻‍
@@ -25,17 +25,17 @@ When releasing, you normally do the following:
 
 ### What can go wrong?
 
-- Different environment across members.
-- Potential mistake by figuring out the next version manually.
-- The whole process happening on your local machine.
+- Environments are different across your team members.
+- Manually figuring out the next version may lead to a potential mistake.
+- The whole process happens on your local machine.
   - You're releasing alone.
-  - It occupies your time.
+  - You cannot do other tasks until it's done.
 
 ## How❓
 
 In Ship.js, the release process consists of three parts.
 
-### 1. Preparation
+### Part 1. Preparation (`shipjs prepare`)
 
 ![Preview](preview.gif)
 
@@ -43,24 +43,24 @@ In Ship.js, the release process consists of three parts.
 - Update the version and changelog.
 - Create a pull-request.
 
-This is done with a command `shipjs prepare`. It takes less than a minute.
+This is done by running `shipjs prepare` on your terminal. It takes less than a minute.
 
-### 2. Review
+### Part 2. Review
 
 - Review the pull-request by yourself, or with your colleagues.
-- Add more commits to the pull-request if you want any.
+- Add more commits to the pull-request if you want.
 
 When you think it's ready to ship, merge the pull-request.
 
-### 3. Actual Release
+### Part 3. Trigger a release (`shipjs trigger`)
 
 - Run a final test (unit, e2e, etc).
 - Release it to NPM.
 - Create a git tag for the version.
 
-This is done with a command `shipjs trigger`.
+This is done by running `shipjs trigger` on your terminal.
 
-You will probably configure this to run on your CI. It means the longest process is done somewhere else, not occupying your working environment.
+You can configure your CI service to run this on behalf of you. It will run automatically as soon as the pull-request is merged. It means the longest process is done somewhere else, not occupying your working environment.
 
 ## How, again⁉️
 
@@ -70,31 +70,41 @@ Let's assume the following situation:
 - Currently released version: `1.0.0`
 - Next version: `1.0.1` (because there are only commits like chore, fix, ...)
 
-### 1. Preparation
+### Part 1. Preparation (`shipjs prepare`)
 
-Running `shipjs prepare` will briefly do the following:
+On your terminal, run `shipjs prepare` and it will briefly do the following:
 
 - `git checkout -b releases/v1.0.1`
 - Update the version in `package.json`.
 - Update the changelog.
-- `git commit -m "chore: releases v1.0.1`
+- `git commit -m "chore: release v1.0.1`
 - Create a pull-request from `releases/v1.0.1` to `master`.
 
-### 2. Review
+You can run `shipjs prepare --dry-run` just to see what will be executed without actual execution.
+
+### Part 2. Review
 
 You will review and merge this pull-request.
 
-If you added more commits to this pull-request, you need to `Squash & merge` for next step.
+If you added more commits to this pull-request, you need to `Squash and merge` so that the latest commit message can be `chore: release v1.0.1`. This is required for the next step.
 
-### 3. Actual Release
+### Part 3. Trigger a release (`shipjs trigger`)
 
-- Your CI service will be triggered because there is a new commit in `master` branch, which is `chore: releases v1.0.1`.
-- You already have configured your CI to run `shipjs trigger` on `master` branch.
-- `shipjs trigger` knows the latest commit is for release, so it continues.
-- Send a slack message to notify the beginning of the release.
-- Run test, build and release it to NPM.
+On your terminal, `git pull` on `master` branch. And run `shipjs trigger`. It will check the following conditions whether it should proceed releasing or not.
+
+- if it's `master` branch now
+- if the latest commit message is `chore: releases v1.0.1`
+
+If the conditions are met, `shipjs trigger` will briefly do the following:
+
+- Send a Slack message to notify the beginning of the release(If configured).
+- Run test, build and publish it to NPM.
 - `git tag v1.0.1`
-- Push them and notify via Slack.
+- Push them and notify at Slack.
+
+You can run `shipjs trigger --dry-run` just to see what will be executed without actual execution.
+
+And you can configure your CI service to run the Part 3 on behalf of you.
 
 ## Installation
 
@@ -113,7 +123,7 @@ Add the following to the `scripts` section in your `package.json`.
 "release:trigger": "shipjs trigger",
 ```
 
-Do you want to set it up now? Then, let's move on to the [guide](./GUIDE.md).
+Do you want to set it up now? Then, let's move on to the [GUIDE.md](./GUIDE.md).
 
 ## How is it different from semantic-release?
 
@@ -121,14 +131,10 @@ Do you want to set it up now? Then, let's move on to the [guide](./GUIDE.md).
 
 Ship.js provides a half automation, which gives you a chance to:
 
-- Confirm the next version which is semantically bumped
-- Check which commits are going to be released
-- Modify the changelog before release
-- Postpone the release, build a test package for the PR and test it ([Pika CI](https://github.com/apps/pika-ci) can be used here)
-
-## Is Ship.js opinionated?
-
-Ship.js works with zero configuration out of box, but also lets you configure as much as you want.
+- Confirm the semantically bumped version is actually correct
+- Check which commits are going to be released and discuss with colleagues
+- Check the automatically generated changelog and refine it
+- Put the release aside for a second, build a test package for the PR and test it in another environments(Possibly [Pika CI](https://github.com/apps/pika-ci) can be used here).
 
 ## Contributing
 
@@ -138,4 +144,4 @@ And we also appreciate your PRs. The detailed contribution guide is coming soon.
 
 ## Getting Started
 
-Let's move on to the [guide](./GUIDE.md).
+Let's move on to the [GUIDE.md](./GUIDE.md).

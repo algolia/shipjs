@@ -5,7 +5,7 @@
 - [Installation](#installation)
   - [Install `hub`](#install-hub)
   - [Dry Mode](#dry-mode)
-- [Integrate with Circle CI](#integrate-with-circle-ci)
+- [Automate Part 3 (`shipjs trigger`) on your CI service](#automate-part-3-shipjs-trigger-on-your-ci-service)
   - [NPM Token](#npm-token)
   - [GitHub Token](#github-token)
 - [Useful Configurations](#useful-configurations)
@@ -15,6 +15,7 @@
     - [`toReleaseBranch` strategy](#toreleasebranch-strategy)
   - [Release projects somewhere other than NPM](#release-projects-somewhere-other-than-npm)
   - [Release your monorepo project](#release-your-monorepo-project)
+  - [Extra work on updating version](#extra-work-on-updating-version)
   - [Schedule your release](#schedule-your-release)
   - [Assign Reviewers](#assign-reviewers)
 - [All Configurations](#all-configurations)
@@ -37,8 +38,11 @@ yarn add -D shipjs
 Add the following to the `scripts` section in your `package.json`.
 
 ```js
-"release:prepare": "shipjs prepare",
-"release:trigger": "shipjs trigger",
+"scripts: {
+  //...
+  "release:prepare": "shipjs prepare",
+  "release:trigger": "shipjs trigger",
+}
 ```
 
 ### Install `hub`
@@ -64,17 +68,27 @@ Or you can simply run `hub api user`, follow the instruction and it will generat
 
 ### Dry Mode
 
-If you're not sure, you can always run it in dry mode.
+If you're not sure, you can always run commands in dry mode.
 
 ```bash
-$ shipjs prepare --dry-run
+yarn release:prepare --dry-run
+
 or
-$ shipjs trigger --dry-run
+
+yarn release:trigger --dry-run
 ```
 
 It will show you which steps are going to be executed without actually executing them.
 
-## Integrate with Circle CI
+## Doing everything on your machine
+
+- Part 1: `yarn release:prepare` will create a pull-request.
+- Part 2: Review and merge the PR.
+- Part 3: `git pull` and `yarn release:trigger` to actually publish it to NPM.
+
+## Automate Part 3 (`shipjs trigger`) on your CI service
+
+This guide is based on CircleCI. It may be done similarly on other CI services.
 
 A minimal `.circleci/config.yml` looks like the following:
 
@@ -94,11 +108,13 @@ jobs:
           command: yarn release:trigger
 ```
 
-Every time Circle CI runs the flow above, `yarn release:trigger` will be executed, and it will check if it's a condition to release. It will, by default, check the latest commit message and the current branch.
+At Part 2, if you merge the PR, a new commit will be added and CircleCI will run `yarn release:trigger`. Then, it will check if the latest commit message is in convention and the current branch is right. If the conditions are met, it will trigger a release. Otherwise, it will skip.
+
+By default, it will check if the commit message is `chore: release vx.y.z`(which is the title of the PR). So when you merge the PR, you need to `Squash and merge` to make it one commit with that message. You can force this behavior by configuring the merge button at your repository settings page.
 
 ### NPM Token
 
-Setup an NPM token to allow Ship.js(at CircleCI) to release the package to NPM.
+Setup an NPM token to allow Ship.js(**at CircleCI**) to release the package to NPM.
 
 1. Login at [https://www.npmjs.com/](https://www.npmjs.com/), click your profile icon and go to "Tokens".
 2. Click "Create New Token", make sure the access level is "Read and Publish" and copy the token.
@@ -109,7 +125,7 @@ Setup an NPM token to allow Ship.js(at CircleCI) to release the package to NPM.
 
 ### GitHub Token
 
-Setup a GitHub token to allow Ship.js(at CircleCI) to create a git tag and push it to remote after release.
+Setup a GitHub token to allow Ship.js(**at CircleCI**) to create a git tag and push it to remote after release.
 
 1. Go to https://github.com/settings/tokens/new
 2. Check "repo(Full control of private repositories)"
@@ -123,17 +139,7 @@ Setup a GitHub token to allow Ship.js(at CircleCI) to create a git tag and push 
 
 At the root of your project, you can create `ship.config.js` file to customize the process.
 
-All the configs are optional. It's okay not to configure anything at all as long as it meets your needs.
-
-### `slackIncomingHook`
-
-```js
-module.exports = {
-  slackIncomingHook: "https://..."
-};
-```
-
-With this configured, `shipjs trigger` will send messages to your Slack channel at the beginning and the end of the release.
+Everything is optional.
 
 ### `mergeStrategy`
 
@@ -147,9 +153,9 @@ module.exports = {
 
 The default value for `mergeStrategy` is the above. It means `shipjs prepare` will work only on `master` branch.
 
-`shipjs prepare` will checkout to a staging branch(e.g. `releases/v1.0.1`) and create a pull-request from the staging branch to `master`.
+`shipjs prepare` will checkout to a staging branch(e.g. `releases/v1.0.1`) and create a PR from the staging branch to `master`.
 
-So, by default, Ship.js will work on your `master` branch only.
+So, by default, Ship.js works on your `master` branch only.
 
 Let's look at the configuration below:
 
@@ -164,41 +170,45 @@ module.exports = {
 };
 ```
 
-Let's assume `develop` is working branch and `master` is the latest released branch.
+Let's assume you're working on the latest version 1.x on `develop` and `master` is the latest release branch.
 
-And you also maintain a `legacy` branch. You didn't split branch for `legacy`.
+You also maintain a `legacy` version which is 0.x.
 
 #### `toSameBranch` strategy
 
 When you run `shipjs prepare` on `legacy` branch, it will
 
-- checkout to a staging branch(e.g. `releases/v1.8.3`)
-- create a pull-request from the staging branch to `legacy` branch
+- checkout to a staging branch(e.g. `releases/v0.8.3`).
+- create a PR from the staging branch to `legacy` branch.
 
 Let's assume you configured your CI to monitor `legacy` branch.
 When you review and merge the PR, your CI will run `shipjs trigger` and it will
 
-1. run tests
-2. release to NPM
-3. create a git tag(e.g. `v1.8.3`)
-4. push to git remote
+1. run tests.
+2. release to NPM.
+3. create a git tag(e.g. `v0.8.3`).
+4. push to git remote.
 
 #### `toReleaseBranch` strategy
 
 When you run `shipjs prepare` on `develop` branch, it will
 
-- checkout to a staging branch(e.g. `releases/v2.4.3`)
-- create a pull-request from the staging branch to `master` branch
+- checkout to a staging branch(e.g. `releases/v1.4.2`).
+- create a PR from the staging branch to `master` branch.
 
 When you review and merge the PR, your CI will run `shipjs trigger` and it will
 
-1. run tests
-2. release to NPM
-3. create a git tag(e.g. `v1.8.3`)
-4. merge `master` back to `develop`
-5. push to git remote
+1. run tests.
+2. release to NPM.
+3. create a git tag(e.g. `v1.4.2`).
+4. merge `master` back to `develop`.
+5. push to git remote.
 
-You see the slight difference between two strategies?
+So the flow is like this:
+
+> develop -> releases/v1.4.3 -> master -> (merged back to) develop
+
+You see the difference between two strategies, right?
 
 ### Release projects somewhere other than NPM
 
@@ -267,9 +277,9 @@ module.exports = {
 
 ### Schedule your release
 
-By running `yarn release:prepare`, you will get a pull-request for next release. What if you even automate this?
+At Part 1, by running `yarn release:prepare`, you get a PR for next release. What if you even automate this?
 
-You can configure your CI to run `yarn release:prepare` periodically.
+You can configure your CI to run periodically `yarn release:prepare`.
 
 ```yml
 version: 2
@@ -309,25 +319,39 @@ workflows:
       - prepare_release
 ```
 
-`GITHUB_TOKEN` is required for CircleCI to create a pull-request. Make sure you have configured it as an environment variable at your CI service.
+`GITHUB_TOKEN` is required for CircleCI to create a PR. Make sure you have it configured as an environment variable.
 
-Now, every Tuesday at 9am, new pull-request will be created. All you need to do is review the pull-request and merge it. Then the rest will be automatically done.
+Now, every Tuesday at 9am, new PR will be created. All you need to do is review the PR and merge it. Then the rest will be automatically done.
 
 If you're using CircleCI v2.0, you can also manually trigger the job using API call. You can refer to [this document](https://circleci.com/docs/2.0/api-job-trigger/), but it won't work in CircleCI v2.1.
 
 ### Assign Reviewers
 
-You can assign reviewers on your release pull-request.
+You can assign reviewers on the PR.
 
 ```js
 module.exports = {
-  pullRequestReviewer: "reviewer-user-name"
+  pullRequestReviewer: "user-name-or-team-name"
 };
 ```
 
-One thing to be aware is, you cannot assign yourself as reviewer. You can put github username of your team or team mates. The value is a comma-separated list(no spaces around the comma).
+One thing you need to be aware of is, you cannot assign yourself as a reviewer. You can put github username of your team or colleagues. The value is a comma-separated list(no spaces around the comma).
 
-The assignees will receive a notification from GitHub when the pull-request is created. Whenever they review and merge the pull-request, it will be automatically released by the prior configuration you've done [above](#integrate-with-circle-ci).
+The assignees will receive a notification from GitHub when the PR is created. Whenever they review and merge the PR, it will be automatically released by the prior configuration you've done [above](#integrate-with-circle-ci).
+
+### `slackIncomingHook`
+
+```js
+module.exports = {
+  slackIncomingHook: "https://..."
+};
+```
+
+With this configured, messages will be sent to your Slack channel
+
+- when `shipjs prepare` is finished
+- when `shipjs trigger` begins
+- when `shipjs trigger` is finished
 
 ## All Configurations
 
