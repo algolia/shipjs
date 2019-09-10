@@ -268,7 +268,7 @@ module.exports = {
     const versionPath = path.resolve(dir, 'src/lib/version.js');
     fs.writeFileSync(versionPath, `export default "${version}";\n`);
 
-    // update dependencies in monorepo
+    // update dependencies (if you're using yarn workspace)
     exec(`yarn workspace example-foo add my-lib@${version}`);
     exec(`yarn workspace example-bar add my-lib@${version}`);
   },
