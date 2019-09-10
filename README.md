@@ -41,16 +41,16 @@ In Ship.js, the release process consists of three parts.
 
 - Figure out next version.
 - Update the version and changelog.
-- Create a pull-request.
+- Create a pull request.
 
 This is done by running `shipjs prepare` on your terminal. It takes less than a minute.
 
 ### Part 2. Review
 
-- Review the pull-request by yourself, or with your colleagues.
-- Add more commits to the pull-request if you want.
+- Review the PR by yourself, or with your colleagues.
+- Add more commits to the PR if you want.
 
-When you think it's ready to ship, merge the pull-request.
+When you think it's ready to ship, merge the PR.
 
 ### Part 3. Trigger a release (`shipjs trigger`)
 
@@ -60,7 +60,7 @@ When you think it's ready to ship, merge the pull-request.
 
 This is done by running `shipjs trigger` on your terminal.
 
-You can configure your CI service to run this on behalf of you. It will run automatically as soon as the pull-request is merged. It means the longest process is done somewhere else, not occupying your working environment.
+You can configure your CI service to run this on behalf of you. It will run automatically as soon as the PR is merged. It means the longest process is done somewhere else, not occupying your working environment.
 
 ## How, again⁉️
 
@@ -78,15 +78,15 @@ On your terminal, run `shipjs prepare` and it will briefly do the following:
 - Update the version in `package.json`.
 - Update the changelog.
 - `git commit -m "chore: release v1.0.1`
-- Create a pull-request from `releases/v1.0.1` to `master`.
+- Create a PR from `releases/v1.0.1` to `master`.
 
 You can run `shipjs prepare --dry-run` just to see what will be executed without actual execution.
 
 ### Part 2. Review
 
-You will review and merge this pull-request.
+You will review and merge this PR.
 
-If you added more commits to this pull-request, you need to `Squash and merge` so that the latest commit message can be `chore: release v1.0.1`. This is required for the next step.
+If you added more commits to this PR, you need to `Squash and merge` so that the latest commit message can be `chore: release v1.0.1`. This is required for the next step.
 
 ### Part 3. Trigger a release (`shipjs trigger`)
 

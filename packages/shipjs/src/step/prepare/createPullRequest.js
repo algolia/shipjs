@@ -14,7 +14,7 @@ export default ({
   dryRun,
 }) =>
   runStep(
-    { title: 'Creating a pull-request.' },
+    { title: 'Creating a pull request.' },
     ({ print, warning, run, exitProcess }) => {
       const {
         mergeStrategy,

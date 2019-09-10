@@ -5,11 +5,11 @@
 - [Installation](#installation)
   - [Install `hub`](#install-hub)
   - [Dry Mode](#dry-mode)
+- [Doing everything on your machine](#doing-everything-on-your-machine)
 - [Automate Part 3 (`shipjs trigger`) on your CI service](#automate-part-3-shipjs-trigger-on-your-ci-service)
   - [NPM Token](#npm-token)
   - [GitHub Token](#github-token)
 - [Useful Configurations](#useful-configurations)
-  - [`slackIncomingHook`](#slackincominghook)
   - [`mergeStrategy`](#mergestrategy)
     - [`toSameBranch` strategy](#tosamebranch-strategy)
     - [`toReleaseBranch` strategy](#toreleasebranch-strategy)
@@ -18,6 +18,7 @@
   - [Extra work on updating version](#extra-work-on-updating-version)
   - [Schedule your release](#schedule-your-release)
   - [Assign Reviewers](#assign-reviewers)
+  - [`slackIncomingHook`](#slackincominghook)
 - [All Configurations](#all-configurations)
 - [Commands](#commands)
   - [`shipjs prepare`](#shipjs-prepare)
@@ -82,7 +83,7 @@ It will show you which steps are going to be executed without actually executing
 
 ## Doing everything on your machine
 
-- Part 1: `yarn release:prepare` will create a pull-request.
+- Part 1: `yarn release:prepare` will create a pull request.
 - Part 2: Review and merge the PR.
 - Part 3: `git pull` and `yarn release:trigger` to actually publish it to NPM.
 
