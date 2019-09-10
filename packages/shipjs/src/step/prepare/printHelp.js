@@ -46,7 +46,7 @@ export default () =>
       indent('  Displays the steps without actually doing them.'),
       '',
       indent(`-N, ${noBrowse}`),
-      indent('  Do not open a browser after creating a pull-request.'),
+      indent('  Do not open a browser after creating a pull request.'),
       '',
     ];
     print(messages.join('\n'));

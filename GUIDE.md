@@ -83,7 +83,7 @@ It will show you which steps are going to be executed without actually executing
 
 ## Doing everything on your machine
 
-- Part 1: `yarn release:prepare` will create a pull-request.
+- Part 1: `yarn release:prepare` will create a pull request.
 - Part 2: Review and merge the PR.
 - Part 3: `git pull` and `yarn release:trigger` to actually publish it to NPM.
 
