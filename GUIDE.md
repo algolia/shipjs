@@ -231,9 +231,9 @@ Ship.js currently supports monorepo project(Independent versioning is not suppor
 ```js
 module.exports = {
   monorepo: {
-    readVersionFrom: 'package.json',  // or `lerna.json`, or whatever a json file you can read the latest `version` from.
-    packagesToBump: ['packages/*', 'examples/*'],
-    packagesToPublish: ['packages/*'],
+    readVersionFrom: "package.json", // or `lerna.json`, or whatever a json file you can read the latest `version` from.
+    packagesToBump: ["packages/*", "examples/*"],
+    packagesToPublish: ["packages/*"]
   }
 };
 ```
@@ -253,26 +253,26 @@ When Ship.js handles `packagesToBump` and `packagesToPublish`, it will only list
 After bumping the version, you may want to do extra work regarding the version. Ship.js provides `versionUpdated` hook.
 
 ```js
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 module.exports = {
   versionUpdated: ({ version, dir, exec }) => {
     // update `lerna.json`
-    const lernaConfigPath = path.resolve(dir, 'lerna.json');
+    const lernaConfigPath = path.resolve(dir, "lerna.json");
     const lernaConfig = JSON.parse(fs.readFileSync(lernaConfigPath).toString());
     lernaConfig.version = version;
     fs.writeFileSync(lernaConfigPath, JSON.stringify(lernaConfig, null, 2));
 
     // update `src/lib/version.js`
-    const versionPath = path.resolve(dir, 'src/lib/version.js');
+    const versionPath = path.resolve(dir, "src/lib/version.js");
     fs.writeFileSync(versionPath, `export default "${version}";\n`);
 
     // update dependencies (if you're using yarn workspace)
     exec(`yarn workspace example-foo add my-lib@${version}`);
     exec(`yarn workspace example-bar add my-lib@${version}`);
-  },
-}
+  }
+};
 ```
 
 ### Schedule your release
@@ -352,6 +352,12 @@ With this configured, messages will be sent to your Slack channel
 - when `shipjs prepare` is finished
 - when `shipjs trigger` begins
 - when `shipjs trigger` is finished
+
+If your repository is public, you can provide the hook URL as an environment variable instead of exposing it in the config file.
+
+```bash
+SLACK_INCOMING_HOOK=xxx yarn release:prepare
+```
 
 ## All Configurations
 
