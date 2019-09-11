@@ -13,12 +13,12 @@
   - [`mergeStrategy`](#mergestrategy)
     - [`toSameBranch` strategy](#tosamebranch-strategy)
     - [`toReleaseBranch` strategy](#toreleasebranch-strategy)
-  - [Release projects somewhere other than NPM](#release-projects-somewhere-other-than-npm)
   - [Release your monorepo project](#release-your-monorepo-project)
   - [Extra work on updating version](#extra-work-on-updating-version)
   - [Schedule your release](#schedule-your-release)
   - [Assign Reviewers](#assign-reviewers)
   - [`slackIncomingHook`](#slackincominghook)
+  - [Release projects somewhere other than NPM](#release-projects-somewhere-other-than-npm)
 - [All Configurations](#all-configurations)
 - [Commands](#commands)
   - [`shipjs prepare`](#shipjs-prepare)
@@ -111,7 +111,7 @@ jobs:
 
 At Part 2, if you merge the PR, a new commit will be added and CircleCI will run `yarn release:trigger`. Then, it will check if the latest commit message is in convention and the current branch is right. If the conditions are met, it will trigger a release. Otherwise, it will skip.
 
-By default, it will check if the commit message is `chore: release vx.y.z`(which is the title of the PR). So when you merge the PR, you need to `Squash and merge` to make it one commit with that message. You can force this behavior by configuring the merge button at your repository settings page.
+By default, it will check if the commit message is `chore: release vx.y.z`(which is the title of the PR). So when you merge the PR, you need to `Squash and merge` to make it one commit with that message. You can also force this behavior by configuring the merge button at your repository settings page.
 
 ### NPM Token
 
@@ -210,20 +210,6 @@ So the flow is like this:
 > develop -> releases/v1.4.3 -> master -> (merged back to) develop
 
 You see the difference between two strategies, right?
-
-### Release projects somewhere other than NPM
-
-You can use Ship.js to release projects somewhere other than NPM.
-
-For example,
-
-```js
-module.exports = {
-  publishCommand: () => "npx now"
-};
-```
-
-By default, `publishCommand` returns `yarn publish` or `npm publish`. You can override it like the above to release it to wherever you want.
 
 ### Release your monorepo project
 
@@ -359,6 +345,20 @@ If your repository is public, you can provide the hook URL as an environment var
 ```bash
 SLACK_INCOMING_HOOK=xxx yarn release:prepare
 ```
+
+### Release projects somewhere other than NPM
+
+You can use Ship.js to release projects somewhere other than NPM.
+
+For example,
+
+```js
+module.exports = {
+  publishCommand: () => "npx now"
+};
+```
+
+By default, `publishCommand` returns `yarn publish` or `npm publish`. You can override it like the above to release it to wherever you want.
 
 ## All Configurations
 
