@@ -5,20 +5,20 @@
 - [Installation](#installation)
   - [Install `hub`](#install-hub)
   - [Dry Mode](#dry-mode)
-- [Doing everything on your machine](#doing-everything-on-your-machine)
-- [Automate Part 3 (`shipjs trigger`) on your CI service](#automate-part-3-shipjs-trigger-on-your-ci-service)
+- [On your local machine](#on-your-local-machine)
+- [Automate Part 3 (`shipjs trigger`) on your CI](#automate-part-3-shipjs-trigger-on-your-ci)
   - [NPM Token](#npm-token)
   - [GitHub Token](#github-token)
 - [Useful Configurations](#useful-configurations)
   - [`mergeStrategy`](#mergestrategy)
     - [`toSameBranch` strategy](#tosamebranch-strategy)
     - [`toReleaseBranch` strategy](#toreleasebranch-strategy)
-  - [Release your monorepo project](#release-your-monorepo-project)
+  - [Monorepo](#monorepo)
   - [Extra work on updating version](#extra-work-on-updating-version)
   - [Schedule your release](#schedule-your-release)
   - [Assign Reviewers](#assign-reviewers)
   - [`slackIncomingHook`](#slackincominghook)
-  - [Release projects somewhere other than NPM](#release-projects-somewhere-other-than-npm)
+  - [Release projects somewhere else](#release-projects-somewhere-else)
 - [All Configurations](#all-configurations)
 - [Commands](#commands)
   - [`shipjs prepare`](#shipjs-prepare)
@@ -81,13 +81,13 @@ yarn release:trigger --dry-run
 
 It will show you which steps are going to be executed without actually executing them.
 
-## Doing everything on your machine
+## On your local machine
 
 - Part 1: `yarn release:prepare` will create a pull request.
 - Part 2: Review and merge the PR.
 - Part 3: `git pull` and `yarn release:trigger` to actually publish it to NPM.
 
-## Automate Part 3 (`shipjs trigger`) on your CI service
+## Automate Part 3 (`shipjs trigger`) on your CI
 
 This guide is based on CircleCI. It may be done similarly on other CI services.
 
@@ -211,7 +211,7 @@ So the flow is like this:
 
 You see the difference between two strategies, right?
 
-### Release your monorepo project
+### Monorepo
 
 Ship.js currently supports monorepo project(Independent versioning is not supported at the moment).
 
@@ -346,7 +346,7 @@ If your repository is public, you can provide the hook URL as an environment var
 SLACK_INCOMING_HOOK=xxx yarn release:prepare
 ```
 
-### Release projects somewhere other than NPM
+### Release projects somewhere else
 
 You can use Ship.js to release projects somewhere other than NPM.
 
@@ -359,6 +359,8 @@ module.exports = {
 ```
 
 By default, `publishCommand` returns `yarn publish` or `npm publish`. You can override it like the above to release it to wherever you want.
+
+If you have configured `monorepo`, this command will run in each package in `monorepo.packagesToPublish`.
 
 ## All Configurations
 
