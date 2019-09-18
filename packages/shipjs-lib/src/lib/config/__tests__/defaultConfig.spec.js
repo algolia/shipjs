@@ -12,8 +12,8 @@ describe('defaultConfig', () => {
   });
 
   it('formatCommitMessage', () => {
-    const nextVersion = '0.1.2';
-    expect(formatCommitMessage({ nextVersion })).toBe(`chore: release v0.1.2`);
+    const version = '0.1.2';
+    expect(formatCommitMessage({ version })).toBe(`chore: release v0.1.2`);
   });
 
   describe('formatPullRequestMessage', () => {
@@ -111,6 +111,7 @@ describe('defaultConfig', () => {
         currentVersion,
         currentBranch,
         mergeStrategy,
+        formatCommitMessage,
       });
       expect(result).toMatchInlineSnapshot(`
                 "The commit message should have started with the following:
@@ -129,6 +130,7 @@ describe('defaultConfig', () => {
         currentVersion,
         currentBranch,
         mergeStrategy,
+        formatCommitMessage,
       });
       expect(result).toBe(true);
     });
@@ -146,6 +148,7 @@ describe('defaultConfig', () => {
         currentVersion,
         currentBranch,
         mergeStrategy,
+        formatCommitMessage,
       });
       expect(result).toBe(true);
     });
@@ -163,6 +166,7 @@ describe('defaultConfig', () => {
         currentVersion,
         currentBranch,
         mergeStrategy,
+        formatCommitMessage,
       });
       expect(result).toMatchInlineSnapshot(
         `"The current branch needs to be one of [master, release/legacy]"`
