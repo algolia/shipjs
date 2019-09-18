@@ -7,7 +7,7 @@ export default async ({ nextVersion, dir, config, dryRun }) =>
     { title: 'Committing the changes.' },
     async ({ print, info, run }) => {
       const { formatCommitMessage, beforeCommitChanges } = config;
-      const message = formatCommitMessage({ nextVersion });
+      const message = formatCommitMessage({ version: nextVersion });
       if (dryRun) {
         print('$', info('git add .'));
         print('$', info('git commit'));

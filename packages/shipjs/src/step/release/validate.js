@@ -9,7 +9,12 @@ export default ({ config, dir }) =>
   runStep(
     { title: 'Checking the current status.' },
     ({ print, info, warning, exitProcess }) => {
-      const { mergeStrategy, shouldRelease, monorepo } = config;
+      const {
+        mergeStrategy,
+        formatCommitMessage,
+        shouldRelease,
+        monorepo,
+      } = config;
       const commitMessage = getLatestCommitMessage(dir);
       const currentVersion =
         monorepo && monorepo.readVersionFrom
@@ -21,6 +26,7 @@ export default ({ config, dir }) =>
         currentVersion,
         currentBranch,
         mergeStrategy,
+        formatCommitMessage,
       });
       if (validationResult !== true) {
         print(warning('Skipping a release due to the following reason:'));

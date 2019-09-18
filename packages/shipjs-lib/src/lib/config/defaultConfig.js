@@ -12,7 +12,7 @@ export default {
   versionUpdated: ({ version, dir, exec }) => {},
   beforeCommitChanges: ({ exec }) => {},
   getStagingBranchName: ({ nextVersion }) => `releases/v${nextVersion}`,
-  formatCommitMessage: ({ nextVersion }) => `chore: release v${nextVersion}`,
+  formatCommitMessage: ({ version }) => `chore: release v${version}`,
   formatPullRequestMessage: ({
     repoURL,
     baseBranch,
@@ -51,10 +51,10 @@ export default {
     currentVersion,
     currentBranch,
     mergeStrategy,
+    formatCommitMessage,
   }) => {
-    const correctCommitMessage = commitMessage
-      .trim()
-      .startsWith(`chore: release v${currentVersion}`);
+    const correctCommitMessage =
+      commitMessage.trim() === formatCommitMessage({ version: currentVersion });
     if (!correctCommitMessage) {
       return (
         'The commit message should have started with the following:' +
