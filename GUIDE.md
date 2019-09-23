@@ -111,7 +111,11 @@ jobs:
 
 At Part 2, if you merge the PR, a new commit will be added and CircleCI will run `yarn release:trigger`. Then, it will check if the latest commit message is in convention and the current branch is right. If the conditions are met, it will trigger a release. Otherwise, it will skip.
 
-By default, it will check if the commit message is `chore: release vx.y.z`(which is the title of the PR). So when you merge the PR, you need to `Squash and merge` to make it one commit with that message. You can also force this behavior by configuring the merge button at your repository settings page.
+By default, it will check if the commit message is `chore: release vx.y.z`(which is the title of the PR).
+
+According to your merge strategy, you might either `Squash and merge` or `Merge pull request`.
+
+For more information, please refer to the [mergeStrategy](#mergestrategy) section.
 
 ### NPM Token
 
@@ -190,6 +194,10 @@ When you review and merge the PR, your CI will run `shipjs trigger` and it will
 3. create a git tag(e.g. `v0.8.3`).
 4. push to git remote.
 
+> When merging a PR from this strategy, you need to "Squash and merge" and make sure the commit title is the same with the title of the PR.
+> 
+> You can go to "Settings" menu of your repository, and even force "Squash and merge" behavior under "Merge button" section.
+
 #### `toReleaseBranch` strategy
 
 When you run `shipjs prepare` on `develop` branch, it will
@@ -210,6 +218,10 @@ So the flow is like this:
 > develop -> releases/v1.4.3 -> master -> (merged back to) develop
 
 You see the difference between two strategies, right?
+
+> When merging a PR from this strategy, you need to "Merge pull request(Create a merge commit)" and also, you must modify the commit title to the title of the PR.
+> 
+> You go to "Settings" menu of your repository, and even force "Merge pull request" behavior under "Merge button" section.
 
 ### Monorepo
 

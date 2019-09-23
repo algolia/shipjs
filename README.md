@@ -86,7 +86,11 @@ You can run `shipjs prepare --dry-run` just to see what will be executed without
 
 You will review and merge this PR.
 
-If you added more commits to this PR, you need to `Squash and merge` so that the latest commit message can be `chore: release v1.0.1`. This is required for the next step.
+You can add more commits to this PR if you need.
+
+According to your merge strategy, you might either `Squash and merge` or `Merge pull request`.
+
+For more information, please refer to the mergeStrategy section of the [guide](./GUIDE.md#mergestrategy).
 
 ### Part 3. Trigger a release (`shipjs trigger`)
 
