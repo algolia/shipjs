@@ -11,7 +11,7 @@ export default ({ config, dir }) =>
     ({ print, info, warning, exitProcess }) => {
       const {
         mergeStrategy,
-        formatCommitMessage,
+        formatPullRequestTitle,
         shouldRelease,
         monorepo,
       } = config;
@@ -26,7 +26,7 @@ export default ({ config, dir }) =>
         currentVersion,
         currentBranch,
         mergeStrategy,
-        formatCommitMessage,
+        formatPullRequestTitle,
       });
       if (validationResult !== true) {
         print(warning('Skipping a release due to the following reason:'));

@@ -18,6 +18,7 @@ export default ({
     ({ print, warning, run, exitProcess }) => {
       const {
         mergeStrategy,
+        formatPullRequestTitle,
         formatPullRequestMessage,
         pullRequestReviewer,
         remote,
@@ -47,15 +48,19 @@ export default ({
         exitProcess(0);
       }
       const repoURL = getRepoURL(remote, dir);
-      const message = formatPullRequestMessage({
-        repoURL,
-        baseBranch,
-        stagingBranch,
-        destinationBranch,
-        mergeStrategy,
-        currentVersion,
-        nextVersion,
-      });
+      const message = [
+        formatPullRequestTitle({ version: nextVersion }),
+        '',
+        formatPullRequestMessage({
+          repoURL,
+          baseBranch,
+          stagingBranch,
+          destinationBranch,
+          mergeStrategy,
+          currentVersion,
+          nextVersion,
+        }),
+      ].join('\n');
       const filePath = tempWrite.sync(message);
       run(`git remote prune ${remote}`, dir, dryRun);
       const createPullRequestCommand = [

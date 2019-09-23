@@ -12,7 +12,8 @@ export default {
   versionUpdated: ({ version, dir, exec }) => {},
   beforeCommitChanges: ({ exec }) => {},
   getStagingBranchName: ({ nextVersion }) => `releases/v${nextVersion}`,
-  formatCommitMessage: ({ version }) => `chore: release v${version}`,
+  formatCommitMessage: ({ version }) => `chore: prepare v${version}`,
+  formatPullRequestTitle: ({ version }) => `chore: release v${version}`,
   formatPullRequestMessage: ({
     repoURL,
     baseBranch,
@@ -23,8 +24,6 @@ export default {
     nextVersion,
   }) => {
     const lines = [
-      `chore: release v${nextVersion}`,
-      '',
       '## Release Summary',
       `- Version change: \`v${currentVersion}\` → \`v${nextVersion}\``,
       `- Merge: \`${stagingBranch}\` → \`${destinationBranch}\``,
@@ -51,15 +50,16 @@ export default {
     currentVersion,
     currentBranch,
     mergeStrategy,
-    formatCommitMessage,
+    formatPullRequestTitle,
   }) => {
-    const correctCommitMessage =
-      commitMessage.trim() === formatCommitMessage({ version: currentVersion });
-    if (!correctCommitMessage) {
+    const correctCommitMessage = formatPullRequestTitle({
+      version: currentVersion,
+    });
+    if (commitMessage.trim() !== correctCommitMessage) {
       return (
         'The commit message should have started with the following:' +
         '\n' +
-        `chore: release v${currentVersion}`
+        `${correctCommitMessage}`
       );
     }
     if (

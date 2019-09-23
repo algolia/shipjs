@@ -1,6 +1,7 @@
 import defaultConfig from '../defaultConfig';
 const {
   formatCommitMessage,
+  formatPullRequestTitle,
   formatPullRequestMessage,
   mergeStrategy: defaultMergeStrategy,
   shouldRelease,
@@ -13,7 +14,7 @@ describe('defaultConfig', () => {
 
   it('formatCommitMessage', () => {
     const version = '0.1.2';
-    expect(formatCommitMessage({ version })).toBe(`chore: release v0.1.2`);
+    expect(formatCommitMessage({ version })).toBe(`chore: prepare v0.1.2`);
   });
 
   describe('formatPullRequestMessage', () => {
@@ -29,15 +30,19 @@ describe('defaultConfig', () => {
         toReleaseBranch: {},
       };
       const destinationBranch = 'master';
-      const message = formatPullRequestMessage({
-        repoURL,
-        baseBranch,
-        stagingBranch,
-        destinationBranch,
-        mergeStrategy,
-        currentVersion,
-        nextVersion,
-      });
+      const message = [
+        formatPullRequestTitle({ version: nextVersion }),
+        '',
+        formatPullRequestMessage({
+          repoURL,
+          baseBranch,
+          stagingBranch,
+          destinationBranch,
+          mergeStrategy,
+          currentVersion,
+          nextVersion,
+        }),
+      ].join('\n');
       expect(message).toMatchInlineSnapshot(`
         "chore: release v0.1.1
 
@@ -62,7 +67,9 @@ describe('defaultConfig', () => {
         },
       };
       const destinationBranch = 'release/stable';
-      expect(
+      const message = [
+        formatPullRequestTitle({ version: nextVersion }),
+        '',
         formatPullRequestMessage({
           repoURL,
           baseBranch,
@@ -71,8 +78,9 @@ describe('defaultConfig', () => {
           mergeStrategy,
           currentVersion,
           nextVersion,
-        })
-      ).toMatchInlineSnapshot(`
+        }),
+      ].join('\n');
+      expect(message).toMatchInlineSnapshot(`
         "chore: release v0.1.1
 
         ## Release Summary
@@ -111,11 +119,11 @@ describe('defaultConfig', () => {
         currentVersion,
         currentBranch,
         mergeStrategy,
-        formatCommitMessage,
+        formatPullRequestTitle,
       });
       expect(result).toMatchInlineSnapshot(`
                 "The commit message should have started with the following:
-                chore: release v0.1.2"
+                ${commitMessage}"
             `);
     });
 
@@ -130,7 +138,7 @@ describe('defaultConfig', () => {
         currentVersion,
         currentBranch,
         mergeStrategy,
-        formatCommitMessage,
+        formatPullRequestTitle,
       });
       expect(result).toBe(true);
     });
@@ -148,7 +156,7 @@ describe('defaultConfig', () => {
         currentVersion,
         currentBranch,
         mergeStrategy,
-        formatCommitMessage,
+        formatPullRequestTitle,
       });
       expect(result).toBe(true);
     });
@@ -166,7 +174,7 @@ describe('defaultConfig', () => {
         currentVersion,
         currentBranch,
         mergeStrategy,
-        formatCommitMessage,
+        formatPullRequestTitle,
       });
       expect(result).toMatchInlineSnapshot(
         `"The current branch needs to be one of [master, release/legacy]"`
