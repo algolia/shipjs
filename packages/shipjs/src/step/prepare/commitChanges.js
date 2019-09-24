@@ -2,12 +2,20 @@ import tempWrite from 'temp-write';
 import runStep from '../runStep';
 import wrapExecWithDir from '../../util/wrapExecWithDir';
 
-export default async ({ nextVersion, dir, config, dryRun }) =>
+export default async ({ nextVersion, dir, config, baseBranch, dryRun }) =>
   await runStep(
     { title: 'Committing the changes.' },
     async ({ print, info, run }) => {
-      const { formatCommitMessage, beforeCommitChanges } = config;
-      const message = formatCommitMessage({ version: nextVersion });
+      const {
+        formatCommitMessage,
+        mergeStrategy,
+        beforeCommitChanges,
+      } = config;
+      const message = formatCommitMessage({
+        version: nextVersion,
+        mergeStrategy,
+        baseBranch,
+      });
       if (dryRun) {
         print('$', info('git add .'));
         print('$', info('git commit'));

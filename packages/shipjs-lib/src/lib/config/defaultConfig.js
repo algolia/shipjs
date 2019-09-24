@@ -14,7 +14,10 @@ export default {
   versionUpdated: ({ version, dir, exec }) => {},
   beforeCommitChanges: ({ exec }) => {},
   getStagingBranchName: ({ nextVersion }) => `releases/v${nextVersion}`,
-  formatCommitMessage: ({ version }) => `chore: prepare v${version}`,
+  formatCommitMessage: ({ version, mergeStrategy, baseBranch }) =>
+    mergeStrategy.toSameBranch.includes(baseBranch)
+      ? `chore: release v${version}`
+      : `chore: prepare v${version}`,
   formatPullRequestTitle: ({ version }) => `chore: release v${version}`,
   formatPullRequestMessage: ({
     formatPullRequestTitle,
