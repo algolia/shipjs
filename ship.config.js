@@ -29,6 +29,10 @@ module.exports = {
       path.resolve(dir, "packages/shipjs/src/version.js"),
       `export default '${version}';\n`
     );
+    fs.writeFileSync(
+      path.resolve(dir, "packages/shipjs-lib/src/version.js"),
+      `export default '${version}';\n`
+    );
   },
   beforeCommitChanges: ({ exec }) => {
     exec("yarn toc");
