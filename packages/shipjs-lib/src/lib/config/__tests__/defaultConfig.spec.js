@@ -47,7 +47,7 @@ describe('defaultConfig', () => {
         - Version change: \`v0.1.0\` → \`v0.1.1\`
         - Merge: \`releases/v0.1.1\` → \`master\`
         - [Compare the changes between the versions](https://github.com/algolia/shipjs/compare/v0.1.0...releases/v0.1.1)
-        > :warning: When merging this pull request, you need to \\"Squash and merge\\" and make sure the title is \`chore: release v0.1.1\`.
+        > :warning: When merging this pull request, you need to **_\\"Squash and merge\\"_** and make sure the title starts with \`chore: release v0.1.1\`.
         > After that, a commit \`chore: release v0.1.1\` will be added and \`shipjs trigger\` will be able to trigger the release based on the commit.
         > Fore more information, please refer to the mergeStrategy section of the [guide](https://github.com/algolia/shipjs/blob/master/GUIDE.md#mergestrategy).
         > ![Squash and merge](https://raw.githubusercontent.com/algolia/shipjs/master/assets/squash-and-merge.png)
@@ -84,7 +84,7 @@ describe('defaultConfig', () => {
         ## Release Summary
         - Version change: \`v0.1.0\` → \`v0.1.1\`
         - Merge: \`releases/v0.1.1\` → \`release/stable\`
-        > :warning:️ When merging this pull request, you need to \\"Merge pull request(Create a merge commit)\\" and also, you must modify the title to \`chore: release v0.1.1\`.
+        > :warning:️ When merging this pull request, you need to **_\\"Merge pull request(Create a merge commit)\\"_** and also, you must modify the title to start with \`chore: release v0.1.1\`.
         > After that, a commit \`chore: release v0.1.1\` will be added and \`shipjs trigger\` will be able to trigger the release based on the commit.
         > Fore more information, please refer to the mergeStrategy section of the [guide](https://github.com/algolia/shipjs/blob/master/GUIDE.md#mergestrategy).
         > ![Merge pull request](https://raw.githubusercontent.com/algolia/shipjs/master/assets/merge-pull-request.png)
