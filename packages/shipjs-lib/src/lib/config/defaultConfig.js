@@ -45,7 +45,7 @@ export default {
             `> ![Squash and merge](https://raw.githubusercontent.com/algolia/shipjs/v${shipJsVersion}/assets/squash-and-merge.png)`,
           ]
         : [
-            `> :warning:️ When merging this pull request, you need to **_"Merge pull request(Create a merge commit)"_** and also, you must modify the title to start with \`${pullRequestTitle}\`.`,
+            `> :warning:️ When merging this pull request, you need to **_"Merge pull request(Create a merge commit)"_** and also, you **must modify** the title to start with \`${pullRequestTitle}\`.`,
             `> After that, a commit \`${pullRequestTitle}\` will be added and \`shipjs trigger\` will be able to trigger the release based on the commit.`,
             `> Fore more information, please refer to the mergeStrategy section of the [guide](https://github.com/algolia/shipjs/blob/master/GUIDE.md#mergestrategy).`,
             `> ![Merge pull request](https://raw.githubusercontent.com/algolia/shipjs/v${shipJsVersion}/assets/merge-pull-request.png)`,

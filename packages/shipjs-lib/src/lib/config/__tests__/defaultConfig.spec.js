@@ -102,7 +102,7 @@ describe('defaultConfig', () => {
         ## Release Summary
         - Version change: \`v0.1.0\` → \`v0.1.1\`
         - Merge: \`releases/v0.1.1\` → \`release/stable\`
-        > :warning:️ When merging this pull request, you need to **_\\"Merge pull request(Create a merge commit)\\"_** and also, you must modify the title to start with \`chore: release v0.1.1\`.
+        > :warning:️ When merging this pull request, you need to **_\\"Merge pull request(Create a merge commit)\\"_** and also, you **must modify** the title to start with \`chore: release v0.1.1\`.
         > After that, a commit \`chore: release v0.1.1\` will be added and \`shipjs trigger\` will be able to trigger the release based on the commit.
         > Fore more information, please refer to the mergeStrategy section of the [guide](https://github.com/algolia/shipjs/blob/master/GUIDE.md#mergestrategy).
         > ![Merge pull request](https://raw.githubusercontent.com/algolia/shipjs/v0.5.2/assets/merge-pull-request.png)
