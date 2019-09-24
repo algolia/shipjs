@@ -15,7 +15,24 @@ describe('defaultConfig', () => {
 
   it('formatCommitMessage', () => {
     const version = '0.1.2';
-    expect(formatCommitMessage({ version })).toBe(`chore: prepare v0.1.2`);
+    expect(
+      formatCommitMessage({
+        version,
+        mergeStrategy: { toSameBranch: ['master'] },
+        baseBranch: 'master',
+      })
+    ).toBe(`chore: release v0.1.2`);
+
+    expect(
+      formatCommitMessage({
+        version,
+        mergeStrategy: {
+          toReleaseBranch: { develop: 'master' },
+          toSameBranch: [],
+        },
+        baseBranch: 'develop',
+      })
+    ).toBe(`chore: prepare v0.1.2`);
   });
 
   describe('formatPullRequestMessage', () => {

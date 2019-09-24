@@ -61,7 +61,7 @@ async function prepare({
   await updateVersionFn({ config, nextVersion, dir, dryRun });
   installDependencies({ config, dir, dryRun });
   updateChangelog({ config, firstRelease, releaseCount, dir, dryRun });
-  await commitChanges({ nextVersion, dir, config, dryRun });
+  await commitChanges({ nextVersion, dir, config, baseBranch, dryRun });
   const { pullRequestUrl } = createPullRequest({
     baseBranch,
     stagingBranch,
