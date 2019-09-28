@@ -4,7 +4,7 @@ import runStep from '../runStep';
 export default ({ currentVersion, dir }) =>
   runStep(
     { title: 'Calculating the next version.' },
-    ({ print, warning, error, exitProcess }) => {
+    ({ print, info, warning, exitProcess }) => {
       const { version: nextVersion, ignoredMessages = [] } = getNextVersion(
         currentVersion,
         dir
@@ -18,8 +18,8 @@ export default ({ currentVersion, dir }) =>
         ignoredMessages.forEach(message => print(`  ${message}`));
       }
       if (nextVersion === null) {
-        print(error('Nothing to release!'));
-        exitProcess(1);
+        print(info('Nothing to release!'));
+        exitProcess(0);
       }
       return { nextVersion };
     }
