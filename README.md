@@ -141,12 +141,13 @@ Do you want to set it up now? Then, let's move on to the [GUIDE.md](./GUIDE.md).
 
 **semantic-release** is a tool for `fully automated version management and package publishing`.
 
-Ship.js provides a kind of half automation, which rather gives you a chance to:
+Ship.js gives you more control over the release process. Ship.js automatically creates a PR before publishing every release, so that you can:
 
-- Confirm the next version is actually correct which is semantically bumped
-- Check which commits are going to be released and discuss with colleagues
-- Check the automatically generated changelog and refine it
-- Put the release aside for a second, build a test package for the PR and test it in another environments(Possibly [Pika CI](https://github.com/apps/pika-ci) can be used here).
+- Confirm the next version is correct.
+- Confirm which commits are going to be released and discuss them with colleagues.
+- Edit the automatically generated changelog for clarity & readability.
+- Run any automated tests on the package release candidate.
+- Build a release candidate automatically (with [Pika CI](https://github.com/marketplace/pika-ci-cd)).
 
 ## Contributing
 
