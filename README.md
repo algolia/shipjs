@@ -3,9 +3,9 @@
 <p align="center">
   <img alt="npm" src="https://img.shields.io/npm/v/shipjs">
 
-  <a href="https://github.com/algolia/shipjs/issues">
-    <img alt="GitHub issues" src="https://img.shields.io/github/issues/algolia/shipjs">
-  </a>
+  <img alt="CircleCI" src="https://img.shields.io/circleci/build/gh/algolia/shipjs">
+
+  <img alt="NPM" src="https://img.shields.io/npm/l/shipjs">
 </p>
 
 <p align="center">
