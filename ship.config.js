@@ -36,5 +36,8 @@ module.exports = {
   },
   beforeCommitChanges: ({ exec }) => {
     exec("yarn toc");
+  },
+  beforePublish: ({ exec }) => {
+    exec("cd README.md packages/shipjs/");
   }
 };
