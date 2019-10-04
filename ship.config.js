@@ -37,7 +37,7 @@ module.exports = {
     exec("yarn toc");
   },
   beforePublish: ({ exec }) => {
-    exec("cd README.md packages/shipjs/");
+    exec("cp README.md packages/shipjs/");
   }
 };
 
