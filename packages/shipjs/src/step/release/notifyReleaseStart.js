@@ -8,12 +8,21 @@ export default async ({
   latestCommitHash,
   latestCommitUrl,
 }) =>
-  await runStep({ title: 'Notifying releaseStart to Slack' }, async () => {
-    await notifyReleaseStart({
-      config,
-      appName,
-      version,
-      latestCommitHash,
-      latestCommitUrl,
-    });
-  });
+  await runStep(
+    {
+      title: 'Notifying releaseStart to Slack',
+      skipIf: () =>
+        !config.slackIncomingHook ||
+        !config.slack ||
+        !config.slack.releaseStart,
+    },
+    async () => {
+      await notifyReleaseStart({
+        config,
+        appName,
+        version,
+        latestCommitHash,
+        latestCommitUrl,
+      });
+    }
+  );
