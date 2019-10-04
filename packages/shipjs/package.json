@@ -1,7 +1,7 @@
 {
   "name": "shipjs",
   "version": "0.6.0",
-  "description": "",
+  "description": "Take control of what is going to be your next release.",
   "main": "index.js",
   "bin": {
     "shipjs": "./bin/shipjs"
@@ -22,6 +22,14 @@
     "index.js"
   ],
   "author": "Algolia <support@algolia.com>",
+  "homepage": "https://github.com/algolia/shipjs",
+  "bugs": {
+    "url": "https://github.com/algolia/shipjs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/algolia/shipjs"
+  },
   "license": "MIT",
   "dependencies": {
     "@slack/webhook": "^5.0.1",
