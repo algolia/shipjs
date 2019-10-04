@@ -8,21 +8,20 @@ module.exports = {
     packagesToPublish: ["packages/*"]
   },
   versionUpdated: ({ version, dir, exec }) => {
-    const updateVersion = (filePath, expression) => {
-      exec(`npx json -I -f ${filePath} -e '${expression} = "${version}"'`);
-    };
-
     // update lerna.json
-    updateVersion("lerna.json", "this.version");
+    updateJson(dir, "lerna.json", json => {
+      json.version = version;
+    });
 
     // update package.json
-    updateVersion("package.json", "this.version");
+    updateJson(dir, "package.json", json => {
+      json.version = version;
+    });
 
     // update dependency
-    updateVersion(
-      "packages/shipjs/package.json",
-      'this.dependencies["shipjs-lib"]'
-    );
+    updateJson(dir, "packages/shipjs/package.json", json => {
+      json.dependencies["shipjs-lib"] = version;
+    });
 
     // update `version.js`
     fs.writeFileSync(
@@ -40,4 +39,11 @@ module.exports = {
   beforePublish: ({ exec }) => {
     exec("cd README.md packages/shipjs/");
   }
+};
+
+const updateJson = (dir, fileName, fn) => {
+  const filePath = path.resolve(dir, fileName);
+  const json = JSON.parse(fs.readFileSync(filePath).toString());
+  fn(json);
+  fs.writeFileSync(filePath, JSON.stringify(json, null, 2));
 };
