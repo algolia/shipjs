@@ -26,12 +26,12 @@ When releasing, you go through something like the following:
 ### What could go wrong?
 
 - You might make mistakes during the release.
-   - Environments are different across your team members.
-   - You're releasing alone because the whole process happens on your local machine.
-   - It's not your everyday-job. Mistakes can happen.
+  - Environments are different across your team members.
+  - You're releasing alone because the whole process happens on your local machine.
+  - It's not your everyday-job. Mistakes can happen.
 - You are blocked and cannot do anything else until it's done.
-   - Even if you have a release script, you need to watch until the script finishes well.
-   - You don't want to switch to another feature branch and work there until the script finishes.
+  - Even if you have a release script, you need to watch until the script finishes well.
+  - You don't want to switch to another feature branch and work there until the script finishes.
 
 ## How to solve them❓
 
@@ -39,7 +39,7 @@ In Ship.js, the release process consists of three parts.
 
 ### Part 1. Preparation (`shipjs prepare`)
 
-![Preview](preview.gif)
+![Preview][gif]
 
 Run `shipjs prepare` and it will briefly do the following:
 
@@ -76,7 +76,7 @@ Let's assume the following situation:
 
 - Current branch: `master`
 - Currently released version: `1.0.0`
-- Next version: `1.0.1` (because there are only commits like `chore: `, `fix: `, ...)
+- Next version: `1.0.1` (because there are only commits like `chore:`, `fix:`, ...)
 
 ### Part 1. Preparation (`shipjs prepare`)
 
@@ -98,7 +98,7 @@ You can add more commits to this PR if needed.
 
 According to your merge strategy, you might either `Squash and merge` or `Merge pull request`.
 
-For more information, please refer to the mergeStrategy section of the [guide](./GUIDE.md#mergestrategy).
+For more information, please refer to the mergeStrategy section of the [guide][guide-merge-strategy].
 
 ### Part 3. Trigger a release (`shipjs trigger`)
 
@@ -135,7 +135,7 @@ Add the following to the `scripts` section in your `package.json`.
 "release:trigger": "shipjs trigger",
 ```
 
-Do you want to set it up now? Then, let's move on to the [GUIDE.md](./GUIDE.md).
+Do you want to set it up now? Then, let's move on to the [GUIDE.md][guide].
 
 ## How is it different from semantic-release?
 
@@ -157,4 +157,8 @@ And we also appreciate your PRs. The detailed contribution guide is coming soon.
 
 ## Getting Started
 
-Let's move on to the [GUIDE.md](./GUIDE.md).
+Let's move on to the [GUIDE.md][guide].
+
+[gif]: https://github.com/algolia/shipjs/blob/master/preview.gif
+[guide]: https://github.com/algolia/shipjs/blob/master/GUIDE.md
+[guide-merge-strategy]: https://github.com/algolia/shipjs/blob/master/GUIDE.md#mergestrategy
