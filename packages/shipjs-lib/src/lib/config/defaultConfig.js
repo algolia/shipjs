@@ -95,7 +95,9 @@ export default {
     ].join(', ')}]`;
   },
   buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),
+  beforePublish: undefined,
   publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand,
+  afterPublish: undefined,
   getTagName: ({ version }) => `v${version}`,
   testCommandBeforeRelease: ({ isYarn }) =>
     isYarn ? 'yarn test' : 'npm run test',
