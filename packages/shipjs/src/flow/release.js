@@ -8,7 +8,9 @@ import notifyReleaseStart from '../step/release/notifyReleaseStart';
 import detectYarn from '../step/detectYarn';
 import runTest from '../step/release/runTest';
 import runBuild from '../step/release/runBuild';
+import runBeforePublish from '../step/release/runBeforePublish';
 import runPublish from '../step/release/runPublish';
+import runAfterPublish from '../step/release/runAfterPublish';
 import createGitTag from '../step/release/createGitTag';
 import gitPush from '../step/release/gitPush';
 import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess';
@@ -42,7 +44,9 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   const isYarn = detectYarn({ dir });
   runTest({ isYarn, config, dir, dryRun });
   runBuild({ isYarn, config, dir, dryRun });
+  await runBeforePublish({ config, dir, dryRun });
   runPublish({ isYarn, config, releaseTag, dir, dryRun });
+  await runAfterPublish({ config, dir, dryRun });
   const { tagName } = createGitTag({ version, config, dir, dryRun });
   gitPush({ tagName, config, dir, dryRun });
   await notifyReleaseSuccess({

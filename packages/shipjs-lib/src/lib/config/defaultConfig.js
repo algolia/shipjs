@@ -12,7 +12,7 @@ export default {
   installCommand: ({ isYarn }) =>
     isYarn ? 'yarn install --silent' : 'npm install',
   versionUpdated: ({ version, dir, exec }) => {},
-  beforeCommitChanges: ({ exec }) => {},
+  beforeCommitChanges: ({ exec, dir }) => {},
   getStagingBranchName: ({ nextVersion }) => `releases/v${nextVersion}`,
   formatCommitMessage: ({ version, mergeStrategy, baseBranch }) =>
     mergeStrategy.toSameBranch.includes(baseBranch)
@@ -95,7 +95,9 @@ export default {
     ].join(', ')}]`;
   },
   buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),
+  beforePublish: undefined, // ({ exec, dir }) => {}
   publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand,
+  afterPublish: undefined, // ({ exec, dir }) => {}
   getTagName: ({ version }) => `v${version}`,
   testCommandBeforeRelease: ({ isYarn }) =>
     isYarn ? 'yarn test' : 'npm run test',

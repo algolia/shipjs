@@ -24,7 +24,7 @@ export default async ({ nextVersion, dir, config, baseBranch, dryRun }) =>
         print('  |');
         return;
       }
-      await beforeCommitChanges({ exec: wrapExecWithDir(dir) });
+      await beforeCommitChanges({ exec: wrapExecWithDir(dir), dir });
       const filePath = tempWrite.sync(message);
       run('git add .', dir);
       run(`git commit --file=${filePath}`, dir);
