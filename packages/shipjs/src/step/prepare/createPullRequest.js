@@ -1,4 +1,4 @@
-import { hasRemoteBranch, getRepoURL } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { hasRemoteBranch, getRepoURL, silentExec } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
 import tempWrite from 'temp-write';
 import runStep from '../runStep';
 import getDestinationBranchName from '../../helper/getDestinationBranchName';
@@ -71,12 +71,27 @@ export default ({
         .filter(Boolean)
         .join(' ');
       run(createPullRequestCommand, dir, dryRun);
-      const pullRequestUrl = `${repoURL}/pulls`;
       print('  |');
       message.split('\n').forEach(line => print(`  |  ${line}`));
       print('  |');
       print('');
 
+      const pullRequestTitle = message.split('\n')[0].trim();
+      const pr = silentExec(`hub pr list --format="%I %t"`, { dir })
+        .toString()
+        .trim()
+        .split('\n')
+        .find(
+          title =>
+            pullRequestTitle ===
+            title
+              .trim()
+              .split(' ')
+              .slice(1)
+              .join(' ')
+        );
+      const prNumber = pr.split(' ')[0];
+      const pullRequestUrl = `${repoURL}/pull/${prNumber}`;
       return { pullRequestUrl };
     }
   );
