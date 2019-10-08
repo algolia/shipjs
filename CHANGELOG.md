@@ -1,3 +1,7 @@
+## [0.6.1](https://github.com/algolia/shipjs/compare/v0.6.0...v0.6.1) (2019-10-08)
+
+
+
 # [0.6.0](https://github.com/algolia/shipjs/compare/v0.5.5...v0.6.0) (2019-10-04)
 
 
