@@ -76,6 +76,9 @@ export default ({
       print('  |');
       print('');
 
+      if (dryRun) {
+        return {};
+      }
       const pullRequestTitle = message.split('\n')[0].trim();
       const pr = silentExec(`hub pr list --format="%I %t"`, { dir })
         .toString()
