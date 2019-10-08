@@ -2,7 +2,7 @@ import runStep from '../runStep';
 import path from 'path';
 
 export default ({ version, config, dir, dryRun }) =>
-  runStep({ title: 'Updating the changelog.' }, ({ run }) => {
+  runStep({ title: 'Creating the GitHub Release' }, ({ run }) => {
     if (config.updateChangelog !== true) {
       return;
     }
