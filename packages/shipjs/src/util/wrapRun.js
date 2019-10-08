@@ -13,14 +13,12 @@ export default ({ exec, print, error }) => ({
   if (dryRun) {
     return;
   }
-  const { code } = exec(command, { dir });
-  if (code !== 0) {
-    if (printCommand) {
-      print(error('The following command failed:'));
-      print(`  > ${command}`);
-    } else {
-      print(error('Command failed'));
-    }
+  const result = exec(command, { dir });
+  if (result.code !== 0) {
+    print(error('The following command failed:'));
+    print(`  > ${command}`);
     process.exit(1); // eslint-disable-line no-process-exit
   }
+  // eslint-disable-next-line consistent-return
+  return result.stdout;
 };
