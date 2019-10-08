@@ -60,12 +60,15 @@ export default ({
       });
       const filePath = tempWrite.sync(message);
       run(`git remote prune ${remote}`, dir, dryRun);
+      const reviewer = Array.isArray(pullRequestReviewer)
+        ? pullRequestReviewer.join(',')
+        : pullRequestReviewer;
       const createPullRequestCommand = [
         'hub pull-request',
         `--base ${destinationBranch}`,
         noBrowse ? undefined : '--browse',
         '--push',
-        pullRequestReviewer ? `--reviewer ${pullRequestReviewer}` : undefined,
+        pullRequestReviewer ? `--reviewer ${reviewer}` : undefined,
         `--file ${filePath}`,
       ]
         .filter(Boolean)

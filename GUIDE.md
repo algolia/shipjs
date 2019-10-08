@@ -195,7 +195,7 @@ When you review and merge the PR, your CI will run `shipjs trigger` and it will
 4. push to git remote.
 
 > When merging a PR from this strategy, you need to "Squash and merge" and make sure the commit title is the same with the title of the PR.
-> 
+>
 > You can go to "Settings" menu of your repository, and even force "Squash and merge" behavior under "Merge button" section.
 
 #### `toReleaseBranch` strategy
@@ -220,7 +220,7 @@ So the flow is like this:
 You see the difference between two strategies, right?
 
 > When merging a PR from this strategy, you need to "Merge pull request(Create a merge commit)" and also, you must modify the commit title to the title of the PR.
-> 
+>
 > You go to "Settings" menu of your repository, and even force "Merge pull request" behavior under "Merge button" section.
 
 ### Monorepo
@@ -331,10 +331,12 @@ You can assign reviewers on the PR.
 ```js
 module.exports = {
   pullRequestReviewer: "user-name-or-team-name"
+  // or
+  pullRequestReviewer: ["user1", "user2", "user3"]
 };
 ```
 
-One thing you need to be aware of is, you cannot assign yourself as a reviewer. You can put github username of your team or colleagues. The value is a comma-separated list(no spaces around the comma).
+One thing you need to be aware of is, you cannot assign yourself as a reviewer. You can put github username of your team or colleagues. The value can be either a string or an array of strings.
 
 The assignees will receive a notification from GitHub when the PR is created. Whenever they review and merge the PR, it will be automatically released by the prior configuration you've done [above](#integrate-with-circle-ci).
 
