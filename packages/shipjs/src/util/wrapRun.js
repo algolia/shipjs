@@ -15,8 +15,12 @@ export default ({ exec, print, error }) => ({
   }
   const { code } = exec(command, { dir });
   if (code !== 0) {
-    print(error('The following command failed:'));
-    print(`  > ${command}`);
+    if (printCommand) {
+      print(error('The following command failed:'));
+      print(`  > ${command}`);
+    } else {
+      print(error('Command failed'));
+    }
     process.exit(1); // eslint-disable-line no-process-exit
   }
 };
