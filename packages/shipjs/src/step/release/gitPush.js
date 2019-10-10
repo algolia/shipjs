@@ -26,13 +26,13 @@ export default ({ tagName, config, dir, dryRun }) =>
     });
     const pushCommands = getPushCommands({ remote, tagName, dir });
     if (currentBranch === destinationBranch) {
-      pushCommands.forEach(command => run(command, dir, dryRun));
+      pushCommands.forEach(command => run({ command, dir, dryRun }));
     } else {
       // currentBranch: 'master'
       // destinationBranch: 'develop'
       // flow: develop -> master -> (here) develop
-      run(`git checkout ${destinationBranch}`, dir, dryRun);
-      run(`git merge ${currentBranch}`, dir, dryRun);
-      pushCommands.forEach(command => run(command, dir, dryRun));
+      run({ command: `git checkout ${destinationBranch}`, dir, dryRun });
+      run({ command: `git merge ${currentBranch}`, dir, dryRun });
+      pushCommands.forEach(command => run({ command, dir, dryRun }));
     }
   });
