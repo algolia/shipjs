@@ -1,4 +1,4 @@
-import { isWorkingTreeClean, getCurrentBranch, hasTag } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { isWorkingTreeClean, getCurrentBranch, hasTag } from 'shipjs-lib';
 
 const WORKING_TREE_NOT_CLEAN = 'workingTreeNotClean';
 const CURRENT_BRANCH_INCORRECT = 'currentBranchIncorrect';

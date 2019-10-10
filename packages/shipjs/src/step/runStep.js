@@ -1,4 +1,4 @@
-import { exec } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { exec } from 'shipjs-lib';
 import print from '../util/print';
 import exitProcess from '../util/exitProcess';
 import wrapRun from '../util/wrapRun';

@@ -1,4 +1,4 @@
-import { hasLocalBranch, hasRemoteBranch } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { hasLocalBranch, hasRemoteBranch } from 'shipjs-lib';
 import runStep from '../runStep';
 
 export default ({ config, nextVersion, dir }) =>

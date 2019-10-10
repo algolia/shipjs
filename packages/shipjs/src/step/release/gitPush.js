@@ -1,4 +1,4 @@
-import { getCurrentBranch, getRepoURLWithToken } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { getCurrentBranch, getRepoURLWithToken } from 'shipjs-lib';
 import runStep from '../runStep';
 import getBranchNameToMergeBack from '../../helper/getBranchNameToMergeBack';
 

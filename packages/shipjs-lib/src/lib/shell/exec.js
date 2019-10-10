@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-commonjs
 const shell = require('shelljs');
 /*
   This used to be `import shell from 'shelljs'`.

@@ -1,4 +1,4 @@
-import { getRepoURLWithToken } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { getRepoURLWithToken } from 'shipjs-lib';
 import runStep from '../runStep';
 
 export default ({ config, currentBranch, dir, dryRun }) =>

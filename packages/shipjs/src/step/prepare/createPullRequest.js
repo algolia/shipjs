@@ -1,4 +1,4 @@
-import { hasRemoteBranch, getRepoURL, silentExec } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { hasRemoteBranch, getRepoURL, silentExec } from 'shipjs-lib';
 import tempWrite from 'temp-write';
 import runStep from '../runStep';
 import getDestinationBranchName from '../../helper/getDestinationBranchName';

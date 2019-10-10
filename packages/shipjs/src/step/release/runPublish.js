@@ -1,4 +1,4 @@
-import { expandPackageList } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { expandPackageList } from 'shipjs-lib';
 import runStep from '../runStep';
 
 export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>

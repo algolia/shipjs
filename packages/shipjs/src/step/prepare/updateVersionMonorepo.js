@@ -1,4 +1,4 @@
-import { expandPackageList, updateVersion } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { expandPackageList, updateVersion } from 'shipjs-lib';
 import runStep from '../runStep';
 import wrapExecWithDir from '../../util/wrapExecWithDir';
 
