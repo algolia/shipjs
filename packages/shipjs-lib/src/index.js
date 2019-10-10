@@ -14,6 +14,9 @@ export {
 } from './lib/git/getLatestCommitMessage';
 export { default as getRepoURL } from './lib/git/getRepoURL';
 export { default as getRepoURLWithToken } from './lib/git/getRepoURLWithToken';
+export {
+  default as getRepoURLWithTokenMasked,
+} from './lib/git/getRepoURLWithTokenMasked';
 export { default as getLatestCommitHash } from './lib/git/getLatestCommitHash';
 export { default as getCommitUrl } from './lib/git/getCommitUrl';
 export { default as isWorkingTreeClean } from './lib/git/isWorkingTreeClean';
