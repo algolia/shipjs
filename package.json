@@ -24,6 +24,6 @@
   },
   "name": "shipjs",
   "devDependencies": {
-    "lerna": "3.16.5"
+    "lerna": "3.17.0"
   }
 }
