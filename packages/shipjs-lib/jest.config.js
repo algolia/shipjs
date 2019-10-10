@@ -1,4 +1,3 @@
-/* eslint-disable import/no-commonjs */
 module.exports = {
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest',

@@ -1,4 +1,4 @@
-import { getCurrentVersion, getCurrentBranch } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { getCurrentVersion, getCurrentBranch } from 'shipjs-lib';
 import runStep from '../runStep';
 import validateBeforePrepare from '../../helper/validateBeforePrepare';
 

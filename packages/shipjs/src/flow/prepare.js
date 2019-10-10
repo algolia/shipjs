@@ -1,4 +1,4 @@
-import { getAppName, loadConfig } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { getAppName, loadConfig } from 'shipjs-lib';
 
 import printHelp from '../step/prepare/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';

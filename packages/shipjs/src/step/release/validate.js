@@ -2,7 +2,7 @@ import {
   getCurrentVersion,
   getCurrentBranch,
   getLatestCommitMessage,
-} from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+} from 'shipjs-lib';
 import runStep from '../runStep';
 
 export default ({ config, dir }) =>

@@ -1,4 +1,4 @@
-import { getNextVersion } from 'shipjs-lib'; // eslint-disable-line import/no-unresolved
+import { getNextVersion } from 'shipjs-lib';
 import runStep from '../runStep';
 
 export default ({ currentVersion, dir }) =>
