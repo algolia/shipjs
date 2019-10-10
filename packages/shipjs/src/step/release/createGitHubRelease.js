@@ -1,7 +1,8 @@
-import runStep from '../runStep';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 import tempWrite from 'temp-write';
+
+import runStep from '../runStep';
 
 function getChangelog(version) {
   const changelogMatcher = new RegExp(
@@ -42,7 +43,11 @@ export default ({ version, config, dir, dryRun }) =>
 
       const conventionalChangelog = path.resolve(
         require.main.filename,
-        '../../node_modules/.bin/conventional-changelog'
+        '..',
+        '..',
+        'node_modules',
+        '.bin',
+        'conventional-changelog'
       );
       const changelogCommand = [
         conventionalChangelog,
