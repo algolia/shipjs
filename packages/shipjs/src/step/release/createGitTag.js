@@ -5,6 +5,6 @@ export default ({ version, config, dir, dryRun }) =>
     const { getTagName } = config;
     const tagName = getTagName({ version });
     const command = `git tag ${tagName}`;
-    run(command, dir, dryRun);
+    run({ command, dir, dryRun });
     return { tagName };
   });

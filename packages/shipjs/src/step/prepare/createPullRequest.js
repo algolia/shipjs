@@ -43,8 +43,8 @@ export default ({
         print(warning('After that, try again.'));
         print('');
         print(warning('Rolling back for now...'));
-        run(`git checkout ${baseBranch}`, dir, dryRun);
-        run(`git branch -D ${stagingBranch}`, dir, dryRun);
+        run({ command: `git checkout ${baseBranch}`, dir, dryRun });
+        run({ command: `git branch -D ${stagingBranch}`, dir, dryRun });
         exitProcess(0);
       }
       const repoURL = getRepoURL(remote, dir);
@@ -59,7 +59,7 @@ export default ({
         nextVersion,
       });
       const filePath = tempWrite.sync(message);
-      run(`git remote prune ${remote}`, dir, dryRun);
+      run({ command: `git remote prune ${remote}`, dir, dryRun });
       const reviewer = Array.isArray(pullRequestReviewer)
         ? pullRequestReviewer.join(',')
         : pullRequestReviewer;
@@ -73,7 +73,7 @@ export default ({
       ]
         .filter(Boolean)
         .join(' ');
-      run(createPullRequestCommand, dir, dryRun);
+      run({ command: createPullRequestCommand, dir, dryRun });
       print('  |');
       message.split('\n').forEach(line => print(`  |  ${line}`));
       print('  |');

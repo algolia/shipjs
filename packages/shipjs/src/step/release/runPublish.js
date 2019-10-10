@@ -18,10 +18,10 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
           dir: packageDir,
         });
         print(`Running the following at ${info(packageDir)}`);
-        run(command, packageDir, dryRun);
+        run({ command, dir: packageDir, dryRun });
       });
     } else {
       const command = publishCommand({ isYarn, tag, defaultCommand, dir });
-      run(command, dir, dryRun);
+      run({ command, dir, dryRun });
     }
   });
