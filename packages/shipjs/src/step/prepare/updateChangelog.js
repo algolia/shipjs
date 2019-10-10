@@ -18,5 +18,5 @@ export default ({ config, firstRelease, releaseCount, dir, dryRun }) =>
       require.main.filename,
       '../../node_modules/.bin/conventional-changelog'
     );
-    run(`${execPath} ${args}`, dir, dryRun);
+    run({ command: `${execPath} ${args}`, dir, dryRun });
   });
