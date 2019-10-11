@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 import tempWrite from 'temp-write';
 
 import runStep from '../runStep';
@@ -13,7 +12,8 @@ function getChangelog(version, rootDir) {
     const changelogFile = fs.readFileSync(changelogPath, 'utf-8').toString();
     const changelogMatch = changelogFile.match(changelogMatcher);
     if (changelogMatch !== null) {
-      return changelogMatch[0];
+      // because first line of a log file must be title of the release
+      return `${version}\n\n${changelogMatch[0]}`;
     }
   } catch (err) {
     if (err.code === 'ENOENT') {
@@ -24,7 +24,7 @@ function getChangelog(version, rootDir) {
   return null;
 }
 
-export default ({ version, config, dir, dryRun, print }) =>
+export default ({ version, config, dir, dryRun }) =>
   runStep({ title: 'Creating a release on GitHub repository' }, ({ run }) => {
     if (config.updateChangelog !== true) return;
 
