@@ -4,11 +4,11 @@ import tempWrite from 'temp-write';
 
 import runStep from '../runStep';
 
-function getChangelog(version) {
+function getChangelog(version, rootDir) {
   const changelogMatcher = new RegExp(
     `#+?[\\s\\[]*?(${version})(.|\n)+?(?=#+?[\\s\\[]*?\\d\\.\\d|$)`
   );
-  const changelogPath = fs.resolve(process.cwd(), 'CHANGELOG.md');
+  const changelogPath = fs.resolve(rootDir, 'CHANGELOG.md');
   try {
     const changelogFile = fs.readFileSync(changelogPath, 'utf-8').toString();
     const changelogMatch = changelogFile.match(changelogMatcher);
@@ -24,42 +24,18 @@ function getChangelog(version) {
   return null;
 }
 
-export default ({ version, config, dir, dryRun }) =>
-  runStep({ title: 'Creating the GitHub Release' }, ({ run }) => {
+export default ({ version, config, dir, dryRun, print }) =>
+  runStep({ title: 'Creating a release on GitHub repository' }, ({ run }) => {
     if (config.updateChangelog !== true) return;
 
     const { getTagName } = config;
     const tagName = getTagName({ version });
 
-    const existingChangelog = getChangelog(version);
-    let exportedPath;
-    if (existingChangelog !== null) {
-      // fetch CHANGELOG
-      exportedPath = tempWrite.sync(existingChangelog);
-    } else {
-      // generate CHANGELOG
-      const tmpDir = fs.mkdtempSync('shipjs');
-      exportedPath = path.join(tmpDir, 'changelog');
+    // extract matching changelog
+    const changelog = getChangelog(version, dir);
+    const exportedPath = tempWrite.sync(changelog || tagName);
 
-      const conventionalChangelog = path.resolve(
-        require.main.filename,
-        '..',
-        '..',
-        'node_modules',
-        '.bin',
-        'conventional-changelog'
-      );
-      const changelogCommand = [
-        conventionalChangelog,
-        '-p angular',
-        '-r 2',
-        `-o ${exportedPath}`,
-      ].join(' ');
-
-      run(changelogCommand, dir, dryRun);
-    }
-
-    // Create GitHub release
+    // create GitHub release
     const releaseCommand = [
       'hub',
       'release',
@@ -67,5 +43,6 @@ export default ({ version, config, dir, dryRun }) =>
       `-F ${exportedPath}`,
       tagName,
     ].join(' ');
+
     run(releaseCommand, dir, dryRun);
   });
