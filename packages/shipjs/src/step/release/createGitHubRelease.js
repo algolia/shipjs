@@ -45,5 +45,5 @@ export default ({ version, config, dir, dryRun }) =>
       tagName,
     ].join(' ');
 
-    run(releaseCommand, dir, dryRun);
+    run({ command: releaseCommand, dir, dryRun });
   });
