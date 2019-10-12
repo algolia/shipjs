@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import tempWrite from 'temp-write';
 
 import runStep from '../runStep';
@@ -7,7 +8,7 @@ function getChangelog(version, rootDir) {
   const changelogMatcher = new RegExp(
     `#+?[\\s\\[]*?(${version})(.|\n)+?(?=#+?[\\s\\[]*?\\d\\.\\d|$)`
   );
-  const changelogPath = fs.resolve(rootDir, 'CHANGELOG.md');
+  const changelogPath = path.resolve(rootDir, 'CHANGELOG.md');
   try {
     const changelogFile = fs.readFileSync(changelogPath, 'utf-8').toString();
     const changelogMatch = changelogFile.match(changelogMatcher);
