@@ -27,13 +27,13 @@ function getChangelog(version, rootDir) {
 
 export default ({ version, config, dir, dryRun }) =>
   runStep({ title: 'Creating a release on GitHub repository' }, ({ run }) => {
-    if (config.updateChangelog !== true) return;
-
     const { getTagName } = config;
     const tagName = getTagName({ version });
 
     // extract matching changelog
-    const changelog = getChangelog(version, dir);
+    const changelog = config.updateChangelog
+      ? getChangelog(version, dir)
+      : null;
     const exportedPath = tempWrite.sync(changelog || tagName);
 
     // create GitHub release
