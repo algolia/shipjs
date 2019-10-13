@@ -1,0 +1,43 @@
+{
+  "projectName": "shipjs",
+  "projectOwner": "algolia",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "eunjae-lee",
+      "name": "Eunjae Lee",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/499898?v=4",
+      "profile": "https://twitter.com/eunjae_lee",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "FredKSchott",
+      "name": "Fred K. Schott",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/622227?v=4",
+      "profile": "http://www.fredkschott.com",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "uetchy",
+      "name": "Yasuaki Uechi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/431808?v=4",
+      "profile": "https://uechi.io",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
