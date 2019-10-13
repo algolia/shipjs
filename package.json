@@ -12,7 +12,9 @@
     "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh",
     "release:prepare": "npx shipjs prepare",
     "release:trigger": "npx shipjs trigger",
-    "toc": "npx markdown-toc -i --bullets=\"-\" GUIDE.md"
+    "toc": "npx markdown-toc -i --bullets=\"-\" GUIDE.md",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
@@ -24,6 +26,7 @@
   },
   "name": "shipjs",
   "devDependencies": {
+    "all-contributors-cli": "6.9.1",
     "lerna": "3.17.0"
   }
 }
