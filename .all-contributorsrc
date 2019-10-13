@@ -9,6 +9,7 @@
   "imageSize": 100,
   "commit": true,
   "commitConvention": "angular",
+  "badgeTemplate": "<img alt=\"All Contributors\" src=\"https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg\">",
   "contributors": [
     {
       "login": "eunjae-lee",
