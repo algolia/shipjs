@@ -28,6 +28,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "uetchy",
+      "name": "Yasuaki Uechi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/431808?v=4",
+      "profile": "https://uechi.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
