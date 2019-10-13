@@ -13,6 +13,7 @@ import runPublish from '../step/release/runPublish';
 import runAfterPublish from '../step/release/runAfterPublish';
 import createGitTag from '../step/release/createGitTag';
 import gitPush from '../step/release/gitPush';
+import createGitHubRelease from '../step/release/createGitHubRelease';
 import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess';
 import finished from '../step/finished';
 
@@ -49,6 +50,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   await runAfterPublish({ config, dir, dryRun });
   const { tagName } = createGitTag({ version, config, dir, dryRun });
   gitPush({ tagName, config, dir, dryRun });
+  createGitHubRelease({ version, config, dir, dryRun });
   await notifyReleaseSuccess({
     config,
     appName,
