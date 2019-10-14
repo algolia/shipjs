@@ -24,6 +24,7 @@ When releasing, you go through something like the following:
 - Update the changelog
 - Actually release it (e.g. `yarn build && yarn publish`)
 - Create a git tag
+- Create release at GitHub
 
 ### What could go wrong?
 
@@ -67,6 +68,7 @@ Run `shipjs trigger` and it will briefly do the following:
 - Run a final test (unit, e2e, etc).
 - Release it to NPM (or elsewhere as you configure it).
 - Create a git tag for the version.
+- Create a release for the tag on GitHub.
 
 You can manually run `shipjs trigger` on the base branch after the PR is merged.
 
@@ -113,8 +115,10 @@ If the conditions are met, `shipjs trigger` will briefly do the following:
 
 - Send a Slack message to notify the beginning of the release(If configured).
 - Run test, build and release it.
-- `git tag v1.0.1`
-- Push them to git remote and notify at Slack.
+- `git tag v1.0.1`.
+- Push them to git remote.
+- `hub release create -m <changelog> v1.0.1`
+- Notify at Slack.
 
 You can run `shipjs trigger --dry-run` just to see what will be executed without actual execution.
 
