@@ -24,7 +24,7 @@ When releasing, you go through something like the following:
 - Update the changelog
 - Actually release it (e.g. `yarn build && yarn publish`)
 - Create a git tag
-- Create release at GitHub
+- Create a release on GitHub
 
 ### What could go wrong?
 
