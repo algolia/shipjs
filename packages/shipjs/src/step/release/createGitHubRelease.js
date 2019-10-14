@@ -27,23 +27,31 @@ function getChangelog(version, rootDir) {
 
 export default ({ version, config, dir, dryRun }) =>
   runStep({ title: 'Creating a release on GitHub repository' }, ({ run }) => {
-    const { getTagName } = config;
+    const { getTagName, release } = config;
     const tagName = getTagName({ version });
+    const args = [];
 
     // extract matching changelog
     const changelog = config.updateChangelog
       ? getChangelog(version, dir)
       : null;
     const exportedPath = tempWrite.sync(changelog || tagName);
+    args.push(`-F ${exportedPath}`);
+
+    // handle assets
+    if (
+      release &&
+      Array.isArray(release.assetsToUpload) &&
+      release.assetsToUpload.length > 0
+    ) {
+      for (const asset of release.assetsToUpload) {
+        const assetPath = path.resolve(dir, asset);
+        args.push(`-a ${assetPath}`);
+      }
+    }
 
     // create GitHub release
-    const releaseCommand = [
-      'hub',
-      'release',
-      'create',
-      `-F ${exportedPath}`,
-      tagName,
-    ].join(' ');
-
-    run({ command: releaseCommand, dir, dryRun });
+    const hubCommand = ['hub', 'release', 'create'];
+    const command = [...hubCommand, ...args, tagName].join(' ');
+    run({ command, dir, dryRun });
   });
