@@ -1,7 +1,9 @@
 import runStep from '../runStep';
+import { print } from '../../util';
+import { bold, underline } from '../../color';
 
 export default () =>
-  runStep({}, ({ print, bold, underline }) => {
+  runStep({}, () => {
     const indent = line => `\t${line}`;
 
     const help = `--help`;
