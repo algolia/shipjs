@@ -1,8 +1,9 @@
 import { getRepoURLWithToken, getRepoURLWithTokenMasked } from 'shipjs-lib';
 import runStep from '../runStep';
+import { run, print } from '../../util';
 
 export default ({ config, currentBranch, dir, dryRun }) =>
-  runStep({ title: 'Pushing to remote.' }, ({ run, print }) => {
+  runStep({ title: 'Pushing to remote.' }, () => {
     const { remote } = config;
 
     const token = process.env.GITHUB_TOKEN;
