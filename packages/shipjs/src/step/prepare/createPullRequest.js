@@ -83,7 +83,7 @@ export default ({
         return {};
       }
       const pullRequestTitle = message.split('\n')[0].trim();
-      const pr = silentExec(`hub pr list --format="%I %t"`, { dir })
+      const pr = silentExec(`hub pr list --format="%I %t%n"`, { dir })
         .toString()
         .trim()
         .split('\n')
