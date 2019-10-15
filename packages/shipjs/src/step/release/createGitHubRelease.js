@@ -30,7 +30,7 @@ export default async ({ version, config, dir, dryRun }) =>
   await runStep(
     { title: 'Creating a release on GitHub repository' },
     async ({ run }) => {
-      const { getTagName, release } = config;
+      const { getTagName, releases } = config;
       const tagName = getTagName({ version });
       const args = [];
 
@@ -42,24 +42,27 @@ export default async ({ version, config, dir, dryRun }) =>
       args.push(`-F ${exportedPath}`);
 
       // handle assets
-      if (release && release.assetsToUpload) {
-        const option = release.assetsToUpload;
+      if (releases && releases.assetsToUpload) {
+        const option = releases.assetsToUpload;
         const assetPaths = [];
 
-        if (Array.isArray(option) && option.length > 0) {
-          // list
-          for (const asset of option) {
-            const files = await globby(asset);
-            assetPaths.push(...files);
-          }
-        } else if (typeof option === 'function') {
+        if (typeof option === 'function') {
           // function
+          //   assetsToUpload: ({dir, version, tagName}) => [...]
           const files = await Promise.resolve(
             option({ dir, version, tagName })
           );
           assetPaths.push(...files);
+        } else if (Array.isArray(option) && option.length > 0) {
+          // list
+          //   assetsToUpload: ['package.json', 'dist/*.zip']
+          for (const asset of option) {
+            const files = await globby(asset);
+            assetPaths.push(...files);
+          }
         } else if (typeof option === 'string') {
           // string
+          //   assetsToUpload: 'archive.zip'
           assetPaths.push(option);
         }
 

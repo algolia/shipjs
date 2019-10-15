@@ -183,7 +183,7 @@ export default {
       ],
     }),
   },
-  release: {
+  releases: {
     assetsToUpload: [],
   },
 };
