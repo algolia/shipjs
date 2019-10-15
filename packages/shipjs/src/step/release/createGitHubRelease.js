@@ -26,8 +26,8 @@ function getChangelog(version, rootDir) {
   return null;
 }
 
-export default ({ version, config, dir, dryRun }) =>
-  runStep(
+export default async ({ version, config, dir, dryRun }) =>
+  await runStep(
     { title: 'Creating a release on GitHub repository' },
     async ({ run }) => {
       const { getTagName, release } = config;
