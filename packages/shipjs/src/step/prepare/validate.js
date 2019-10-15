@@ -57,7 +57,7 @@ export default ({ config, dir }) =>
           info,
           error,
         });
-        exitProcess(1);
+        // exitProcess(1);
       }
       return { currentVersion, baseBranch };
     }

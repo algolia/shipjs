@@ -83,7 +83,9 @@ export default ({
         return {};
       }
       const pullRequestTitle = message.split('\n')[0].trim();
-      const pr = silentExec(`hub pr list --format="%I %t"`, { dir })
+      const prList = silentExec(`hub pr list --format="%I %t"`, { dir });
+      console.log({ prList });
+      const pr = prList
         .toString()
         .trim()
         .split('\n')
@@ -96,6 +98,7 @@ export default ({
               .slice(1)
               .join(' ')
         );
+      console.log({ pr });
       const prNumber = pr.split(' ')[0];
       const pullRequestUrl = `${repoURL}/pull/${prNumber}`;
       return { pullRequestUrl };
