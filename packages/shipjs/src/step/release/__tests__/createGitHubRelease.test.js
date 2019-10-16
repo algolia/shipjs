@@ -10,6 +10,7 @@ const mockedLog = (...args) => {
 };
 
 beforeEach(() => {
+  // eslint-disable-next-line no-console
   console.log = mockedLog;
 });
 
