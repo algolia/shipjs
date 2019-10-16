@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import globby from 'globby';
 import tempWrite from 'temp-write';
+import { quote } from 'shell-quote';
 
 import runStep from '../runStep';
 
@@ -39,7 +40,7 @@ export default async ({ version, config, dir, dryRun }) =>
         ? getChangelog(version, dir)
         : null;
       const exportedPath = tempWrite.sync(changelog || tagName);
-      args.push(`-F ${exportedPath}`);
+      args.push('-F', quote([exportedPath]));
 
       // handle assets
       if (releases && releases.assetsToUpload) {
@@ -57,17 +58,22 @@ export default async ({ version, config, dir, dryRun }) =>
           // list
           //   assetsToUpload: ['package.json', 'dist/*.zip']
           for (const asset of option) {
-            const files = await globby(asset);
-            assetPaths.push(...files);
+            const files = await globby(asset, { cwd: dir });
+            if (files) {
+              assetPaths.push(...files);
+            }
           }
         } else if (typeof option === 'string') {
           // string
           //   assetsToUpload: 'archive.zip'
-          assetPaths.push(option);
+          const files = await globby(option, { cwd: dir });
+          if (files) {
+            assetPaths.push(...files);
+          }
         }
 
         for (const asset of assetPaths) {
-          args.push('-a', asset);
+          args.push('-a', quote([path.resolve(dir, asset)]));
         }
       }
 

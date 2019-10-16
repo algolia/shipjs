@@ -40,6 +40,7 @@
     "esm": "3.2.25",
     "globby": "^10.0.1",
     "inquirer": "7.0.0",
+    "shell-quote": "^1.7.2",
     "shipjs-lib": "0.6.0",
     "temp-write": "4.0.0"
   },
