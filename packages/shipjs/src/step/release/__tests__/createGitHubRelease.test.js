@@ -17,7 +17,7 @@ afterEach(() => {
   stdout = '';
 });
 
-it('success', async () => {
+it('create github release', async () => {
   const createGitHubRelease = require('../createGitHubRelease');
   const dryRun = true;
   const dir = path.resolve(__dirname, 'fixtures');
