@@ -1,7 +1,5 @@
 import { exec } from 'shipjs-lib';
-import print from '../util/print';
-import exitProcess from '../util/exitProcess';
-import wrapRun from '../util/wrapRun';
+import { print, exitProcess, wrapRun } from '../util';
 import { info, warning, error, bold, underline, slateblue } from '../color';
 
 const makeSpaces = num => ' '.repeat(num);

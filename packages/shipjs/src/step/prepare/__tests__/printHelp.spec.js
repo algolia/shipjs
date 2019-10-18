@@ -1,15 +1,11 @@
 import { print } from '../../../util';
-import { bold, underline } from '../../../color';
 import printHelp from '../printHelp';
-jest.mock('../../../util');
-jest.mock('../../../color');
+import { mockPrint } from '../../../../tests/util';
 
 describe('printHelp', () => {
   it('prints help', () => {
     const output = [];
-    bold.mockImplementation(str => str);
-    underline.mockImplementation(str => str);
-    print.mockImplementation((...args) => output.push(args.join(' ')));
+    mockPrint(print, output);
     printHelp();
     expect(output).toMatchInlineSnapshot(`
       Array [

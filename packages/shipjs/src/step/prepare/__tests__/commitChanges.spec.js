@@ -1,30 +1,23 @@
 import commitChanges from '../commitChanges';
 import { wrapExecWithDir, run, print } from '../../../util';
-import { info } from '../../../color';
+import { mockPrint } from '../../../../tests/util';
 jest.mock('temp-write', () => ({
   sync: () => '/temp/file/path',
 }));
-jest.mock('../../../util');
-jest.mock('../../../color');
-
-beforeAll(() => {
-  info.mockImplementation(str => str);
-});
 
 describe('commitChanges', () => {
   it('works in dry mode', () => {
-    const result = [];
-    print.mockImplementation((...args) => {
-      result.push(args.join(' '));
-    });
+    const output = [];
+    mockPrint(print, output);
     commitChanges({
       config: {
         formatCommitMessage: () => 'test message',
       },
       dryRun: true,
     });
-    expect(result).toMatchInlineSnapshot(`
+    expect(output).toMatchInlineSnapshot(`
       Array [
+        "› Committing the changes.",
         "$ git add .",
         "$ git commit",
         "  |",

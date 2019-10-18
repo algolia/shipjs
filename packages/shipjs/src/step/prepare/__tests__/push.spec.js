@@ -1,8 +1,8 @@
 import { getRepoURLWithToken, getRepoURLWithTokenMasked } from 'shipjs-lib';
 import push from '../push';
 import { run, print } from '../../../util';
+import { mockPrint } from '../../../../tests/util';
 jest.mock('../../../util');
-jest.mock('shipjs-lib');
 
 const defaultParams = {
   config: {
@@ -38,6 +38,7 @@ describe('push', () => {
     push(defaultParams);
     expect(output).toMatchInlineSnapshot(`
       Array [
+        "› Pushing to remote.",
         "  $ git remote add origin-with-token https://xxxgithub.com/my/repo",
       ]
     `);
@@ -67,8 +68,15 @@ describe('push', () => {
     getRepoURLWithTokenMasked.mockImplementation(
       () => `https://xxxgithub.com/my/repo`
     );
+    const output = [];
+    mockPrint(print, output);
     push(defaultParams);
-    expect(print).toHaveBeenCalledTimes(0);
+    expect(print).toHaveBeenCalledTimes(1);
+    expect(output).toMatchInlineSnapshot(`
+      Array [
+        "› Pushing to remote.",
+      ]
+    `);
     expect(run).toHaveBeenCalledTimes(1);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
       Object {

@@ -1,6 +1,5 @@
 import { run } from '../../../util';
 import installDependencies from '../installDependencies';
-jest.mock('../../../util');
 
 describe('installDependencies', () => {
   it('runs install command', () => {

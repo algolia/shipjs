@@ -1,7 +1,7 @@
 import { hasRemoteBranch, getRepoURL, silentExec } from 'shipjs-lib';
 import tempWrite from 'temp-write';
 import runStep from '../runStep';
-import getDestinationBranchName from '../../helper/getDestinationBranchName';
+import { getDestinationBranchName } from '../../helper';
 import { print, run, exitProcess } from '../../util';
 import { warning } from '../../color';
 

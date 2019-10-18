@@ -2,7 +2,6 @@ import { run } from '../../../util';
 import path from 'path';
 import updateChangelog from '../updateChangelog';
 jest.mock('path');
-jest.mock('../../../util');
 
 describe('updateChangelog', () => {
   it('works', () => {

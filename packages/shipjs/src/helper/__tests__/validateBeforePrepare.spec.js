@@ -1,6 +1,5 @@
 import validate from '../validateBeforePrepare';
 import { isWorkingTreeClean, getCurrentBranch, hasTag } from 'shipjs-lib';
-jest.mock('shipjs-lib');
 
 const defaultOpts = {
   baseBranches: ['master'],

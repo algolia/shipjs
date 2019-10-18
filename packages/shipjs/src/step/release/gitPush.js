@@ -4,7 +4,7 @@ import {
   getRepoURLWithTokenMasked,
 } from 'shipjs-lib';
 import runStep from '../runStep';
-import getBranchNameToMergeBack from '../../helper/getBranchNameToMergeBack';
+import { getBranchNameToMergeBack } from '../../helper';
 
 function push({ remote, tagName, run, print, dir, dryRun }) {
   const token = process.env.GITHUB_TOKEN;

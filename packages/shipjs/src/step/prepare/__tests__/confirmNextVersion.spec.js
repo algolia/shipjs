@@ -1,14 +1,6 @@
 import inquirer from 'inquirer';
-import { print } from '../../../util';
-import { info } from '../../../color';
 import confirmNextVersion from '../confirmNextVersion';
 jest.mock('inquirer');
-jest.mock('../../../util');
-jest.mock('../../../color');
-
-beforeAll(() => {
-  info.mockImplementation(str => str);
-});
 
 describe('confirmNextVersion', () => {
   it('works in dry mode', async () => {

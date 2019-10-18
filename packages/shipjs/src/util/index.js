@@ -9,3 +9,4 @@ export {
   notifyReleaseSuccess,
 } from './slack';
 export { default as wrapExecWithDir } from './wrapExecWithDir';
+export { default as wrapRun } from './wrapRun';

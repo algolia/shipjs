@@ -1,6 +1,5 @@
 import checkoutToStagingBranch from '../checkoutToStagingBranch';
 import { run } from '../../../util';
-jest.mock('../../../util');
 
 describe('checkoutToStagingBranch', () => {
   it('works', () => {

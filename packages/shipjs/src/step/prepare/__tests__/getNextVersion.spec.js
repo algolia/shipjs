@@ -1,10 +1,7 @@
 import { getNextVersion } from 'shipjs-lib';
 import { print, exitProcess } from '../../../util';
 import getNextVersionStep from '../getNextVersion';
-import { info, warning } from '../../../color';
-jest.mock('shipjs-lib');
-jest.mock('../../../util');
-jest.mock('../../../color');
+import { mockPrint } from '../../../../tests/util';
 
 describe('getNextVersion', () => {
   it('returns next version', () => {
@@ -27,11 +24,7 @@ describe('getNextVersion', () => {
 
   it('prints ignoredMessages', () => {
     const output = [];
-    info.mockImplementation(str => str);
-    warning.mockImplementation(str => str);
-    print.mockImplementation((...args) => {
-      output.push(args.join(' '));
-    });
+    mockPrint(print, output);
     getNextVersion.mockImplementationOnce(() => ({
       version: '0.1.2',
       ignoredMessages: ['hello world', 'foo bar', 'out of convention'],
@@ -39,6 +32,7 @@ describe('getNextVersion', () => {
     getNextVersionStep({});
     expect(output).toMatchInlineSnapshot(`
       Array [
+        "› Calculating the next version.",
         "The following commit messages out of convention are ignored:",
         "  hello world",
         "  foo bar",

@@ -1,20 +1,10 @@
 import { getCurrentVersion, getCurrentBranch } from 'shipjs-lib';
 import runStep from '../runStep';
-import validateBeforePrepare from '../../helper/validateBeforePrepare';
+import { getBaseBranches, validateBeforePrepare } from '../../helper';
+import { print, exitProcess } from '../../util';
+import { info, error } from '../../color';
 
-function getBaseBranches({ mergeStrategy }) {
-  const { toSameBranch, toReleaseBranch } = mergeStrategy;
-  return [...toSameBranch, ...Object.keys(toReleaseBranch)];
-}
-
-function printValidationError({
-  result,
-  currentVersion,
-  baseBranches,
-  print,
-  info,
-  error,
-}) {
+function printValidationError({ result, currentVersion, baseBranches }) {
   const messageMap = {
     workingTreeNotClean: 'The working tree is not clean.',
     currentBranchIncorrect: `The current branch must be one of ${JSON.stringify(
@@ -34,7 +24,7 @@ export default ({ config, dir }) =>
     {
       title: 'Checking the current status.',
     },
-    ({ print, info, error, exitProcess }) => {
+    () => {
       const { mergeStrategy, monorepo, getTagName } = config;
       const baseBranches = getBaseBranches({ mergeStrategy });
       const currentVersion =
@@ -53,9 +43,6 @@ export default ({ config, dir }) =>
           result,
           currentVersion,
           baseBranches,
-          print,
-          info,
-          error,
         });
         exitProcess(1);
       }

@@ -2,10 +2,8 @@ import { getRepoURL, silentExec } from 'shipjs-lib';
 import tempWrite from 'temp-write';
 import createPullRequest from '../createPullRequest';
 import { run } from '../../../util';
-jest.mock('shipjs-lib');
+import { getDestinationBranchName } from '../../../helper';
 jest.mock('temp-write');
-jest.mock('../../../util');
-jest.mock('../../../color');
 
 const defaultParams = {
   baseBranch: 'master',
@@ -24,6 +22,7 @@ describe('createPullRequest', () => {
   beforeEach(() => {
     getRepoURL.mockImplementationOnce(() => 'https://github.com/my/repo');
     tempWrite.sync.mockImplementationOnce(() => '/temp/path');
+    getDestinationBranchName.mockImplementation(() => 'master');
   });
 
   it('works in dry mode', () => {

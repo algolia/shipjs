@@ -1,5 +1,5 @@
 import runStep from '../runStep';
-import wrapExecWithDir from '../../util/wrapExecWithDir';
+import { wrapExecWithDir } from '../../util';
 
 export default ({ config, dir, dryRun }) =>
   runStep(

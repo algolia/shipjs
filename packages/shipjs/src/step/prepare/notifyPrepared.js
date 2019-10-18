@@ -1,4 +1,4 @@
-import { notifyPrepared } from '../../util/slack';
+import { notifyPrepared } from '../../util';
 import runStep from '../runStep';
 
 export default async ({ config, appName, version, pullRequestUrl }) =>
