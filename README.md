@@ -24,6 +24,7 @@ When releasing, you go through something like the following:
 - Update the changelog
 - Actually release it (e.g. `yarn build && yarn publish`)
 - Create a git tag
+- Create a release on GitHub
 
 ### What could go wrong?
 
@@ -67,6 +68,7 @@ Run `shipjs trigger` and it will briefly do the following:
 - Run a final test (unit, e2e, etc).
 - Release it to NPM (or elsewhere as you configure it).
 - Create a git tag for the version.
+- Create a release for the tag on GitHub.
 
 You can manually run `shipjs trigger` on the base branch after the PR is merged.
 
@@ -113,8 +115,10 @@ If the conditions are met, `shipjs trigger` will briefly do the following:
 
 - Send a Slack message to notify the beginning of the release(If configured).
 - Run test, build and release it.
-- `git tag v1.0.1`
-- Push them to git remote and notify at Slack.
+- `git tag v1.0.1`.
+- Push them to git remote.
+- `hub release create -m <changelog> v1.0.1`
+- Notify at Slack.
 
 You can run `shipjs trigger --dry-run` just to see what will be executed without actual execution.
 
@@ -176,13 +180,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://twitter.com/eunjae_lee"><img src="https://avatars3.githubusercontent.com/u/499898?v=4" width="100px;" alt="Eunjae Lee"/><br /><sub><b>Eunjae Lee</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=eunjae-lee" title="Code">💻</a> <a href="https://github.com/algolia/shipjs/commits?author=eunjae-lee" title="Documentation">📖</a></td>
     <td align="center"><a href="http://www.fredkschott.com"><img src="https://avatars1.githubusercontent.com/u/622227?v=4" width="100px;" alt="Fred K. Schott"/><br /><sub><b>Fred K. Schott</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=FredKSchott" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://uechi.io"><img src="https://avatars0.githubusercontent.com/u/431808?v=4" width="100px;" alt="Yasuaki Uechi"/><br /><sub><b>Yasuaki Uechi</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=uetchy" title="Code">💻</a></td>
+    <td align="center"><a href="https://uechi.io"><img src="https://avatars0.githubusercontent.com/u/431808?v=4" width="100px;" alt="Yasuaki Uechi"/><br /><sub><b>Yasuaki Uechi</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=uetchy" title="Code">💻</a> <a href="https://github.com/algolia/shipjs/commits?author=uetchy" title="Documentation">📖</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

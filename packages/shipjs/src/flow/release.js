@@ -50,7 +50,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   await runAfterPublish({ config, dir, dryRun });
   const { tagName } = createGitTag({ version, config, dir, dryRun });
   gitPush({ tagName, config, dir, dryRun });
-  createGitHubRelease({ version, config, dir, dryRun });
+  await createGitHubRelease({ version, config, dir, dryRun });
   await notifyReleaseSuccess({
     config,
     appName,

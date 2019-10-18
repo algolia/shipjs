@@ -28,7 +28,6 @@
   "devDependencies": {
     "@types/jest": "^24.0.19",
     "all-contributors-cli": "6.9.1",
-    "lerna": "3.17.0"
-  },
-  "dependencies": {}
+    "lerna": "3.18.1"
+  }
 }
