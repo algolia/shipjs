@@ -6,3 +6,4 @@ export {
   default as getDestinationBranchName,
 } from './getDestinationBranchName';
 export { default as validateBeforePrepare } from './validateBeforePrepare';
+export { default as getChangelog } from './getChangelog';
