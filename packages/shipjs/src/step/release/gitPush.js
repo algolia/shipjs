@@ -5,8 +5,9 @@ import {
 } from 'shipjs-lib';
 import runStep from '../runStep';
 import { getBranchNameToMergeBack } from '../../helper';
+import { run, print } from '../../util';
 
-function push({ remote, tagName, run, print, dir, dryRun }) {
+function push({ remote, tagName, dir, dryRun }) {
   const token = process.env.GITHUB_TOKEN;
   if (token) {
     const url = getRepoURLWithToken(token, remote, dir);
@@ -35,7 +36,7 @@ function push({ remote, tagName, run, print, dir, dryRun }) {
 }
 
 export default ({ tagName, config, dir, dryRun }) =>
-  runStep({ title: 'Pushing to the remote.' }, ({ run, print }) => {
+  runStep({ title: 'Pushing to the remote.' }, () => {
     const currentBranch = getCurrentBranch(dir);
     const { mergeStrategy, remote } = config;
     const destinationBranch = getBranchNameToMergeBack({
@@ -43,13 +44,13 @@ export default ({ tagName, config, dir, dryRun }) =>
       mergeStrategy,
     });
     if (currentBranch === destinationBranch) {
-      push({ remote, tagName, run, print, dir, dryRun });
+      push({ remote, tagName, dir, dryRun });
     } else {
       // currentBranch: 'master'
       // destinationBranch: 'develop'
       // flow: develop -> master -> (here) develop
       run({ command: `git checkout ${destinationBranch}`, dir, dryRun });
       run({ command: `git merge ${currentBranch}`, dir, dryRun });
-      push({ remote, tagName, run, print, dir, dryRun });
+      push({ remote, tagName, dir, dryRun });
     }
   });
