@@ -1,8 +1,4 @@
-import {
-  getCurrentVersion,
-  getCurrentBranch,
-  getLatestCommitMessage,
-} from 'shipjs-lib';
+import { getCurrentVersion } from 'shipjs-lib';
 import { print, exitProcess } from '../../../util';
 import { mockPrint } from '../../../../tests/util';
 import validate from '../validate';
