@@ -230,7 +230,7 @@ Ship.js currently supports monorepo project(Independent versioning is not suppor
 ```js
 module.exports = {
   monorepo: {
-    readVersionFrom: "package.json", // or `lerna.json`, or whatever a json file you can read the latest `version` from.
+    mainVersionFile: "package.json", // or `lerna.json`, or whatever a json file you can read the latest `version` from.
     packagesToBump: ["packages/*", "examples/*"],
     packagesToPublish: ["packages/*"]
   }
