@@ -1,3 +1,4 @@
+import setup from './flow/setup';
 import prepare from './flow/prepare';
 import release from './flow/release';
 import parseArgs from 'arg';
@@ -7,6 +8,7 @@ import { print } from './util';
 import version from './version';
 
 const flowMap = {
+  setup,
   prepare,
   trigger: release,
 };
@@ -26,6 +28,9 @@ function printVersion() {
 
 function printHelp() {
   print(bold('USAGE'));
+  print(`\t${bold('shipjs setup')} --help`);
+  print(`\t  : Setup Ship.js in your project.`);
+  print('');
   print(`\t${bold('shipjs prepare')} --help`);
   print(`\t  : Prepare a release.`);
   print('');

@@ -9,6 +9,7 @@
   "scripts": {
     "test:run": "shipjs",
     "test:run:version": "shipjs --version",
+    "test:run:setup": "shipjs setup",
     "test:run:prepare": "shipjs prepare",
     "test:run:trigger": "shipjs trigger",
     "test": "jest",
