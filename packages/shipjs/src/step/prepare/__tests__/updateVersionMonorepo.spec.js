@@ -13,22 +13,38 @@ describe('updateVersionMonorepo', () => {
     updateVersionMonorepo({
       config: {
         versionUpdated,
-        monorepo: { packagesToBump: ['packages/*'] },
+        monorepo: {
+          packagesToBump: ['packages/*'],
+          mainVersionFile: 'lerna.json',
+        },
       },
       dir: '.',
       nextVersion: '1.2.3',
     });
-    expect(updateVersion).toHaveBeenCalledTimes(2);
+    expect(updateVersion).toHaveBeenCalledTimes(3);
     expect(updateVersion.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
-        "1.2.3",
-        "packages/a",
+        Object {
+          "dir": ".",
+          "fileName": "lerna.json",
+          "nextVersion": "1.2.3",
+        },
       ]
     `);
     expect(updateVersion.mock.calls[1]).toMatchInlineSnapshot(`
       Array [
-        "1.2.3",
-        "packages/b",
+        Object {
+          "dir": "packages/a",
+          "nextVersion": "1.2.3",
+        },
+      ]
+    `);
+    expect(updateVersion.mock.calls[2]).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "dir": "packages/b",
+          "nextVersion": "1.2.3",
+        },
       ]
     `);
     expect(versionUpdated).toHaveBeenCalledTimes(1);
@@ -50,7 +66,10 @@ describe('updateVersionMonorepo', () => {
     mockPrint(print, output);
     updateVersionMonorepo({
       config: {
-        monorepo: { packagesToBump: ['packages/*'] },
+        monorepo: {
+          packagesToBump: ['packages/*'],
+          mainVersionFile: 'lerna.json',
+        },
       },
       dryRun: true,
     });
@@ -58,6 +77,7 @@ describe('updateVersionMonorepo', () => {
       Array [
         "› Updating the versions on the monorepo.",
         "Your configuration: [\\"packages/*\\"]",
+        "Main version file: lerna.json",
         "Actual packages to bump:",
         "-> packages/a/package.json",
         "-> packages/b/package.json",

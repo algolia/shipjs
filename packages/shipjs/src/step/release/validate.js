@@ -17,8 +17,8 @@ export default ({ config, dir }) =>
     } = config;
     const commitMessage = getLatestCommitMessage(dir);
     const currentVersion =
-      monorepo && monorepo.readVersionFrom
-        ? getCurrentVersion(dir, monorepo.readVersionFrom)
+      monorepo && monorepo.mainVersionFile
+        ? getCurrentVersion(dir, monorepo.mainVersionFile)
         : getCurrentVersion(dir);
     const currentBranch = getCurrentBranch(dir);
     const validationResult = shouldRelease({
