@@ -7,3 +7,4 @@ export {
 } from './getDestinationBranchName';
 export { default as validateBeforePrepare } from './validateBeforePrepare';
 export { default as getChangelog } from './getChangelog';
+export { default as gitPush } from './gitPush';

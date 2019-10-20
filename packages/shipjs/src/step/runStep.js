@@ -1,9 +1,5 @@
-import { exec } from 'shipjs-lib';
-import { print, exitProcess, wrapRun } from '../util';
-import { info, warning, error, bold, underline, slateblue } from '../color';
-
-const makeSpaces = num => ' '.repeat(num);
-const indentPrint = indent => (...args) => print(makeSpaces(indent), ...args);
+import { print } from '../util';
+import { bold, slateblue } from '../color';
 
 export default function runStep({ title, skipIf }, stepFn) {
   if (title) {
@@ -12,14 +8,5 @@ export default function runStep({ title, skipIf }, stepFn) {
   if (skipIf && typeof skipIf === 'function' && skipIf() === true) {
     return null;
   }
-  return stepFn({
-    run: wrapRun({ exec, print, error }),
-    print: indentPrint(2),
-    info,
-    warning,
-    error,
-    bold,
-    underline,
-    exitProcess,
-  });
+  return stepFn();
 }

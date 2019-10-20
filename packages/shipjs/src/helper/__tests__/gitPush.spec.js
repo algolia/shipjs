@@ -1,23 +1,13 @@
 import { getRepoURLWithToken, getRepoURLWithTokenMasked } from 'shipjs-lib';
-import push from '../push';
-import { run, print } from '../../../util';
-import { mockPrint } from '../../../../tests/util';
-jest.mock('../../../util');
+import { print, run } from '../../util';
+import { mockPrint } from '../../../tests/util';
+import gitPush from '../gitPush';
 
-const defaultParams = {
-  config: {
-    remote: 'origin',
-  },
-  currentBranch: 'master',
-  dir: '.',
-  dryRun: false,
-};
-
-describe('push', () => {
+describe('gitPush', () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
-    jest.resetModules(); // this is important - it clears the cache
+    jest.resetModules();
     process.env = {};
   });
 
@@ -27,22 +17,26 @@ describe('push', () => {
 
   it('works with token', () => {
     const output = [];
+    mockPrint(print, output);
     process.env.GITHUB_TOKEN = 'abcdef';
     getRepoURLWithToken.mockImplementation(
       () => `https://abcdef@github.com/my/repo`
     );
     getRepoURLWithTokenMasked.mockImplementation(
-      () => `https://xxxgithub.com/my/repo`
+      () => `https://xxx@github.com/my/repo`
     );
-    print.mockImplementation((...args) => output.push(args.join(' ')));
-    push(defaultParams);
+    gitPush({
+      remote: 'origin',
+      refs: ['master', 'v1.2.3'],
+      dir: '.',
+      dryRun: false,
+    });
     expect(output).toMatchInlineSnapshot(`
       Array [
-        "› Pushing to remote.",
-        "  $ git remote add origin-with-token https://xxxgithub.com/my/repo",
+        "    $ git remote add origin-with-token https://xxx@github.com/my/repo",
       ]
     `);
-    expect(run).toHaveBeenCalledTimes(2);
+    expect(run).toHaveBeenCalledTimes(3);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
       Object {
         "command": "git remote add origin-with-token https://abcdef@github.com/my/repo",
@@ -58,29 +52,34 @@ describe('push', () => {
         "dryRun": false,
       }
     `);
+    expect(run.mock.calls[2][0]).toMatchInlineSnapshot(`
+      Object {
+        "command": "git push origin-with-token v1.2.3",
+        "dir": ".",
+        "dryRun": false,
+      }
+    `);
   });
 
   it('works without token', () => {
-    process.env.GITHUB_TOKEN = undefined;
-    getRepoURLWithToken.mockImplementation(
-      () => `https://abcdef@github.com/my/repo`
-    );
-    getRepoURLWithTokenMasked.mockImplementation(
-      () => `https://xxxgithub.com/my/repo`
-    );
-    const output = [];
-    mockPrint(print, output);
-    push(defaultParams);
-    expect(print).toHaveBeenCalledTimes(1);
-    expect(output).toMatchInlineSnapshot(`
-      Array [
-        "› Pushing to remote.",
-      ]
-    `);
-    expect(run).toHaveBeenCalledTimes(1);
+    gitPush({
+      remote: 'origin',
+      refs: ['master', 'v1.2.3'],
+      dir: '.',
+      dryRun: false,
+    });
+    expect(print).toHaveBeenCalledTimes(0);
+    expect(run).toHaveBeenCalledTimes(2);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
       Object {
         "command": "git push origin master",
+        "dir": ".",
+        "dryRun": false,
+      }
+    `);
+    expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
+      Object {
+        "command": "git push origin v1.2.3",
         "dir": ".",
         "dryRun": false,
       }
