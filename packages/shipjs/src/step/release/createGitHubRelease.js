@@ -1,44 +1,21 @@
-import fs from 'fs';
 import path from 'path';
 import globby from 'globby';
 import tempWrite from 'temp-write';
 import { quote } from 'shell-quote';
-
 import runStep from '../runStep';
-
-function getChangelog(version, rootDir) {
-  const changelogMatcher = new RegExp(
-    `#+?[\\s\\[]*?(${version})(.|\n)+?(?=#+?[\\s\\[]*?\\d\\.\\d|$)`
-  );
-  const changelogPath = path.resolve(rootDir, 'CHANGELOG.md');
-  try {
-    const changelogFile = fs.readFileSync(changelogPath, 'utf-8').toString();
-    const changelogMatch = changelogFile.match(changelogMatcher);
-    if (changelogMatch !== null) {
-      // because first line of a log file must be title of the release
-      return `${version}\n\n${changelogMatch[0]}`;
-    }
-  } catch (err) {
-    if (err.code === 'ENOENT') {
-      return null;
-    }
-    throw err;
-  }
-  return null;
-}
+import { run } from '../../util';
+import { getChangelog } from '../../helper';
 
 export default async ({ version, config, dir, dryRun }) =>
   await runStep(
     { title: 'Creating a release on GitHub repository' },
-    async ({ run }) => {
-      const { getTagName, releases } = config;
+    async () => {
+      const { getTagName, releases, updateChangelog } = config;
       const tagName = getTagName({ version });
       const args = [];
 
       // extract matching changelog
-      const changelog = config.updateChangelog
-        ? getChangelog(version, dir)
-        : null;
+      const changelog = updateChangelog ? getChangelog(version, dir) : null;
       const exportedPath = tempWrite.sync(changelog || tagName);
       args.push('-F', quote([exportedPath]));
 

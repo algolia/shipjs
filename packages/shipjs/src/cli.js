@@ -3,7 +3,7 @@ import release from './flow/release';
 import parseArgs from 'arg';
 import { camelCase } from 'change-case';
 import { bold } from './color';
-import print from './util/print';
+import { print } from './util';
 import version from './version';
 
 const flowMap = {

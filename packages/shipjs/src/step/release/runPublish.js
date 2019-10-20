@@ -1,8 +1,10 @@
 import { expandPackageList } from 'shipjs-lib';
 import runStep from '../runStep';
+import { run, print } from '../../util';
+import { info } from '../../color';
 
 export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
-  runStep({ title: 'Publishing.' }, ({ run, print, info }) => {
+  runStep({ title: 'Publishing.' }, () => {
     const { publishCommand, monorepo } = config;
     const defaultCommand = isYarn
       ? `yarn publish --no-git-tag-version --non-interactive --tag ${tag}`

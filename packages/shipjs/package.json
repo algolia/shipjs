@@ -32,6 +32,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.6.3",
     "@slack/webhook": "^5.0.1",
     "arg": "4.1.1",
     "chalk": "2.4.2",
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.6.4",
+    "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "7.6.3",
     "babel-eslint": "10.0.3",
     "babel-jest": "24.9.0",

@@ -1,4 +1,4 @@
-import { notifyReleaseStart } from '../../util/slack';
+import { notifyReleaseStart } from '../../util';
 import runStep from '../runStep';
 
 export default async ({

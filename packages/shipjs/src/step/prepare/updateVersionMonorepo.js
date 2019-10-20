@@ -1,11 +1,12 @@
 import { expandPackageList, updateVersion } from 'shipjs-lib';
 import runStep from '../runStep';
-import wrapExecWithDir from '../../util/wrapExecWithDir';
+import { wrapExecWithDir, print } from '../../util';
+import { info } from '../../color';
 
 export default async ({ config, nextVersion, dir, dryRun }) =>
   await runStep(
     { title: 'Updating the versions on the monorepo.' },
-    async ({ print, info }) => {
+    async () => {
       const {
         versionUpdated,
         monorepo: { packagesToBump },

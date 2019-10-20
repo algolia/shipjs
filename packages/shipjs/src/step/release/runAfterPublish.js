@@ -1,5 +1,6 @@
 import runStep from '../runStep';
-import wrapExecWithDir from '../../util/wrapExecWithDir';
+import { wrapExecWithDir, print } from '../../util';
+import { info } from '../../color';
 
 export default ({ config, dir, dryRun }) =>
   runStep(
@@ -8,9 +9,9 @@ export default ({ config, dir, dryRun }) =>
       skipIf: () =>
         !config.afterPublish || typeof config.afterPublish !== 'function',
     },
-    async ({ print, info }) => {
+    async () => {
       if (dryRun) {
-        print(`-> execute ${info('beforePublish()')} callback.`);
+        print(`-> execute ${info('afterPublish()')} callback.`);
         return;
       }
       await config.afterPublish({ exec: wrapExecWithDir(dir), dir });
