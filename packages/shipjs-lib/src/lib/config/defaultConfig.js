@@ -3,7 +3,7 @@ import shipJsVersion from '../../version';
 export default {
   remote: 'origin',
   // monorepo: {
-  //   readVersionFrom: 'package.json',
+  //   mainVersionFile: 'package.json',
   //   packagesToBump: ['packages/*', 'examples/*'],
   //   packagesToPublish: ['packages/*'],
   // },
