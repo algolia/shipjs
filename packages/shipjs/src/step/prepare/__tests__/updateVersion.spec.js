@@ -15,7 +15,10 @@ describe('updateVersion', () => {
       dryRun: false,
     });
     expect(updateVersionPackageJson).toHaveBeenCalledTimes(1);
-    expect(updateVersionPackageJson).toHaveBeenCalledWith('1.2.3', '.');
+    expect(updateVersionPackageJson).toHaveBeenCalledWith({
+      dir: '.',
+      nextVersion: '1.2.3',
+    });
     expect(versionUpdated.mock.calls[0][0]).toMatchInlineSnapshot(`
       Object {
         "dir": ".",

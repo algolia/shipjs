@@ -28,8 +28,8 @@ export default ({ config, dir }) =>
       const { mergeStrategy, monorepo, getTagName } = config;
       const baseBranches = getBaseBranches({ mergeStrategy });
       const currentVersion =
-        monorepo && monorepo.readVersionFrom
-          ? getCurrentVersion(dir, monorepo.readVersionFrom)
+        monorepo && monorepo.mainVersionFile
+          ? getCurrentVersion(dir, monorepo.mainVersionFile)
           : getCurrentVersion(dir);
       const currentTagName = getTagName({ version: currentVersion });
       const result = validateBeforePrepare({

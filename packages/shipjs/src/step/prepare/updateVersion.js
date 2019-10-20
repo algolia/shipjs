@@ -11,7 +11,7 @@ export default async ({ config, nextVersion, dir, dryRun }) =>
       print(`-> execute ${info('versionUpdated()')} callback.`);
       return;
     }
-    updateVersion(nextVersion, dir);
+    updateVersion({ nextVersion, dir });
     await versionUpdated({
       version: nextVersion,
       dir,

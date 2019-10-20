@@ -9,11 +9,12 @@ export default async ({ config, nextVersion, dir, dryRun }) =>
     async () => {
       const {
         versionUpdated,
-        monorepo: { packagesToBump },
+        monorepo: { mainVersionFile, packagesToBump },
       } = config;
       const packageList = expandPackageList(packagesToBump, dir);
       if (dryRun) {
         print(`Your configuration: ${JSON.stringify(packagesToBump)}`);
+        print(`Main version file: ${mainVersionFile}`);
         print(`Actual packages to bump:`);
         packageList.forEach(packageDir =>
           print(`-> ${info(`${packageDir}/package.json`)}`)
@@ -21,9 +22,11 @@ export default async ({ config, nextVersion, dir, dryRun }) =>
         print(`-> execute ${info('versionUpdated()')} callback.`);
         return;
       }
+
+      updateVersion({ nextVersion, dir, fileName: mainVersionFile });
       packageList.forEach(packageDir => {
         print(`-> ${info(`${packageDir}/package.json`)}`);
-        updateVersion(nextVersion, packageDir);
+        updateVersion({ nextVersion, dir: packageDir });
       });
       await versionUpdated({
         version: nextVersion,

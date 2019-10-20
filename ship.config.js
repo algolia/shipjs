@@ -3,7 +3,7 @@ const path = require("path");
 
 module.exports = {
   monorepo: {
-    readVersionFrom: "package.json",
+    mainVersionFile: "package.json",
     packagesToBump: ["packages/*"],
     packagesToPublish: ["packages/*"]
   },
