@@ -4,11 +4,16 @@ import tempWrite from 'temp-write';
 import { quote } from 'shell-quote';
 import runStep from '../runStep';
 import { run } from '../../util';
-import { getChangelog } from '../../helper';
+import { getChangelog, hubInstalled, hubConfigured } from '../../helper';
+
+const cannotUseHub = () => !hubInstalled() || !hubConfigured();
 
 export default async ({ version, config, dir, dryRun }) =>
   await runStep(
-    { title: 'Creating a release on GitHub repository' },
+    {
+      title: 'Creating a release on GitHub repository',
+      skipIf: cannotUseHub,
+    },
     async () => {
       const { getTagName, releases, updateChangelog } = config;
       const tagName = getTagName({ version });
