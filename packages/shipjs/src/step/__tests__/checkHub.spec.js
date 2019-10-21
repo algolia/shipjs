@@ -1,5 +1,5 @@
-import { silentExec } from 'shipjs-lib';
 import { print, exitProcess } from '../../util';
+import { hubInstalled, hubConfigured } from '../../helper';
 import { mockPrint } from '../../../tests/util';
 import checkHub from '../checkHub';
 
@@ -7,10 +7,7 @@ describe('checkHub', () => {
   it('prints error if it is not installed', () => {
     const output = [];
     mockPrint(print, output);
-    const nonZeroValue = 1;
-    silentExec.mockImplementationOnce(() => ({
-      code: nonZeroValue,
-    }));
+    hubInstalled.mockImplementationOnce(() => false);
     checkHub();
     expect(output).toMatchInlineSnapshot(`
       Array [
@@ -26,14 +23,8 @@ describe('checkHub', () => {
   it('prints error if it is not configured', () => {
     const output = [];
     mockPrint(print, output);
-    const nonZeroValue = 1;
-    silentExec
-      .mockImplementationOnce(() => ({
-        code: 0,
-      }))
-      .mockImplementationOnce(() => ({
-        code: nonZeroValue,
-      }));
+    hubInstalled.mockImplementationOnce(() => true);
+    hubConfigured.mockImplementationOnce(() => false);
     checkHub();
     expect(output).toMatchInlineSnapshot(`
       Array [

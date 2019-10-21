@@ -2,6 +2,7 @@ import tempWrite from 'temp-write';
 import globby from 'globby';
 import createGitHubRelease from '../createGitHubRelease';
 import { run } from '../../../util';
+import { hubInstalled, hubConfigured } from '../../../helper';
 jest.mock('temp-write');
 jest.mock('globby');
 
@@ -17,6 +18,11 @@ const getDefaultParams = ({ assetsToUpload } = {}) => ({
 });
 
 describe('createGitHubRelease', () => {
+  beforeEach(() => {
+    hubInstalled.mockImplementation(() => true);
+    hubConfigured.mockImplementation(() => true);
+  });
+
   it('works without assets', async () => {
     tempWrite.sync.mockImplementation(() => `/my chan"ge"log/temp/path`);
     await createGitHubRelease(getDefaultParams());
