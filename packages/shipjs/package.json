@@ -1,6 +1,6 @@
 {
   "name": "shipjs",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Take control of what is going to be your next release.",
   "main": "index.js",
   "bin": {
@@ -42,7 +42,7 @@
     "globby": "^10.0.1",
     "inquirer": "7.0.0",
     "shell-quote": "^1.7.2",
-    "shipjs-lib": "0.6.0",
+    "shipjs-lib": "0.7.0",
     "temp-write": "4.0.0"
   },
   "devDependencies": {
