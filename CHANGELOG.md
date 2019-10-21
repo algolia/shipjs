@@ -11,7 +11,9 @@
 ### Features
 
 - create GitHub releases ([#311](https://github.com/algolia/shipjs/issues/311)) ([f1e4e77](https://github.com/algolia/shipjs/commit/f1e4e77))
+  - This is automatically done and uses the changelog as content of release.
 - upload assets to GitHub release ([#334](https://github.com/algolia/shipjs/issues/334)) ([fcf2807](https://github.com/algolia/shipjs/commit/fcf2807))
+  - At `ship.config.js`, You can configure `releaeses.assetsToUpload`. More details in configuration will come soon.
 
 ### BREAKING CHANGES
 
