@@ -10,8 +10,8 @@
     "tw1": "yarn workspace shipjs-lib test:watch",
     "tw2": "yarn workspace shipjs test:watch",
     "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh",
-    "release:prepare": "npx shipjs prepare",
-    "release:trigger": "npx shipjs trigger",
+    "release:prepare": "shipjs prepare",
+    "release:trigger": "shipjs trigger",
     "toc": "npx markdown-toc -i --bullets=\"-\" GUIDE.md",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"

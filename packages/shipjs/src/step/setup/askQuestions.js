@@ -3,7 +3,6 @@ import { getRemoteBranches } from 'shipjs-lib';
 import fs from 'fs';
 import path from 'path';
 import runStep from '../runStep';
-import { run } from '../../util';
 import { info, reset } from '../../color';
 
 const formatMessage = (message, description = '') =>
@@ -21,13 +20,23 @@ export default async ({ dir }) =>
     const { configureCircleCI, scheduleCircleCI, cronExpr } = await askCircleCI(
       dir
     );
-    askMonorepo();
+    const {
+      useMonorepo,
+      mainVersionFile,
+      packagesToBump,
+      packagesToPublish,
+    } = await askMonorepo(dir);
+
     return {
       baseBranch,
       releaseBranch,
       configureCircleCI,
       scheduleCircleCI,
       cronExpr,
+      useMonorepo,
+      mainVersionFile,
+      packagesToBump,
+      packagesToPublish,
     };
   });
 
@@ -64,22 +73,15 @@ async function askBranches(dir) {
   return { baseBranch, releaseBranch };
 }
 
-async function askCircleCI(dir) {
-  const circleCIAlreadyExists = fs.existsSync(
-    path.resolve(dir, '.circleci/config.yml')
-  );
-  const { configureCircleCI } = await inquirer.prompt(
-    [
-      !circleCIAlreadyExists
-        ? {
-            type: 'confirm',
-            name: 'configureCircleCI',
-            message: 'Configure CircleCI?',
-            default: true,
-          }
-        : undefined,
-    ].filter(Boolean)
-  );
+async function askCircleCI() {
+  const { configureCircleCI } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'configureCircleCI',
+      message: 'Configure CircleCI?',
+      default: true,
+    },
+  ]);
   const { scheduleCircleCI } = await inquirer.prompt(
     [
       configureCircleCI
@@ -119,4 +121,138 @@ async function askCircleCI(dir) {
   };
 }
 
-function askMonorepo() {}
+async function askMonorepo(dir) {
+  if (!detectMonorepo(dir)) {
+    return {};
+  }
+
+  const { useMonorepo } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'useMonorepo',
+      message: 'Setup a config for your monorepo?',
+      default: true,
+    },
+  ]);
+
+  if (!useMonorepo) {
+    return { useMonorepo };
+  }
+
+  const mainVersionFileCandidate = getMainVersionFileCandidate(dir);
+  const packagesCandidate = getMonorepoPackages(dir);
+
+  const {
+    mainVersionFile,
+    packagesToBump,
+    packagesToPublish,
+  } = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'mainVersionFile',
+      message: 'What is your main version file?',
+      default: mainVersionFileCandidate,
+    },
+    {
+      type: 'input',
+      name: 'packagesToBump',
+      message: formatMessage(
+        'packagesToBump?',
+        [
+          'What are your packages that you want to bump version of?',
+          packagesCandidate
+            ? ''
+            : 'It should be an array of strings, for example: ["packages/*"]',
+        ]
+          .filter(Boolean)
+          .join('\n')
+      ),
+      validate: stringArrayValidator,
+      default: packagesCandidate ? JSON.stringify(packagesCandidate) : '',
+    },
+    {
+      type: 'input',
+      name: 'packagesToPublish',
+      message: formatMessage(
+        'packagesToPublish',
+        [
+          'What are your packages that you want to publish?',
+          'Among packagesToBump, there can be some packages you do not want to publish.',
+          'For example, while you have ["packages/*", "examples/*"] as packagesToBump,',
+          'you can have ["packages/*"] as packagesToPublish.',
+          packagesCandidate
+            ? ''
+            : 'It should be an array of strings, for example: ["packages/*"]',
+        ]
+          .filter(Boolean)
+          .join('\n')
+      ),
+      validate: stringArrayValidator,
+      default: packagesCandidate ? JSON.stringify(packagesCandidate) : '',
+    },
+  ]);
+
+  return { useMonorepo, mainVersionFile, packagesToBump, packagesToPublish };
+}
+
+function detectMonorepo(dir) {
+  if (fs.existsSync(path.resolve(dir, 'lerna.json'))) {
+    return true;
+  }
+
+  if (getJson(dir, 'package.json').workspaces) {
+    return true;
+  }
+
+  return false;
+}
+
+function getMainVersionFileCandidate(dir) {
+  const versionInLernaJsonExists =
+    typeof getJson(dir, 'lerna.json').version === 'string';
+  if (versionInLernaJsonExists) return 'lerna.json';
+
+  if (typeof getJson(dir, 'package.json').version === 'string') {
+    return 'package.json';
+  }
+
+  return undefined;
+}
+
+function getMonorepoPackages(dir) {
+  const lernaPackages = getJson(dir, 'lerna.json').packages;
+  if (Array.isArray(lernaPackages)) {
+    return lernaPackages;
+  }
+
+  const packageJson = getJson(dir, 'package.json');
+  if (Array.isArray(packageJson.workspaces)) {
+    return packageJson.workspaces;
+  } else if (
+    typeof packageJson.workspaces === 'object' &&
+    Array.isArray(packageJson.workspaces.packages)
+  ) {
+    return packageJson.workspaces.packages;
+  }
+
+  if (fs.existsSync(path.resolve(dir, 'packages'))) {
+    return ['packages/*'];
+  }
+
+  return undefined;
+}
+
+function getJson(dir, fileName) {
+  const filePath = path.resolve(dir, fileName);
+  return fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath)) : {};
+}
+
+function stringArrayValidator(answer) {
+  const errorMessage = 'It is not a valid array of strings.';
+  try {
+    const json = JSON.parse(answer);
+    return Array.isArray(json) ? true : errorMessage;
+  } catch (e) {
+    return errorMessage;
+  }
+}
