@@ -21,7 +21,8 @@ export default async ({ version, config, dir, dryRun }) =>
 
       // extract matching changelog
       const changelog = updateChangelog ? getChangelog(version, dir) : null;
-      const exportedPath = tempWrite.sync(changelog || tagName);
+      const content = `${tagName}\n\n${changelog || ''}`;
+      const exportedPath = tempWrite.sync(content);
       args.push('-F', quote([exportedPath]));
 
       // handle assets
