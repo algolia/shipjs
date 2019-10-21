@@ -10,8 +10,7 @@ export default function getChangelog(version, rootDir) {
     const changelogFile = fs.readFileSync(changelogPath, 'utf-8').toString();
     const changelogMatch = changelogFile.match(changelogMatcher);
     if (changelogMatch !== null) {
-      // because first line of a log file must be title of the release
-      return `${version}\n\n${changelogMatch[0]}`;
+      return changelogMatch[0];
     }
   } catch (err) {
     if (err.code === 'ENOENT') {
