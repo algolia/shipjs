@@ -6,3 +6,4 @@ export const error = chalk.keyword('tomato');
 export const slateblue = chalk.keyword('slateblue');
 export const bold = chalk.bold;
 export const underline = chalk.underline;
+export const reset = chalk.reset;

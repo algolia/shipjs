@@ -5,7 +5,6 @@ import printDryRunBanner from '../step/printDryRunBanner';
 import validate from '../step/release/validate';
 import gatherRepoInfo from '../step/release/gatherRepoInfo';
 import notifyReleaseStart from '../step/release/notifyReleaseStart';
-import detectYarn from '../step/detectYarn';
 import runTest from '../step/release/runTest';
 import runBuild from '../step/release/runBuild';
 import runBeforePublish from '../step/release/runBeforePublish';
@@ -16,6 +15,7 @@ import gitPush from '../step/release/gitPush';
 import createGitHubRelease from '../step/release/createGitHubRelease';
 import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess';
 import finished from '../step/finished';
+import { detectYarn } from '../util';
 
 async function release({ help = false, dir = '.', dryRun = false }) {
   if (help) {
@@ -42,7 +42,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
     latestCommitHash,
     latestCommitUrl,
   });
-  const isYarn = detectYarn({ dir });
+  const isYarn = detectYarn(dir);
   runTest({ isYarn, config, dir, dryRun });
   runBuild({ isYarn, config, dir, dryRun });
   await runBeforePublish({ config, dir, dryRun });
