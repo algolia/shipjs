@@ -244,7 +244,9 @@ function getMonorepoPackages(dir) {
 
 function getJson(dir, fileName) {
   const filePath = path.resolve(dir, fileName);
-  return fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath)) : {};
+  return fs.existsSync(filePath)
+    ? JSON.parse(fs.readFileSync(filePath).toString())
+    : {};
 }
 
 function stringArrayValidator(answer) {

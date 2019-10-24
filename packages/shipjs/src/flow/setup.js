@@ -21,10 +21,9 @@ async function setup({ help = false, dir = '.' }) {
     packagesToBump,
     packagesToPublish,
   } = await askQuestions({ dir });
-
   addDevDependencies({ dependencies: ['shipjs'], dir });
   addScriptsToPackageJson({ dir });
-  addShipConfig({
+  await addShipConfig({
     baseBranch,
     releaseBranch,
     useMonorepo,

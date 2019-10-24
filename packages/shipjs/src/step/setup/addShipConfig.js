@@ -1,8 +1,9 @@
 import runStep from '../runStep';
 import fs from 'fs';
 import path from 'path';
+import { runPrettier } from '../../helper';
 
-export default ({
+export default async ({
   baseBranch,
   releaseBranch,
   useMonorepo,
@@ -11,7 +12,7 @@ export default ({
   packagesToPublish,
   dir,
 }) =>
-  runStep({ title: 'Adding ship.config.js' }, () => {
+  await runStep({ title: 'Adding ship.config.js' }, async () => {
     const filePath = path.resolve(dir, 'ship.config.js');
     const json = {
       mergeStrategy:
@@ -36,4 +37,5 @@ export default ({
       filePath,
       `module.exports = ${JSON.stringify(json, null, 2)};`
     );
+    await runPrettier({ filePath, dir });
   });

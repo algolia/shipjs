@@ -10,7 +10,7 @@ export default ({ dependencies, dir }) =>
           usesYarnWorkspace(dir) ? ' -W' : ''
         }`
       : `npm install --save-dev ${dependencies.join(' ')}`;
-    run({ command, dir });
+    run({ command, dir, silent: true });
   });
 
 function usesYarnWorkspace(dir) {

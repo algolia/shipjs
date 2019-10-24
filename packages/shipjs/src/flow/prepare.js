@@ -40,8 +40,9 @@ async function prepare({
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
   validateMergeStrategy({ config });
-  pull({ dir, dryRun });
-  push({ config, currentBranch: baseBranch, dir, dryRun });
+  const { remote } = config;
+  pull({ remote, currentBranch: baseBranch, dir, dryRun });
+  push({ remote, currentBranch: baseBranch, dir, dryRun });
   let { nextVersion } = getNextVersion({ currentVersion, dir });
   nextVersion = await confirmNextVersion({
     yes,

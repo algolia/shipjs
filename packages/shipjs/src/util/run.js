@@ -3,7 +3,13 @@ import print from './print';
 import exitProcess from './exitProcess';
 import { error } from '../color';
 
-export default ({ command, dir, dryRun = false, printCommand = true }) => {
+export default ({
+  command,
+  dir,
+  dryRun = false,
+  printCommand = true,
+  silent = false,
+}) => {
   if (!dir) {
     throw new Error('`dir` is missing');
   }
@@ -13,7 +19,7 @@ export default ({ command, dir, dryRun = false, printCommand = true }) => {
   if (dryRun) {
     return;
   }
-  const { code } = exec(command, { dir });
+  const { code } = exec(command, { dir, silent });
   if (code !== 0) {
     if (printCommand) {
       print(error('The following command failed:'));

@@ -22,6 +22,7 @@ export { default as getCommitUrl } from './lib/git/getCommitUrl';
 export { default as isWorkingTreeClean } from './lib/git/isWorkingTreeClean';
 export { default as hasTag } from './lib/git/hasTag';
 export { default as getRemoteBranches } from './lib/git/getRemoteBranches';
+export { default as getGitConfig } from './lib/git/getGitConfig';
 
 /* shell */
 export { default as exec } from './lib/shell/exec';
