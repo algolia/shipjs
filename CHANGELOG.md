@@ -1,3 +1,12 @@
+# [0.8.0-beta.0](https://github.com/algolia/shipjs/compare/v0.7.1...v0.8.0-beta.0) (2019-10-24)
+
+
+### Features
+
+* **setup:** add `npx shipjs setup` ([#361](https://github.com/algolia/shipjs/issues/361)) ([df70f0a](https://github.com/algolia/shipjs/commit/df70f0a))
+
+
+
 ## [0.7.1](https://github.com/algolia/shipjs/compare/v0.7.0...v0.7.1) (2019-10-21)
 
 
