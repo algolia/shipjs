@@ -2,6 +2,8 @@ import runStep from '../runStep';
 import fs from 'fs';
 import path from 'path';
 import { runPrettier } from '../../helper';
+import { info } from '../../color';
+import { print } from '../../util';
 
 export default async ({
   baseBranch,
@@ -12,7 +14,7 @@ export default async ({
   packagesToPublish,
   dir,
 }) =>
-  await runStep({ title: 'Adding ship.config.js' }, async () => {
+  await runStep({ title: 'Creating ship.config.js' }, async () => {
     const filePath = path.resolve(dir, 'ship.config.js');
     const json = {
       mergeStrategy:
@@ -38,4 +40,10 @@ export default async ({
       `module.exports = ${JSON.stringify(json, null, 2)};`
     );
     await runPrettier({ filePath, dir });
+
+    return () => {
+      print(`${info('✔')} Created \`ship.config.js\`.`);
+      print('  You can learn more about the configuration.');
+      print('  > https://github.com/algolia/shipjs/blob/master/GUIDE.md');
+    };
   });

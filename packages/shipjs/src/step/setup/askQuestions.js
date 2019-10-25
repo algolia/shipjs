@@ -3,7 +3,7 @@ import { getRemoteBranches } from 'shipjs-lib';
 import fs from 'fs';
 import path from 'path';
 import runStep from '../runStep';
-import { info, reset } from '../../color';
+import { grey, reset } from '../../color';
 
 const formatMessage = (message, description = '') =>
   [
@@ -11,7 +11,7 @@ const formatMessage = (message, description = '') =>
     ...description
       .trim()
       .split('\n')
-      .map(line => `  ${reset(info(line.trim()))}`),
+      .map(line => `  ${reset(grey(line.trim()))}`),
   ].join('\n');
 
 export default async ({ dir }) =>
