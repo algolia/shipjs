@@ -5,7 +5,7 @@ import path from 'path';
 import ejs from 'ejs';
 import mkdirp from 'mkdirp';
 import { print } from '../../util';
-import { warning } from '../../color';
+import { info, warning } from '../../color';
 
 export default ({
   baseBranch,
@@ -16,14 +16,24 @@ export default ({
 }) =>
   runStep(
     {
-      title: 'Adding CircleCI configuration',
+      title: 'Creating CircleCI configuration',
       skipIf: () => !configureCircleCI,
     },
     () => {
       const filePath = path.resolve(dir, '.circleci', 'config.yml');
       if (fs.existsSync(filePath)) {
-        printAlreadyExistsError();
-        return;
+        return () => {
+          print(`${warning('✘')} \`.circleci/config.yml\` already exists.`);
+          print(
+            '  You can manually configure CircleCI through these two steps:'
+          );
+          print(
+            '  > Basic setup: https://github.com/algolia/shipjs/blob/master/GUIDE.md#automate-part-3-shipjs-trigger-on-your-ci'
+          );
+          print(
+            '  > Schedule your release: https://github.com/algolia/shipjs/blob/master/GUIDE.md#schedule-your-release'
+          );
+        };
       }
       const content = getConfig({
         baseBranch,
@@ -34,19 +44,15 @@ export default ({
       });
       mkdirp.sync(path.dirname(filePath));
       fs.writeFileSync(filePath, content);
+      return () => {
+        print(`${info('✔')} Created \`.circleci/config.yml\`.`);
+        print('  You still need to finish setting up at CircleCI.');
+        print(
+          '  > https://github.com/algolia/shipjs/blob/master/GUIDE.md#automate-part-3-shipjs-trigger-on-your-ci'
+        );
+      };
     }
   );
-
-function printAlreadyExistsError() {
-  print(warning('`.circleci/config.yml` already exists!'));
-  print('You can configure CircleCI by yourself through these two steps:');
-  print(
-    '  - Basic setup: https://github.com/algolia/shipjs/blob/master/GUIDE.md#automate-part-3-shipjs-trigger-on-your-ci'
-  );
-  print(
-    '  - Schedule your release: https://github.com/algolia/shipjs/blob/master/GUIDE.md#schedule-your-release'
-  );
-}
 
 function getConfig({
   baseBranch,

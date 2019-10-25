@@ -4,6 +4,8 @@ import addDevDependencies from '../step/setup/addDevDependencies';
 import addScriptsToPackageJson from '../step/setup/addScriptsToPackageJson';
 import addShipConfig from '../step/setup/addShipConfig';
 import addCircleCIConfig from '../step/setup/addCircleCIConfig';
+import { print } from '../util';
+import { success } from '../color';
 
 async function setup({ help = false, dir = '.' }) {
   if (help) {
@@ -21,23 +23,34 @@ async function setup({ help = false, dir = '.' }) {
     packagesToBump,
     packagesToPublish,
   } = await askQuestions({ dir });
-  addDevDependencies({ dependencies: ['shipjs'], dir });
-  addScriptsToPackageJson({ dir });
-  await addShipConfig({
-    baseBranch,
-    releaseBranch,
-    useMonorepo,
-    mainVersionFile,
-    packagesToBump,
-    packagesToPublish,
-    dir,
-  });
-  addCircleCIConfig({
-    baseBranch,
-    configureCircleCI,
-    scheduleCircleCI,
-    cronExpr,
-    dir,
+  const outputs = [
+    addDevDependencies({ dependencies: ['shipjs'], dir }),
+    addScriptsToPackageJson({ dir }),
+    await addShipConfig({
+      baseBranch,
+      releaseBranch,
+      useMonorepo,
+      mainVersionFile,
+      packagesToBump,
+      packagesToPublish,
+      dir,
+    }),
+    addCircleCIConfig({
+      baseBranch,
+      configureCircleCI,
+      scheduleCircleCI,
+      cronExpr,
+      dir,
+    }),
+  ];
+
+  print('');
+  print(success('🎉  FINISHED'));
+  outputs.forEach(printMessage => {
+    if (printMessage && typeof printMessage === 'function') {
+      print('');
+      printMessage();
+    }
   });
 }
 
