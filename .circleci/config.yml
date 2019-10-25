@@ -25,6 +25,14 @@ aliases:
     name: Install dependencies
     command: yarn install
 
+  - &install_hub_cli
+    name: Install hub
+    command: |
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+      /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
+      eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+      brew install hub
+
 defaults: &defaults
   working_directory: ~/repo
   docker:
@@ -54,13 +62,7 @@ jobs:
       - restore_cache: *restore_yarn_cache
       - run: *run_yarn_install
       - save_cache: *save_yarn_cache
-      - run:
-          name: Install hub
-          command: |
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-            /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
-            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-            brew install hub
+      - run: *install_hub_cli
       - run:
           name: Prepare release
           command: |
@@ -75,6 +77,7 @@ jobs:
       - restore_cache: *restore_yarn_cache
       - run: *run_yarn_install
       - save_cache: *save_yarn_cache
+      - run: *install_hub_cli
       - run:
           name: Try to Release
           command: yarn release:trigger
