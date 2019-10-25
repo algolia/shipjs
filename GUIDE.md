@@ -28,6 +28,14 @@
 
 ## Installation
 
+Running the following command will guide you to set it up interactively.
+
+```bash
+npx shipjs setup
+```
+
+Otherwise, you can still do it manually.
+
 ```bash
 npm install --save-dev shipjs
 

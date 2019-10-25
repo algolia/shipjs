@@ -126,6 +126,14 @@ And you can configure your CI service to run the Part 3 on behalf of you. What y
 
 ## Installation
 
+Running the following command will guide you to set it up interactively.
+
+```bash
+npx shipjs setup
+```
+
+Otherwise, you can still do it manually.
+
 ```bash
 npm install --save-dev shipjs
 
@@ -186,6 +194,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
