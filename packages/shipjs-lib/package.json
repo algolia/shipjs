@@ -31,7 +31,7 @@
     "babel-jest": "24.9.0",
     "eslint": "6.6.0",
     "eslint-config-algolia": "15.0.0",
-    "eslint-config-prettier": "6.4.0",
+    "eslint-config-prettier": "6.5.0",
     "eslint-plugin-eslint-comments": "3.1.2",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jest": "22.20.1",
