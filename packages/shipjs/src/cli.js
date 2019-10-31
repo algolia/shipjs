@@ -50,8 +50,12 @@ export async function cli(argv) {
     printHelp();
     return;
   }
-  const opts = removeDoubleDash(
-    parseArgs(argSpec, { permissive: false, argv })
-  );
-  await fn(opts);
+  try {
+    const opts = removeDoubleDash(
+      parseArgs(argSpec, { permissive: false, argv })
+    );
+    await fn(opts);
+  } catch (err) {
+  	console.log('' + err);
+  }
 }
