@@ -59,7 +59,7 @@ export async function cli(argv) {
   	if (error.code === 'ARG_UNKNOWN_OPTION') {
   	  console.log('' + error);
   	} else {
-  		throw error;
+  	  throw error;
   	}
   }
 }
