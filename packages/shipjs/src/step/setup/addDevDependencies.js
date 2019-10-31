@@ -6,7 +6,7 @@ import path from 'path';
 
 export default ({ dependencies, dir }) =>
   runStep({ title: 'Installing Ship.js' }, () => {
-    const command = detectYarn
+    const command = detectYarn(dir)
       ? `yarn add -D ${dependencies.join(' ')}${
           usesYarnWorkspace(dir) ? ' -W' : ''
         }`
