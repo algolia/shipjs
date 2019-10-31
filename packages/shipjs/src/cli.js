@@ -56,10 +56,10 @@ export async function cli(argv) {
     );
     await fn(opts);
   } catch (error) {
-  	if (error.code === 'ARG_UNKNOWN_OPTION') {
-  	  console.log('' + error);
-  	} else {
-  	  throw error;
-  	}
+    if (error.code === 'ARG_UNKNOWN_OPTION') {
+      print(error);
+    } else {
+      throw error;
+    }
   }
 }
