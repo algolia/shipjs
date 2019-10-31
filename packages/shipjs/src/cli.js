@@ -55,7 +55,11 @@ export async function cli(argv) {
       parseArgs(argSpec, { permissive: false, argv })
     );
     await fn(opts);
-  } catch (err) {
-  	console.log('' + err);
+  } catch (error) {
+  	if (error.code === 'ARG_UNKNOWN_OPTION') {
+  	  console.log('' + error);
+  	} else {
+  		throw error;
+  	}
   }
 }
