@@ -37,13 +37,37 @@ describe('extractSpecificChangelog', () => {
         "
       `);
     });
+
+    it('works with empty result', () => {
+      expect(extractSpecificChangelog(conventionalChangelogExample, '0.5.3'))
+        .toMatchInlineSnapshot(`
+        "## [0.5.3](https://github.com/algolia/shipjs/compare/v0.5.2...v0.5.3) (2019-09-24)
+
+        "
+      `);
+    });
   });
 
   describe('lerna-changelog', () => {
     it('works', () => {
-      expect(
-        extractSpecificChangelog(lernaChangelogExample, '0.8.2')
-      ).toMatchInlineSnapshot(`null`);
+      expect(extractSpecificChangelog(lernaChangelogExample, '0.8.2'))
+        .toMatchInlineSnapshot(`
+        "## v0.8.2 (2018-10-14)
+
+        #### :bug: Bug Fix
+
+        - [#125](https://github.com/lerna/lerna-changelog/pull/125) Fix \`nextVersion\` config handling ([@Turbo87](https://github.com/Turbo87))
+
+        #### :house: Internal
+
+        - [#124](https://github.com/lerna/lerna-changelog/pull/124) yarn: Add \`integrity\` hashes ([@Turbo87](https://github.com/Turbo87))
+
+        #### Committers: 1
+
+        - Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
+        "
+      `);
     });
   });
 });
