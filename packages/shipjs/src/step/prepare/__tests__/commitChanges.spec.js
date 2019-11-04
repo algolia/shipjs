@@ -40,6 +40,7 @@ describe('commitChanges', () => {
       },
       dryRun: false,
       dir: '.',
+      nextVersion: '1.2.3',
     });
 
     expect(wrapExecWithDir).toHaveBeenCalledTimes(1);
@@ -49,6 +50,7 @@ describe('commitChanges', () => {
       expect.objectContaining({
         exec: expect.any(Function),
         dir: '.',
+        nextVersion: '1.2.3',
       })
     );
     expect(run.mock.calls[0]).toMatchInlineSnapshot(`

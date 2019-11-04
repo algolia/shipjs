@@ -12,7 +12,7 @@ export default {
   installCommand: ({ isYarn }) =>
     isYarn ? 'yarn install --silent' : 'npm install',
   versionUpdated: ({ version, dir, exec }) => {},
-  beforeCommitChanges: ({ exec, dir }) => {},
+  beforeCommitChanges: ({ nextVersion, exec, dir }) => {},
   getStagingBranchName: ({ nextVersion }) => `releases/v${nextVersion}`,
   formatCommitMessage: ({ version, mergeStrategy, baseBranch }) =>
     mergeStrategy.toSameBranch.includes(baseBranch)
