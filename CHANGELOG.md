@@ -1,3 +1,14 @@
+## [0.8.1](https://github.com/algolia/shipjs/compare/v0.8.0...v0.8.1) (2019-11-05)
+
+
+### Bug Fixes
+
+* **chore:** warn appropriately on supplying invalid flags ([#380](https://github.com/algolia/shipjs/issues/380)) ([bff3a3b](https://github.com/algolia/shipjs/commit/bff3a3b))
+* extract changelog for lerna-changelog ([#388](https://github.com/algolia/shipjs/issues/388)) ([08ae7d5](https://github.com/algolia/shipjs/commit/08ae7d5))
+* pass `nextVersion` to `beforeCommitChanges` ([#389](https://github.com/algolia/shipjs/issues/389)) ([903f569](https://github.com/algolia/shipjs/commit/903f569))
+
+
+
 # [0.8.0](https://github.com/algolia/shipjs/compare/v0.7.1...v0.8.0) (2019-10-25)
 
 ### Features
