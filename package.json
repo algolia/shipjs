@@ -21,7 +21,8 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "website"
     ]
   },
   "name": "shipjs",
