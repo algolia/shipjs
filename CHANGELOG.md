@@ -3,7 +3,6 @@
 
 ### Bug Fixes
 
-* **chore:** warn appropriately on supplying invalid flags ([#380](https://github.com/algolia/shipjs/issues/380)) ([bff3a3b](https://github.com/algolia/shipjs/commit/bff3a3b))
 * extract changelog for lerna-changelog ([#388](https://github.com/algolia/shipjs/issues/388)) ([08ae7d5](https://github.com/algolia/shipjs/commit/08ae7d5))
 * pass `nextVersion` to `beforeCommitChanges` ([#389](https://github.com/algolia/shipjs/issues/389)) ([903f569](https://github.com/algolia/shipjs/commit/903f569))
 
