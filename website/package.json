@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eunjae Lee <karis612@gmail.com> (https://github.com/eunjae-lee)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "docz": "^2.0.0-rc.70",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  }
 }

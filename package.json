@@ -9,6 +9,7 @@
     "test": "lerna run test --stream",
     "tw1": "yarn workspace shipjs-lib test:watch",
     "tw2": "yarn workspace shipjs test:watch",
+    "web": "yarn workspace website docz:dev",
     "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh",
     "release:prepare": "shipjs prepare",
     "release:trigger": "shipjs trigger",
