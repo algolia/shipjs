@@ -3,7 +3,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepare": "yarn build",
     "build": "yarn workspace shipjs-lib build",
     "lint": "lerna run lint --stream",
     "test": "lerna run test --stream",
