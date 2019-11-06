@@ -13,6 +13,7 @@
   "dependencies": {
     "docz": "^2.0.0-rc.70",
     "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+    "react-dom": "^16.11.0",
+    "react-github-button": "^0.1.11"
   }
 }

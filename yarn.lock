@@ -13660,6 +13660,13 @@ react-feather@^2.0.3:
   dependencies:
     prop-types "^15.7.2"
 
+react-github-button@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/react-github-button/-/react-github-button-0.1.11.tgz#fc61e1f1e1371169d3618c1ba37306ba04081e56"
+  integrity sha1-/GHh8eE3EWnTYYwbo3MGugQIHlY=
+  dependencies:
+    prop-types "^15.5.10"
+
 react-helmet-async@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-helmet-async/-/react-helmet-async-1.0.4.tgz#079ef10b7fefcaee6240fefd150711e62463cc97"
