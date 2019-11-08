@@ -114,7 +114,10 @@ describe('createGitHubRelease', () => {
         extractChangelog: mockExtractChangelog,
       })
     );
-    expect(mockExtractChangelog).toHaveBeenCalledWith('1.2.3', '.');
+    expect(mockExtractChangelog).toHaveBeenCalledWith({
+      version: '1.2.3',
+      dir: '.',
+    });
     expect(run).toHaveBeenCalledTimes(1);
     expect(run.mock.calls[0]).toMatchInlineSnapshot(`
       Array [

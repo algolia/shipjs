@@ -26,7 +26,7 @@ export default async ({ version, config, dir, dryRun }) =>
 
       // extract matching changelog
       const getChangelogFn = updateChangelog ? getChangelog : extractChangelog;
-      const changelog = getChangelogFn(version, dir);
+      const changelog = getChangelogFn({ version, dir });
       const content = `${tagName}\n\n${changelog || ''}`;
       const exportedPath = tempWrite.sync(content);
       args.push('-F', quote([exportedPath]));
