@@ -13,9 +13,8 @@ const getDefaultParams = ({
   version: '1.2.3',
   config: {
     getTagName: () => 'v1.2.3',
-    releases: { assetsToUpload },
+    releases: { assetsToUpload, extractChangelog },
     updateChangelog: false,
-    extractChangelog,
   },
   dir: '.',
   dryRun: false,

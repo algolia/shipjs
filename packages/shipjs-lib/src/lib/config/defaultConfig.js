@@ -99,7 +99,6 @@ export default {
   publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand,
   afterPublish: undefined, // ({ exec, dir }) => {}
   getTagName: ({ version }) => `v${version}`,
-  extractChangelog: ({ version, dir }) => null,
   testCommandBeforeRelease: ({ isYarn }) =>
     isYarn ? 'yarn test' : 'npm run test',
   appName: undefined,
@@ -186,5 +185,6 @@ export default {
   },
   releases: {
     assetsToUpload: [],
+    extractChangelog: undefined, // ({ version, dir }) => `some specific changelog to that version`,
   },
 };

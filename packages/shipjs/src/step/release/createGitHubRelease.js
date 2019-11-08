@@ -17,15 +17,13 @@ export default async ({ version, config, dir, dryRun }) =>
     async () => {
       const {
         getTagName,
-        releases: { assetsToUpload } = {},
-        updateChangelog,
-        extractChangelog,
+        releases: { assetsToUpload, extractChangelog } = {},
       } = config;
       const tagName = getTagName({ version });
       const args = [];
 
       // extract matching changelog
-      const getChangelogFn = updateChangelog ? getChangelog : extractChangelog;
+      const getChangelogFn = extractChangelog || getChangelog;
       const changelog = getChangelogFn({ version, dir });
       const content = `${tagName}\n\n${changelog || ''}`;
       const exportedPath = tempWrite.sync(content);
