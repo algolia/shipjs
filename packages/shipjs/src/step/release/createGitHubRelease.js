@@ -15,12 +15,18 @@ export default async ({ version, config, dir, dryRun }) =>
       skipIf: cannotUseHub,
     },
     async () => {
-      const { getTagName, releases, updateChangelog } = config;
+      const {
+        getTagName,
+        releases,
+        updateChangelog,
+        extractChangelog,
+      } = config;
       const tagName = getTagName({ version });
       const args = [];
 
       // extract matching changelog
-      const changelog = updateChangelog ? getChangelog(version, dir) : null;
+      const getChangelogFn = updateChangelog ? getChangelog : extractChangelog;
+      const changelog = getChangelogFn(version, dir);
       const content = `${tagName}\n\n${changelog || ''}`;
       const exportedPath = tempWrite.sync(content);
       args.push('-F', quote([exportedPath]));
