@@ -43,8 +43,10 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
     return { version: inc(version, 'minor'), ignoredMessages };
   } else if (patch) {
     return { version: inc(version, 'patch'), ignoredMessages };
-  } else {
+  } else if (titles.trim().length === 0) {
     return { version: null, ignoredMessages };
+  } else {
+    return { version: inc(version, 'patch'), ignoredMessages };
   }
 }
 
