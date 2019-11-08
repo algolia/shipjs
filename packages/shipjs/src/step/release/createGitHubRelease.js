@@ -17,7 +17,7 @@ export default async ({ version, config, dir, dryRun }) =>
     async () => {
       const {
         getTagName,
-        releases,
+        releases: { assetsToUpload } = {},
         updateChangelog,
         extractChangelog,
       } = config;
@@ -32,30 +32,29 @@ export default async ({ version, config, dir, dryRun }) =>
       args.push('-F', quote([exportedPath]));
 
       // handle assets
-      if (releases && releases.assetsToUpload) {
-        const option = releases.assetsToUpload;
+      if (assetsToUpload) {
         const assetPaths = [];
 
-        if (typeof option === 'function') {
+        if (typeof assetsToUpload === 'function') {
           // function
           //   assetsToUpload: ({dir, version, tagName}) => [...]
           const files = await Promise.resolve(
-            option({ dir, version, tagName })
+            assetsToUpload({ dir, version, tagName })
           );
           assetPaths.push(...files);
-        } else if (Array.isArray(option) && option.length > 0) {
+        } else if (Array.isArray(assetsToUpload) && assetsToUpload.length > 0) {
           // list
           //   assetsToUpload: ['package.json', 'dist/*.zip']
-          for (const asset of option) {
+          for (const asset of assetsToUpload) {
             const files = await globby(asset, { cwd: dir });
             if (files) {
               assetPaths.push(...files);
             }
           }
-        } else if (typeof option === 'string') {
+        } else if (typeof assetsToUpload === 'string') {
           // string
           //   assetsToUpload: 'archive.zip'
-          const files = await globby(option, { cwd: dir });
+          const files = await globby(assetsToUpload, { cwd: dir });
           if (files) {
             assetPaths.push(...files);
           }
