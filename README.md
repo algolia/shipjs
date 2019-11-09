@@ -4,7 +4,7 @@
   <a href="http://npmjs.com/package/shipjs"><img alt="npm" src="https://img.shields.io/npm/v/shipjs"></a>
   <a href="https://circleci.com/gh/algolia/shipjs"><img alt="CircleCI" src="https://img.shields.io/circleci/build/gh/algolia/shipjs"></a>
   <a href="https://github.com/algolia/shipjs/blob/master/LICENSE"><img alt="NPM" src="https://img.shields.io/npm/l/shipjs"></a>
-  <a href="https://github.com/algolia/shipjs/graphs/contributors"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-3-orange.svg"></a>
+  <a href="https://github.com/algolia/shipjs#contributors-"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-3-orange.svg"></a>
 </p>
 
 <p align="center">
