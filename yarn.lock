@@ -5424,10 +5424,10 @@ jest-validate@^24.9.0:
     leven "^3.1.0"
     pretty-format "^24.9.0"
 
-jest-watch-typeahead@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/jest-watch-typeahead/-/jest-watch-typeahead-0.4.1.tgz#a386d2a1058a344f6342b7c1cf50bd6499f24fba"
-  integrity sha512-1u6Ag+/filKoV8ddr+Z3MFR1M1E1Y7Qbu7d0nZY0WdjoUeOOOGoO59QsCl6YW2dH9SnOzEBwWNQU0pbLVdCBBQ==
+jest-watch-typeahead@0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/jest-watch-typeahead/-/jest-watch-typeahead-0.4.2.tgz#e5be959698a7fa2302229a5082c488c3c8780a4a"
+  integrity sha512-f7VpLebTdaXs81rg/oj4Vg/ObZy2QtGzAmGLNsqUS5G5KtSN68tFcIsbvNODfNyQxU78g7D8x77o3bgfBTR+2Q==
   dependencies:
     ansi-escapes "^4.2.1"
     chalk "^2.4.1"
