@@ -38,7 +38,7 @@
     "arg": "4.1.1",
     "chalk": "2.4.2",
     "change-case": "3.1.0",
-    "conventional-changelog-cli": "2.0.25",
+    "conventional-changelog-cli": "2.0.28",
     "ejs": "^2.7.1",
     "esm": "3.2.25",
     "globby": "^10.0.1",
@@ -57,12 +57,12 @@
     "babel-jest": "24.9.0",
     "eslint": "6.6.0",
     "eslint-config-algolia": "15.0.0",
-    "eslint-config-prettier": "6.5.0",
+    "eslint-config-prettier": "6.6.0",
     "eslint-plugin-eslint-comments": "3.1.2",
     "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-jest": "23.0.3",
+    "eslint-plugin-jest": "23.0.4",
     "eslint-plugin-prettier": "3.1.1",
     "jest": "24.9.0",
-    "jest-watch-typeahead": "0.4.0"
+    "jest-watch-typeahead": "0.4.2"
   }
 }
