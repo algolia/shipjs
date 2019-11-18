@@ -1,4 +1,4 @@
-export default function extractSpecificChangelog(changelog, version) {
+export default function extractSpecificChangelog({ changelog, version }) {
   if (!changelog) {
     return null;
   }
