@@ -6,11 +6,14 @@ import { hubInstalled, hubConfigured } from '../../../helper';
 jest.mock('temp-write');
 jest.mock('globby');
 
-const getDefaultParams = ({ assetsToUpload } = {}) => ({
+const getDefaultParams = ({
+  assetsToUpload,
+  extractChangelog = () => null,
+} = {}) => ({
   version: '1.2.3',
   config: {
     getTagName: () => 'v1.2.3',
-    releases: { assetsToUpload },
+    releases: { assetsToUpload, extractChangelog },
     updateChangelog: false,
   },
   dir: '.',
@@ -92,6 +95,33 @@ describe('createGitHubRelease', () => {
       Array [
         Object {
           "command": "hub release create -F /temp/path -a /path1 v1.2.3",
+          "dir": ".",
+          "dryRun": false,
+        },
+      ]
+    `);
+  });
+
+  it('works with extractChangelog', async () => {
+    tempWrite.sync.mockImplementation(() => `/temp/path`);
+    globby.mockImplementation(path => Promise.resolve([path]));
+    const mockExtractChangelog = jest
+      .fn()
+      .mockImplementation(({ version, dir }) => `# v${version} (${dir})`);
+    await createGitHubRelease(
+      getDefaultParams({
+        extractChangelog: mockExtractChangelog,
+      })
+    );
+    expect(mockExtractChangelog).toHaveBeenCalledWith({
+      version: '1.2.3',
+      dir: '.',
+    });
+    expect(run).toHaveBeenCalledTimes(1);
+    expect(run.mock.calls[0]).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "command": "hub release create -F /temp/path v1.2.3",
           "dir": ".",
           "dryRun": false,
         },
