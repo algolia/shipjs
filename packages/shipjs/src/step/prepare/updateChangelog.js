@@ -19,7 +19,7 @@ export default ({ config, firstRelease, releaseCount, dir, dryRun }) =>
         .join(' ');
       const execPath = path.resolve(
         require.main.filename,
-        '../../node_modules/.bin/conventional-changelog'
+        '../../../../node_modules/.bin/conventional-changelog'
       );
       run({ command: `${execPath} ${args}`, dir, dryRun });
     }
