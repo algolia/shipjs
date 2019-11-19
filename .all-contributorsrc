@@ -58,6 +58,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "kazupon",
+      "name": "kazuya kawaguchi",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/72989?v=4",
+      "profile": "https://www.patreon.com/kazupon",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
