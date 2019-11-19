@@ -185,5 +185,6 @@ export default {
   },
   releases: {
     assetsToUpload: [],
+    extractChangelog: undefined, // ({ version, dir }) => `some specific changelog to that version`,
   },
 };

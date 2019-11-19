@@ -13,8 +13,12 @@ const lernaChangelogExample = fs
 describe('extractSpecificChangelog', () => {
   describe('conventional-changelog', () => {
     it('works with #', () => {
-      expect(extractSpecificChangelog(conventionalChangelogExample, '0.8.0'))
-        .toMatchInlineSnapshot(`
+      expect(
+        extractSpecificChangelog({
+          changelog: conventionalChangelogExample,
+          version: '0.8.0',
+        })
+      ).toMatchInlineSnapshot(`
         "# [0.8.0](https://github.com/algolia/shipjs/compare/v0.7.1...v0.8.0) (2019-10-25)
 
         ### Features
@@ -26,8 +30,12 @@ describe('extractSpecificChangelog', () => {
     });
 
     it('works with ##', () => {
-      expect(extractSpecificChangelog(conventionalChangelogExample, '0.5.5'))
-        .toMatchInlineSnapshot(`
+      expect(
+        extractSpecificChangelog({
+          changelog: conventionalChangelogExample,
+          version: '0.5.5',
+        })
+      ).toMatchInlineSnapshot(`
         "## [0.5.5](https://github.com/algolia/shipjs/compare/v0.5.4...v0.5.5) (2019-10-01)
 
         ### Bug Fixes
@@ -39,8 +47,12 @@ describe('extractSpecificChangelog', () => {
     });
 
     it('works with empty result', () => {
-      expect(extractSpecificChangelog(conventionalChangelogExample, '0.5.3'))
-        .toMatchInlineSnapshot(`
+      expect(
+        extractSpecificChangelog({
+          changelog: conventionalChangelogExample,
+          version: '0.5.3',
+        })
+      ).toMatchInlineSnapshot(`
         "## [0.5.3](https://github.com/algolia/shipjs/compare/v0.5.2...v0.5.3) (2019-09-24)
 
         "
@@ -50,8 +62,12 @@ describe('extractSpecificChangelog', () => {
 
   describe('lerna-changelog', () => {
     it('works', () => {
-      expect(extractSpecificChangelog(lernaChangelogExample, '0.8.2'))
-        .toMatchInlineSnapshot(`
+      expect(
+        extractSpecificChangelog({
+          changelog: lernaChangelogExample,
+          version: '0.8.2',
+        })
+      ).toMatchInlineSnapshot(`
         "## v0.8.2 (2018-10-14)
 
         #### :bug: Bug Fix
