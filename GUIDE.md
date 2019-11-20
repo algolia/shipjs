@@ -4,7 +4,7 @@
 
 - [Installation](#installation)
   - [Install `hub`](#install-hub)
-  - [Before run Shipjs](#before-run-shipjs)
+  - [Before running Shipjs](#before-running-shipjs)
   - [Dry Mode](#dry-mode)
 - [On your local machine](#on-your-local-machine)
 - [Automate Part 3 (`shipjs trigger`) on your CI](#automate-part-3-shipjs-trigger-on-your-ci)
@@ -76,10 +76,10 @@ You can get an access token from [here](https://github.com/settings/tokens).
 
 Or you can simply run `hub api user`, follow the instruction and it will generate the token and write the config file for you.
 
-### Before run Shipjs
+### Before running Shipjs
 Shipjs compares previous version.
 
-Before run `shipjs` commands, you need release first version by yourself.  
+Before running the `shipjs` commands, you need release first version by yourself.  
 
 Let's release first version with [yarn version](https://yarnpkg.com/en/docs/cli/version) commands.
 
