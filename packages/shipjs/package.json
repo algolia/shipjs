@@ -36,7 +36,7 @@
     "@babel/runtime": "^7.6.3",
     "@slack/webhook": "^5.0.1",
     "arg": "4.1.1",
-    "chalk": "2.4.2",
+    "chalk": "3.0.0",
     "change-case": "3.1.0",
     "conventional-changelog-cli": "2.0.28",
     "ejs": "^2.7.1",
