@@ -3,11 +3,19 @@ import runStep from '../runStep';
 import { wrapExecWithDir, run, print } from '../../util';
 import { info } from '../../color';
 
-export default async ({ nextVersion, dir, config, baseBranch, dryRun }) =>
+export default async ({
+  nextVersion,
+  releaseType,
+  dir,
+  config,
+  baseBranch,
+  dryRun,
+}) =>
   await runStep({ title: 'Committing the changes.' }, async () => {
     const { formatCommitMessage, mergeStrategy, beforeCommitChanges } = config;
     const message = formatCommitMessage({
       version: nextVersion,
+      type: releaseType,
       mergeStrategy,
       baseBranch,
     });
@@ -19,7 +27,12 @@ export default async ({ nextVersion, dir, config, baseBranch, dryRun }) =>
       print('  |');
       return;
     }
-    await beforeCommitChanges({ nextVersion, exec: wrapExecWithDir(dir), dir });
+    await beforeCommitChanges({
+      nextVersion,
+      releaseType,
+      exec: wrapExecWithDir(dir),
+      dir,
+    });
     const filePath = tempWrite.sync(message);
     run({ command: 'git add .', dir });
     run({ command: `git commit --file=${filePath}`, dir });

@@ -283,7 +283,7 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = {
-  versionUpdated: ({ version, dir, exec }) => {
+  versionUpdated: ({ version, type, dir, exec }) => {
     // update `lerna.json`
     const lernaConfigPath = path.resolve(dir, "lerna.json");
     const lernaConfig = JSON.parse(fs.readFileSync(lernaConfigPath).toString());

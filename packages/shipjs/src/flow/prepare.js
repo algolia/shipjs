@@ -1,4 +1,4 @@
-import { getAppName, loadConfig } from 'shipjs-lib';
+import { getAppName, loadConfig, getReleaseType } from 'shipjs-lib';
 
 import printHelp from '../step/prepare/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';
@@ -50,24 +50,34 @@ async function prepare({
     nextVersion,
     dryRun,
   });
+  const releaseType = getReleaseType(currentVersion, nextVersion);
   const { stagingBranch } = prepareStagingBranch({
     config,
     nextVersion,
+    releaseType,
     dir,
   });
   checkoutToStagingBranch({ stagingBranch, dir, dryRun });
   const updateVersionFn = config.monorepo
     ? updateVersionMonorepo
     : updateVersion;
-  await updateVersionFn({ config, nextVersion, dir, dryRun });
+  await updateVersionFn({ config, nextVersion, releaseType, dir, dryRun });
   installDependencies({ config, dir, dryRun });
   updateChangelog({ config, firstRelease, releaseCount, dir, dryRun });
-  await commitChanges({ nextVersion, dir, config, baseBranch, dryRun });
+  await commitChanges({
+    nextVersion,
+    releaseType,
+    dir,
+    config,
+    baseBranch,
+    dryRun,
+  });
   const { pullRequestUrl } = createPullRequest({
     baseBranch,
     stagingBranch,
     currentVersion,
     nextVersion,
+    releaseType,
     noBrowse,
     config,
     dir,

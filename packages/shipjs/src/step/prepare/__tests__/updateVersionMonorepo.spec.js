@@ -20,6 +20,7 @@ describe('updateVersionMonorepo', () => {
       },
       dir: '.',
       nextVersion: '1.2.3',
+      releaseType: 'patch',
     });
     expect(updateVersion).toHaveBeenCalledTimes(3);
     expect(updateVersion.mock.calls[0]).toMatchInlineSnapshot(`
@@ -52,6 +53,7 @@ describe('updateVersionMonorepo', () => {
       Object {
         "dir": ".",
         "exec": undefined,
+        "type": "patch",
         "version": "1.2.3",
       }
     `);

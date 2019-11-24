@@ -11,6 +11,7 @@ describe('updateVersion', () => {
         versionUpdated,
       },
       nextVersion: '1.2.3',
+      releaseType: 'patch',
       dir: '.',
       dryRun: false,
     });
@@ -23,6 +24,7 @@ describe('updateVersion', () => {
       Object {
         "dir": ".",
         "exec": undefined,
+        "type": "patch",
         "version": "1.2.3",
       }
     `);
