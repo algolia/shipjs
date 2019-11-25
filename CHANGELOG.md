@@ -1,3 +1,21 @@
+# [0.9.0](https://github.com/algolia/shipjs/compare/v0.8.2...v0.9.0) (2019-11-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency arg to v4.1.2 ([#444](https://github.com/algolia/shipjs/issues/444)) ([d928436](https://github.com/algolia/shipjs/commit/d928436))
+* **deps:** update dependency chalk to v3 ([#408](https://github.com/algolia/shipjs/issues/408)) ([487040d](https://github.com/algolia/shipjs/commit/487040d))
+* **deps:** update dependency conventional-changelog-cli to v2.0.27 ([#413](https://github.com/algolia/shipjs/issues/413)) ([339e1ad](https://github.com/algolia/shipjs/commit/339e1ad))
+* **deps:** update dependency conventional-changelog-cli to v2.0.28 ([#419](https://github.com/algolia/shipjs/issues/419)) ([2d4334d](https://github.com/algolia/shipjs/commit/2d4334d))
+* **deps:** update dependency ejs to v3 ([#440](https://github.com/algolia/shipjs/issues/440)) ([2a3f875](https://github.com/algolia/shipjs/commit/2a3f875))
+
+
+### Features
+
+* add extractChangelog to config ([#403](https://github.com/algolia/shipjs/issues/403)) ([35605ec](https://github.com/algolia/shipjs/commit/35605ec))
+
+
+
 ## [0.8.2](https://github.com/algolia/shipjs/compare/v0.8.1...v0.8.2) (2019-11-08)
 
 
