@@ -77,9 +77,10 @@ You can get an access token from [here](https://github.com/settings/tokens).
 Or you can simply run `hub api user`, follow the instruction and it will generate the token and write the config file for you.
 
 ### Before running Shipjs
+
 Shipjs compares previous version.
 
-Before running the `shipjs` commands, you need release first version by yourself.  
+Before running the `shipjs` commands, you need release first version by yourself.
 
 Let's release first version with [yarn version](https://yarnpkg.com/en/docs/cli/version) commands.
 
@@ -417,7 +418,7 @@ NAME
         shipjs prepare - Prepare a release.
 
 USAGE
-        shipjs prepare [--help] [--dir PATH] [--yes] [--first-release] [--release-count COUNT] [--dry-run]
+        shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run]
 
 OPTIONS
         -h, --help
@@ -428,12 +429,6 @@ OPTIONS
 
         -y, --yes
           Skip all the interactive prompts and use the default values.
-
-        -f, --first-release
-          Generate the CHANGELOG for the first time
-
-        -r, --release-count COUNT
-          How many releases to be generated from the latest
 
         -D, --dry-run
           Displays the steps without actually doing them.
