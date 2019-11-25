@@ -3,11 +3,7 @@
 
 ### Bug Fixes
 
-* **deps:** update dependency arg to v4.1.2 ([#444](https://github.com/algolia/shipjs/issues/444)) ([d928436](https://github.com/algolia/shipjs/commit/d928436))
-* **deps:** update dependency chalk to v3 ([#408](https://github.com/algolia/shipjs/issues/408)) ([487040d](https://github.com/algolia/shipjs/commit/487040d))
-* **deps:** update dependency conventional-changelog-cli to v2.0.27 ([#413](https://github.com/algolia/shipjs/issues/413)) ([339e1ad](https://github.com/algolia/shipjs/commit/339e1ad))
-* **deps:** update dependency conventional-changelog-cli to v2.0.28 ([#419](https://github.com/algolia/shipjs/issues/419)) ([2d4334d](https://github.com/algolia/shipjs/commit/2d4334d))
-* **deps:** update dependency ejs to v3 ([#440](https://github.com/algolia/shipjs/issues/440)) ([2a3f875](https://github.com/algolia/shipjs/commit/2a3f875))
+* update path to conventional-changelog binary ([#425](https://github.com/algolia/shipjs/issues/425)) ([75d9994](https://github.com/algolia/shipjs/commit/75d9994))
 
 
 ### Features
