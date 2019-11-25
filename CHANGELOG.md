@@ -1,3 +1,17 @@
+# [0.9.0](https://github.com/algolia/shipjs/compare/v0.8.2...v0.9.0) (2019-11-25)
+
+
+### Bug Fixes
+
+* update path to conventional-changelog binary ([#425](https://github.com/algolia/shipjs/issues/425)) ([75d9994](https://github.com/algolia/shipjs/commit/75d9994))
+
+
+### Features
+
+* add extractChangelog to config ([#403](https://github.com/algolia/shipjs/issues/403)) ([35605ec](https://github.com/algolia/shipjs/commit/35605ec))
+
+
+
 ## [0.8.2](https://github.com/algolia/shipjs/compare/v0.8.1...v0.8.2) (2019-11-08)
 
 
