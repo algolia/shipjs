@@ -9,13 +9,9 @@ export default () =>
     const help = `--help`;
     const dir = `--dir ${underline('PATH')}`;
     const yes = `--yes`;
-    const firstRelease = `--first-release`;
-    const releaseCount = `--release-count ${underline('COUNT')}`;
     const dryRun = `--dry-run`;
     const noBrowse = `--no-browse`;
-    const all = [help, dir, yes, firstRelease, releaseCount, dryRun, noBrowse]
-      .map(x => `[${x}]`)
-      .join(' ');
+    const all = [help, dir, yes, dryRun, noBrowse].map(x => `[${x}]`).join(' ');
 
     const messages = [
       bold('NAME'),
@@ -37,12 +33,6 @@ export default () =>
       '',
       indent(`-y, ${yes}`),
       indent('  Skip all the interactive prompts and use the default values.'),
-      '',
-      indent(`-f, ${firstRelease}`),
-      indent('  Generate the CHANGELOG for the first time'),
-      '',
-      indent(`-r, ${releaseCount}`),
-      indent('  How many releases to be generated from the latest'),
       '',
       indent(`-D, ${dryRun}`),
       indent('  Displays the steps without actually doing them.'),
