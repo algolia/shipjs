@@ -13,8 +13,7 @@
     "release:prepare": "shipjs prepare",
     "release:trigger": "shipjs trigger",
     "toc": "npx markdown-toc -i --bullets=\"-\" GUIDE.md",
-    "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate"
+    "contributors:add": "all-contributors add"
   },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
