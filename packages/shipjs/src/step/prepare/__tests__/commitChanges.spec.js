@@ -53,7 +53,7 @@ describe('commitChanges', () => {
     expect(formatCommitMessage).toHaveBeenCalledWith(
       expect.objectContaining({
         version: '1.2.3',
-        type: 'patch',
+        releaseType: 'patch',
       })
     );
     expect(beforeCommitChanges).toHaveBeenCalledTimes(1);

@@ -53,7 +53,7 @@ describe('updateVersionMonorepo', () => {
       Object {
         "dir": ".",
         "exec": undefined,
-        "type": "patch",
+        "releaseType": "patch",
         "version": "1.2.3",
       }
     `);

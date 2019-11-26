@@ -30,7 +30,7 @@ export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
       });
       await versionUpdated({
         version: nextVersion,
-        type: releaseType,
+        releaseType,
         dir,
         exec: wrapExecWithDir(dir),
       });

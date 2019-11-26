@@ -15,7 +15,7 @@ export default async ({
     const { formatCommitMessage, mergeStrategy, beforeCommitChanges } = config;
     const message = formatCommitMessage({
       version: nextVersion,
-      type: releaseType,
+      releaseType,
       mergeStrategy,
       baseBranch,
     });

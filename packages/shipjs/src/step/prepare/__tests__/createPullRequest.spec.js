@@ -75,7 +75,7 @@ describe('createPullRequest', () => {
           return [
             formatPullRequestTitle({
               version: nextVersion,
-              type: releaseType,
+              releaseType,
             }),
           ].join('\n');
         }
@@ -89,7 +89,7 @@ describe('createPullRequest', () => {
     );
     expect(mockFormatPullRequestTitle).toHaveBeenCalledWith({
       version: '1.2.3',
-      type: 'patch',
+      releaseType: 'patch',
     });
     expect(mockFormatPullRequestMessage).toHaveBeenCalled();
     expect(mockFormatPullRequestMessage.mock.calls[0][0]).toMatchObject({
