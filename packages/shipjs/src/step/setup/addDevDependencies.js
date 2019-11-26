@@ -7,10 +7,10 @@ import path from 'path';
 export default ({ dependencies, dir }) =>
   runStep({ title: 'Installing Ship.js' }, () => {
     const command = detectYarn(dir)
-      ? `yarn add -D ${dependencies.join(' ')}${
+      ? `yarn add --exact --dev ${dependencies.join(' ')}${
           usesYarnWorkspace(dir) ? ' -W' : ''
         }`
-      : `npm install --save-dev ${dependencies.join(' ')}`;
+      : `npm install --save-exact --save-dev ${dependencies.join(' ')}`;
     run({ command, dir, silent: true, printCommand: false });
     return () => print(`${info('✔')} Installed shipjs as devDependency.`);
   });

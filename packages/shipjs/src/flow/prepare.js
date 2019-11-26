@@ -20,6 +20,9 @@ import createPullRequest from '../step/prepare/createPullRequest';
 import notifyPrepared from '../step/prepare/notifyPrepared';
 import finished from '../step/finished';
 
+import { print } from '../util';
+import { warning } from '../color';
+
 async function prepare({
   help = false,
   dir = '.',
@@ -36,6 +39,7 @@ async function prepare({
   if (dryRun) {
     printDryRunBanner();
   }
+  printDeprecated({ firstRelease, releaseCount });
   checkHub();
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
@@ -106,6 +110,15 @@ const arg = {
   '-D': '--dry-run',
   '-N': '--no-browse',
 };
+
+function printDeprecated({ firstRelease, releaseCount }) {
+  if (firstRelease) {
+    print(warning(`DEPRECATED: --first-release, -f`));
+  }
+  if (releaseCount) {
+    print(warning(`DEPRECATED: --release-count, -r`));
+  }
+}
 
 export default {
   arg,
