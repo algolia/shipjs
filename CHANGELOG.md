@@ -1,3 +1,19 @@
+# [0.10.0](https://github.com/algolia/shipjs/compare/v0.9.0...v0.10.0) (2019-11-26)
+
+
+### Bug Fixes
+
+* deprecate --first-release and --release-count at shipjs prepare ([#447](https://github.com/algolia/shipjs/issues/447)) ([d46d83f](https://github.com/algolia/shipjs/commit/d46d83f))
+* pin dependency at shipjs setup ([#446](https://github.com/algolia/shipjs/issues/446)) ([6560b9f](https://github.com/algolia/shipjs/commit/6560b9f))
+* **getChangelog:** wrong argument name ([#448](https://github.com/algolia/shipjs/issues/448)) ([e378e06](https://github.com/algolia/shipjs/commit/e378e06))
+
+
+### Features
+
+* **releaseType:** expose at hooks ("major", "minor", ...) ([#441](https://github.com/algolia/shipjs/issues/441)) ([c855dbd](https://github.com/algolia/shipjs/commit/c855dbd))
+
+
+
 # [0.9.0](https://github.com/algolia/shipjs/compare/v0.8.2...v0.9.0) (2019-11-25)
 
 
