@@ -22,11 +22,15 @@ async function setup({ help = false, dir = '.' }) {
     mainVersionFile,
     packagesToBump,
     packagesToPublish,
+    isScoped,
+    isPublic,
   } = await askQuestions({ dir });
   const outputs = [
     addDevDependencies({ dependencies: ['shipjs'], dir }),
     addScriptsToPackageJson({ dir }),
     await addShipConfig({
+      isScoped,
+      isPublic,
       baseBranch,
       releaseBranch,
       useMonorepo,

@@ -6,6 +6,8 @@ import { info } from '../../color';
 import { print } from '../../util';
 
 export default async ({
+  isScoped,
+  isPublic,
   baseBranch,
   releaseBranch,
   useMonorepo,
@@ -17,6 +19,9 @@ export default async ({
   await runStep({ title: 'Creating ship.config.js' }, async () => {
     const filePath = path.resolve(dir, 'ship.config.js');
     const json = {
+      publishCommand: !xor(isPublic, isScoped)
+        ? createPublishCommand(isPublic)
+        : undefined,
       mergeStrategy:
         baseBranch === releaseBranch
           ? {
@@ -47,3 +52,15 @@ export default async ({
       print('  > https://github.com/algolia/shipjs/blob/master/GUIDE.md');
     };
   });
+
+function createPublishCommand(isPublic) {
+  const command = isPublic
+    ? ({ defaultCommand }) => `${defaultCommand} --access public`
+    : ({ defaultCommand }) => `${defaultCommand} --access restricted`;
+
+  return command.toString();
+}
+
+function xor(a, b) {
+  return (a && !b) || (!a && b);
+}

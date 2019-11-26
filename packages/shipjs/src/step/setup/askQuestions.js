@@ -2,6 +2,7 @@ import inquirer from 'inquirer';
 import { getRemoteBranches } from 'shipjs-lib';
 import fs from 'fs';
 import path from 'path';
+import npa from 'npm-package-arg';
 import runStep from '../runStep';
 import { grey, reset } from '../../color';
 
@@ -27,6 +28,8 @@ export default async ({ dir }) =>
       packagesToPublish,
     } = await askMonorepo(dir);
 
+    const { isScoped, isPublic } = await askPackageAccess(dir);
+
     return {
       baseBranch,
       releaseBranch,
@@ -37,6 +40,8 @@ export default async ({ dir }) =>
       mainVersionFile,
       packagesToBump,
       packagesToPublish,
+      isScoped,
+      isPublic,
     };
   });
 
@@ -195,6 +200,21 @@ async function askMonorepo(dir) {
   return { useMonorepo, mainVersionFile, packagesToBump, packagesToPublish };
 }
 
+async function askPackageAccess(dir) {
+  const isScoped = isScopedPackage(getJson(dir, 'package.json').name);
+
+  const { isPublic } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'isPublic',
+      message: 'Publish public package?',
+      default: true,
+    },
+  ]);
+
+  return { isScoped, isPublic };
+}
+
 function detectMonorepo(dir) {
   if (fs.existsSync(path.resolve(dir, 'lerna.json'))) {
     return true;
@@ -256,5 +276,13 @@ function stringArrayValidator(answer) {
     return Array.isArray(json) ? true : errorMessage;
   } catch (e) {
     return errorMessage;
+  }
+}
+
+function isScopedPackage(name) {
+  try {
+    return npa(name).scope !== null;
+  } catch (err) {
+    return false;
   }
 }
