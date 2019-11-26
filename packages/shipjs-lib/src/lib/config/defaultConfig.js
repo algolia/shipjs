@@ -11,14 +11,14 @@ export default {
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
   installCommand: ({ isYarn }) =>
     isYarn ? 'yarn install --silent' : 'npm install',
-  versionUpdated: ({ version, dir, exec }) => {},
-  beforeCommitChanges: ({ nextVersion, exec, dir }) => {},
-  getStagingBranchName: ({ nextVersion }) => `releases/v${nextVersion}`,
-  formatCommitMessage: ({ version, mergeStrategy, baseBranch }) =>
+  versionUpdated: ({ version, releaseType, dir, exec }) => {},
+  beforeCommitChanges: ({ nextVersion, releaseType, exec, dir }) => {},
+  getStagingBranchName: ({ nextVersion, releaseType }) => `releases/v${nextVersion}`,
+  formatCommitMessage: ({ version, releaseType, mergeStrategy, baseBranch }) =>
     mergeStrategy.toSameBranch.includes(baseBranch)
       ? `chore: release v${version}`
       : `chore: prepare v${version}`,
-  formatPullRequestTitle: ({ version }) => `chore: release v${version}`,
+  formatPullRequestTitle: ({ version, releaseType }) => `chore: release v${version}`,
   formatPullRequestMessage: ({
     formatPullRequestTitle,
     repoURL,
@@ -28,8 +28,12 @@ export default {
     mergeStrategy,
     currentVersion,
     nextVersion,
+    releaseType,
   }) => {
-    const pullRequestTitle = formatPullRequestTitle({ version: nextVersion });
+    const pullRequestTitle = formatPullRequestTitle({
+      version: nextVersion,
+      releaseType,
+    });
     const lines = [
       pullRequestTitle,
       '',

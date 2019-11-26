@@ -10,6 +10,7 @@ export default ({
   stagingBranch,
   currentVersion,
   nextVersion,
+  releaseType,
   noBrowse,
   config,
   dir,
@@ -55,6 +56,7 @@ export default ({
       mergeStrategy,
       currentVersion,
       nextVersion,
+      releaseType,
     });
     const filePath = tempWrite.sync(message);
     run({ command: `git remote prune ${remote}`, dir, dryRun });

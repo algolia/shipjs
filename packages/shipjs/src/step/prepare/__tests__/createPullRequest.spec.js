@@ -5,18 +5,30 @@ import { run } from '../../../util';
 import { getDestinationBranchName } from '../../../helper';
 jest.mock('temp-write');
 
-const defaultParams = {
+const getDefaultParams = ({
+  currentVersion = '1.2.2',
+  nextVersion = '1.2.3',
+  releaseType = 'patch',
+  formatPullRequestTitle = () => 'chore: releases v0.1.1',
+  formatPullRequestMessage = () => 'chore: releases v0.1.1',
+  dryRun = false,
+} = {}) => ({
   baseBranch: 'master',
+  currentVersion,
+  nextVersion,
+  releaseType,
   config: {
     mergeStrategy: {
       toSameBranch: ['master'],
     },
-    formatPullRequestMessage: () => 'chore: releases v0.1.1',
+    formatPullRequestTitle,
+    formatPullRequestMessage,
     remote: 'origin',
     pullRequestReviewer: ['foo', 'bar'],
   },
   dir: '.',
-};
+  dryRun,
+});
 
 describe('createPullRequest', () => {
   beforeEach(() => {
@@ -26,10 +38,7 @@ describe('createPullRequest', () => {
   });
 
   it('works in dry mode', () => {
-    const ret = createPullRequest({
-      ...defaultParams,
-      dryRun: true,
-    });
+    const ret = createPullRequest(getDefaultParams({ dryRun: true }));
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
       Object {
         "command": "git remote prune origin",
@@ -51,9 +60,42 @@ describe('createPullRequest', () => {
     silentExec.mockImplementationOnce(() => ({
       toString: () => `13 chore: releases v0.1.1\n12 docs: update README`,
     }));
-    const { pullRequestUrl } = createPullRequest({
-      ...defaultParams,
-    });
+    const { pullRequestUrl } = createPullRequest(getDefaultParams());
     expect(pullRequestUrl).toEqual('https://github.com/my/repo/pull/13');
+  });
+
+  it('pass releaseType to hooks', () => {
+    const mockFormatPullRequestTitle = jest
+      .fn()
+      .mockImplementation(({ version, type }) => `# v${version} (${type})`);
+    const mockFormatPullRequestMessage = jest
+      .fn()
+      .mockImplementation(
+        ({ formatPullRequestTitle, nextVersion, releaseType }) => {
+          return [
+            formatPullRequestTitle({
+              version: nextVersion,
+              releaseType,
+            }),
+          ].join('\n');
+        }
+      );
+    createPullRequest(
+      getDefaultParams({
+        dryRun: true,
+        formatPullRequestTitle: mockFormatPullRequestTitle,
+        formatPullRequestMessage: mockFormatPullRequestMessage,
+      })
+    );
+    expect(mockFormatPullRequestTitle).toHaveBeenCalledWith({
+      version: '1.2.3',
+      releaseType: 'patch',
+    });
+    expect(mockFormatPullRequestMessage).toHaveBeenCalled();
+    expect(mockFormatPullRequestMessage.mock.calls[0][0]).toMatchObject({
+      currentVersion: '1.2.2',
+      nextVersion: '1.2.3',
+      releaseType: 'patch',
+    });
   });
 });
