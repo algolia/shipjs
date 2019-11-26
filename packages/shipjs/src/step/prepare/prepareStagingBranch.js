@@ -3,10 +3,10 @@ import runStep from '../runStep';
 import { print, exitProcess } from '../../util';
 import { error } from '../../color';
 
-export default ({ config, nextVersion, dir }) =>
+export default ({ config, nextVersion, releaseType, dir }) =>
   runStep({ title: 'Preparing a staging branch' }, () => {
     const { getStagingBranchName, remote } = config;
-    const stagingBranch = getStagingBranchName({ nextVersion });
+    const stagingBranch = getStagingBranchName({ nextVersion, releaseType });
     if (hasLocalBranch(stagingBranch, dir)) {
       print(error(`The branch "${stagingBranch}" already exists locally.`));
       print('Delete the local branch and try again. For example,');
