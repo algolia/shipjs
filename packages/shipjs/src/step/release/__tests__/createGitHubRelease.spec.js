@@ -1,4 +1,3 @@
-import tempWrite from 'temp-write';
 import globby from 'globby';
 import fs from 'fs';
 import mime from 'mime-types';
