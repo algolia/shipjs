@@ -18,6 +18,7 @@ import updateChangelog from '../step/prepare/updateChangelog';
 import commitChanges from '../step/prepare/commitChanges';
 import createPullRequest from '../step/prepare/createPullRequest';
 import notifyPrepared from '../step/prepare/notifyPrepared';
+import pushToStagingBranch from '../step/prepare/pushToStagingBranch';
 import finished from '../step/finished';
 
 import { print } from '../util';
@@ -76,6 +77,7 @@ async function prepare({
     baseBranch,
     dryRun,
   });
+  pushToStagingBranch({ remote, stagingBranch, dir, dryRun });
   const { pullRequestUrl } = createPullRequest({
     baseBranch,
     stagingBranch,
