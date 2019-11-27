@@ -34,6 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.6.3",
+    "@octokit/rest": "^16.35.0",
     "@slack/webhook": "^5.0.1",
     "arg": "4.1.2",
     "chalk": "3.0.0",
@@ -45,6 +46,7 @@
     "globby": "^10.0.1",
     "inquirer": "7.0.0",
     "mkdirp": "^0.5.1",
+    "open": "^7.0.0",
     "prettier": "^1.18.2",
     "serialize-javascript": "^2.1.0",
     "shell-quote": "^1.7.2",

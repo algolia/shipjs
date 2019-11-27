@@ -59,9 +59,7 @@ describe('defaultConfig', () => {
         nextVersion,
       });
       expect(message).toMatchInlineSnapshot(`
-        "chore: release v0.1.1
-
-        ## Release Summary
+        "## Release Summary
         - Version change: \`v0.1.0\` → \`v0.1.1\`
         - Merge: \`releases/v0.1.1\` → \`master\`
         - [Compare the changes between the versions](https://github.com/algolia/shipjs/compare/v0.1.0...releases/v0.1.1)
@@ -97,9 +95,7 @@ describe('defaultConfig', () => {
         nextVersion,
       });
       expect(message).toMatchInlineSnapshot(`
-        "chore: release v0.1.1
-
-        ## Release Summary
+        "## Release Summary
         - Version change: \`v0.1.0\` → \`v0.1.1\`
         - Merge: \`releases/v0.1.1\` → \`release/stable\`
         > :warning:️ When merging this pull request, you need to **_\\"Merge pull request(Create a merge commit)\\"_** and also, you **must modify** the title to start with \`chore: release v0.1.1\`.
