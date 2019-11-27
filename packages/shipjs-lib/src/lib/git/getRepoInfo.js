@@ -1,7 +1,7 @@
 import getRemoteOriginUrl from './getRemoteOriginUrl';
 import gh from 'parse-github-url';
 
-export default function getRepoURL(remote, dir) {
+export default function getRepoInfo(remote, dir) {
   const remoteOriginalUrl = getRemoteOriginUrl(remote, dir);
   const { owner, name, repo, branch } = gh(remoteOriginalUrl);
   const url = `https://github.com/${repo}`;
