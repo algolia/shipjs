@@ -13,12 +13,14 @@ export default {
     isYarn ? 'yarn install --silent' : 'npm install',
   versionUpdated: ({ version, releaseType, dir, exec }) => {},
   beforeCommitChanges: ({ nextVersion, releaseType, exec, dir }) => {},
-  getStagingBranchName: ({ nextVersion, releaseType }) => `releases/v${nextVersion}`,
+  getStagingBranchName: ({ nextVersion, releaseType }) =>
+    `releases/v${nextVersion}`,
   formatCommitMessage: ({ version, releaseType, mergeStrategy, baseBranch }) =>
     mergeStrategy.toSameBranch.includes(baseBranch)
       ? `chore: release v${version}`
       : `chore: prepare v${version}`,
-  formatPullRequestTitle: ({ version, releaseType }) => `chore: release v${version}`,
+  formatPullRequestTitle: ({ version, releaseType }) =>
+    `chore: release v${version}`,
   formatPullRequestMessage: ({
     formatPullRequestTitle,
     repoURL,
@@ -35,8 +37,6 @@ export default {
       releaseType,
     });
     const lines = [
-      pullRequestTitle,
-      '',
       '## Release Summary',
       `- Version change: \`v${currentVersion}\` → \`v${nextVersion}\``,
       `- Merge: \`${stagingBranch}\` → \`${destinationBranch}\``,
