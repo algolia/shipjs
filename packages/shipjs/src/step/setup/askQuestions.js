@@ -27,6 +27,8 @@ export default async ({ dir }) =>
       packagesToPublish,
     } = await askMonorepo(dir);
 
+    const { isScoped, isPublic } = await askPackageAccess(dir);
+
     return {
       baseBranch,
       releaseBranch,
@@ -37,6 +39,8 @@ export default async ({ dir }) =>
       mainVersionFile,
       packagesToBump,
       packagesToPublish,
+      isScoped,
+      isPublic,
     };
   });
 
@@ -195,6 +199,25 @@ async function askMonorepo(dir) {
   return { useMonorepo, mainVersionFile, packagesToBump, packagesToPublish };
 }
 
+async function askPackageAccess(dir) {
+  const isScoped = isScopedPackage(getJson(dir, 'package.json').name);
+
+  if (!isScoped) {
+    return { isScoped };
+  }
+
+  const { isPublic } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'isPublic',
+      message: 'Publish public package?',
+      default: true,
+    },
+  ]);
+
+  return { isScoped, isPublic };
+}
+
 function detectMonorepo(dir) {
   if (fs.existsSync(path.resolve(dir, 'lerna.json'))) {
     return true;
@@ -256,5 +279,13 @@ function stringArrayValidator(answer) {
     return Array.isArray(json) ? true : errorMessage;
   } catch (e) {
     return errorMessage;
+  }
+}
+
+function isScopedPackage(name) {
+  try {
+    return name[0] === '@' && name.indexOf('/') !== -1;
+  } catch (err) {
+    return false;
   }
 }

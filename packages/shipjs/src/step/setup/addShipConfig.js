@@ -1,11 +1,14 @@
-import runStep from '../runStep';
 import fs from 'fs';
 import path from 'path';
+import serialize from 'serialize-javascript';
+import runStep from '../runStep';
 import { runPrettier } from '../../helper';
 import { info } from '../../color';
 import { print } from '../../util';
 
 export default async ({
+  isScoped,
+  isPublic,
   baseBranch,
   releaseBranch,
   useMonorepo,
@@ -17,6 +20,10 @@ export default async ({
   await runStep({ title: 'Creating ship.config.js' }, async () => {
     const filePath = path.resolve(dir, 'ship.config.js');
     const json = {
+      publishCommand:
+        isScoped && isPublic
+          ? ({ defaultCommand }) => `${defaultCommand} --access public`
+          : undefined,
       mergeStrategy:
         baseBranch === releaseBranch
           ? {
@@ -35,10 +42,8 @@ export default async ({
           }
         : undefined,
     };
-    fs.writeFileSync(
-      filePath,
-      `module.exports = ${JSON.stringify(json, null, 2)};`
-    );
+
+    fs.writeFileSync(filePath, `module.exports = ${serialize(json)};`);
     await runPrettier({ filePath, dir });
 
     return () => {
