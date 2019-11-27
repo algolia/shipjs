@@ -1,5 +1,10 @@
 # [0.11.0](https://github.com/algolia/shipjs/compare/v0.10.0...v0.11.0) (2019-11-27)
 
+### NOTICE
+
+From `0.11.0`, `GITHUB_TOKEN` is required as an environment variable for Ship.js to work.
+
+Please refer to [the guide](./GUIDE.md#github-token).
 
 ### Bug Fixes
 
