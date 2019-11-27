@@ -1,4 +1,4 @@
-import { getRepoURL, getRepoInfo } from 'shipjs-lib';
+import { getRepoInfo } from 'shipjs-lib';
 import tempWrite from 'temp-write';
 import Octokit from '@octokit/rest';
 import createPullRequest from '../createPullRequest';
@@ -36,7 +36,6 @@ const getDefaultParams = ({
 
 describe('createPullRequest', () => {
   beforeEach(() => {
-    getRepoURL.mockImplementationOnce(() => 'https://github.com/my/repo');
     getRepoInfo.mockImplementationOnce(() => ({
       owner: 'my',
       name: 'repo',
