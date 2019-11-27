@@ -202,6 +202,10 @@ async function askMonorepo(dir) {
 async function askPackageAccess(dir) {
   const isScoped = isScopedPackage(getJson(dir, 'package.json').name);
 
+  if (!isScoped) {
+    return { isScoped };
+  }
+
   const { isPublic } = await inquirer.prompt([
     {
       type: 'confirm',
