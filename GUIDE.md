@@ -3,7 +3,6 @@
 <!-- toc -->
 
 - [Installation](#installation)
-  - [Install `hub`](#install-hub)
   - [Before running Shipjs](#before-running-shipjs)
   - [Dry Mode](#dry-mode)
 - [On your local machine](#on-your-local-machine)
@@ -54,27 +53,6 @@ Add the following to the `scripts` section in your `package.json`.
   "release:trigger": "shipjs trigger",
 }
 ```
-
-### Install `hub`
-
-To use Ship.js, you need to install `hub`.
-
-```bash
-brew install hub
-```
-
-To configure `hub`, create a file `~/.config/hub` and fill the following content:
-
-```
-github.com:
-- user: YOUR-GITHUB-USERNAME
-  oauth_token: YOUR-PERSONAL-ACCESS-TOKEN
-  protocol: https
-```
-
-You can get an access token from [here](https://github.com/settings/tokens).
-
-Or you can simply run `hub api user`, follow the instruction and it will generate the token and write the config file for you.
 
 ### Before running Shipjs
 
@@ -319,13 +297,6 @@ jobs:
       - run:
           name: Install
           command: yarn install
-      - run:
-          name: Install hub
-          command: |
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-            /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
-            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-            brew install hub
       - run:
           name: Prepare release
           command: |

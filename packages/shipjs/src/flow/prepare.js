@@ -2,7 +2,6 @@ import { getAppName, loadConfig, getReleaseType } from 'shipjs-lib';
 
 import printHelp from '../step/prepare/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';
-import checkHub from '../step/checkHub';
 import validate from '../step/prepare/validate';
 import validateMergeStrategy from '../step/prepare/validateMergeStrategy';
 import pull from '../step/pull';
@@ -41,7 +40,6 @@ async function prepare({
     printDryRunBanner();
   }
   printDeprecated({ firstRelease, releaseCount });
-  checkHub();
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
   validateMergeStrategy({ config });
