@@ -19,9 +19,7 @@ export default async ({
   await runStep({ title: 'Creating ship.config.js' }, async () => {
     const filePath = path.resolve(dir, 'ship.config.js');
     const json = {
-      publishCommand: !xor(isPublic, isScoped)
-        ? createPublishCommand(isPublic)
-        : undefined,
+      publishCommand: isScoped && isPublic ? createPublishCommand() : undefined,
       mergeStrategy:
         baseBranch === releaseBranch
           ? {
@@ -53,14 +51,7 @@ export default async ({
     };
   });
 
-function createPublishCommand(isPublic) {
-  const command = isPublic
-    ? ({ defaultCommand }) => `${defaultCommand} --access public`
-    : ({ defaultCommand }) => `${defaultCommand} --access restricted`;
-
-  return command.toString();
-}
-
-function xor(a, b) {
-  return (a && !b) || (!a && b);
+function createPublishCommand() {
+  return (({ defaultCommand }) =>
+    `${defaultCommand} --access public`).toString();
 }
