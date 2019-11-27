@@ -72,13 +72,11 @@ export default async ({
     const reviewers = Array.isArray(pullRequestReviewer)
       ? pullRequestReviewer
       : (pullRequestReviewer || '').split(',');
-    console.log('token', process.env.GITHUB_TOKEN);
     const octokit = new Octokit({
       auth: `token ${process.env.GITHUB_TOKEN}`,
     });
     const {
-      url,
-      data: { number },
+      data: { number, html_url: url },
     } = await octokit.pulls.create({
       owner,
       repo,
