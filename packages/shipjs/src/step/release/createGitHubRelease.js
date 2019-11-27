@@ -6,6 +6,7 @@ import mime from 'mime-types';
 import { getRepoInfo } from 'shipjs-lib';
 import runStep from '../runStep';
 import { getChangelog, hubInstalled, hubConfigured } from '../../helper';
+import { print } from '../../util';
 
 const cannotUseHub = () => !hubInstalled() || !hubConfigured();
 
