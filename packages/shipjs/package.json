@@ -39,6 +39,7 @@
     "chalk": "3.0.0",
     "change-case": "3.1.0",
     "conventional-changelog-cli": "2.0.28",
+    "dotenv": "^8.2.0",
     "ejs": "^3.0.0",
     "esm": "3.2.25",
     "globby": "^10.0.1",
@@ -61,7 +62,7 @@
     "eslint-config-prettier": "6.7.0",
     "eslint-plugin-eslint-comments": "3.1.2",
     "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-jest": "23.0.4",
+    "eslint-plugin-jest": "23.0.5",
     "eslint-plugin-prettier": "3.1.1",
     "jest": "24.9.0",
     "jest-watch-typeahead": "0.4.2"
