@@ -40,6 +40,7 @@
     "chalk": "3.0.0",
     "change-case": "3.1.0",
     "conventional-changelog-cli": "2.0.28",
+    "dotenv": "^8.2.0",
     "ejs": "^3.0.0",
     "esm": "3.2.25",
     "globby": "^10.0.1",

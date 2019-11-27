@@ -12,6 +12,7 @@ export { default as hasRemoteBranch } from './lib/git/hasRemoteBranch';
 export { default as getCurrentBranch } from './lib/git/getCurrentBranch';
 export { default as getLatestCommitMessage } from './lib/git/getLatestCommitMessage';
 export { default as getRepoInfo } from './lib/git/getRepoInfo';
+export { default as hasRemote } from './lib/git/hasRemote';
 export { default as getRepoURL } from './lib/git/getRepoURL';
 export { default as getRepoURLWithToken } from './lib/git/getRepoURLWithToken';
 export { default as getRepoURLWithTokenMasked } from './lib/git/getRepoURLWithTokenMasked';
