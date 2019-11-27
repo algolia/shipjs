@@ -2,7 +2,6 @@ import inquirer from 'inquirer';
 import { getRemoteBranches } from 'shipjs-lib';
 import fs from 'fs';
 import path from 'path';
-import npa from 'npm-package-arg';
 import runStep from '../runStep';
 import { grey, reset } from '../../color';
 
@@ -281,7 +280,7 @@ function stringArrayValidator(answer) {
 
 function isScopedPackage(name) {
   try {
-    return npa(name).scope !== null;
+    return name[0] === '@' && name.indexOf('/') !== -1;
   } catch (err) {
     return false;
   }
