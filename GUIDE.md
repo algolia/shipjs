@@ -3,12 +3,13 @@
 <!-- toc -->
 
 - [Installation](#installation)
+  - [GitHub Token](#github-token)
   - [Before running Shipjs](#before-running-shipjs)
   - [Dry Mode](#dry-mode)
 - [On your local machine](#on-your-local-machine)
 - [Automate Part 3 (`shipjs trigger`) on your CI](#automate-part-3-shipjs-trigger-on-your-ci)
   - [NPM Token](#npm-token)
-  - [GitHub Token](#github-token)
+  - [GitHub Token](#github-token-1)
 - [Useful Configurations](#useful-configurations)
   - [`mergeStrategy`](#mergestrategy)
     - [`toSameBranch` strategy](#tosamebranch-strategy)
@@ -53,6 +54,22 @@ Add the following to the `scripts` section in your `package.json`.
   "release:trigger": "shipjs trigger",
 }
 ```
+
+### GitHub Token
+
+GitHub token is used in both `shipjs prepare` and `shipjs trigger`.
+
+1. Go to https://github.com/settings/tokens/new
+2. Check "repo(Full control of private repositories)"
+3. Generate/copy the token
+
+You can put it in the following two ways:
+
+1. Prepend it in your command like: `GITHUB_TOKEN=xxx shipjs prepare`
+2. Create a file named ".env" and put the following content: `GITHUB_TOKEN=xxx`
+   (".env" should not be committed. Add it to ".gitignore".)
+
+If you automate flows in your CI, you can add the token to Environment Variable section in your CI service.
 
 ### Before running Shipjs
 

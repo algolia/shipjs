@@ -18,6 +18,7 @@ import commitChanges from '../step/prepare/commitChanges';
 import createPullRequest from '../step/prepare/createPullRequest';
 import notifyPrepared from '../step/prepare/notifyPrepared';
 import pushToStagingBranch from '../step/prepare/pushToStagingBranch';
+import checkGitHubToken from '../step/checkGitHubToken';
 import finished from '../step/finished';
 
 import { print } from '../util';
@@ -40,6 +41,7 @@ async function prepare({
     printDryRunBanner();
   }
   printDeprecated({ firstRelease, releaseCount });
+  checkGitHubToken({ dryRun });
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
   validateMergeStrategy({ config });
