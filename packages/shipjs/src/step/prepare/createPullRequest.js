@@ -63,7 +63,7 @@ export default async ({
     run({ command: `git remote prune ${remote}`, dir, dryRun });
 
     if (dryRun) {
-      print('Creates a pull request with the following:');
+      print('Creating a pull request with the following:');
       print(`  - Title: ${title}`);
       print(`  - Message: ${message}`);
       return {};

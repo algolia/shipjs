@@ -1,9 +1,10 @@
 import path from 'path';
+import fs from 'fs';
 import globby from 'globby';
-import tempWrite from 'temp-write';
-import { quote } from 'shell-quote';
+import Octokit from '@octokit/rest';
+import mime from 'mime-types';
+import { getRepoInfo } from 'shipjs-lib';
 import runStep from '../runStep';
-import { run } from '../../util';
 import { getChangelog, hubInstalled, hubConfigured } from '../../helper';
 
 const cannotUseHub = () => !hubInstalled() || !hubConfigured();
@@ -16,56 +17,95 @@ export default async ({ version, config, dir, dryRun }) =>
     },
     async () => {
       const {
+        remote,
         getTagName,
         releases: { assetsToUpload, extractChangelog } = {},
       } = config;
       const tagName = getTagName({ version });
-      const args = [];
 
       // extract matching changelog
       const getChangelogFn = extractChangelog || getChangelog;
       const changelog = getChangelogFn({ version, dir });
-      const content = `${tagName}\n\n${changelog || ''}`;
-      const exportedPath = tempWrite.sync(content);
-      args.push('-F', quote([exportedPath]));
+      const content = changelog || '';
 
       // handle assets
-      if (assetsToUpload) {
-        const assetPaths = [];
+      const assetPaths = await getAssetPaths({
+        assetsToUpload,
+        dir,
+        version,
+        tagName,
+      });
 
-        if (typeof assetsToUpload === 'function') {
-          // function
-          //   assetsToUpload: ({dir, version, tagName}) => [...]
-          const files = await Promise.resolve(
-            assetsToUpload({ dir, version, tagName })
-          );
-          assetPaths.push(...files);
-        } else if (Array.isArray(assetsToUpload) && assetsToUpload.length > 0) {
-          // list
-          //   assetsToUpload: ['package.json', 'dist/*.zip']
-          for (const asset of assetsToUpload) {
-            const files = await globby(asset, { cwd: dir });
-            if (files) {
-              assetPaths.push(...files);
-            }
-          }
-        } else if (typeof assetsToUpload === 'string') {
-          // string
-          //   assetsToUpload: 'archive.zip'
-          const files = await globby(assetsToUpload, { cwd: dir });
-          if (files) {
-            assetPaths.push(...files);
-          }
+      if (dryRun) {
+        print('Creating a release with the following:');
+        print(`  - content: ${content}`);
+        if (assetPaths.length > 0) {
+          print(`  - assets: ${assetPaths.join(' ')}`);
         }
-
-        for (const asset of assetPaths) {
-          args.push('-a', quote([path.resolve(dir, asset)]));
-        }
+        return;
       }
 
-      // create GitHub release
-      const hubCommand = ['hub', 'release', 'create'];
-      const command = [...hubCommand, ...args, tagName].join(' ');
-      run({ command, dir, dryRun });
+      const { owner, name: repo } = getRepoInfo(remote, dir);
+
+      const octokit = new Octokit({
+        auth: `token ${process.env.GITHUB_TOKEN}`,
+      });
+
+      const {
+        data: { upload_url }, // eslint-disable-line camelcase
+      } = await octokit.repos.createRelease({
+        owner,
+        repo,
+        tag_name: tagName, // eslint-disable-line camelcase
+        name: tagName,
+        body: content,
+      });
+
+      if (assetPaths.length > 0) {
+        for (const assetPath of assetPaths) {
+          const file = path.resolve(dir, assetPath);
+          octokit.repos.uploadReleaseAsset({
+            file: fs.readFileSync(file),
+            headers: {
+              'content-length': fs.statSync(file).size,
+              'content-type': mime.lookup(file),
+            },
+            name: path.basename(file),
+            url: upload_url, // eslint-disable-line camelcase
+          });
+        }
+      }
     }
   );
+
+async function getAssetPaths({ assetsToUpload, dir, version, tagName }) {
+  if (!assetsToUpload) {
+    return [];
+  }
+  const assetPaths = [];
+  if (typeof assetsToUpload === 'function') {
+    // function
+    //   assetsToUpload: ({dir, version, tagName}) => [...]
+    const files = await Promise.resolve(
+      assetsToUpload({ dir, version, tagName })
+    );
+    assetPaths.push(...files);
+  } else if (Array.isArray(assetsToUpload) && assetsToUpload.length > 0) {
+    // list
+    //   assetsToUpload: ['package.json', 'dist/*.zip']
+    for (const asset of assetsToUpload) {
+      const files = await globby(asset, { cwd: dir });
+      if (files) {
+        assetPaths.push(...files);
+      }
+    }
+  } else if (typeof assetsToUpload === 'string') {
+    // string
+    //   assetsToUpload: 'archive.zip'
+    const files = await globby(assetsToUpload, { cwd: dir });
+    if (files) {
+      assetPaths.push(...files);
+    }
+  }
+  return assetPaths;
+}

@@ -1,10 +1,17 @@
 import tempWrite from 'temp-write';
 import globby from 'globby';
+import fs from 'fs';
+import mime from 'mime-types';
+import { getRepoInfo } from 'shipjs-lib';
+import Octokit from '@octokit/rest';
 import createGitHubRelease from '../createGitHubRelease';
-import { run } from '../../../util';
 import { hubInstalled, hubConfigured } from '../../../helper';
 jest.mock('temp-write');
+jest.mock('@octokit/rest');
 jest.mock('globby');
+jest.mock('shipjs-lib');
+jest.mock('fs');
+jest.mock('mime-types');
 
 const getDefaultParams = ({
   assetsToUpload,
@@ -20,29 +27,48 @@ const getDefaultParams = ({
   dryRun: false,
 });
 
+const createRelease = jest.fn().mockImplementation(() => ({
+  data: {
+    upload_url: 'https://dummy/upload/url', // eslint-disable-line camelcase
+  },
+}));
+const uploadReleaseAsset = jest.fn();
+Octokit.mockImplementation(function() {
+  this.repos = { createRelease, uploadReleaseAsset };
+});
+
 describe('createGitHubRelease', () => {
   beforeEach(() => {
     hubInstalled.mockImplementation(() => true);
     hubConfigured.mockImplementation(() => true);
+    getRepoInfo.mockImplementation(() => ({
+      owner: 'my',
+      name: 'repo',
+    }));
+    fs.readFileSync = jest.fn();
+    fs.statSync = jest.fn().mockImplementation(() => ({ size: 1024 }));
+    mime.lookup.mockImplementation(() => 'application/zip');
+    globby.mockImplementation(path => Promise.resolve([path]));
   });
 
   it('works without assets', async () => {
-    tempWrite.sync.mockImplementation(() => `/my chan"ge"log/temp/path`);
     await createGitHubRelease(getDefaultParams());
-    expect(run).toHaveBeenCalledTimes(1);
-    expect(run.mock.calls[0]).toMatchInlineSnapshot(`
+    expect(createRelease).toHaveBeenCalledTimes(1);
+    expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
         Object {
-          "command": "hub release create -F '/my chan\\"ge\\"log/temp/path' v1.2.3",
-          "dir": ".",
-          "dryRun": false,
+          "body": "",
+          "name": "v1.2.3",
+          "owner": "my",
+          "repo": "repo",
+          "tag_name": "v1.2.3",
         },
       ]
     `);
+    expect(uploadReleaseAsset).toHaveBeenCalledTimes(0);
   });
 
   it('works with assets (fn)', async () => {
-    tempWrite.sync.mockImplementation(() => `/temp/path`);
     await createGitHubRelease(
       getDefaultParams({
         assetsToUpload: () => {
@@ -50,61 +76,131 @@ describe('createGitHubRelease', () => {
         },
       })
     );
-    expect(run).toHaveBeenCalledTimes(1);
-    expect(run.mock.calls[0]).toMatchInlineSnapshot(`
+    expect(createRelease).toHaveBeenCalledTimes(1);
+    expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
         Object {
-          "command": "hub release create -F /temp/path -a /path1 -a /path2 v1.2.3",
-          "dir": ".",
-          "dryRun": false,
+          "body": "",
+          "name": "v1.2.3",
+          "owner": "my",
+          "repo": "repo",
+          "tag_name": "v1.2.3",
         },
+      ]
+    `);
+    expect(uploadReleaseAsset).toHaveBeenCalledTimes(2);
+    expect(uploadReleaseAsset.mock.calls).toMatchInlineSnapshot(`
+      Array [
+        Array [
+          Object {
+            "file": undefined,
+            "headers": Object {
+              "content-length": 1024,
+              "content-type": "application/zip",
+            },
+            "name": "path1",
+            "url": "https://dummy/upload/url",
+          },
+        ],
+        Array [
+          Object {
+            "file": undefined,
+            "headers": Object {
+              "content-length": 1024,
+              "content-type": "application/zip",
+            },
+            "name": "path2",
+            "url": "https://dummy/upload/url",
+          },
+        ],
       ]
     `);
   });
 
   it('works with assets (list)', async () => {
-    tempWrite.sync.mockImplementation(() => `/temp/path`);
-    globby.mockImplementation(path => Promise.resolve([path]));
     await createGitHubRelease(
       getDefaultParams({
         assetsToUpload: ['/path1', '/path2'],
       })
     );
-    expect(run).toHaveBeenCalledTimes(1);
-    expect(run.mock.calls[0]).toMatchInlineSnapshot(`
+    expect(createRelease).toHaveBeenCalledTimes(1);
+    expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
         Object {
-          "command": "hub release create -F /temp/path -a /path1 -a /path2 v1.2.3",
-          "dir": ".",
-          "dryRun": false,
+          "body": "",
+          "name": "v1.2.3",
+          "owner": "my",
+          "repo": "repo",
+          "tag_name": "v1.2.3",
         },
+      ]
+    `);
+    expect(uploadReleaseAsset).toHaveBeenCalledTimes(2);
+    expect(uploadReleaseAsset.mock.calls).toMatchInlineSnapshot(`
+      Array [
+        Array [
+          Object {
+            "file": undefined,
+            "headers": Object {
+              "content-length": 1024,
+              "content-type": "application/zip",
+            },
+            "name": "path1",
+            "url": "https://dummy/upload/url",
+          },
+        ],
+        Array [
+          Object {
+            "file": undefined,
+            "headers": Object {
+              "content-length": 1024,
+              "content-type": "application/zip",
+            },
+            "name": "path2",
+            "url": "https://dummy/upload/url",
+          },
+        ],
       ]
     `);
   });
 
   it('works with assets (string)', async () => {
-    tempWrite.sync.mockImplementation(() => `/temp/path`);
-    globby.mockImplementation(path => Promise.resolve([path]));
     await createGitHubRelease(
       getDefaultParams({
         assetsToUpload: '/path1',
       })
     );
-    expect(run).toHaveBeenCalledTimes(1);
-    expect(run.mock.calls[0]).toMatchInlineSnapshot(`
+    expect(createRelease).toHaveBeenCalledTimes(1);
+    expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
         Object {
-          "command": "hub release create -F /temp/path -a /path1 v1.2.3",
-          "dir": ".",
-          "dryRun": false,
+          "body": "",
+          "name": "v1.2.3",
+          "owner": "my",
+          "repo": "repo",
+          "tag_name": "v1.2.3",
         },
+      ]
+    `);
+    expect(uploadReleaseAsset).toHaveBeenCalledTimes(1);
+    expect(uploadReleaseAsset.mock.calls).toMatchInlineSnapshot(`
+      Array [
+        Array [
+          Object {
+            "file": undefined,
+            "headers": Object {
+              "content-length": 1024,
+              "content-type": "application/zip",
+            },
+            "name": "path1",
+            "url": "https://dummy/upload/url",
+          },
+        ],
       ]
     `);
   });
 
   it('works with extractChangelog', async () => {
-    tempWrite.sync.mockImplementation(() => `/temp/path`);
-    globby.mockImplementation(path => Promise.resolve([path]));
     const mockExtractChangelog = jest
       .fn()
       .mockImplementation(({ version, dir }) => `# v${version} (${dir})`);
@@ -117,13 +213,15 @@ describe('createGitHubRelease', () => {
       version: '1.2.3',
       dir: '.',
     });
-    expect(run).toHaveBeenCalledTimes(1);
-    expect(run.mock.calls[0]).toMatchInlineSnapshot(`
+    expect(createRelease).toHaveBeenCalledTimes(1);
+    expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
         Object {
-          "command": "hub release create -F /temp/path v1.2.3",
-          "dir": ".",
-          "dryRun": false,
+          "body": "# v1.2.3 (.)",
+          "name": "v1.2.3",
+          "owner": "my",
+          "repo": "repo",
+          "tag_name": "v1.2.3",
         },
       ]
     `);
