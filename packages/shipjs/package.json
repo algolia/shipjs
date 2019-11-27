@@ -45,6 +45,7 @@
     "inquirer": "7.0.0",
     "mkdirp": "^0.5.1",
     "prettier": "^1.18.2",
+    "serialize-javascript": "^2.1.0",
     "shell-quote": "^1.7.2",
     "shipjs-lib": "0.10.0",
     "temp-write": "4.0.0"
