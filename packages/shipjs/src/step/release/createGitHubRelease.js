@@ -5,16 +5,13 @@ import Octokit from '@octokit/rest';
 import mime from 'mime-types';
 import { getRepoInfo } from 'shipjs-lib';
 import runStep from '../runStep';
-import { getChangelog, hubInstalled, hubConfigured } from '../../helper';
+import { getChangelog } from '../../helper';
 import { print } from '../../util';
-
-const cannotUseHub = () => !hubInstalled() || !hubConfigured();
 
 export default async ({ version, config, dir, dryRun }) =>
   await runStep(
     {
       title: 'Creating a release on GitHub repository',
-      skipIf: cannotUseHub,
     },
     async () => {
       const {

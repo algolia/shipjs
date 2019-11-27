@@ -75,14 +75,6 @@ aliases:
       curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.16.0
       echo 'export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"' >> $BASH_ENV
 
-  - &install_hub
-    name: Install hub CLI
-    command: |
-      sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-      /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
-      eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-      brew install hub
-
   - &restore_yarn_cache
     name: Restore Yarn cache
     keys:
@@ -125,7 +117,6 @@ jobs:
       - restore_cache: *restore_yarn_cache
       - run: *run_yarn_install
       - save_cache: *save_yarn_cache
-      - run: *install_hub
       - run:
           name: Prepare release
           command: |
@@ -141,7 +132,6 @@ jobs:
       - restore_cache: *restore_yarn_cache
       - run: *run_yarn_install
       - save_cache: *save_yarn_cache
-      - run: *install_hub
       - run:
           name: Try to Release
           command: yarn release:trigger

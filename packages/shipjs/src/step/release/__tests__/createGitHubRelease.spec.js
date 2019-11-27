@@ -4,7 +4,6 @@ import mime from 'mime-types';
 import { getRepoInfo } from 'shipjs-lib';
 import Octokit from '@octokit/rest';
 import createGitHubRelease from '../createGitHubRelease';
-import { hubInstalled, hubConfigured } from '../../../helper';
 jest.mock('temp-write');
 jest.mock('@octokit/rest');
 jest.mock('globby');
@@ -38,8 +37,6 @@ Octokit.mockImplementation(function() {
 
 describe('createGitHubRelease', () => {
   beforeEach(() => {
-    hubInstalled.mockImplementation(() => true);
-    hubConfigured.mockImplementation(() => true);
     getRepoInfo.mockImplementation(() => ({
       owner: 'my',
       name: 'repo',

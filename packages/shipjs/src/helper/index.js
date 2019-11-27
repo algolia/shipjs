@@ -5,6 +5,4 @@ export { default as validateBeforePrepare } from './validateBeforePrepare';
 export { default as getChangelog } from './getChangelog';
 export { default as extractSpecificChangelog } from './extractSpecificChangelog';
 export { default as gitPush } from './gitPush';
-export { default as hubInstalled } from './hubInstalled';
-export { default as hubConfigured } from './hubConfigured';
 export { default as runPrettier } from './runPrettier';

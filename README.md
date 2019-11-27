@@ -114,7 +114,7 @@ If the conditions are met, `shipjs trigger` will briefly do the following:
 - Run test, build and release it.
 - `git tag v1.0.1`.
 - Push them to git remote.
-- `hub release create -m <changelog> v1.0.1`
+- Create a release on GitHub
 - Notify at Slack.
 
 You can run `shipjs trigger --dry-run` just to see what will be executed without actual execution.
@@ -195,6 +195,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
