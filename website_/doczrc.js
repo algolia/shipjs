@@ -3,6 +3,10 @@ export default {
   description: "Take control of what is going to be your next release.",
   menu: [
     {
+      name: "HOME",
+      route: "/"
+    },
+    {
       name: "GENERAL",
       menu: ["Introduction", "How It Works", "Getting Started", "Contributing"]
     },

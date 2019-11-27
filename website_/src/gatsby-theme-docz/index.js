@@ -18,4 +18,19 @@ const Theme = ({ children }) => {
   );
 };
 
-export default theme(defaultTheme)(Theme);
+export const enhance = theme(
+  defaultTheme,
+  ({
+    mode = "light",
+    showPlaygroundEditor = true,
+    showLiveError = true,
+    ...config
+  }) => ({
+    ...config,
+    showLiveError,
+    showPlaygroundEditor,
+    initialColorMode: mode
+  })
+);
+
+export default enhance(Theme);
