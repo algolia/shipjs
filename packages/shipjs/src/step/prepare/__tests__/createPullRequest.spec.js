@@ -1,4 +1,4 @@
-import { getRepoURL, getRepoInfo, silentExec } from 'shipjs-lib';
+import { getRepoURL, getRepoInfo } from 'shipjs-lib';
 import tempWrite from 'temp-write';
 import Octokit from '@octokit/rest';
 import createPullRequest from '../createPullRequest';
