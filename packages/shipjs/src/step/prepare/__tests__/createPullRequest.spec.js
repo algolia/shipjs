@@ -1,10 +1,8 @@
 import { getRepoInfo } from 'shipjs-lib';
-import tempWrite from 'temp-write';
 import Octokit from '@octokit/rest';
 import createPullRequest from '../createPullRequest';
 import { run } from '../../../util';
 import { getDestinationBranchName } from '../../../helper';
-jest.mock('temp-write');
 jest.mock('@octokit/rest');
 
 const getDefaultParams = ({
@@ -43,7 +41,6 @@ describe('createPullRequest', () => {
       branch: 'master',
       url: 'https://github.com/my/repo',
     }));
-    tempWrite.sync.mockImplementationOnce(() => '/temp/path');
     getDestinationBranchName.mockImplementation(() => 'master');
   });
 
