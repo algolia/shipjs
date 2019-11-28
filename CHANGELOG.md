@@ -1,3 +1,26 @@
+# [0.11.0](https://github.com/algolia/shipjs/compare/v0.10.0...v0.11.0) (2019-11-27)
+
+### NOTICE
+
+From `0.11.0`, `GITHUB_TOKEN` is required as an environment variable for Ship.js to work.
+
+Please refer to [the guide](./GUIDE.md#github-token).
+
+### Bug Fixes
+
+* check if origin-with-token already exists on prepare command ([#455](https://github.com/algolia/shipjs/issues/455)) ([ce296a6](https://github.com/algolia/shipjs/commit/ce296a6))
+* create github release with rest api instead of hub ([#458](https://github.com/algolia/shipjs/issues/458)) ([0bfeda6](https://github.com/algolia/shipjs/commit/0bfeda6))
+* create pull request with rest api instead of hub ([#456](https://github.com/algolia/shipjs/issues/456)) ([9423f11](https://github.com/algolia/shipjs/commit/9423f11))
+* guide users to have GITHUB_TOKEN ([#460](https://github.com/algolia/shipjs/issues/460)) ([b3ae436](https://github.com/algolia/shipjs/commit/b3ae436))
+* remove hub ([#459](https://github.com/algolia/shipjs/issues/459)) ([cfd4b2f](https://github.com/algolia/shipjs/commit/cfd4b2f))
+
+
+### Features
+
+* add support for scoped packages ([#451](https://github.com/algolia/shipjs/issues/451)) ([765cade](https://github.com/algolia/shipjs/commit/765cade))
+
+
+
 # [0.10.0](https://github.com/algolia/shipjs/compare/v0.9.0...v0.10.0) (2019-11-26)
 
 
