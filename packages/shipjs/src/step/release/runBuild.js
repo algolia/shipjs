@@ -1,8 +1,14 @@
 import runStep from '../runStep';
-import { run } from '../../util';
+import { run, print } from '../../util';
+import { warning } from '../../color';
 
 export default ({ isYarn, config, dir, dryRun }) =>
   runStep({ title: 'Building.' }, () => {
     const { buildCommand } = config;
-    run({ command: buildCommand({ isYarn }), dir, dryRun });
+    const command = buildCommand && buildCommand({ isYarn });
+    if (!command) {
+      print(warning('Skipping build because it is not configured.'));
+      return;
+    }
+    run({ command, dir, dryRun });
   });

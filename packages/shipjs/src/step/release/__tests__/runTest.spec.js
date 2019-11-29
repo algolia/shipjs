@@ -1,5 +1,5 @@
 import runTest from '../runTest';
-import { run } from '../../../util';
+import { run, print } from '../../../util';
 
 describe('runTest', () => {
   it('works', () => {
@@ -17,6 +17,50 @@ describe('runTest', () => {
         "dir": ".",
         "dryRun": false,
       }
+    `);
+  });
+
+  it('skips test if testCommandBeforeRelease is falsy', () => {
+    runTest({
+      config: {
+        testCommandBeforeRelease: null,
+      },
+      dir: '.',
+      dryRun: false,
+    });
+    expect(run).toHaveBeenCalledTimes(0);
+    expect(print).toHaveBeenCalledTimes(2);
+    expect(print.mock.calls).toMatchInlineSnapshot(`
+      Array [
+        Array [
+          "› Running test.",
+        ],
+        Array [
+          "Skipping test because it is not configured.",
+        ],
+      ]
+    `);
+  });
+
+  it('skips test if testCommandBeforeRelease returns falsy', () => {
+    runTest({
+      config: {
+        testCommandBeforeRelease: () => '',
+      },
+      dir: '.',
+      dryRun: false,
+    });
+    expect(run).toHaveBeenCalledTimes(0);
+    expect(print).toHaveBeenCalledTimes(2);
+    expect(print.mock.calls).toMatchInlineSnapshot(`
+      Array [
+        Array [
+          "› Running test.",
+        ],
+        Array [
+          "Skipping test because it is not configured.",
+        ],
+      ]
     `);
   });
 });
