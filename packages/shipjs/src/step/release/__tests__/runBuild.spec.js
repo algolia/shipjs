@@ -1,5 +1,5 @@
 import runBuild from '../runBuild';
-import { run } from '../../../util';
+import { run, print } from '../../../util';
 
 describe('runBuild', () => {
   it('works', () => {
@@ -17,6 +17,50 @@ describe('runBuild', () => {
         "dir": ".",
         "dryRun": false,
       }
+    `);
+  });
+
+  it('skips build if buildCommand is falsy', () => {
+    runBuild({
+      config: {
+        buildCommand: null,
+      },
+      dir: '.',
+      dryRun: false,
+    });
+    expect(run).toHaveBeenCalledTimes(0);
+    expect(print).toHaveBeenCalledTimes(2);
+    expect(print.mock.calls).toMatchInlineSnapshot(`
+      Array [
+        Array [
+          "› Building.",
+        ],
+        Array [
+          "Skipping build because it is not configured.",
+        ],
+      ]
+    `);
+  });
+
+  it('skips build if buildCommand returns falsy', () => {
+    runBuild({
+      config: {
+        buildCommand: () => '',
+      },
+      dir: '.',
+      dryRun: false,
+    });
+    expect(run).toHaveBeenCalledTimes(0);
+    expect(print).toHaveBeenCalledTimes(2);
+    expect(print.mock.calls).toMatchInlineSnapshot(`
+      Array [
+        Array [
+          "› Building.",
+        ],
+        Array [
+          "Skipping build because it is not configured.",
+        ],
+      ]
     `);
   });
 });
