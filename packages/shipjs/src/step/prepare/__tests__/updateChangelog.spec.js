@@ -2,6 +2,9 @@ import { run } from '../../../util';
 import path from 'path';
 import updateChangelog from '../updateChangelog';
 jest.mock('path');
+jest.mock('temp-write', () => ({
+  sync: () => '/temp/file/path',
+}));
 
 describe('updateChangelog', () => {
   it('works', () => {
@@ -11,6 +14,7 @@ describe('updateChangelog', () => {
         updateChangelog: true,
         conventionalChangelogArgs: '--foo bar',
       },
+      commitRange: 'abcdefg..HEAD',
       firstRelease: false,
       releaseCount: 5,
       dir: '.',
@@ -18,7 +22,7 @@ describe('updateChangelog', () => {
     });
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
       Object {
-        "command": "/temp/path/conventional-changelog --foo bar -r 5",
+        "command": "/temp/path/conventional-changelog --foo bar -r 5 -n /temp/file/path",
         "dir": ".",
         "dryRun": false,
       }
