@@ -25,7 +25,7 @@ export default async ({ currentVersion, dir }) =>
           type: 'list',
           pageSize: 10,
           name: 'answer',
-          message: 'From which commit do you want to release?',
+          message: 'Since which commit do you want to release?',
           choices: commits.map((commit, index) => `${index + 1}) ${commit}`),
         },
       ]);
