@@ -3,6 +3,7 @@ import { getAppName, loadConfig, getReleaseType } from 'shipjs-lib';
 import printHelp from '../step/prepare/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';
 import validate from '../step/prepare/validate';
+import getCommitRange from '../step/prepare/getCommitRange';
 import validateMergeStrategy from '../step/prepare/validateMergeStrategy';
 import pull from '../step/pull';
 import fetchTags from '../step/prepare/fetchTags';
@@ -50,7 +51,8 @@ async function prepare({
   pull({ remote, currentBranch: baseBranch, dir, dryRun });
   fetchTags({ dir, dryRun });
   push({ remote, currentBranch: baseBranch, dir, dryRun });
-  let { nextVersion } = getNextVersion({ currentVersion, dir });
+  const { commitRange } = getCommitRange({ currentVersion, dir });
+  let { nextVersion } = getNextVersion({ commitRange, currentVersion, dir });
   nextVersion = await confirmNextVersion({
     yes,
     currentVersion,

@@ -3,10 +3,10 @@ import runStep from '../runStep';
 import { print, exitProcess } from '../../util';
 import { info, warning } from '../../color';
 
-export default ({ currentVersion, dir }) =>
+export default ({ commitRange, currentVersion, dir }) =>
   runStep({ title: 'Calculating the next version.' }, () => {
     const { version: nextVersion, ignoredMessages = [] } = getNextVersion(
-      `v${currentVersion}..HEAD`,
+      commitRange,
       currentVersion,
       dir
     );
