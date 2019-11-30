@@ -2,6 +2,11 @@ import { expandPackageList } from 'shipjs-lib';
 import { run, print } from '../../../util';
 import runPublish from '../runPublish';
 import { mockPrint } from '../../../../tests/util';
+jest.unmock('../../../helper');
+// if `unmock` causes any trouble in the future,
+// we might try this: https://github.com/facebook/jest/issues/2649#issuecomment-360467278
+// `runPublish` depends on `getPublishCommand` from `helper`
+// and we need it unmocked to successfully run the following tests.
 
 describe('runPublish', () => {
   it('works with yarn', () => {
