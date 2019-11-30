@@ -5,6 +5,7 @@ import printDryRunBanner from '../step/printDryRunBanner';
 import validate from '../step/prepare/validate';
 import validateMergeStrategy from '../step/prepare/validateMergeStrategy';
 import pull from '../step/pull';
+import fetchTags from '../step/prepare/fetchTags';
 import push from '../step/prepare/push';
 import getNextVersion from '../step/prepare/getNextVersion';
 import confirmNextVersion from '../step/prepare/confirmNextVersion';
@@ -47,6 +48,7 @@ async function prepare({
   validateMergeStrategy({ config });
   const { remote } = config;
   pull({ remote, currentBranch: baseBranch, dir, dryRun });
+  fetchTags({ dir, dryRun });
   push({ remote, currentBranch: baseBranch, dir, dryRun });
   let { nextVersion } = getNextVersion({ currentVersion, dir });
   nextVersion = await confirmNextVersion({
