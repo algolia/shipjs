@@ -45,13 +45,18 @@ export default async ({ dir }) =>
   });
 
 async function askBranches(dir) {
-  const branches = getRemoteBranches(dir);
-  const baseBranchCandidate = ['develop', 'dev', 'master'].find(item =>
+  let branches = getRemoteBranches(dir);
+  let baseBranchCandidate = ['develop', 'dev', 'master'].find(item =>
     branches.includes(item)
   );
-  const releaseBranchCandidate = ['releases', 'release', 'master'].find(item =>
+  let releaseBranchCandidate = ['releases', 'release', 'master'].find(item =>
     branches.includes(item)
   );
+  if (branches.length === 0) {
+    branches = ['master'];
+    baseBranchCandidate = 'master';
+    releaseBranchCandidate = 'master';
+  }
   const { baseBranch, releaseBranch } = await inquirer.prompt([
     {
       type: 'list',
