@@ -1,9 +1,14 @@
-import { hasRemoteBranch, getRepoInfo } from 'shipjs-lib';
+import {
+  expandPackageList,
+  hasRemoteBranch,
+  getRepoInfo,
+  getReleaseTag,
+} from 'shipjs-lib';
 import open from 'open';
 import Octokit from '@octokit/rest';
 import runStep from '../runStep';
-import { getDestinationBranchName } from '../../helper';
-import { print, run, exitProcess } from '../../util';
+import { getDestinationBranchName, getPublishCommand } from '../../helper';
+import { print, run, exitProcess, detectYarn } from '../../util';
 import { warning } from '../../color';
 
 export default async ({
@@ -22,8 +27,10 @@ export default async ({
       mergeStrategy,
       formatPullRequestTitle,
       formatPullRequestMessage,
+      publishCommand,
       pullRequestReviewer,
       remote,
+      monorepo,
     } = config;
     const destinationBranch = getDestinationBranchName({
       baseBranch,
@@ -48,6 +55,13 @@ export default async ({
       exitProcess(0);
     }
     const { url: repoURL, owner, name: repo } = getRepoInfo(remote, dir);
+    const publishCommandInStr = getPublishCommandInStr({
+      isYarn: detectYarn(dir),
+      tag: getReleaseTag(nextVersion),
+      monorepo,
+      publishCommand,
+      dir,
+    });
     const title = formatPullRequestTitle({ version: nextVersion, releaseType });
     const message = formatPullRequestMessage({
       formatPullRequestTitle,
@@ -59,6 +73,7 @@ export default async ({
       currentVersion,
       nextVersion,
       releaseType,
+      publishCommandInStr,
     });
     run({ command: `git remote prune ${remote}`, dir, dryRun });
 
@@ -101,3 +116,29 @@ export default async ({
 
     return { pullRequestUrl: url };
   });
+
+function getPublishCommandInStr({
+  isYarn,
+  tag,
+  monorepo,
+  publishCommand,
+  dir,
+}) {
+  if (monorepo) {
+    const { packagesToPublish } = monorepo;
+    const packageList = expandPackageList(packagesToPublish, dir);
+    return packageList
+      .map(
+        packageDir =>
+          `- ${packageDir} -> ${getPublishCommand({
+            isYarn,
+            publishCommand,
+            tag,
+            dir: packageDir,
+          })}`
+      )
+      .join('\n');
+  } else {
+    return getPublishCommand({ isYarn, publishCommand, tag, dir });
+  }
+}
