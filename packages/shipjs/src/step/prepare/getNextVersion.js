@@ -6,6 +6,7 @@ import { info, warning } from '../../color';
 export default ({ currentVersion, dir }) =>
   runStep({ title: 'Calculating the next version.' }, () => {
     const { version: nextVersion, ignoredMessages = [] } = getNextVersion(
+      `v${currentVersion}..HEAD`,
       currentVersion,
       dir
     );

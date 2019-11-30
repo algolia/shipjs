@@ -149,6 +149,7 @@ describe('getNextVersion', () => {
   it('gets next version with patch updated', () => {
     silentExec('./tests/bootstrap-examples/patch-version-up.sh');
     const { version: actual } = getNextVersion(
+      'v0.0.1..HEAD',
       '0.0.1',
       'sandbox/patch-version-up'
     );
@@ -158,6 +159,7 @@ describe('getNextVersion', () => {
   it('gets next version with minor updated', () => {
     silentExec('./tests/bootstrap-examples/minor-version-up.sh');
     const { version: actual } = getNextVersion(
+      'v0.0.1..HEAD',
       '0.0.1',
       'sandbox/minor-version-up'
     );
@@ -167,6 +169,7 @@ describe('getNextVersion', () => {
   it('gets next version with major updated', () => {
     silentExec('./tests/bootstrap-examples/major-version-up.sh');
     const { version: actual } = getNextVersion(
+      'v0.0.1..HEAD',
       '0.0.1',
       'sandbox/major-version-up'
     );
@@ -176,6 +179,7 @@ describe('getNextVersion', () => {
   it('gets a null with no commit messages', () => {
     silentExec('./tests/bootstrap-examples/empty.sh no-commit-log');
     const { version: actual } = getNextVersion(
+      'v0.0.1..HEAD',
       '0.0.1',
       'sandbox/no-commit-log'
     );
@@ -185,6 +189,7 @@ describe('getNextVersion', () => {
   it('throws when there is a commit message out of convention', () => {
     silentExec('./tests/bootstrap-examples/out-of-convention.sh');
     const { ignoredMessages } = getNextVersion(
+      'v0.0.1..HEAD',
       '0.0.1',
       'sandbox/out-of-convention'
     );
