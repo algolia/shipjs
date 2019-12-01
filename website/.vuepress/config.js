@@ -12,14 +12,16 @@ module.exports = {
         title: 'Guide', // required
         path: '/guide/', // optional, which should be a absolute path.
         collapsable: false, // optional, defaults to true
-        sidebarDepth: 1, // optional, defaults to 1
-        children: ['/guide/', '/guide/getting-started'],
+        children: [
+          '/guide/',
+          '/guide/getting-started',
+          '/guide/useful-config',
+          '/guide/contributing',
+        ],
       },
       {
-        title: 'Group 2',
-        children: [
-          /* ... */
-        ],
+        title: 'Reference',
+        children: ['/reference/all-config', '/reference/commands'],
       },
     ],
   },

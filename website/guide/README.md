@@ -50,7 +50,7 @@ In Ship.js, the release process consists of three parts.
 
 ### Part 1. Preparation (`shipjs prepare`)
 
-![Preview][gif]
+![Preview](./preview.gif)
 
 Run `shipjs prepare` and it will briefly do the following:
 
@@ -114,7 +114,7 @@ You can add more commits to this PR if needed.
 
 According to your merge strategy, you might either `Squash and merge` or `Merge pull request`.
 
-For more information, please refer to the mergeStrategy section of the [guide][guide-merge-strategy].
+For more information, please refer to the [mergeStrategy section of the guide](./useful-config.html#mergestrategy).
 
 ### Part 3. Trigger a release (`shipjs trigger`)
 
