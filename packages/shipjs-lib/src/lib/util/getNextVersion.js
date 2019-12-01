@@ -64,7 +64,11 @@ function getBodies(revisionRange, dir) {
     .trim();
 }
 
-export default function getNextVersion(revisionRange, currentVersion, dir = '.') {
+export default function getNextVersion(
+  revisionRange,
+  currentVersion,
+  dir = '.'
+) {
   const titles = getTitles(revisionRange, dir);
   const bodies = getBodies(revisionRange, dir);
   return getNextVersionFromCommitMessages(currentVersion, titles, bodies);
