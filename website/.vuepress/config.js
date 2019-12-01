@@ -21,6 +21,7 @@ module.exports = {
       },
       {
         title: 'Reference',
+        collapsable: false,
         children: ['/reference/all-config', '/reference/commands'],
       },
     ],
