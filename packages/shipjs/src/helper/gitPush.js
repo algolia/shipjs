@@ -22,6 +22,12 @@ export default function gitPush({ remote, refs, dir, dryRun }) {
     refs.forEach(ref => {
       run({ command: `git push origin-with-token ${ref}`, dir, dryRun });
     });
+    run({
+      command: `git remote remove origin-with-token`,
+      dir,
+      dryRun,
+      printCommand: false,
+    });
   } else {
     refs.forEach(ref => {
       run({
