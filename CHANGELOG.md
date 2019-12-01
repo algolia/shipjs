@@ -1,3 +1,20 @@
+## [0.11.1](https://github.com/algolia/shipjs/compare/v0.11.0...v0.11.1) (2019-12-01)
+
+
+### Bug Fixes
+
+* await commit range ([#475](https://github.com/algolia/shipjs/issues/475)) ([e6ca463](https://github.com/algolia/shipjs/commit/e6ca463))
+* skip missing scripts(`test` or `build`) ([#465](https://github.com/algolia/shipjs/issues/465)) ([51a58a4](https://github.com/algolia/shipjs/commit/51a58a4))
+* update PR message with publish command ([#467](https://github.com/algolia/shipjs/issues/467)) ([18cc7e4](https://github.com/algolia/shipjs/commit/18cc7e4))
+* **deps:** update dependency change-case to v4 ([#476](https://github.com/algolia/shipjs/issues/476)) ([b2a8463](https://github.com/algolia/shipjs/commit/b2a8463))
+* **prepare:** ask commit range when tag is missing ([#471](https://github.com/algolia/shipjs/issues/471)) ([f659c34](https://github.com/algolia/shipjs/commit/f659c34))
+* **prepare:** clean up remote `origin-with-token` after git push ([#479](https://github.com/algolia/shipjs/issues/479)) ([c81d247](https://github.com/algolia/shipjs/commit/c81d247))
+* **prepare:** fetch tags before figuring out next version ([#468](https://github.com/algolia/shipjs/issues/468)) ([045bbc0](https://github.com/algolia/shipjs/commit/045bbc0))
+* **prepare:** update changelog based on commit range ([#473](https://github.com/algolia/shipjs/issues/473)) ([9841f25](https://github.com/algolia/shipjs/commit/9841f25))
+* **setup:** show `master` as a default branch when there is no remote yet ([#466](https://github.com/algolia/shipjs/issues/466)) ([f079ba5](https://github.com/algolia/shipjs/commit/f079ba5))
+
+
+
 # [0.11.0](https://github.com/algolia/shipjs/compare/v0.10.0...v0.11.0) (2019-11-27)
 
 ### NOTICE
