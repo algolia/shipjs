@@ -51,7 +51,7 @@ async function prepare({
   pull({ remote, currentBranch: baseBranch, dir, dryRun });
   fetchTags({ dir, dryRun });
   push({ remote, currentBranch: baseBranch, dir, dryRun });
-  const { commitRange } = getCommitRange({ currentVersion, dir });
+  const { commitRange } = await getCommitRange({ currentVersion, dir });
   let { nextVersion } = getNextVersion({ commitRange, currentVersion, dir });
   nextVersion = await confirmNextVersion({
     yes,
