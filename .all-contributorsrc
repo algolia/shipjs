@@ -55,7 +55,26 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/25279263?v=4",
       "profile": "https://ghuser.io/jamesgeorge007",
       "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "kazupon",
+      "name": "kazuya kawaguchi",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/72989?v=4",
+      "profile": "https://www.patreon.com/kazupon",
+      "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "tyankatsu0105",
+      "name": "tyankatsu",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/28397593?s=460&v=4",
+      "profile": "https://tyankatsu.netlify.com/",
+      "contributions": [
+        "doc"
       ]
     }
   ],

@@ -43,27 +43,33 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
     return { version: inc(version, 'minor'), ignoredMessages };
   } else if (patch) {
     return { version: inc(version, 'patch'), ignoredMessages };
-  } else {
+  } else if (titles.trim().length === 0) {
     return { version: null, ignoredMessages };
+  } else {
+    return { version: inc(version, 'patch'), ignoredMessages };
   }
 }
 
-function getTitles(version, dir) {
-  const cmd = `git log v${version}..HEAD --pretty=format:%s`;
+function getTitles(revisionRange, dir) {
+  const cmd = `git log ${revisionRange} --pretty=format:%s`;
   return silentExec(cmd, { dir, ignoreError: true })
     .toString()
     .trim();
 }
 
-function getBodies(version, dir) {
-  const cmd = `git log v${version}..HEAD --pretty=format:%b`;
+function getBodies(revisionRange, dir) {
+  const cmd = `git log ${revisionRange} --pretty=format:%b`;
   return silentExec(cmd, { dir, ignoreError: true })
     .toString()
     .trim();
 }
 
-export default function getNextVersion(currentVersion, dir = '.') {
-  const titles = getTitles(currentVersion, dir);
-  const bodies = getBodies(currentVersion, dir);
+export default function getNextVersion(
+  revisionRange,
+  currentVersion,
+  dir = '.'
+) {
+  const titles = getTitles(revisionRange, dir);
+  const bodies = getBodies(revisionRange, dir);
   return getNextVersionFromCommitMessages(currentVersion, titles, bodies);
 }

@@ -2,7 +2,7 @@ import {
   getLatestCommitHash,
   getCommitUrl,
   getAppName,
-  getRepoURL,
+  getRepoInfo,
   getReleaseTag,
 } from 'shipjs-lib';
 import runStep from '../runStep';
@@ -12,7 +12,7 @@ export default ({ remote, version, dir }) =>
     const appName = getAppName(dir);
     const latestCommitHash = getLatestCommitHash(dir);
     const latestCommitUrl = getCommitUrl(remote, latestCommitHash, dir);
-    const repoURL = getRepoURL(remote, dir);
+    const { url: repoURL } = getRepoInfo(remote, dir);
     const releaseTag = getReleaseTag(version);
 
     return {

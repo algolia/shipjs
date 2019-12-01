@@ -3,7 +3,7 @@ import runStep from '../runStep';
 import { print, wrapExecWithDir } from '../../util';
 import { info } from '../../color';
 
-export default async ({ config, nextVersion, dir, dryRun }) =>
+export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
   await runStep({ title: 'Updating the version.' }, async () => {
     const { versionUpdated } = config;
     if (dryRun) {
@@ -14,6 +14,7 @@ export default async ({ config, nextVersion, dir, dryRun }) =>
     updateVersion({ nextVersion, dir });
     await versionUpdated({
       version: nextVersion,
+      releaseType,
       dir,
       exec: wrapExecWithDir(dir),
     });

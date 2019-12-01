@@ -3,12 +3,12 @@
 <!-- toc -->
 
 - [Installation](#installation)
-  - [Install `hub`](#install-hub)
+  - [GitHub Token](#github-token)
   - [Dry Mode](#dry-mode)
 - [On your local machine](#on-your-local-machine)
 - [Automate Part 3 (`shipjs trigger`) on your CI](#automate-part-3-shipjs-trigger-on-your-ci)
   - [NPM Token](#npm-token)
-  - [GitHub Token](#github-token)
+  - [GitHub Token](#github-token-1)
 - [Useful Configurations](#useful-configurations)
   - [`mergeStrategy`](#mergestrategy)
     - [`toSameBranch` strategy](#tosamebranch-strategy)
@@ -54,26 +54,21 @@ Add the following to the `scripts` section in your `package.json`.
 }
 ```
 
-### Install `hub`
+### GitHub Token
 
-To use Ship.js, you need to install `hub`.
+GitHub token is used in both `shipjs prepare` and `shipjs trigger`.
 
-```bash
-brew install hub
-```
+1. Go to https://github.com/settings/tokens/new
+2. Check "repo(Full control of private repositories)"
+3. Generate/copy the token
 
-To configure `hub`, create a file `~/.config/hub` and fill the following content:
+You can put it in the following two ways:
 
-```
-github.com:
-- user: YOUR-GITHUB-USERNAME
-  oauth_token: YOUR-PERSONAL-ACCESS-TOKEN
-  protocol: https
-```
+1. Prepend it in your command like: `GITHUB_TOKEN=xxx shipjs prepare`
+2. Create a file named ".env" and put the following content: `GITHUB_TOKEN=xxx`
+   (".env" should not be committed. Add it to ".gitignore".)
 
-You can get an access token from [here](https://github.com/settings/tokens).
-
-Or you can simply run `hub api user`, follow the instruction and it will generate the token and write the config file for you.
+If you automate flows in your CI, you can add the token to Environment Variable section in your CI service.
 
 ### Dry Mode
 
@@ -264,7 +259,7 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = {
-  versionUpdated: ({ version, dir, exec }) => {
+  versionUpdated: ({ version, releaseType, dir, exec }) => {
     // update `lerna.json`
     const lernaConfigPath = path.resolve(dir, "lerna.json");
     const lernaConfig = JSON.parse(fs.readFileSync(lernaConfigPath).toString());
@@ -299,13 +294,6 @@ jobs:
       - run:
           name: Install
           command: yarn install
-      - run:
-          name: Install hub
-          command: |
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-            /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
-            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-            brew install hub
       - run:
           name: Prepare release
           command: |
@@ -398,7 +386,7 @@ NAME
         shipjs prepare - Prepare a release.
 
 USAGE
-        shipjs prepare [--help] [--dir PATH] [--yes] [--first-release] [--release-count COUNT] [--dry-run]
+        shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run]
 
 OPTIONS
         -h, --help
@@ -409,12 +397,6 @@ OPTIONS
 
         -y, --yes
           Skip all the interactive prompts and use the default values.
-
-        -f, --first-release
-          Generate the CHANGELOG for the first time
-
-        -r, --release-count COUNT
-          How many releases to be generated from the latest
 
         -D, --dry-run
           Displays the steps without actually doing them.

@@ -1,3 +1,5 @@
+import path from 'path';
+import dotenv from 'dotenv';
 import setup from './flow/setup';
 import prepare from './flow/prepare';
 import release from './flow/release';
@@ -54,6 +56,7 @@ export async function cli(argv) {
     const opts = removeDoubleDash(
       parseArgs(argSpec, { permissive: false, argv })
     );
+    dotenv.config({ path: path.resolve(opts.dir || '.', '.env') });
     await fn(opts);
   } catch (error) {
     if (error.code === 'ARG_UNKNOWN_OPTION') {

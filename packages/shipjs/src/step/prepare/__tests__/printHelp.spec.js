@@ -13,7 +13,7 @@ describe('printHelp', () => {
       	shipjs prepare - Prepare a release.
 
       USAGE
-      	shipjs prepare [--help] [--dir PATH] [--yes] [--first-release] [--release-count COUNT] [--dry-run] [--no-browse]
+      	shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run] [--no-browse]
 
       OPTIONS
       	-h, --help
@@ -24,12 +24,6 @@ describe('printHelp', () => {
 
       	-y, --yes
       	  Skip all the interactive prompts and use the default values.
-
-      	-f, --first-release
-      	  Generate the CHANGELOG for the first time
-
-      	-r, --release-count COUNT
-      	  How many releases to be generated from the latest
 
       	-D, --dry-run
       	  Displays the steps without actually doing them.

@@ -1,11 +1,12 @@
-import { getAppName, loadConfig } from 'shipjs-lib';
+import { getAppName, loadConfig, getReleaseType } from 'shipjs-lib';
 
 import printHelp from '../step/prepare/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';
-import checkHub from '../step/checkHub';
 import validate from '../step/prepare/validate';
+import getRevisionRange from '../step/prepare/getRevisionRange';
 import validateMergeStrategy from '../step/prepare/validateMergeStrategy';
 import pull from '../step/pull';
+import fetchTags from '../step/prepare/fetchTags';
 import push from '../step/prepare/push';
 import getNextVersion from '../step/prepare/getNextVersion';
 import confirmNextVersion from '../step/prepare/confirmNextVersion';
@@ -18,7 +19,12 @@ import updateChangelog from '../step/prepare/updateChangelog';
 import commitChanges from '../step/prepare/commitChanges';
 import createPullRequest from '../step/prepare/createPullRequest';
 import notifyPrepared from '../step/prepare/notifyPrepared';
+import pushToStagingBranch from '../step/prepare/pushToStagingBranch';
+import checkGitHubToken from '../step/checkGitHubToken';
 import finished from '../step/finished';
+
+import { print } from '../util';
+import { warning } from '../color';
 
 async function prepare({
   help = false,
@@ -36,38 +42,59 @@ async function prepare({
   if (dryRun) {
     printDryRunBanner();
   }
-  checkHub();
+  printDeprecated({ firstRelease, releaseCount });
+  checkGitHubToken({ dryRun });
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
   validateMergeStrategy({ config });
   const { remote } = config;
   pull({ remote, currentBranch: baseBranch, dir, dryRun });
+  fetchTags({ dir, dryRun });
   push({ remote, currentBranch: baseBranch, dir, dryRun });
-  let { nextVersion } = getNextVersion({ currentVersion, dir });
+  const { revisionRange } = await getRevisionRange({ currentVersion, dir });
+  let { nextVersion } = getNextVersion({ revisionRange, currentVersion, dir });
   nextVersion = await confirmNextVersion({
     yes,
     currentVersion,
     nextVersion,
     dryRun,
   });
+  const releaseType = getReleaseType(currentVersion, nextVersion);
   const { stagingBranch } = prepareStagingBranch({
     config,
     nextVersion,
+    releaseType,
     dir,
   });
   checkoutToStagingBranch({ stagingBranch, dir, dryRun });
   const updateVersionFn = config.monorepo
     ? updateVersionMonorepo
     : updateVersion;
-  await updateVersionFn({ config, nextVersion, dir, dryRun });
+  await updateVersionFn({ config, nextVersion, releaseType, dir, dryRun });
   installDependencies({ config, dir, dryRun });
-  updateChangelog({ config, firstRelease, releaseCount, dir, dryRun });
-  await commitChanges({ nextVersion, dir, config, baseBranch, dryRun });
+  updateChangelog({
+    config,
+    revisionRange,
+    firstRelease,
+    releaseCount,
+    dir,
+    dryRun,
+  });
+  await commitChanges({
+    nextVersion,
+    releaseType,
+    dir,
+    config,
+    baseBranch,
+    dryRun,
+  });
+  pushToStagingBranch({ remote, stagingBranch, dir, dryRun });
   const { pullRequestUrl } = createPullRequest({
     baseBranch,
     stagingBranch,
     currentVersion,
     nextVersion,
+    releaseType,
     noBrowse,
     config,
     dir,
@@ -96,6 +123,15 @@ const arg = {
   '-D': '--dry-run',
   '-N': '--no-browse',
 };
+
+function printDeprecated({ firstRelease, releaseCount }) {
+  if (firstRelease) {
+    print(warning(`DEPRECATED: --first-release, -f`));
+  }
+  if (releaseCount) {
+    print(warning(`DEPRECATED: --release-count, -r`));
+  }
+}
 
 export default {
   arg,

@@ -1,27 +1,36 @@
-import { hasRemoteBranch, getRepoURL, silentExec } from 'shipjs-lib';
-import tempWrite from 'temp-write';
+import {
+  expandPackageList,
+  hasRemoteBranch,
+  getRepoInfo,
+  getReleaseTag,
+} from 'shipjs-lib';
+import open from 'open';
+import Octokit from '@octokit/rest';
 import runStep from '../runStep';
-import { getDestinationBranchName } from '../../helper';
-import { print, run, exitProcess } from '../../util';
+import { getDestinationBranchName, getPublishCommand } from '../../helper';
+import { print, run, exitProcess, detectYarn } from '../../util';
 import { warning } from '../../color';
 
-export default ({
+export default async ({
   baseBranch,
   stagingBranch,
   currentVersion,
   nextVersion,
+  releaseType,
   noBrowse,
   config,
   dir,
   dryRun,
 }) =>
-  runStep({ title: 'Creating a pull request.' }, () => {
+  await runStep({ title: 'Creating a pull request.' }, async () => {
     const {
       mergeStrategy,
       formatPullRequestTitle,
       formatPullRequestMessage,
+      publishCommand,
       pullRequestReviewer,
       remote,
+      monorepo,
     } = config;
     const destinationBranch = getDestinationBranchName({
       baseBranch,
@@ -45,7 +54,15 @@ export default ({
       run({ command: `git branch -D ${stagingBranch}`, dir, dryRun });
       exitProcess(0);
     }
-    const repoURL = getRepoURL(remote, dir);
+    const { url: repoURL, owner, name: repo } = getRepoInfo(remote, dir);
+    const publishCommandInStr = getPublishCommandInStr({
+      isYarn: detectYarn(dir),
+      tag: getReleaseTag(nextVersion),
+      monorepo,
+      publishCommand,
+      dir,
+    });
+    const title = formatPullRequestTitle({ version: nextVersion, releaseType });
     const message = formatPullRequestMessage({
       formatPullRequestTitle,
       repoURL,
@@ -55,46 +72,73 @@ export default ({
       mergeStrategy,
       currentVersion,
       nextVersion,
+      releaseType,
+      publishCommandInStr,
     });
-    const filePath = tempWrite.sync(message);
     run({ command: `git remote prune ${remote}`, dir, dryRun });
-    const reviewer = Array.isArray(pullRequestReviewer)
-      ? pullRequestReviewer.join(',')
-      : pullRequestReviewer;
-    const createPullRequestCommand = [
-      'hub pull-request',
-      `--base ${destinationBranch}`,
-      noBrowse ? undefined : '--browse',
-      '--push',
-      pullRequestReviewer ? `--reviewer ${reviewer}` : undefined,
-      `--file ${filePath}`,
-    ]
-      .filter(Boolean)
-      .join(' ');
-    run({ command: createPullRequestCommand, dir, dryRun });
-    print('  |');
-    message.split('\n').forEach(line => print(`  |  ${line}`));
-    print('  |');
-    print('');
 
     if (dryRun) {
+      print('Creating a pull request with the following:');
+      print(`  - Title: ${title}`);
+      print(`  - Message: ${message}`);
       return {};
     }
-    const pullRequestTitle = message.split('\n')[0].trim();
-    const pr = silentExec(`hub pr list --format="%I %t%n"`, { dir })
-      .toString()
-      .trim()
-      .split('\n')
-      .find(
-        title =>
-          pullRequestTitle ===
-          title
-            .trim()
-            .split(' ')
-            .slice(1)
-            .join(' ')
-      );
-    const prNumber = pr.split(' ')[0];
-    const pullRequestUrl = `${repoURL}/pull/${prNumber}`;
-    return { pullRequestUrl };
+
+    const reviewers = Array.isArray(pullRequestReviewer)
+      ? pullRequestReviewer
+      : (pullRequestReviewer || '').split(',');
+    const octokit = new Octokit({
+      auth: `token ${process.env.GITHUB_TOKEN}`,
+    });
+    const {
+      data: { number, html_url: url },
+    } = await octokit.pulls.create({
+      owner,
+      repo,
+      title,
+      body: message,
+      head: stagingBranch,
+      base: destinationBranch,
+    });
+
+    if (reviewers.length > 0) {
+      await octokit.pulls.createReviewRequest({
+        owner,
+        repo,
+        pull_number: number, // eslint-disable-line camelcase
+        reviewers,
+      });
+    }
+
+    if (!noBrowse) {
+      await open(url);
+    }
+
+    return { pullRequestUrl: url };
   });
+
+function getPublishCommandInStr({
+  isYarn,
+  tag,
+  monorepo,
+  publishCommand,
+  dir,
+}) {
+  if (monorepo) {
+    const { packagesToPublish } = monorepo;
+    const packageList = expandPackageList(packagesToPublish, dir);
+    return packageList
+      .map(
+        packageDir =>
+          `- ${packageDir} -> ${getPublishCommand({
+            isYarn,
+            publishCommand,
+            tag,
+            dir: packageDir,
+          })}`
+      )
+      .join('\n');
+  } else {
+    return getPublishCommand({ isYarn, publishCommand, tag, dir });
+  }
+}

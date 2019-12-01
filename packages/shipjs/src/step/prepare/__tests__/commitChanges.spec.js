@@ -32,25 +32,37 @@ describe('commitChanges', () => {
       .fn()
       .mockImplementation(() => Promise.resolve());
     wrapExecWithDir.mockImplementation(() => jest.fn());
+    const formatCommitMessage = jest
+      .fn()
+      .mockImplementation(() => 'test message');
 
     await commitChanges({
       config: {
-        formatCommitMessage: () => 'test message',
+        formatCommitMessage,
         beforeCommitChanges,
       },
       dryRun: false,
       dir: '.',
       nextVersion: '1.2.3',
+      releaseType: 'patch',
     });
 
     expect(wrapExecWithDir).toHaveBeenCalledTimes(1);
     expect(wrapExecWithDir).toHaveBeenCalledWith('.');
+    expect(formatCommitMessage).toHaveBeenCalledTimes(1);
+    expect(formatCommitMessage).toHaveBeenCalledWith(
+      expect.objectContaining({
+        version: '1.2.3',
+        releaseType: 'patch',
+      })
+    );
     expect(beforeCommitChanges).toHaveBeenCalledTimes(1);
     expect(beforeCommitChanges).toHaveBeenCalledWith(
       expect.objectContaining({
         exec: expect.any(Function),
         dir: '.',
         nextVersion: '1.2.3',
+        releaseType: 'patch',
       })
     );
     expect(run.mock.calls[0]).toMatchInlineSnapshot(`

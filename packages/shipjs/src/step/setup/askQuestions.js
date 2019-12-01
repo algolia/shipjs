@@ -27,6 +27,8 @@ export default async ({ dir }) =>
       packagesToPublish,
     } = await askMonorepo(dir);
 
+    const { isScoped, isPublic } = await askPackageAccess(dir);
+
     return {
       baseBranch,
       releaseBranch,
@@ -37,17 +39,24 @@ export default async ({ dir }) =>
       mainVersionFile,
       packagesToBump,
       packagesToPublish,
+      isScoped,
+      isPublic,
     };
   });
 
 async function askBranches(dir) {
-  const branches = getRemoteBranches(dir);
-  const baseBranchCandidate = ['develop', 'dev', 'master'].find(item =>
+  let branches = getRemoteBranches(dir);
+  let baseBranchCandidate = ['develop', 'dev', 'master'].find(item =>
     branches.includes(item)
   );
-  const releaseBranchCandidate = ['releases', 'release', 'master'].find(item =>
+  let releaseBranchCandidate = ['releases', 'release', 'master'].find(item =>
     branches.includes(item)
   );
+  if (branches.length === 0) {
+    branches = ['master'];
+    baseBranchCandidate = 'master';
+    releaseBranchCandidate = 'master';
+  }
   const { baseBranch, releaseBranch } = await inquirer.prompt([
     {
       type: 'list',
@@ -195,6 +204,25 @@ async function askMonorepo(dir) {
   return { useMonorepo, mainVersionFile, packagesToBump, packagesToPublish };
 }
 
+async function askPackageAccess(dir) {
+  const isScoped = isScopedPackage(getJson(dir, 'package.json').name);
+
+  if (!isScoped) {
+    return { isScoped };
+  }
+
+  const { isPublic } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'isPublic',
+      message: 'Publish public package?',
+      default: true,
+    },
+  ]);
+
+  return { isScoped, isPublic };
+}
+
 function detectMonorepo(dir) {
   if (fs.existsSync(path.resolve(dir, 'lerna.json'))) {
     return true;
@@ -256,5 +284,13 @@ function stringArrayValidator(answer) {
     return Array.isArray(json) ? true : errorMessage;
   } catch (e) {
     return errorMessage;
+  }
+}
+
+function isScopedPackage(name) {
+  try {
+    return name[0] === '@' && name.indexOf('/') !== -1;
+  } catch (err) {
+    return false;
   }
 }

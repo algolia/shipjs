@@ -36,7 +36,7 @@ describe('gitPush', () => {
         "    $ git remote add origin-with-token https://xxx@github.com/my/repo",
       ]
     `);
-    expect(run).toHaveBeenCalledTimes(3);
+    expect(run).toHaveBeenCalledTimes(4);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
       Object {
         "command": "git remote add origin-with-token https://abcdef@github.com/my/repo",
@@ -57,6 +57,14 @@ describe('gitPush', () => {
         "command": "git push origin-with-token v1.2.3",
         "dir": ".",
         "dryRun": false,
+      }
+    `);
+    expect(run.mock.calls[3][0]).toMatchInlineSnapshot(`
+      Object {
+        "command": "git remote remove origin-with-token",
+        "dir": ".",
+        "dryRun": false,
+        "printCommand": false,
       }
     `);
   });

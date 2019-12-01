@@ -32,7 +32,6 @@ describe('validate', () => {
     validateBeforePrepare.mockImplementation(() => [
       'workingTreeNotClean',
       'currentBranchIncorrect',
-      'noTagForCurrentVersion',
     ]);
     const output = [];
     mockPrint(print, output);
@@ -57,7 +56,6 @@ describe('validate', () => {
         "Failed to prepare a release for the following reason(s).",
         "  - The working tree is not clean.",
         "  - The current branch must be one of [\\"master\\",\\"legacy\\"]",
-        "  - There is no git tag for the current version (v1.2.3)",
       ]
     `);
   });

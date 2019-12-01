@@ -1,8 +1,16 @@
+import tempWrite from 'temp-write';
 import runStep from '../runStep';
 import path from 'path';
 import { run } from '../../util';
 
-export default ({ config, firstRelease, releaseCount, dir, dryRun }) =>
+export default ({
+  config,
+  firstRelease,
+  releaseCount,
+  revisionRange,
+  dir,
+  dryRun,
+}) =>
   runStep(
     {
       title: 'Updating the changelog.',
@@ -10,16 +18,21 @@ export default ({ config, firstRelease, releaseCount, dir, dryRun }) =>
     },
     () => {
       const { conventionalChangelogArgs } = config;
+      const [from, to] = revisionRange.split('..');
+      const tempConfigPath = tempWrite.sync(
+        `module.exports = { gitRawCommitsOpts: { from: '${from}', to: '${to}' } }`
+      );
       const args = [
         conventionalChangelogArgs,
         releaseCount ? `-r ${releaseCount}` : undefined,
         firstRelease ? '-r 0' : undefined,
+        `-n ${tempConfigPath}`,
       ]
         .filter(Boolean)
         .join(' ');
       const execPath = path.resolve(
         require.main.filename,
-        '../../node_modules/.bin/conventional-changelog'
+        '../../../../node_modules/.bin/conventional-changelog'
       );
       run({ command: `${execPath} ${args}`, dir, dryRun });
     }

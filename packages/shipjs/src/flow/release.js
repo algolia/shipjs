@@ -14,6 +14,7 @@ import createGitTag from '../step/release/createGitTag';
 import gitPush from '../step/release/gitPush';
 import createGitHubRelease from '../step/release/createGitHubRelease';
 import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess';
+import checkGitHubToken from '../step/checkGitHubToken';
 import finished from '../step/finished';
 import { detectYarn } from '../util';
 
@@ -25,6 +26,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   if (dryRun) {
     printDryRunBanner();
   }
+  checkGitHubToken({ dryRun });
   const config = loadConfig(dir);
   const { remote } = config;
   const { currentVersion: version } = validate({ config, dir });

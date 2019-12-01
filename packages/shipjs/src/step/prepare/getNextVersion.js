@@ -3,9 +3,10 @@ import runStep from '../runStep';
 import { print, exitProcess } from '../../util';
 import { info, warning } from '../../color';
 
-export default ({ currentVersion, dir }) =>
+export default ({ revisionRange, currentVersion, dir }) =>
   runStep({ title: 'Calculating the next version.' }, () => {
     const { version: nextVersion, ignoredMessages = [] } = getNextVersion(
+      revisionRange,
       currentVersion,
       dir
     );

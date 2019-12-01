@@ -1,5 +1,5 @@
 {
-  "version": "0.8.1",
+  "version": "0.11.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,7 @@
     "release:prepare": "shipjs prepare",
     "release:trigger": "shipjs trigger",
     "toc": "npx markdown-toc -i --bullets=\"-\" GUIDE.md",
-    "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate"
+    "contributors:add": "all-contributors add"
   },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
@@ -28,8 +27,8 @@
   },
   "name": "shipjs",
   "devDependencies": {
-    "@types/jest": "24.0.22",
-    "all-contributors-cli": "6.10.0",
-    "lerna": "3.18.3"
+    "@types/jest": "24.0.23",
+    "all-contributors-cli": "6.11.1",
+    "lerna": "3.19.0"
   }
 }

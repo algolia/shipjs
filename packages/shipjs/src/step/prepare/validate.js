@@ -4,13 +4,12 @@ import { getBaseBranches, validateBeforePrepare } from '../../helper';
 import { print, exitProcess } from '../../util';
 import { info, error } from '../../color';
 
-function printValidationError({ result, currentVersion, baseBranches }) {
+function printValidationError({ result, baseBranches }) {
   const messageMap = {
     workingTreeNotClean: 'The working tree is not clean.',
     currentBranchIncorrect: `The current branch must be one of ${JSON.stringify(
       baseBranches
     )}`,
-    noTagForCurrentVersion: `There is no git tag for the current version (v${currentVersion})`,
   };
 
   print(error('Failed to prepare a release for the following reason(s).'));
@@ -25,23 +24,20 @@ export default ({ config, dir }) =>
       title: 'Checking the current status.',
     },
     () => {
-      const { mergeStrategy, monorepo, getTagName } = config;
+      const { mergeStrategy, monorepo } = config;
       const baseBranches = getBaseBranches({ mergeStrategy });
       const currentVersion =
         monorepo && monorepo.mainVersionFile
           ? getCurrentVersion(dir, monorepo.mainVersionFile)
           : getCurrentVersion(dir);
-      const currentTagName = getTagName({ version: currentVersion });
       const result = validateBeforePrepare({
         dir,
-        currentTagName,
         baseBranches,
       });
       const baseBranch = getCurrentBranch(dir);
       if (result !== true) {
         printValidationError({
           result,
-          currentVersion,
           baseBranches,
         });
         exitProcess(1);
