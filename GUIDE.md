@@ -4,7 +4,6 @@
 
 - [Installation](#installation)
   - [GitHub Token](#github-token)
-  - [Before running Shipjs](#before-running-shipjs)
   - [Dry Mode](#dry-mode)
 - [On your local machine](#on-your-local-machine)
 - [Automate Part 3 (`shipjs trigger`) on your CI](#automate-part-3-shipjs-trigger-on-your-ci)
@@ -70,25 +69,6 @@ You can put it in the following two ways:
    (".env" should not be committed. Add it to ".gitignore".)
 
 If you automate flows in your CI, you can add the token to Environment Variable section in your CI service.
-
-### Before running Shipjs
-
-Shipjs compares previous version.
-
-Before running the `shipjs` commands, you need release first version by yourself.
-
-Let's release first version with [yarn version](https://yarnpkg.com/en/docs/cli/version) commands.
-
-In this situation, your branch is `master` and your package version is `0.0.0`.
-You want to release `0.0.1` at `master` branch.
-
-```bash
-yarn version --patch
-git push origin master
-git push --tags
-```
-
-With this you can use `shipjs` commands.
 
 ### Dry Mode
 
