@@ -14,7 +14,7 @@ describe('updateChangelog', () => {
         updateChangelog: true,
         conventionalChangelogArgs: '--foo bar',
       },
-      commitRange: 'abcdefg..HEAD',
+      revisionRange: 'abcdefg..HEAD',
       firstRelease: false,
       releaseCount: 5,
       dir: '.',

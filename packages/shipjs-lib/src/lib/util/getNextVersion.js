@@ -50,22 +50,26 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
   }
 }
 
-function getTitles(commitRange, dir) {
-  const cmd = `git log ${commitRange} --pretty=format:%s`;
+function getTitles(revisionRange, dir) {
+  const cmd = `git log ${revisionRange} --pretty=format:%s`;
   return silentExec(cmd, { dir, ignoreError: true })
     .toString()
     .trim();
 }
 
-function getBodies(commitRange, dir) {
-  const cmd = `git log ${commitRange} --pretty=format:%b`;
+function getBodies(revisionRange, dir) {
+  const cmd = `git log ${revisionRange} --pretty=format:%b`;
   return silentExec(cmd, { dir, ignoreError: true })
     .toString()
     .trim();
 }
 
-export default function getNextVersion(commitRange, currentVersion, dir = '.') {
-  const titles = getTitles(commitRange, dir);
-  const bodies = getBodies(commitRange, dir);
+export default function getNextVersion(
+  revisionRange,
+  currentVersion,
+  dir = '.'
+) {
+  const titles = getTitles(revisionRange, dir);
+  const bodies = getBodies(revisionRange, dir);
   return getNextVersionFromCommitMessages(currentVersion, titles, bodies);
 }

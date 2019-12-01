@@ -6,12 +6,12 @@ import { info, warning } from '../../color';
 
 export default async ({ currentVersion, dir }) =>
   await runStep(
-    { title: 'Getting a commit range for this release.' },
+    { title: 'Getting a revision range for this release.' },
     async () => {
-      let commitRange = `v${currentVersion}..HEAD`;
+      let revisionRange = `v${currentVersion}..HEAD`;
       if (hasTag(`v${currentVersion}`, dir)) {
-        print(info(`✔ ${commitRange}`));
-        return { commitRange };
+        print(info(`  ${revisionRange}`));
+        return { revisionRange };
       }
 
       print(warning(`Git tag 'v${currentVersion}' doesn't exist.`));
@@ -31,8 +31,8 @@ export default async ({ currentVersion, dir }) =>
       ]);
       const [, commit] = answer.split(' ');
 
-      commitRange = `${commit}..HEAD`;
-      print(info(`✔ ${commitRange}`));
-      return { commitRange };
+      revisionRange = `${commit}..HEAD`;
+      print(info(`  ${revisionRange}`));
+      return { revisionRange };
     }
   );
