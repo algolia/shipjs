@@ -7,7 +7,7 @@ export default ({
   config,
   firstRelease,
   releaseCount,
-  commitRange,
+  revisionRange,
   dir,
   dryRun,
 }) =>
@@ -18,7 +18,7 @@ export default ({
     },
     () => {
       const { conventionalChangelogArgs } = config;
-      const [from, to] = commitRange.split('..');
+      const [from, to] = revisionRange.split('..');
       const tempConfigPath = tempWrite.sync(
         `module.exports = { gitRawCommitsOpts: { from: '${from}', to: '${to}' } }`
       );
