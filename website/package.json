@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vuepress dev",
     "build": "vuepress build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\""
   },
   "author": "Eunjae Lee <karis612@gmail.com> (https://github.com/eunjae-lee)",
   "license": "MIT",
