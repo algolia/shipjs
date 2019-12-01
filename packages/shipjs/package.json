@@ -38,7 +38,7 @@
     "@slack/webhook": "^5.0.1",
     "arg": "4.1.2",
     "chalk": "3.0.0",
-    "change-case": "3.1.0",
+    "change-case": "4.0.0",
     "conventional-changelog-cli": "2.0.28",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.0",
