@@ -4,7 +4,7 @@ export default function extractSpecificChangelog({ changelog, version }) {
   }
   const escapedVersion = version.replace(/\./g, '\\.');
   const regex = new RegExp(
-    `(#+?\\s\\[?v?${escapedVersion}\\]?[\\s\\S]*?)(#+?\\s\\[?v?\\d\\.\\d\\.\\d\\]?)`,
+    `(#+?\\s\\[?v?${escapedVersion}\\]?[\\s\\S]*?)(#+?\\s\\[?v?\\d+?\\.\\d+?\\.\\d+?\\]?)`,
     'g'
   );
   const matches = regex.exec(changelog);
