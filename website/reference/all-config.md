@@ -47,7 +47,7 @@ This is passed to `conventional-changelog` CLI to update CHANGELOG.md.
 
 *default:*
 ```js
-({ isYarn }) =>
+installCommand: ({ isYarn }) =>
     isYarn ? 'yarn install --silent' : 'npm install'`
 ```
 
@@ -55,7 +55,7 @@ This is passed to `conventional-changelog` CLI to update CHANGELOG.md.
 
 *default:*
 ```js
-({ version, releaseType, dir, exec }) => {}
+versionUpdated: ({ version, releaseType, dir, exec }) => {}
 ```
 
 This is a lifecycle hook where you can put additional code after version is updated. You can read [an example here](../guide/useful-config.html#extra-work-on-updating-version).
@@ -71,7 +71,7 @@ This is a lifecycle hook where you can put additional code after version is upda
 
 *default:*
 ```js
-({ nextVersion, releaseType, exec, dir }) => {}
+beforeCommitChanges: ({ nextVersion, releaseType, exec, dir }) => {}
 ```
 
 This is a lifecycle hook which is executed right before `git commit` happens. You can put additional code like modifying some other files.
@@ -89,3 +89,143 @@ pullRequestReviewer: ["user1", "user2", "user3"]
 ```
 
 One thing you need to be aware of is, you cannot assign yourself as a reviewer. You can put github username of your team or colleagues.
+
+## `mergeStrategy`
+
+*default:*
+```js
+mergeStrategy: {
+  toSameBranch: ['master'],
+}
+```
+
+This decides how you manage and use your branches for release.
+
+```js
+// example
+mergeStrategy: {
+  toReleaseBranch: {
+    develop: 'master'
+  }
+}
+
+// or
+mergeStrategy: {
+  toReleaseBranch: {
+    master: 'releases/stable',
+    legacy: 'releases/legacy',
+    next: 'releases/next',
+  }
+}
+```
+
+To learn more, you can read [this guide](../guide/useful-config.html#mergestrategy).
+
+## `buildCommand`
+
+*default:*
+```js
+buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build')
+```
+
+If there's nothing to build before publishing, you can skip this step:
+
+```js
+buildCommand: () => null
+```
+
+## `beforePublish`
+
+*default:* `undefined`
+
+```js
+// example
+beforePublish: ({ exec, dir }) => { /* do something */ }
+```
+
+## `publishCommand`
+
+*default:*
+```js
+publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand
+```
+
+`defaultCommand`:
+```js
+isYarn
+    ? `yarn publish --no-git-tag-version --non-interactive --tag ${tag}`
+    : `npm publish --tag ${tag}`
+```
+
+By default, `publishCommand` will return either `yarn publish ...` or `npm publish ...`.
+
+### Scoped Package
+
+If your project is a scoped package and you want it to be public, you need to add `--access public` to the publish command. To do so,
+
+```js
+publishCommand: ({ isYarn, tag, defaultCommand, dir }) => `${defaultCommand} --access public`
+```
+
+### Monorepo
+
+If your project is a monorepo and if you want to use different publish command per package,
+
+```js
+publishCommand: ({ isYarn, tag, defaultCommand, dir }) => {
+  if (dir.endsWith("/website")) {
+    return "npx now";
+  } else {
+    return defaultCommand;
+  }
+}
+```
+
+## `afterPublish`
+
+*default:* `undefined`
+
+```js
+// example
+afterPublish: ({ exec, dir }) => { /* do something */ }
+```
+
+## `testCommandBeforeRelease`
+
+*default:*
+```js
+testCommandBeforeRelease: ({ isYarn }) => isYarn ? 'yarn test' : 'npm run test'
+```
+
+Ship.js runs this command at `shipjs trigger` before publishing the package to make sure if it works correctly.
+
+If you don't have any testing tool and want to skip this step, you can do so like the following:
+
+```js
+testCommandBeforeRelease: () => null
+```
+
+## `releases`
+
+*default:* `undefined`
+
+By default, Ship.js will create a release on "releases" tab at GitHub.
+
+By defining `releases`, you can optionally attach assets or customize content of release.
+
+```
+// example
+releases: {
+  assetsToUpload, // optional
+  extractChangelog, // optional
+}
+```
+
+- `assetsToUpload`: String | String[] | Function
+   - `archive.zip`
+   - `archive.*.zip`
+   - `['package.json', 'dist/*.zip']`
+   - `({dir, version, tagName}) => [...]`
+- `extractChangelog`: `({ version, dir }) => 'some specific changelog to that version'`
+
+## slack...
