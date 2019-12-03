@@ -53,9 +53,11 @@ installCommand: ({ isYarn }) =>
 
 ## `versionUpdated`
 
-*default:*
+*default:* `undefined`
+
 ```js
-versionUpdated: ({ version, releaseType, dir, exec }) => {}
+// example
+versionUpdated: ({ version, releaseType, dir, exec }) => { /* ... */ }
 ```
 
 This is a lifecycle hook where you can put additional code after version is updated. You can read [an example here](../guide/useful-config.html#extra-work-on-updating-version).
@@ -69,9 +71,11 @@ This is a lifecycle hook where you can put additional code after version is upda
 
 ## `beforeCommitChanges`
 
-*default:*
+*default:* `undefined`
+
 ```js
-beforeCommitChanges: ({ nextVersion, releaseType, exec, dir }) => {}
+// example
+beforeCommitChanges: ({ nextVersion, releaseType, exec, dir }) => { /* ... */ }
 ```
 
 This is a lifecycle hook which is executed right before `git commit` happens. You can put additional code like modifying some other files.
