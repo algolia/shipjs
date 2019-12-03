@@ -47,11 +47,7 @@ export default async ({
     };
 
     const filePath = path.resolve(dir, 'ship.config.js');
-    fs.writeFileSync(
-      filePath,
-      `// eslint-disable-next-line import/no-commonjs\n` +
-        `module.exports = ${serialize(config)};`
-    );
+    fs.writeFileSync(filePath, `module.exports = ${serialize(config)};`);
     await runPrettier({ filePath, dir });
 
     return () => {
