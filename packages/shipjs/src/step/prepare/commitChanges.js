@@ -27,12 +27,14 @@ export default async ({
       print('  |');
       return;
     }
-    await beforeCommitChanges({
-      nextVersion,
-      releaseType,
-      exec: wrapExecWithDir(dir),
-      dir,
-    });
+    if (beforeCommitChanges) {
+      await beforeCommitChanges({
+        nextVersion,
+        releaseType,
+        exec: wrapExecWithDir(dir),
+        dir,
+      });
+    }
     const filePath = tempWrite.sync(message);
     run({ command: 'git add .', dir });
     run({ command: `git commit --file=${filePath}`, dir });

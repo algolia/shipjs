@@ -19,7 +19,9 @@ export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
         packageList.forEach(packageDir =>
           print(`-> ${info(`${packageDir}/package.json`)}`)
         );
-        print(`-> execute ${info('versionUpdated()')} callback.`);
+        if (versionUpdated) {
+          print(`-> execute ${info('versionUpdated()')} callback.`);
+        }
         return;
       }
 
@@ -28,11 +30,13 @@ export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
         print(`-> ${info(`${packageDir}/package.json`)}`);
         updateVersion({ nextVersion, dir: packageDir });
       });
-      await versionUpdated({
-        version: nextVersion,
-        releaseType,
-        dir,
-        exec: wrapExecWithDir(dir),
-      });
+      if (versionUpdated) {
+        await versionUpdated({
+          version: nextVersion,
+          releaseType,
+          dir,
+          exec: wrapExecWithDir(dir),
+        });
+      }
     }
   );

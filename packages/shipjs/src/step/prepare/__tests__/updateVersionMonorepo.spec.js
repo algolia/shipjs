@@ -68,6 +68,7 @@ describe('updateVersionMonorepo', () => {
     mockPrint(print, output);
     updateVersionMonorepo({
       config: {
+        versionUpdated: () => {},
         monorepo: {
           packagesToBump: ['packages/*'],
           mainVersionFile: 'lerna.json',
