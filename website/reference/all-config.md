@@ -345,10 +345,40 @@ If you don't want, you can skip some of the messages:
 
 ```js
 slack: {
-  prepared: () => ({ /* ... */ }),
   releaseStart: null,
-  releaseSuccess: () => ({ /* ... */ }),
 }
 ```
 
 In this way, Ship.js won't send a message when it starts to release.
+
+When Ship.js loads your `ship.config.js`, it deep-merges `slack` object.
+
+```js
+defaultConfig = {
+  slack: {
+    default: {
+      username: 'Ship.js'
+    },
+    prepared: () => { /* ... */ },
+    releaseStart: () => { /* ... */ },
+    releaseSuccess: () => { /* ... */ },
+  }
+}
+
+yourConfig = {
+  slack: {
+    releaseStart: null,
+  }
+}
+
+finalConfig = {
+  slack: {
+    default: {
+      username: 'Ship.js'
+    },
+    prepared: () => { /* ... */ },
+    releaseStart: null, // <- only this is affected
+    releaseSuccess: () => { /* ... */ },
+  }
+}
+```
