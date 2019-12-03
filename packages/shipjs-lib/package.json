@@ -40,11 +40,12 @@
     "jest-watch-typeahead": "0.4.2",
     "json": "9.0.6",
     "prettier": "1.19.1",
-    "rollup": "1.27.7",
+    "rollup": "1.27.8",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0"
   },
   "dependencies": {
+    "deepmerge": "^4.2.2",
     "dotenv": "^8.1.0",
     "parse-github-url": "1.0.2",
     "semver": "6.3.0",
