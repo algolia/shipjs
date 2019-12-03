@@ -89,7 +89,7 @@ async function prepare({
     dryRun,
   });
   pushToStagingBranch({ remote, stagingBranch, dir, dryRun });
-  const { pullRequestUrl } = createPullRequest({
+  const { pullRequestUrl } = await createPullRequest({
     baseBranch,
     stagingBranch,
     currentVersion,
@@ -101,7 +101,12 @@ async function prepare({
     dryRun,
   });
   const appName = getAppName(dir);
-  notifyPrepared({ config, appName, version: nextVersion, pullRequestUrl });
+  await notifyPrepared({
+    config,
+    appName,
+    version: nextVersion,
+    pullRequestUrl,
+  });
   finished();
 }
 
