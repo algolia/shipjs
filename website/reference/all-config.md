@@ -213,7 +213,7 @@ By default, Ship.js will create a release on "releases" tab at GitHub.
 
 By defining `releases`, you can optionally attach assets or customize content of release.
 
-```
+```js
 // example
 releases: {
   assetsToUpload, // optional
@@ -228,4 +228,127 @@ releases: {
    - `({dir, version, tagName}) => [...]`
 - `extractChangelog`: `({ version, dir }) => 'some specific changelog to that version'`
 
-## slack...
+## `appName`
+
+*default:* `undefined`
+
+```js
+// example
+appName: 'My Awesome Package'
+```
+
+This is used when Ship.js sends message to your Slack channel. If it's `undefined`, Ship.js will take `name` from your `package.json` by default.
+
+## Messaging to Slack
+
+If you configure an environment variable `SLACK_INCOMING_HOOK`, Ship.js will send messages
+
+- when `shipjs prepare` is finished (`prepare`)
+- when `shipjs trigger` begins (`releaseStart`)
+- when `shipjs trigger` is finished (`releaseSuccess`)
+
+You can specify sender's username:
+
+```js
+slack: {
+  default: {
+    username: 'My Release Bot',
+  }
+}
+```
+
+As described above, there are three phases of Slack messages: `prepare`, `releaseStart` and `releaseSuccess`.
+
+You can customize the messages. The following is the default value. You can read [this documentation from Slack](https://api.slack.com/docs/messages/builder) to learn how to format messages.
+
+```js
+slack: {
+  prepared: ({ appName, version, pullRequestUrl }) => ({
+    pretext: `:writing_hand: The release for *${appName}@${version}* is prepared!`,
+    fields: [
+      {
+        title: 'Branch',
+        value: 'master',
+        short: true,
+      },
+      {
+        title: 'Version',
+        value: version,
+        short: true,
+      },
+      {
+        title: 'Pull Request',
+        value: pullRequestUrl,
+        short: false,
+      },
+    ],
+  }),
+  releaseStart: ({
+    appName,
+    version,
+    latestCommitHash,
+    latestCommitUrl,
+  }) => ({
+    pretext: `:rocket: Starting to release *${appName}@${version}*`,
+    fields: [
+      {
+        title: 'Branch',
+        value: 'master',
+        short: true,
+      },
+      {
+        title: 'Commit',
+        value: `*<${latestCommitUrl}|${latestCommitHash}>*`,
+        short: true,
+      },
+      {
+        title: 'Version',
+        value: version,
+        short: true,
+      },
+    ],
+  }),
+  releaseSuccess: ({
+    appName,
+    version,
+    latestCommitHash,
+    latestCommitUrl,
+    repoURL,
+  }) => ({
+    pretext: `:tada: Successfully released *${appName}@${version}*`,
+    fields: [
+      {
+        title: 'Branch',
+        value: 'master',
+        short: true,
+      },
+      {
+        title: 'Commit',
+        value: `*<${latestCommitUrl}|${latestCommitHash}>*`,
+        short: true,
+      },
+      {
+        title: 'Version',
+        value: version,
+        short: true,
+      },
+      {
+        title: 'CHANGELOG',
+        value: `${repoURL}/blob/master/CHANGELOG.md`,
+      },
+    ],
+  }),
+}
+```
+
+If you don't want, you can skip some of the messages:
+
+```js
+slack: {
+  prepared: () => ({ /* ... */ }),
+  releaseStart: null,
+  releaseSuccess: () => ({ /* ... */ }),
+}
+```
+
+In this way, Ship.js won't send a message when it starts to release.
