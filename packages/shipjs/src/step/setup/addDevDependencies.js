@@ -4,14 +4,14 @@ import { info } from '../../color';
 import fs from 'fs';
 import path from 'path';
 
-export default ({ dependencies, dir }) =>
+export default ({ dependencies, dir, dryRun }) =>
   runStep({ title: 'Installing Ship.js' }, () => {
     const command = detectYarn(dir)
       ? `yarn add --exact --dev ${dependencies.join(' ')}${
           usesYarnWorkspace(dir) ? ' -W' : ''
         }`
       : `npm install --save-exact --save-dev ${dependencies.join(' ')}`;
-    run({ command, dir, silent: true, printCommand: false });
+    run({ command, dir, silent: true, printCommand: dryRun, dryRun });
     return () => print(`${info('✔')} Installed shipjs as devDependency.`);
   });
 

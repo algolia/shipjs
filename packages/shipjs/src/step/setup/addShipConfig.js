@@ -16,6 +16,7 @@ export default async ({
   packagesToBump,
   packagesToPublish,
   dir,
+  dryRun,
 }) =>
   await runStep({ title: 'Creating ship.config.js' }, async () => {
     const { testExists, buildExists } = checkIfScriptsExist({ dir });
@@ -45,10 +46,14 @@ export default async ({
       ...(!testExists && { testCommandBeforeRelease: () => null }),
       ...(!buildExists && { buildCommand: () => null }),
     };
-
-    const filePath = path.resolve(dir, 'ship.config.js');
-    fs.writeFileSync(filePath, `module.exports = ${serialize(config)};`);
-    await runPrettier({ filePath, dir });
+    if (dryRun) {
+      print(`ship.config.js`);
+      print(serialize(config));
+    } else {
+      const filePath = path.resolve(dir, 'ship.config.js');
+      fs.writeFileSync(filePath, `module.exports = ${serialize(config)};`);
+      await runPrettier({ filePath, dir });
+    }
 
     return () => {
       print(`${info('✔')} Created \`ship.config.js\`.`);
