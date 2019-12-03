@@ -1,4 +1,4 @@
-import loadConfig, { loadWithUserConfig } from '../loadConfig';
+import loadConfig from '../loadConfig';
 import defaultConfig from '../defaultConfig';
 import path from 'path';
 
@@ -19,36 +19,11 @@ describe('loadConfig', () => {
     const config = loadConfig(d('example'));
     expect(typeof config.versionUpdated).toBe('function');
   });
-});
 
-describe('loadWithUserConfig', () => {
-  it('should merge with defaultConfig', () => {
-    const config = loadWithUserConfig({
-      versionUpdated() {},
-    });
-    ['conventionalChangelogArgs'].forEach(key => {
-      expect(config[key]).toBe(defaultConfig[key]);
-    });
-  });
-
-  it('overwrites the children of mergeStrategy', () => {
-    const config = loadWithUserConfig({
-      mergeStrategy: {
-        toSameBranch: undefined,
-        toReleaseBranch: undefined,
-      },
-    });
-    const { mergeStrategy } = config;
-    expect(mergeStrategy.toSameBranch).toBe(undefined);
-    expect(mergeStrategy.toReleaseBranch).toBe(undefined);
-  });
-
-  it('gets default children of mergeStrategy', () => {
-    const config = loadWithUserConfig({
-      mergeStrategy: {},
-    });
-    const { mergeStrategy } = config;
-    expect(mergeStrategy.toSameBranch).toEqual([]);
-    expect(mergeStrategy.toReleaseBranch).toEqual({});
+  it('should merge defaultConfig and userConfig', () => {
+    const config = loadConfig(d('example'));
+    expect(config.conventionalChangelogArgs).toBe(
+      defaultConfig.conventionalChangelogArgs
+    );
   });
 });
