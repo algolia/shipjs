@@ -1,3 +1,21 @@
+## [0.11.2](https://github.com/algolia/shipjs/compare/v0.11.1...v0.11.2) (2019-12-03)
+
+
+### Bug Fixes
+
+* **config:** deep merge `config.slack` ([#494](https://github.com/algolia/shipjs/issues/494)) ([efb1704](https://github.com/algolia/shipjs/commit/efb1704))
+* **deps:** update dependency change-case to v4.0.1 ([#488](https://github.com/algolia/shipjs/issues/488)) ([38758ea](https://github.com/algolia/shipjs/commit/38758ea))
+* **prepare:** make `versionUpdated` and `beforeCommitChanges` undefined by default ([#495](https://github.com/algolia/shipjs/issues/495)) ([d9a4c51](https://github.com/algolia/shipjs/commit/d9a4c51))
+* **release:** wrong release content due to wrong regexp ([#484](https://github.com/algolia/shipjs/issues/484)) ([ba9588a](https://github.com/algolia/shipjs/commit/ba9588a))
+* **setup:** add eslint disable comment to ship.config.js ([#485](https://github.com/algolia/shipjs/issues/485)) ([1bd459e](https://github.com/algolia/shipjs/commit/1bd459e))
+
+
+### Reverts
+
+* "fix(setup): add eslint disable comment to ship.config.js ([#485](https://github.com/algolia/shipjs/issues/485))" ([#491](https://github.com/algolia/shipjs/issues/491)) ([bc437ba](https://github.com/algolia/shipjs/commit/bc437ba))
+
+
+
 ## [0.11.1](https://github.com/algolia/shipjs/compare/v0.11.0...v0.11.1) (2019-12-01)
 
 
