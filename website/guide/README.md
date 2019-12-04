@@ -83,7 +83,7 @@ You can manually run `shipjs trigger` on the base branch after the PR is merged.
 However you can also configure your CI service(e.g. CircleCI) to do this for you. It means the longest process is on the CI service asynchronously, not occupying your working environment.
 
 <p class="action">
-  <a href="/" class="nav-link action-button">Get Started →</a>
+  <a href="./getting-started.html" class="nav-link action-button">Get Started →</a>
 </p>
 
 ## Or, a little deeper look ⁉️
@@ -137,5 +137,5 @@ You can run `shipjs trigger --dry-run` just to see what will be executed without
 And you can configure your CI service to run the Part 3 on behalf of you. What you need to do is just to make it run `shipjs trigger` every time there is a new commit. It's okay to do so because `shipjs trigger` triggers release only when the conditions are met. If not, it skips.
 
 <p class="action">
-  <a href="/" class="nav-link action-button">Get Started →</a>
+  <a href="./getting-started.html" class="nav-link action-button">Get Started →</a>
 </p>
