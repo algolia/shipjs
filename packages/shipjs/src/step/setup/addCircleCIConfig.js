@@ -13,6 +13,7 @@ export default ({
   scheduleCircleCI,
   cronExpr,
   dir,
+  dryRun,
 }) =>
   runStep(
     {
@@ -42,8 +43,13 @@ export default ({
         gitUserName: getGitConfig('user.name') || 'Your Name',
         gitUserEmail: getGitConfig('user.email') || 'your@email.com',
       });
-      mkdirp.sync(path.dirname(filePath));
-      fs.writeFileSync(filePath, content);
+      if (dryRun) {
+        print(`.circleci/config.yml`);
+        print(content);
+      } else {
+        mkdirp.sync(path.dirname(filePath));
+        fs.writeFileSync(filePath, content);
+      }
       return () => {
         print(`${info('✔')} Created \`.circleci/config.yml\`.`);
         print('  You still need to finish setting up at CircleCI.');
