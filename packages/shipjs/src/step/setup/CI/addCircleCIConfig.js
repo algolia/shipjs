@@ -1,24 +1,16 @@
 import { getGitConfig } from 'shipjs-lib';
-import runStep from '../runStep';
+import runStep from '../../runStep';
 import fs from 'fs';
 import path from 'path';
 import ejs from 'ejs';
 import mkdirp from 'mkdirp';
-import { print } from '../../util';
-import { info, warning } from '../../color';
+import { print } from '../../../util';
+import { info, warning } from '../../../color';
 
-export default ({
-  baseBranch,
-  configureCircleCI,
-  scheduleCircleCI,
-  cronExpr,
-  dir,
-  dryRun,
-}) =>
+export default ({ baseBranch, scheduleCircleCI, cronExpr, dir, dryRun }) =>
   runStep(
     {
       title: 'Creating CircleCI configuration',
-      skipIf: () => !configureCircleCI,
     },
     () => {
       const filePath = path.resolve(dir, '.circleci', 'config.yml');

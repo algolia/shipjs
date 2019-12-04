@@ -4,7 +4,7 @@ import askQuestions from '../step/setup/askQuestions';
 import addDevDependencies from '../step/setup/addDevDependencies';
 import addScriptsToPackageJson from '../step/setup/addScriptsToPackageJson';
 import addShipConfig from '../step/setup/addShipConfig';
-import addCircleCIConfig from '../step/setup/addCircleCIConfig';
+import integrations from '../step/setup/CI';
 import { print } from '../util';
 import { success } from '../color';
 
@@ -19,15 +19,14 @@ async function setup({ help = false, dir = '.', dryRun = false }) {
   const {
     baseBranch,
     releaseBranch,
-    configureCircleCI,
-    scheduleCircleCI,
-    cronExpr,
     useMonorepo,
     mainVersionFile,
     packagesToBump,
     packagesToPublish,
     isScoped,
     isPublic,
+    CIIndex,
+    CIConfig,
   } = await askQuestions({ dir });
   const outputs = [
     addDevDependencies({ dependencies: ['shipjs'], dir, dryRun }),
@@ -44,11 +43,16 @@ async function setup({ help = false, dir = '.', dryRun = false }) {
       dir,
       dryRun,
     }),
-    addCircleCIConfig({
+    await integrations[CIIndex].addConfig({
+      ...CIConfig,
+      isScoped,
+      isPublic,
       baseBranch,
-      configureCircleCI,
-      scheduleCircleCI,
-      cronExpr,
+      releaseBranch,
+      useMonorepo,
+      mainVersionFile,
+      packagesToBump,
+      packagesToPublish,
       dir,
       dryRun,
     }),
