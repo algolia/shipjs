@@ -13,7 +13,7 @@ describe('printHelp', () => {
       	shipjs setup - Setup Ship.js in your project.
 
       USAGE
-      	npx shipjs setup [--help] [--dir PATH]
+      	npx shipjs setup [--help] [--dir PATH] [--dry-run]
 
       OPTIONS
       	-h, --help
@@ -21,6 +21,9 @@ describe('printHelp', () => {
 
       	-d, --dir PATH
       	  Specify the PATH of the repository (default: the current directory).
+
+      	-D, --dry-run
+      	  Displays the steps without actually doing them.
       ",
       ]
     `);
