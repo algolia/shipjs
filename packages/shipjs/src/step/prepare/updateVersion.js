@@ -8,14 +8,18 @@ export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
     const { versionUpdated } = config;
     if (dryRun) {
       print(`-> ${info('package.json')}`);
-      print(`-> execute ${info('versionUpdated()')} callback.`);
+      if (versionUpdated) {
+        print(`-> execute ${info('versionUpdated()')} callback.`);
+      }
       return;
     }
     updateVersion({ nextVersion, dir });
-    await versionUpdated({
-      version: nextVersion,
-      releaseType,
-      dir,
-      exec: wrapExecWithDir(dir),
-    });
+    if (versionUpdated) {
+      await versionUpdated({
+        version: nextVersion,
+        releaseType,
+        dir,
+        exec: wrapExecWithDir(dir),
+      });
+    }
   });

@@ -11,8 +11,8 @@ export default {
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
   installCommand: ({ isYarn }) =>
     isYarn ? 'yarn install --silent' : 'npm install',
-  versionUpdated: ({ version, releaseType, dir, exec }) => {},
-  beforeCommitChanges: ({ nextVersion, releaseType, exec, dir }) => {},
+  versionUpdated: undefined, // ({ version, releaseType, dir, exec }) => {},
+  beforeCommitChanges: undefined, // ({ nextVersion, releaseType, exec, dir }) => {},
   getStagingBranchName: ({ nextVersion, releaseType }) =>
     `releases/v${nextVersion}`,
   formatCommitMessage: ({ version, releaseType, mergeStrategy, baseBranch }) =>

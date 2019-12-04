@@ -34,7 +34,9 @@ describe('updateVersion', () => {
     const output = [];
     mockPrint(print, output);
     updateVersion({
-      config: {},
+      config: {
+        versionUpdated: () => {},
+      },
       dryRun: true,
     });
     expect(output).toMatchInlineSnapshot(`
