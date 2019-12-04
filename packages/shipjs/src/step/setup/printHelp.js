@@ -5,10 +5,10 @@ import { bold, underline } from '../../color';
 export default () =>
   runStep({}, () => {
     const indent = line => `\t${line}`;
-
     const help = `--help`;
     const dir = `--dir ${underline('PATH')}`;
-    const all = [help, dir].map(x => `[${x}]`).join(' ');
+    const dryRun = `--dry-run`;
+    const all = [help, dir, dryRun].map(x => `[${x}]`).join(' ');
 
     const messages = [
       bold('NAME'),
@@ -27,6 +27,9 @@ export default () =>
           'PATH'
         )} of the repository (default: the current directory).`
       ),
+      '',
+      indent(`-D, ${dryRun}`),
+      indent('  Displays the steps without actually doing them.'),
       '',
     ];
     print(messages.join('\n'));
