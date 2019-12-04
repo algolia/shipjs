@@ -1,3 +1,22 @@
+## [0.11.2](https://github.com/algolia/shipjs/compare/v0.11.1...v0.11.2) (2019-12-04)
+
+
+### Bug Fixes
+
+* **config:** deep merge `config.slack` ([#494](https://github.com/algolia/shipjs/issues/494)) ([efb1704](https://github.com/algolia/shipjs/commit/efb1704f21b7baf6d469a8c5c0591f16cb0c9f61))
+
+#### `prepare`
+* add missing pr url to slack message ([#499](https://github.com/algolia/shipjs/issues/499)) ([fa1e654](https://github.com/algolia/shipjs/commit/fa1e65466868b38cf84658ca0511dcc3a8f74b01))
+* make `versionUpdated` and `beforeCommitChanges` undefined by default ([#495](https://github.com/algolia/shipjs/issues/495)) ([d9a4c51](https://github.com/algolia/shipjs/commit/d9a4c51a504288082ffbf0ac0094c2eec56bff01))
+
+#### `trigger`
+* wrong release content due to wrong regexp ([#484](https://github.com/algolia/shipjs/issues/484)) ([ba9588a](https://github.com/algolia/shipjs/commit/ba9588a941e83fea5cc7ddee64ac31a2d0d753dc))
+
+#### `setup`
+* add `--dry-run` flag ([#492](https://github.com/algolia/shipjs/issues/492)) ([1beb810](https://github.com/algolia/shipjs/commit/1beb8102505d21f1ffb7a61cc9efcd247d6a6b13))
+
+
+
 ## [0.11.1](https://github.com/algolia/shipjs/compare/v0.11.0...v0.11.1) (2019-12-01)
 
 
