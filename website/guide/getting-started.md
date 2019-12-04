@@ -8,6 +8,8 @@ Running the following command will guide you to set it up interactively.
 npx shipjs setup
 ```
 
+![npx shipjs setup](./assets/setup.png)
+
 Otherwise, you can still do it manually.
 
 ```bash
