@@ -8,7 +8,8 @@
 </p>
 
 <p align="center">
-  Take control of what is going to be your next release.
+  Take control of what is going to be your next release.<br>
+  <a href="https://shipjs.netlify.com/"> https://shipjs.netlify.com/</a>
 </p>
 
 ## Features
@@ -31,10 +32,6 @@ npx shipjs setup
 This interactive CLI will help you install Ship.js into your package and create a tailored config file for your project.
 
 ![npx shipjs setup](./website/guide/setup.png)
-
-## Documentation
-
-Docs are available at https://shipjs.netlify.com/.
 
 ## Why 🤷🏻‍
 
