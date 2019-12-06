@@ -36,6 +36,71 @@ This interactive CLI will help you install Ship.js into your package and create 
 
 Docs are available at https://shipjs.netlify.com/.
 
+## Why 🤷🏻‍
+
+ Coding is fun, debugging and testing are okay, but releasing is NOT.
+
+ When releasing, you go through something like the following:
+
+ - Update the version in `package.json`
+ - Update the changelog
+ - Actually release it (e.g. `yarn build && yarn publish`)
+ - Create a git tag
+ - Create a release on GitHub
+
+ ### What could go wrong?
+
+ - You might make mistakes during the release.
+   - Environments are different across your team members.
+   - You're releasing alone because the whole process happens on your local machine.
+   - It's not your everyday-job. Mistakes can happen.
+ - You are blocked and cannot do anything else until it's done.
+   - Even if you have a release script, you need to watch until the script finishes well.
+   - You don't want to switch to another feature branch and work there until the script finishes.
+
+ ## How to solve them❓
+
+ In Ship.js, the release process consists of three parts.
+
+ ### Part 1. Preparation (`shipjs prepare`)
+
+ ![Preview](./website/guide/preview.gif)
+
+ Run `shipjs prepare` and it will briefly do the following:
+
+ - Figure out next version.
+ - Update the version and changelog.
+ - Create a pull request.
+
+ It takes less than a couple of minutes.
+
+ ### Part 2. Review
+
+ - Review the PR by yourself, or with your colleagues.
+ - Add more commits to the PR if you want.
+ - You can hold the release, build from the staging branch and test it manually.
+ - If you want to cancel the release, just close the PR and delete the staging branch.
+
+ When you think it's ready to release, merge the PR.
+
+ ### Part 3. Trigger a release (`shipjs trigger`)
+
+ Run `shipjs trigger` and it will briefly do the following:
+
+ - Run a final test (unit, e2e, etc).
+ - Release it to NPM (or elsewhere as you configure it).
+ - Create a git tag for the version.
+ - Create a release for the tag on GitHub.
+
+ You can manually run `shipjs trigger` on the base branch after the PR is merged.
+
+ However you can also configure your CI service(e.g. CircleCI) to do this for you. It means the longest process is on the CI service asynchronously, not occupying your working environment.
+
+## Getting Started
+
+Let's move on to the [guide](https://shipjs.netlify.com/guide/getting-started.html).
+
+
 ## How is it different from semantic-release?
 
 **semantic-release** is a tool for `fully automated version management and package publishing`.
@@ -47,16 +112,6 @@ Ship.js gives you more control over the release process. Ship.js automatically c
 - Edit the automatically generated changelog for clarity & readability.
 - Run any automated tests on the package release candidate.
 - Build a release candidate automatically (with [Pika CI](https://github.com/marketplace/pika-ci-cd)).
-
-## Contributing
-
-You can create an issue for bug, feature request or your opinion.
-
-And we also appreciate your PRs. The detailed contribution guide is coming soon.
-
-## Getting Started
-
-Let's move on to the [guide](https://shipjs.netlify.com/guide/getting-started.html).
 
 ## Contributors ✨
 
