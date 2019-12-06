@@ -28,26 +28,9 @@ Running the following command will guide you to set it up interactively.
 npx shipjs setup
 ```
 
-This will help you install Ship.js into your package and create a tailored config file for your project.
+This interactive CLI will help you install Ship.js into your package and create a tailored config file for your project.
 
 ![npx shipjs setup](./website/guide/setup.png)
-
-Otherwise, you can still do it manually.
-
-```bash
-npm install --save-dev shipjs
-
-or
-
-yarn add -D shipjs
-```
-
-Add the following to the `scripts` section in your `package.json`.
-
-```js
-"release:prepare": "shipjs prepare",
-"release:trigger": "shipjs trigger",
-```
 
 ## Documentation
 
