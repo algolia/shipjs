@@ -64,7 +64,7 @@ Docs are available at https://shipjs.netlify.com/.
 
  ### Part 1. Preparation (`shipjs prepare`)
 
- ![Preview][gif]
+ ![Preview][./website/guide/preview.gif]
 
  Run `shipjs prepare` and it will briefly do the following:
 
