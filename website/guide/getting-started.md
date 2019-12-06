@@ -8,7 +8,7 @@ Running the following command will guide you to set it up interactively.
 npx shipjs setup
 ```
 
-This will help you install Ship.js into your package and create a tailored config file for your project.
+This interactive CLI will help you install Ship.js into your package and create a tailored config file for your project.
 
 ![npx shipjs setup](./setup.png)
 
