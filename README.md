@@ -96,6 +96,11 @@ Docs are available at https://shipjs.netlify.com/.
 
  However you can also configure your CI service(e.g. CircleCI) to do this for you. It means the longest process is on the CI service asynchronously, not occupying your working environment.
 
+## Getting Started
+
+Let's move on to the [guide](https://shipjs.netlify.com/guide/getting-started.html).
+
+
 ## How is it different from semantic-release?
 
 **semantic-release** is a tool for `fully automated version management and package publishing`.
@@ -107,16 +112,6 @@ Ship.js gives you more control over the release process. Ship.js automatically c
 - Edit the automatically generated changelog for clarity & readability.
 - Run any automated tests on the package release candidate.
 - Build a release candidate automatically (with [Pika CI](https://github.com/marketplace/pika-ci-cd)).
-
-## Contributing
-
-You can create an issue for bug, feature request or your opinion.
-
-And we also appreciate your PRs. The detailed contribution guide is coming soon.
-
-## Getting Started
-
-Let's move on to the [guide](https://shipjs.netlify.com/guide/getting-started.html).
 
 ## Contributors ✨
 
