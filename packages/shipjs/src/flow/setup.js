@@ -43,7 +43,7 @@ async function setup({ help = false, dir = '.', dryRun = false }) {
       dir,
       dryRun,
     }),
-    await integrations[CIIndex].addConfig({
+    integrations[CIIndex].addConfig({
       ...CIConfig,
       isScoped,
       isPublic,

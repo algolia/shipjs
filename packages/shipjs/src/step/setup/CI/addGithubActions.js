@@ -26,9 +26,6 @@ export default ({ releaseBranch, manualPrepare, dir, dryRun }) =>
         manualPrepare &&
           createGithubAction({
             content: getManualPrepareConfig({
-              releaseBranch,
-              dir,
-              dryRun,
               gitUserName,
               gitUserEmail,
             }),
