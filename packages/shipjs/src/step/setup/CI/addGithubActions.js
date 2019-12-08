@@ -94,7 +94,7 @@ name: Ship js trigger
   );
 }
 
-function getManualPrepareConfig({ gitUserName, gitUserEmail }) {
+function getManualPrepareConfig({ baseBranch, gitUserName, gitUserEmail }) {
   return ejs.render(
     `
 name: Ship js Manual Prepare
@@ -111,7 +111,7 @@ name: Ship js Manual Prepare
       steps:
         - uses: actions/checkout@master
         - uses: actions/setup-node@master
-        - run: git switch master
+        - run: git checkout <%= baseBranch %>
         - run: npm install
         - run: |
             git config --global user.email "<%= gitUserEmail %>"
@@ -143,6 +143,6 @@ name: Ship js Manual Prepare
             args: comment "@\${{ github.actor }} \`shipjs prepare\` fail"
     
 `,
-    { gitUserName, gitUserEmail }
+    { baseBranch, gitUserName, gitUserEmail }
   );
 }
