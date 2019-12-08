@@ -1,6 +1,6 @@
 {
   "name": "shipjs",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "Take control of what is going to be your next release.",
   "main": "index.js",
   "bin": {
@@ -38,7 +38,7 @@
     "@slack/webhook": "^5.0.1",
     "arg": "4.1.2",
     "chalk": "3.0.0",
-    "change-case": "4.0.1",
+    "change-case": "4.1.0",
     "conventional-changelog-cli": "2.0.28",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.0",
@@ -51,13 +51,13 @@
     "prettier": "^1.18.2",
     "serialize-javascript": "^2.1.0",
     "shell-quote": "^1.7.2",
-    "shipjs-lib": "0.11.1",
+    "shipjs-lib": "0.11.2",
     "temp-write": "4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.7.4",
-    "@babel/plugin-transform-runtime": "7.7.4",
-    "@babel/preset-env": "7.7.4",
+    "@babel/core": "7.7.5",
+    "@babel/plugin-transform-runtime": "7.7.6",
+    "@babel/preset-env": "7.7.6",
     "babel-eslint": "10.0.3",
     "babel-jest": "24.9.0",
     "eslint": "6.7.2",
