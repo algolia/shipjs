@@ -36,10 +36,11 @@
     "@babel/runtime": "^7.6.3",
     "@octokit/rest": "^16.35.0",
     "@slack/webhook": "^5.0.1",
+    "add-stream": "^1.0.0",
     "arg": "4.1.2",
     "chalk": "3.0.0",
     "change-case": "4.1.0",
-    "conventional-changelog-cli": "2.0.28",
+    "conventional-changelog": "^3.1.15",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.0",
     "esm": "3.2.25",
@@ -52,7 +53,8 @@
     "serialize-javascript": "^2.1.0",
     "shell-quote": "^1.7.2",
     "shipjs-lib": "0.11.2",
-    "temp-write": "4.0.0"
+    "temp-write": "4.0.0",
+    "tempfile": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.7.5",

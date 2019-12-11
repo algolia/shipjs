@@ -72,7 +72,7 @@ async function prepare({
     : updateVersion;
   await updateVersionFn({ config, nextVersion, releaseType, dir, dryRun });
   installDependencies({ config, dir, dryRun });
-  updateChangelog({
+  await updateChangelog({
     config,
     revisionRange,
     firstRelease,
