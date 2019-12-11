@@ -3,10 +3,8 @@ import dotenv from 'dotenv';
 import setup from './flow/setup';
 import prepare from './flow/prepare';
 import release from './flow/release';
-import parseArgs from 'arg';
-import { camelCase } from 'change-case';
 import { bold } from './color';
-import { print } from './util';
+import { print, parseArgs } from './util';
 import version from './version';
 
 const flowMap = {
@@ -14,14 +12,6 @@ const flowMap = {
   prepare,
   trigger: release,
 };
-
-function removeDoubleDash(opts) {
-  return Object.entries(opts).reduce((acc, [key, value]) => {
-    // eslint-disable-next-line no-param-reassign
-    acc[camelCase(key)] = value;
-    return acc;
-  }, {});
-}
 
 function printVersion() {
   print(version);
@@ -53,9 +43,7 @@ export async function cli(argv) {
     return;
   }
   try {
-    const opts = removeDoubleDash(
-      parseArgs(argSpec, { permissive: false, argv })
-    );
+    const opts = parseArgs(argSpec, argv);
     dotenv.config({ path: path.resolve(opts.dir || '.', '.env') });
     await fn(opts);
   } catch (error) {
