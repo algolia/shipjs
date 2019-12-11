@@ -1,3 +1,12 @@
+## [0.11.3](https://github.com/algolia/shipjs/compare/v0.11.2...v0.11.3) (2019-12-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency change-case to v4.1.0 ([#509](https://github.com/algolia/shipjs/issues/509)) ([1e919be](https://github.com/algolia/shipjs/commit/1e919beac7d14b71ba81aeb667cc6c87c888ff71))
+
+
+
 ## [0.11.2](https://github.com/algolia/shipjs/compare/v0.11.1...v0.11.2) (2019-12-04)
 
 
