@@ -40,7 +40,7 @@
     "jest-watch-typeahead": "0.4.2",
     "json": "9.0.6",
     "prettier": "1.19.1",
-    "rollup": "1.27.11",
+    "rollup": "1.27.12",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0"
   },
