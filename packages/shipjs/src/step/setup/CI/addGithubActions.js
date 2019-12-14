@@ -82,7 +82,7 @@ name: Ship js trigger
         - uses: actions/setup-node@master
           with:
             registry-url: "https://registry.npmjs.org"
-        - run: git switch master
+        - run: git switch <%= releaseBranch %>
         - run: npm install
         - run: npm run release:trigger
           env:
