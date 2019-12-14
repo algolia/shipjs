@@ -7,7 +7,15 @@ import mkdirp from 'mkdirp';
 import { print } from '../../../util';
 import { info, warning } from '../../../color';
 
-export default ({ releaseBranch, manualPrepare, dir, dryRun }) =>
+export default ({
+  baseBranch,
+  releaseBranch,
+  manualPrepare,
+  schedulePrepare,
+  cronExpr,
+  dir,
+  dryRun,
+}) =>
   runStep(
     {
       title: 'Creating GitHub Actions configuration',
@@ -26,10 +34,23 @@ export default ({ releaseBranch, manualPrepare, dir, dryRun }) =>
         manualPrepare &&
           createGithubAction({
             content: getManualPrepareConfig({
+              baseBranch,
               gitUserName,
               gitUserEmail,
             }),
             actionPath: '.github/workflows/shipjs-manual-prepare.yml',
+            dir,
+            dryRun,
+          }),
+        schedulePrepare &&
+          createGithubAction({
+            content: getScheduleConfig({
+              baseBranch,
+              cronExpr,
+              gitUserName,
+              gitUserEmail,
+            }),
+            actionPath: '.github/workflows/shipjs-schedules-prepare.yml',
             dir,
             dryRun,
           }),
@@ -81,7 +102,7 @@ name: Ship js trigger
         - uses: actions/checkout@master
         - uses: actions/setup-node@master
           with:
-            registry-url: "https://registry.npmjs.org"
+            registry-url: 'https://registry.npmjs.org'
         - run: git switch <%= releaseBranch %>
         - run: npm install
         - run: npm run release:trigger
@@ -114,8 +135,8 @@ name: Ship js Manual Prepare
         - run: git checkout <%= baseBranch %>
         - run: npm install
         - run: |
-            git config --global user.email "<%= gitUserEmail %>"
-            git config --global user.name "<%= gitUserName %>"
+            git config --global user.email '<%= gitUserEmail %>'
+            git config --global user.name '<%= gitUserName %>'
         - run: npm run release:prepare -- --yes --no-browse
           env:
             GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
@@ -129,7 +150,7 @@ name: Ship js Manual Prepare
           env:
             GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           with:
-            args: comment "@\${{ github.actor }} \`shipjs prepare\` done"
+            args: comment '@\${{ github.actor }} \`shipjs prepare\` done'
   
     create_fail_comment:
       if: cancelled() || failure()
@@ -140,9 +161,37 @@ name: Ship js Manual Prepare
           env:
             GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           with:
-            args: comment "@\${{ github.actor }} \`shipjs prepare\` fail"
+            args: comment '@\${{ github.actor }} \`shipjs prepare\` fail'
     
 `,
     { baseBranch, gitUserName, gitUserEmail }
+  );
+}
+
+function getScheduleConfig({ baseBranch, cronExpr, gitUserName, gitUserEmail }) {
+  return ejs.render(
+    `
+name: Ship js Schedule Prepare
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '<%= cronExpr %>'
+jobs:
+  schedule_prepare:
+    runs-on: Ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+      - run: git switch <%= baseBranch %>
+      - run: npm install
+      - run: |
+          git config --global user.email '<%= gitUserEmail %>'
+          git config --global user.name '<%= gitUserName %>'
+      - run: npm run release:prepare -- --yes --no-browse
+        env:
+          GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
+  
+`,
+    { baseBranch, cronExpr, gitUserName, gitUserEmail }
   );
 }
