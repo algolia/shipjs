@@ -108,7 +108,7 @@ name: Ship js trigger
         - run: npm run release:trigger
           env:
             GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
-            NODE_AUTH_TOKEN: \${{ secrets.NPM_TOKEN }}
+            NODE_AUTH_TOKEN: \${{ secrets.NPM_AUTH_TOKEN }}
     
 `,
     { releaseBranch }
