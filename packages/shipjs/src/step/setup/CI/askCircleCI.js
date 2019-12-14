@@ -2,10 +2,10 @@ import inquirer from 'inquirer';
 import formatMessage from '../formatMessage';
 
 export default async function askCircleCI() {
-  const { scheduleCircleCI } = await inquirer.prompt([
+  const { schedulePrepare } = await inquirer.prompt([
     {
       type: 'confirm',
-      name: 'scheduleCircleCI',
+      name: 'schedulePrepare',
       message: 'Schedule your release via CircleCI?',
       default: true,
     },
@@ -16,7 +16,7 @@ export default async function askCircleCI() {
   const defaultCronExpr = `0 ${hour} * * ${tuesday}`;
   const { cronExpr } = await inquirer.prompt(
     [
-      scheduleCircleCI
+      schedulePrepare
         ? {
             type: 'input',
             name: 'cronExpr',
@@ -31,7 +31,7 @@ export default async function askCircleCI() {
   );
 
   return {
-    scheduleCircleCI,
+    schedulePrepare,
     cronExpr,
   };
 }

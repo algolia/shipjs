@@ -7,7 +7,7 @@ import mkdirp from 'mkdirp';
 import { print } from '../../../util';
 import { info, warning } from '../../../color';
 
-export default ({ baseBranch, scheduleCircleCI, cronExpr, dir, dryRun }) =>
+export default ({ baseBranch, schedulePrepare, cronExpr, dir, dryRun }) =>
   runStep(
     {
       title: 'Creating CircleCI configuration',
@@ -30,7 +30,7 @@ export default ({ baseBranch, scheduleCircleCI, cronExpr, dir, dryRun }) =>
       }
       const content = getConfig({
         baseBranch,
-        scheduleCircleCI,
+        schedulePrepare,
         cronExpr,
         gitUserName: getGitConfig('user.name') || 'Your Name',
         gitUserEmail: getGitConfig('user.email') || 'your@email.com',
@@ -54,7 +54,7 @@ export default ({ baseBranch, scheduleCircleCI, cronExpr, dir, dryRun }) =>
 
 function getConfig({
   baseBranch,
-  scheduleCircleCI,
+  schedulePrepare,
   cronExpr,
   gitUserName,
   gitUserEmail,
@@ -106,7 +106,7 @@ jobs:
       - run:
           name: Run Tests
           command: yarn test
-<% if (scheduleCircleCI) { %>
+<% if (schedulePrepare) { %>
   prepare_release:
     <<: *defaults
     steps:
@@ -141,7 +141,7 @@ workflows:
       - release_if_needed:
           requires:
             - test
-<% if (scheduleCircleCI) { %>
+<% if (schedulePrepare) { %>
   schedule_release:
     triggers:
       - schedule:
@@ -154,6 +154,6 @@ workflows:
       - prepare_release
 <% } %>
 `,
-    { baseBranch, scheduleCircleCI, cronExpr, gitUserName, gitUserEmail }
+    { baseBranch, schedulePrepare, cronExpr, gitUserName, gitUserEmail }
   );
 }
