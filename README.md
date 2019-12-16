@@ -110,6 +110,10 @@ Ship.js gives you more control over the release process. Ship.js automatically c
 - Run any automated tests on the package release candidate.
 - Build a release candidate automatically (with [Pika CI](https://github.com/marketplace/pika-ci-cd)).
 
+## How to Contribute?
+
+[Read Contribution Guide →](https://shipjs.netlify.com/guide/contributing.html)
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
