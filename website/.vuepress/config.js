@@ -17,6 +17,7 @@ module.exports = {
           '/guide/getting-started',
           '/guide/useful-config',
           '/guide/contributing',
+          '/guide/community',
         ],
       },
       {
