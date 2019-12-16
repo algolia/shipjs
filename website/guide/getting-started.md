@@ -71,6 +71,8 @@ It will show you which steps are going to be executed without actually executing
 
 This guide is based on CircleCI. It may be done similarly on other CI services.
 
+If you are using GitHub Actions, you can jump to [Setup GitHub Actions](./getting-started.html#setup-github-actions).
+
 A minimal `.circleci/config.yml` looks like the following:
 
 ```yaml
@@ -119,3 +121,9 @@ Setup a GitHub token to allow Ship.js(**at CircleCI**) to create a git tag and p
 5. Click "Add Variable".
    - Name: `GITHUB_TOKEN`
    - Value: Paste the token from clipboard.
+
+## Setup GitHub Actions
+
+If you are using GitHub Actions,
+
+(TODO: more contents...)
