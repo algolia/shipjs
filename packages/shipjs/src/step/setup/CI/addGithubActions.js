@@ -25,14 +25,14 @@ export default ({
       const gitUserEmail = getGitConfig('user.email') || 'your@email.com';
 
       const log = [
-        createGithubAction({
+        createGitHubAction({
           content: getBaseConfig({ releaseBranch }),
           actionPath: '.github/workflows/shipjs-trigger.yml',
           dir,
           dryRun,
         }),
         manualPrepare &&
-          createGithubAction({
+          createGitHubAction({
             content: getManualPrepareConfig({
               baseBranch,
               gitUserName,
@@ -43,7 +43,7 @@ export default ({
             dryRun,
           }),
         schedulePrepare &&
-          createGithubAction({
+          createGitHubAction({
             content: getScheduleConfig({
               baseBranch,
               cronExpr,
@@ -65,7 +65,7 @@ export default ({
     }
   );
 
-function createGithubAction({ content, actionPath, dir, dryRun }) {
+function createGitHubAction({ content, actionPath, dir, dryRun }) {
   const filePath = path.resolve(dir, actionPath);
 
   if (fs.existsSync(filePath)) {

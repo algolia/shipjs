@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import formatMessage from '../formatMessage';
 
-export default async function askGithubActions() {
+export default async function askGitHubActions() {
   const { manualPrepare } = await inquirer.prompt([
     {
       type: 'confirm',

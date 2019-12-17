@@ -1,8 +1,8 @@
 import askCircleCI from './askCircleCI';
 import addCircleCIConfig from './addCircleCIConfig';
 
-import askGithubActions from './askGithubActions';
-import addGithubActions from './addGithubActions';
+import askGitHubActions from './askGitHubActions';
+import addGitHubActions from './addGitHubActions';
 
 const noop = () => ({});
 
@@ -13,9 +13,9 @@ export default [
     addConfig: addCircleCIConfig,
   },
   {
-    name: 'Github Actions',
-    askQuestions: askGithubActions,
-    addConfig: addGithubActions,
+    name: 'GitHub Actions',
+    askQuestions: askGitHubActions,
+    addConfig: addGitHubActions,
   },
   {
     name: 'Nothing',
