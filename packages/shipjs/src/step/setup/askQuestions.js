@@ -82,8 +82,8 @@ async function askCI() {
     },
   ]);
 
-  const ciIntegration = choices.indexOf(ciTypeText);
-  const ciConfig = await integrations[ciIntegration].askQuestions();
+  const ciIntegration = integrations[choices.indexOf(ciTypeText)];
+  const ciConfig = await ciIntegration.askQuestions();
 
   return { ciIntegration, ciConfig };
 }
