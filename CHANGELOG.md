@@ -1,3 +1,12 @@
+## [0.11.3](https://github.com/algolia/shipjs/compare/v0.11.2...v0.11.3) (2019-12-17)
+
+
+### Bug Fixes
+
+* drop conventional-changelog-cli and use its node library instead ([#525](https://github.com/algolia/shipjs/issues/525)) ([430c303](https://github.com/algolia/shipjs/commit/430c303b196029a4c249a7bf2c5ac6ed05496f36))
+
+
+
 ## [0.11.2](https://github.com/algolia/shipjs/compare/v0.11.1...v0.11.2) (2019-12-04)
 
 

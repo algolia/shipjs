@@ -17,12 +17,17 @@ module.exports = {
           '/guide/getting-started',
           '/guide/useful-config',
           '/guide/contributing',
+          '/guide/community',
         ],
       },
       {
         title: 'Reference',
         collapsable: false,
-        children: ['/reference/all-config', '/reference/commands'],
+        children: [
+          '/reference/all-config',
+          '/reference/commands',
+          '/reference/resources',
+        ],
       },
     ],
   },
