@@ -50,7 +50,7 @@ export default ({
               gitUserName,
               gitUserEmail,
             }),
-            actionPath: '.github/workflows/shipjs-schedules-prepare.yml',
+            actionPath: '.github/workflows/shipjs-schedule-prepare.yml',
             dir,
             dryRun,
           }),
