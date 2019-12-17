@@ -131,8 +131,10 @@ name: Ship js Manual Prepare
       runs-on: Ubuntu-latest
       steps:
         - uses: actions/checkout@master
+          with:
+            fetch-depth: 0
+            ref: <%= baseBranch %>
         - uses: actions/setup-node@master
-        - run: git checkout <%= baseBranch %>
         - run: npm install
         - run: |
             git config --global user.email '<%= gitUserEmail %>'
@@ -186,8 +188,10 @@ jobs:
     runs-on: Ubuntu-latest
     steps:
       - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+          ref: <%= baseBranch %>
       - uses: actions/setup-node@master
-      - run: git switch <%= baseBranch %>
       - run: npm install
       - run: |
           git config --global user.email '<%= gitUserEmail %>'
