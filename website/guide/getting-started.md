@@ -124,6 +124,23 @@ Setup a GitHub token to allow Ship.js(**at CircleCI**) to create a git tag and p
 
 ## Setup GitHub Actions
 
-If you are using GitHub Actions,
+If you are using GitHub Actions, you need provide NPM token for release package to NPM and GitHub token for creating release notes and tags
 
-(TODO: more contents...)
+### NPM Token
+
+1. Login at [https://www.npmjs.com/](https://www.npmjs.com/), click your profile icon and go to "Tokens".
+2. Click "Create New Token", make sure the access level is "Read and Publish" and copy the token.
+3. At your GitHub repo, go to "Settings" → "Secrets".
+4. Click "Add a new secret".
+   - Name: `NPM_AUTH_TOKEN`
+   - Value: Paste the token from clipboard.
+
+### GitHub Token
+
+1. Go to https://github.com/settings/tokens/new
+2. Check "repo(Full control of private repositories)"
+3. Generate/copy the token
+4. At your GitHub repo, go to "Settings" → "Secrets".
+5. Click "Add a new secret".
+   - Name: `GH_TOKEN`
+   - Value: Paste the token from clipboard.
