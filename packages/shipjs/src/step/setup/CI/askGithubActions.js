@@ -45,6 +45,6 @@ export default async function askGithubActions() {
   return {
     manualPrepare,
     schedulePrepare,
-    cronExpr
+    cronExpr,
   };
 }

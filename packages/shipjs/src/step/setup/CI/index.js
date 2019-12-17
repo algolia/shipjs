@@ -9,17 +9,17 @@ const noop = () => ({});
 export default [
   {
     name: 'Circle CI',
-    askQustions: askCircleCI,
+    askQuestions: askCircleCI,
     addConfig: addCircleCIConfig,
   },
   {
     name: 'Github Actions',
-    askQustions: askGithubActions,
+    askQuestions: askGithubActions,
     addConfig: addGithubActions,
   },
   {
     name: 'Nothing',
-    askQustions: noop,
+    askQuestions: noop,
     addConfig: noop,
   },
 ];

@@ -9,7 +9,7 @@ import runStep from '../runStep';
 export default async ({ dir }) =>
   await runStep({}, async () => {
     const { baseBranch, releaseBranch } = await askBranches(dir);
-    const { CIIndex, CIConfig } = await askCI(dir);
+    const { ciIntegration, ciConfig } = await askCI(dir);
     const {
       useMonorepo,
       mainVersionFile,
@@ -22,8 +22,8 @@ export default async ({ dir }) =>
     return {
       baseBranch,
       releaseBranch,
-      CIIndex,
-      CIConfig,
+      ciIntegration,
+      ciConfig,
       useMonorepo,
       mainVersionFile,
       packagesToBump,
@@ -73,19 +73,19 @@ async function askBranches(dir) {
 
 async function askCI() {
   const choices = integrations.map(config => config.name);
-  const { CITypeText } = await inquirer.prompt([
+  const { ciTypeText } = await inquirer.prompt([
     {
       type: 'list',
-      name: 'CITypeText',
+      name: 'ciTypeText',
       message: 'Which CI configure?',
       choices,
     },
   ]);
 
-  const CIIndex = choices.indexOf(CITypeText);
-  const CIConfig = await integrations[CIIndex].askQustions();
+  const ciIntegration = choices.indexOf(ciTypeText);
+  const ciConfig = await integrations[ciIntegration].askQuestions();
 
-  return { CIIndex, CIConfig };
+  return { ciIntegration, ciConfig };
 }
 
 async function askMonorepo(dir) {

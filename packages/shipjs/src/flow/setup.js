@@ -25,8 +25,8 @@ async function setup({ help = false, dir = '.', dryRun = false }) {
     packagesToPublish,
     isScoped,
     isPublic,
-    CIIndex,
-    CIConfig,
+    ciIntegration,
+    ciConfig,
   } = await askQuestions({ dir });
   const outputs = [
     addDevDependencies({ dependencies: ['shipjs'], dir, dryRun }),
@@ -43,8 +43,8 @@ async function setup({ help = false, dir = '.', dryRun = false }) {
       dir,
       dryRun,
     }),
-    integrations[CIIndex].addConfig({
-      ...CIConfig,
+    integrations[ciIntegration].addConfig({
+      ...ciConfig,
       isScoped,
       isPublic,
       baseBranch,

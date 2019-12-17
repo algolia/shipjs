@@ -168,7 +168,12 @@ name: Ship js Manual Prepare
   );
 }
 
-function getScheduleConfig({ baseBranch, cronExpr, gitUserName, gitUserEmail }) {
+function getScheduleConfig({
+  baseBranch,
+  cronExpr,
+  gitUserName,
+  gitUserEmail,
+}) {
   return ejs.render(
     `
 name: Ship js Schedule Prepare
