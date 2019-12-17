@@ -1,6 +1,6 @@
 {
   "name": "shipjs",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "description": "Take control of what is going to be your next release.",
   "main": "index.js",
   "bin": {
@@ -45,14 +45,14 @@
     "ejs": "^3.0.0",
     "esm": "3.2.25",
     "globby": "^10.0.1",
-    "inquirer": "7.0.0",
+    "inquirer": "7.0.1",
     "mime-types": "^2.1.25",
     "mkdirp": "^0.5.1",
     "open": "^7.0.0",
     "prettier": "^1.18.2",
     "serialize-javascript": "^2.1.0",
     "shell-quote": "^1.7.2",
-    "shipjs-lib": "0.11.2",
+    "shipjs-lib": "0.11.3",
     "temp-write": "4.0.0",
     "tempfile": "^3.0.0"
   },
@@ -68,7 +68,7 @@
     "eslint-plugin-eslint-comments": "3.1.2",
     "eslint-plugin-import": "2.19.1",
     "eslint-plugin-jest": "23.1.1",
-    "eslint-plugin-prettier": "3.1.1",
+    "eslint-plugin-prettier": "3.1.2",
     "jest": "24.9.0",
     "jest-watch-typeahead": "0.4.2"
   }
