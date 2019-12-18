@@ -90,25 +90,25 @@ function getBaseConfig({ releaseBranch }) {
   return ejs.render(
     `
 name: Ship js trigger
-  on:
-    push:
-      branches:
-        - <%= releaseBranch %>
-  jobs:
-    build:
-      name: Build
-      runs-on: Ubuntu-latest
-      steps:
-        - uses: actions/checkout@master
-        - uses: actions/setup-node@master
-          with:
-            registry-url: 'https://registry.npmjs.org'
-        - run: git switch <%= releaseBranch %>
-        - run: npm install
-        - run: npm run release:trigger
-          env:
-            GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
-            NODE_AUTH_TOKEN: \${{ secrets.NPM_AUTH_TOKEN }}
+on:
+  push:
+    branches:
+      - <%= releaseBranch %>
+jobs:
+  build:
+    name: Build
+    runs-on: Ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          registry-url: 'https://registry.npmjs.org'
+      - run: git switch <%= releaseBranch %>
+      - run: npm install
+      - run: npm run release:trigger
+        env:
+          GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
+          NODE_AUTH_TOKEN: \${{ secrets.NPM_AUTH_TOKEN }}
     
 `,
     { releaseBranch }
@@ -119,51 +119,51 @@ function getManualPrepareConfig({ baseBranch, gitUserName, gitUserEmail }) {
   return ejs.render(
     `
 name: Ship js Manual Prepare
-  on:
-    issue_comment:
-      types: [created]
-  jobs:
-    manual_prepare:
-      if: |
-        github.event_name == 'issue_comment' &&
-        (github.event.comment.author_association == 'member' || github.event.comment.author_association == 'owner') &&
-        startsWith(github.event.comment.body, '@shipjs prepare')
-      runs-on: Ubuntu-latest
-      steps:
-        - uses: actions/checkout@master
-          with:
-            fetch-depth: 0
-            ref: <%= baseBranch %>
-        - uses: actions/setup-node@master
-        - run: npm install
-        - run: |
-            git config --global user.email '<%= gitUserEmail %>'
-            git config --global user.name '<%= gitUserName %>'
-        - run: npm run release:prepare -- --yes --no-browse
-          env:
-            GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
-  
-    create_done_comment:
-      if: success()
-      needs: manual_prepare
-      runs-on: Ubuntu-latest
-      steps:
-        - uses: actions/github@master
-          env:
-            GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          with:
-            args: comment '@\${{ github.actor }} \`shipjs prepare\` done'
-  
-    create_fail_comment:
-      if: cancelled() || failure()
-      needs: manual_prepare
-      runs-on: Ubuntu-latest
-      steps:
-        - uses: actions/github@master
-          env:
-            GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          with:
-            args: comment '@\${{ github.actor }} \`shipjs prepare\` fail'
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  manual_prepare:
+    if: |
+      github.event_name == 'issue_comment' &&
+      (github.event.comment.author_association == 'member' || github.event.comment.author_association == 'owner') &&
+      startsWith(github.event.comment.body, '@shipjs prepare')
+    runs-on: Ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+          ref: <%= baseBranch %>
+      - uses: actions/setup-node@master
+      - run: npm install
+      - run: |
+          git config --global user.email '<%= gitUserEmail %>'
+          git config --global user.name '<%= gitUserName %>'
+      - run: npm run release:prepare -- --yes --no-browse
+        env:
+          GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
+
+  create_done_comment:
+    if: success()
+    needs: manual_prepare
+    runs-on: Ubuntu-latest
+    steps:
+      - uses: actions/github@master
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: comment '@\${{ github.actor }} \`shipjs prepare\` done'
+
+  create_fail_comment:
+    if: cancelled() || failure()
+    needs: manual_prepare
+    runs-on: Ubuntu-latest
+    steps:
+      - uses: actions/github@master
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: comment '@\${{ github.actor }} \`shipjs prepare\` fail'
     
 `,
     { baseBranch, gitUserName, gitUserEmail }
