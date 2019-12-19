@@ -125,9 +125,9 @@ on:
 jobs:
   manual_prepare:
     if: |
-      github.event_name == "issue_comment" &&
-      (github.event.comment.author_association == "member" || github.event.comment.author_association == "owner") &&
-      startsWith(github.event.comment.body, "@shipjs prepare")
+      github.event_name == 'issue_comment' &&
+      (github.event.comment.author_association == 'member' || github.event.comment.author_association == 'owner') &&
+      startsWith(github.event.comment.body, '@shipjs prepare')
     runs-on: Ubuntu-latest
     steps:
       - uses: actions/checkout@master
