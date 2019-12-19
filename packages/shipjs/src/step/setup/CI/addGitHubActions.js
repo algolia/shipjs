@@ -102,7 +102,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
         with:
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
       - run: git switch <%= releaseBranch %>
       - run: npm install
       - run: npm run release:trigger
@@ -125,9 +125,9 @@ on:
 jobs:
   manual_prepare:
     if: |
-      github.event_name == 'issue_comment' &&
-      (github.event.comment.author_association == 'member' || github.event.comment.author_association == 'owner') &&
-      startsWith(github.event.comment.body, '@shipjs prepare')
+      github.event_name == "issue_comment" &&
+      (github.event.comment.author_association == "member" || github.event.comment.author_association == "owner") &&
+      startsWith(github.event.comment.body, "@shipjs prepare")
     runs-on: Ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -137,8 +137,8 @@ jobs:
       - uses: actions/setup-node@master
       - run: npm install
       - run: |
-          git config --global user.email '<%= gitUserEmail %>'
-          git config --global user.name '<%= gitUserName %>'
+          git config --global user.email "<%= gitUserEmail %>"
+          git config --global user.name "<%= gitUserName %>"
       - run: npm run release:prepare -- --yes --no-browse
         env:
           GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
@@ -152,7 +152,7 @@ jobs:
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
-          args: comment '@\${{ github.actor }} \`shipjs prepare\` done'
+          args: comment "@\${{ github.actor }} \`shipjs prepare\` done"
 
   create_fail_comment:
     if: cancelled() || failure()
@@ -163,7 +163,7 @@ jobs:
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
-          args: comment '@\${{ github.actor }} \`shipjs prepare\` fail'
+          args: comment "@\${{ github.actor }} \`shipjs prepare\` fail"
     
 `,
     { baseBranch, gitUserName, gitUserEmail }
@@ -182,7 +182,7 @@ name: Ship js Schedule Prepare
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '<%= cronExpr %>'
+    - cron:  "<%= cronExpr %>"
 jobs:
   schedule_prepare:
     runs-on: Ubuntu-latest
@@ -194,8 +194,8 @@ jobs:
       - uses: actions/setup-node@master
       - run: npm install
       - run: |
-          git config --global user.email '<%= gitUserEmail %>'
-          git config --global user.name '<%= gitUserName %>'
+          git config --global user.email "<%= gitUserEmail %>"
+          git config --global user.name "<%= gitUserName %>"
       - run: npm run release:prepare -- --yes --no-browse
         env:
           GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
