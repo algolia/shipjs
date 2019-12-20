@@ -104,7 +104,12 @@ jobs:
         with:
           registry-url: "https://registry.npmjs.org"
       - run: git switch <%= releaseBranch %>
-      - run: npm install
+      - run: |
+          if [ -f "yarn.lock" ]; then
+            yarn install
+          else
+            npm install
+          fi
       - run: npm run release:trigger
         env:
           GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
@@ -135,7 +140,12 @@ jobs:
           fetch-depth: 0
           ref: <%= baseBranch %>
       - uses: actions/setup-node@master
-      - run: npm install
+      - run: |
+          if [ -f "yarn.lock" ]; then
+            yarn install
+          else
+            npm install
+          fi
       - run: |
           git config --global user.email "<%= gitUserEmail %>"
           git config --global user.name "<%= gitUserName %>"
@@ -192,7 +202,12 @@ jobs:
           fetch-depth: 0
           ref: <%= baseBranch %>
       - uses: actions/setup-node@master
-      - run: npm install
+      - run: |
+          if [ -f "yarn.lock" ]; then
+            yarn install
+          else
+            npm install
+          fi
       - run: |
           git config --global user.email "<%= gitUserEmail %>"
           git config --global user.name "<%= gitUserName %>"
