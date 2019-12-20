@@ -2,24 +2,14 @@ import inquirer from 'inquirer';
 import { getRemoteBranches } from 'shipjs-lib';
 import fs from 'fs';
 import path from 'path';
+import formatMessage from './formatMessage';
+import integrations from './CI';
 import runStep from '../runStep';
-import { grey, reset } from '../../color';
-
-const formatMessage = (message, description = '') =>
-  [
-    message,
-    ...description
-      .trim()
-      .split('\n')
-      .map(line => `  ${reset(grey(line.trim()))}`),
-  ].join('\n');
 
 export default async ({ dir }) =>
   await runStep({}, async () => {
     const { baseBranch, releaseBranch } = await askBranches(dir);
-    const { configureCircleCI, scheduleCircleCI, cronExpr } = await askCircleCI(
-      dir
-    );
+    const { ciIntegration, ciConfig } = await askCI(dir);
     const {
       useMonorepo,
       mainVersionFile,
@@ -32,9 +22,8 @@ export default async ({ dir }) =>
     return {
       baseBranch,
       releaseBranch,
-      configureCircleCI,
-      scheduleCircleCI,
-      cronExpr,
+      ciIntegration,
+      ciConfig,
       useMonorepo,
       mainVersionFile,
       packagesToBump,
@@ -82,52 +71,21 @@ async function askBranches(dir) {
   return { baseBranch, releaseBranch };
 }
 
-async function askCircleCI() {
-  const { configureCircleCI } = await inquirer.prompt([
+async function askCI() {
+  const choices = integrations.map(config => config.name);
+  const { ciTypeText } = await inquirer.prompt([
     {
-      type: 'confirm',
-      name: 'configureCircleCI',
-      message: 'Configure CircleCI?',
-      default: true,
+      type: 'list',
+      name: 'ciTypeText',
+      message: 'Which CI configure?',
+      choices,
     },
   ]);
-  const { scheduleCircleCI } = await inquirer.prompt(
-    [
-      configureCircleCI
-        ? {
-            type: 'confirm',
-            name: 'scheduleCircleCI',
-            message: 'Schedule your release via CircleCI?',
-            default: true,
-          }
-        : undefined,
-    ].filter(Boolean)
-  );
-  const offset = new Date().getTimezoneOffset() / 60;
-  const hour = 11 + offset;
-  const tuesday = 2;
-  const defaultCronExpr = `0 ${hour} * * ${tuesday}`;
-  const { cronExpr } = await inquirer.prompt(
-    [
-      scheduleCircleCI
-        ? {
-            type: 'input',
-            name: 'cronExpr',
-            message: formatMessage(
-              'When to release?',
-              'To learn about cron expressions, visit https://crontab.guru/\nThe default value ("Every Tuesday 11am")'
-            ),
-            default: defaultCronExpr,
-          }
-        : undefined,
-    ].filter(Boolean)
-  );
 
-  return {
-    configureCircleCI,
-    scheduleCircleCI,
-    cronExpr,
-  };
+  const ciIntegration = integrations[choices.indexOf(ciTypeText)];
+  const ciConfig = await ciIntegration.askQuestions();
+
+  return { ciIntegration, ciConfig };
 }
 
 async function askMonorepo(dir) {
