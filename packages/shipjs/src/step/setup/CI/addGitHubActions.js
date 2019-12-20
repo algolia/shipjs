@@ -57,7 +57,9 @@ export default ({
 
         () => {
           print('  You still need to finish setting up at GitHub Actions.');
-          // add link to readme here
+          print(
+            '  > https://shipjs.netlify.com/guide/getting-started.html#setup-github-actions'
+          );
         },
       ].filter(Boolean);
 
