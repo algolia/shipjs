@@ -1,3 +1,13 @@
+# [0.12.0](https://github.com/algolia/shipjs/compare/v0.11.3...v0.12.0) (2019-12-20)
+
+
+
+### Features
+
+* **setup:** add github actions as CI option ([#502](https://github.com/algolia/shipjs/issues/502)) ([923cc87](https://github.com/algolia/shipjs/commit/923cc8737289bb511ae54bed01868dfb888aa583))
+
+
+
 ## [0.11.3](https://github.com/algolia/shipjs/compare/v0.11.2...v0.11.3) (2019-12-17)
 
 
