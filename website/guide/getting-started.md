@@ -124,7 +124,10 @@ Setup a GitHub token to allow Ship.js(**at CircleCI**) to create a git tag and p
 
 ## Setup GitHub Actions
 
-If you are using GitHub Actions, you need provide NPM token for release package to NPM and GitHub token for creating release notes and tags
+If you are using GitHub Actions, you need to setup the following tokens:
+
+- NPM token: To release package to NPM
+- GitHub token: To create release notes and tags
 
 ### NPM Token
 
