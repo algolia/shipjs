@@ -71,6 +71,8 @@ It will show you which steps are going to be executed without actually executing
 
 This guide is based on CircleCI. It may be done similarly on other CI services.
 
+If you are using GitHub Actions, you can jump to [Setup GitHub Actions](./getting-started.html#setup-github-actions).
+
 A minimal `.circleci/config.yml` looks like the following:
 
 ```yaml
@@ -118,4 +120,30 @@ Setup a GitHub token to allow Ship.js(**at CircleCI**) to create a git tag and p
 4. At CircleCI, go to "Project Settings" → "BUILD SETTINGS" → "Environment Variables".
 5. Click "Add Variable".
    - Name: `GITHUB_TOKEN`
+   - Value: Paste the token from clipboard.
+
+## Setup GitHub Actions
+
+If you are using GitHub Actions, you need to setup the following tokens:
+
+- NPM token: To release package to NPM
+- GitHub token: To create release notes and tags
+
+### NPM Token
+
+1. Login at [https://www.npmjs.com/](https://www.npmjs.com/), click your profile icon and go to "Tokens".
+2. Click "Create New Token", make sure the access level is "Read and Publish" and copy the token.
+3. At your GitHub repo, go to "Settings" → "Secrets".
+4. Click "Add a new secret".
+   - Name: `NPM_AUTH_TOKEN`
+   - Value: Paste the token from clipboard.
+
+### GitHub Token
+
+1. Go to https://github.com/settings/tokens/new
+2. Check "repo(Full control of private repositories)"
+3. Generate/copy the token
+4. At your GitHub repo, go to "Settings" → "Secrets".
+5. Click "Add a new secret".
+   - Name: `GH_TOKEN`
    - Value: Paste the token from clipboard.
