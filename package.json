@@ -1,7 +1,5 @@
 {
   "version": "0.12.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "prepare": "yarn build",
     "build": "yarn workspace shipjs-lib build",
