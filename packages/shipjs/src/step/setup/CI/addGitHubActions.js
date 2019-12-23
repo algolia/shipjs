@@ -116,7 +116,7 @@ jobs:
         env:
           GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
           NODE_AUTH_TOKEN: \${{ secrets.NPM_AUTH_TOKEN }}
-    
+          SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}
 `,
     { releaseBranch }
   );
@@ -154,6 +154,7 @@ jobs:
       - run: npm run release:prepare -- --yes --no-browse
         env:
           GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
+          SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}
 
   create_done_comment:
     if: success()
@@ -176,7 +177,6 @@ jobs:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           args: comment "@\${{ github.actor }} \`shipjs prepare\` fail"
-    
 `,
     { baseBranch, gitUserName, gitUserEmail }
   );
@@ -216,7 +216,7 @@ jobs:
       - run: npm run release:prepare -- --yes --no-browse
         env:
           GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
-  
+          SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}
 `,
     { baseBranch, cronExpr, gitUserName, gitUserEmail }
   );
