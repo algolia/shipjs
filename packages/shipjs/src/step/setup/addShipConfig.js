@@ -51,7 +51,10 @@ export default async ({
       print(serialize(config));
     } else {
       const filePath = path.resolve(dir, 'ship.config.js');
-      fs.writeFileSync(filePath, `module.exports = ${serialize(config)};`);
+      fs.writeFileSync(
+        filePath,
+        `module.exports = ${serialize(config, { unsafe: true })};`
+      );
       await runPrettier({ filePath, dir });
     }
 
