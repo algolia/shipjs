@@ -190,25 +190,15 @@ One thing you need to be aware of is, you cannot assign yourself as a reviewer. 
 
 The assignees will receive a notification from GitHub when the PR is created. Whenever they review and merge the PR, it will be automatically released by the prior configuration you've done [here](../guide/getting-started.html#automate-part-3-trigger).
 
-## `slackIncomingHook`
+## `SLACK_INCOMING_HOOK`
 
-```js
-module.exports = {
-  slackIncomingHook: 'https://...',
-};
-```
-
-With this configured, messages will be sent to your Slack channel
+If you configure an environment variable `SLACK_INCOMING_HOOK`, Ship.js will send messages
 
 - when `shipjs prepare` is finished
 - when `shipjs trigger` begins
 - when `shipjs trigger` is finished
 
-If your repository is public, you can provide the hook URL as an environment variable instead of exposing it in the config file.
-
-```bash
-SLACK_INCOMING_HOOK=xxx yarn release:prepare
-```
+You can [read more](../reference/all-config.html#messaging-to-slack) to customize this behavior.
 
 ## Release somewhere else
 
