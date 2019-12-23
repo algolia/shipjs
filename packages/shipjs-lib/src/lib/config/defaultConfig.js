@@ -117,7 +117,7 @@ export default {
     default: {
       username: 'Ship.js',
       // eslint-disable-next-line camelcase
-      icon_emoji: ':ship:',
+      icon_emoji: ':passenger_ship:',
     },
     prepared: ({ appName, version, pullRequestUrl }) => ({
       pretext: `:writing_hand: The release for *${appName}@${version}* is prepared!`,
