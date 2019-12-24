@@ -107,7 +107,8 @@ async function prepare({
     version: nextVersion,
     pullRequestUrl,
   });
-  finished();
+
+  finished({ baseBranch, stagingBranch, pullRequestUrl, dryRun });
 }
 
 const arg = {
