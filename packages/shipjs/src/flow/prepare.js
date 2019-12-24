@@ -107,6 +107,7 @@ async function prepare({
     version: nextVersion,
     pullRequestUrl,
   });
+
   finished({ baseBranch, stagingBranch, pullRequestUrl, dryRun });
 }
 
