@@ -3,7 +3,7 @@
 
 ### Bug Fixes
 
-* **setup:** add SLACK_INCOMING_HOOK env for all actions ([#550](https://github.com/algolia/shipjs/issues/550)) ([dbdd919](https://github.com/algolia/shipjs/commit/dbdd919479684474f6ab1c4fad10072559ddc25b))
+* **setup:** add SLACK_INCOMING_HOOK env for all GitHub Actions ([#550](https://github.com/algolia/shipjs/issues/550)) ([dbdd919](https://github.com/algolia/shipjs/commit/dbdd919479684474f6ab1c4fad10072559ddc25b))
 * **setup:** don't use escape for config serializion ([#549](https://github.com/algolia/shipjs/issues/549)) ([59b802d](https://github.com/algolia/shipjs/commit/59b802d8b3118da3ecfc629261e771688cef2b3d))
 
 
