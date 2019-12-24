@@ -15,7 +15,7 @@ You are currently on ${chalk.green.bold(
 ${prURL}
 
 Otherwise, you can safely check out another branch and get back to your development iteration.
-To check out previous branch, run the following:
+To check out the previous branch, run the following:
 
 $ git checkout ${baseBranch}`);
   });
