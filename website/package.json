@@ -1,18 +1,19 @@
 {
   "name": "website",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "dev": "vuepress dev",
     "build": "vuepress build",
+    "deploy": "gh-pages -d .vuepress/dist",
+    "dev": "vuepress dev",
     "test": "echo \"Error: no test specified\""
   },
-  "author": "Eunjae Lee <karis612@gmail.com> (https://github.com/eunjae-lee)",
-  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "@vuepress/plugin-google-analytics": "1.2.0",
+    "gh-pages": "^2.1.1",
     "vuepress": "1.2.0"
-  }
+  },
+  "main": "index.js",
+  "author": "Eunjae Lee <karis612@gmail.com> (https://github.com/eunjae-lee)",
+  "license": "MIT"
 }
