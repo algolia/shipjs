@@ -57,6 +57,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
     config,
     appName,
     version,
+    releaseTag,
     latestCommitHash,
     latestCommitUrl,
     repoURL,

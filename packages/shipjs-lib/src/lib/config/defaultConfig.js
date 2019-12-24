@@ -167,6 +167,7 @@ export default {
     releaseSuccess: ({
       appName,
       version,
+      releaseTag,
       latestCommitHash,
       latestCommitUrl,
       repoURL,
@@ -189,8 +190,8 @@ export default {
           short: true,
         },
         {
-          title: 'CHANGELOG',
-          value: `${repoURL}/blob/master/CHANGELOG.md`,
+          title: 'Release',
+          value: `${repoURL}/releases/tag/${releaseTag}`,
         },
       ],
     }),
