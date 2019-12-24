@@ -90,8 +90,7 @@ function createGitHubAction({ content, actionPath, dir, dryRun }) {
 
 function getBaseConfig({ releaseBranch }) {
   return ejs.render(
-    `
-name: Ship js trigger
+    `name: Ship js trigger
 on:
   push:
     branches:
@@ -99,7 +98,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: Ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
@@ -124,8 +123,7 @@ jobs:
 
 function getManualPrepareConfig({ baseBranch, gitUserName, gitUserEmail }) {
   return ejs.render(
-    `
-name: Ship js Manual Prepare
+    `name: Ship js Manual Prepare
 on:
   issue_comment:
     types: [created]
@@ -135,7 +133,7 @@ jobs:
       github.event_name == 'issue_comment' &&
       (github.event.comment.author_association == 'member' || github.event.comment.author_association == 'owner') &&
       startsWith(github.event.comment.body, '@shipjs prepare')
-    runs-on: Ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
         with:
@@ -159,7 +157,7 @@ jobs:
   create_done_comment:
     if: success()
     needs: manual_prepare
-    runs-on: Ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/github@master
         env:
@@ -170,7 +168,7 @@ jobs:
   create_fail_comment:
     if: cancelled() || failure()
     needs: manual_prepare
-    runs-on: Ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/github@master
         env:
@@ -189,15 +187,14 @@ function getScheduleConfig({
   gitUserEmail,
 }) {
   return ejs.render(
-    `
-name: Ship js Schedule Prepare
+    `name: Ship js Schedule Prepare
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  "<%= cronExpr %>"
 jobs:
   schedule_prepare:
-    runs-on: Ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
         with:
