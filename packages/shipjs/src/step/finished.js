@@ -10,7 +10,8 @@ export default ({ baseBranch, stagingBranch, pullRequestUrl, dryRun }) =>
     print(`
 You are currently on ${chalk.green.bold(
       stagingBranch
-    )} branch, the purpose of which is to make changes to release materials including CHANGELOG.md, and continue to prepare the next release.
+    )} branch.
+You can make changes to the release materials including CHANGELOG.md, and continue to prepare the next release.
 
 ${prURL}
 
