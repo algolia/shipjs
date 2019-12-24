@@ -1,3 +1,20 @@
+import chalk from 'chalk';
 import runStep from './runStep';
+import { print } from '../util';
 
-export default () => runStep({ title: 'All Finished.' }, () => {});
+export default ({ baseBranch, stagingBranch, pullRequestUrl, dryRun }) =>
+  runStep({ title: 'All Finished.' }, () => {
+    const prURL = dryRun
+      ? chalk.gray('(Because of --dry-run, pull-request url has been omitted>)')
+      : pullRequestUrl;
+    print(`
+You are currently on ${chalk.green.bold(
+      stagingBranch
+    )} branch, the purpose of which is to make changes to release materials including CHANGELOG.md, and continue to prepare the next release.
+${prURL}
+
+Otherwise, you can safely check out another branch and get back to your development iteration.
+To check out previous branch, run the following:
+
+$ git checkout ${baseBranch}`);
+  });
