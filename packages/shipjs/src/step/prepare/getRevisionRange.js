@@ -4,10 +4,16 @@ import runStep from '../runStep';
 import { print, exitProcess } from '../../util';
 import { info, warning, error } from '../../color';
 
-export default async ({ currentVersion, yes, dir }) =>
+export default async ({ yes, commitFrom, currentVersion, dir }) =>
   await runStep(
     { title: 'Getting a revision range for this release.' },
     async () => {
+      if (commitFrom) {
+        return {
+          revisionRange: `${commitFrom}..HEAD`,
+        };
+      }
+
       let revisionRange = `v${currentVersion}..HEAD`;
       if (hasTag(`v${currentVersion}`, dir)) {
         print(info(`  ${revisionRange}`));
@@ -22,6 +28,8 @@ export default async ({ currentVersion, yes, dir }) =>
         .split('\n');
       if (yes) {
         print(error(tagNotExistingMessage));
+        print(info('Try again with the following option:'));
+        print(info('  --commit-from SHA'));
         exitProcess(1);
       }
 

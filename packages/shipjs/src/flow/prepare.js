@@ -34,6 +34,7 @@ async function prepare({
   releaseCount,
   dryRun = false,
   noBrowse = false,
+  commitFrom,
 }) {
   if (help) {
     printHelp();
@@ -52,8 +53,9 @@ async function prepare({
   fetchTags({ dir, dryRun });
   push({ remote, currentBranch: baseBranch, dir, dryRun });
   const { revisionRange } = await getRevisionRange({
-    currentVersion,
     yes,
+    commitFrom,
+    currentVersion,
     dir,
   });
   let { nextVersion } = getNextVersion({ revisionRange, currentVersion, dir });
@@ -123,6 +125,7 @@ const arg = {
   '--release-count': Number,
   '--dry-run': Boolean,
   '--no-browse': Boolean,
+  '--commit-from': String,
 
   // Aliases
   '-d': '--dir',
@@ -132,6 +135,7 @@ const arg = {
   '-r': '--release-count',
   '-D': '--dry-run',
   '-N': '--no-browse',
+  '-c': '--commit-from',
 };
 
 function printDeprecated({ firstRelease, releaseCount }) {
