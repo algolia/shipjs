@@ -1,10 +1,10 @@
 import inquirer from 'inquirer';
 import { hasTag, silentExec } from 'shipjs-lib';
 import runStep from '../runStep';
-import { print } from '../../util';
-import { info, warning } from '../../color';
+import { print, exitProcess } from '../../util';
+import { info, warning, error } from '../../color';
 
-export default async ({ currentVersion, dir }) =>
+export default async ({ currentVersion, yes, dir }) =>
   await runStep(
     { title: 'Getting a revision range for this release.' },
     async () => {
@@ -14,12 +14,18 @@ export default async ({ currentVersion, dir }) =>
         return { revisionRange };
       }
 
-      print(warning(`Git tag 'v${currentVersion}' doesn't exist.`));
+      const tagNotExistingMessage = `Git tag 'v${currentVersion}' doesn't exist.`;
       const commits = silentExec(`git log --pretty=format:"%h%d %s"`, {
         dir,
       })
         .toString()
         .split('\n');
+      if (yes) {
+        print(error(tagNotExistingMessage));
+        exitProcess(1);
+      }
+
+      print(warning(tagNotExistingMessage));
       const { answer } = await inquirer.prompt([
         {
           type: 'list',
