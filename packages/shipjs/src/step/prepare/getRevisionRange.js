@@ -28,7 +28,7 @@ export default async ({ yes, commitFrom, currentVersion, dir }) =>
         .split('\n');
       if (yes) {
         print(error(tagNotExistingMessage));
-        print(info('Try again with the following option:'));
+        print(info('Try again with the following option added:'));
         print(info('  --commit-from SHA'));
         exitProcess(1);
       }
