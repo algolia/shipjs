@@ -4,10 +4,16 @@ import runStep from '../runStep';
 import { print } from '../../util';
 import { info, warning } from '../../color';
 
-export default async ({ currentVersion, dir }) =>
+export default async ({ commitFrom, currentVersion, dir }) =>
   await runStep(
     { title: 'Getting a revision range for this release.' },
     async () => {
+      if (commitFrom) {
+        return {
+          revisionRange: `${commitFrom}..HEAD`,
+        };
+      }
+
       let revisionRange = `v${currentVersion}..HEAD`;
       if (hasTag(`v${currentVersion}`, dir)) {
         print(info(`  ${revisionRange}`));

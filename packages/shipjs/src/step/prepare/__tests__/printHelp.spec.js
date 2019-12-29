@@ -13,7 +13,7 @@ describe('printHelp', () => {
       	shipjs prepare - Prepare a release.
 
       USAGE
-      	shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run] [--no-browse]
+      	shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run] [--no-browse] [--commit-from SHA]
 
       OPTIONS
       	-h, --help
@@ -30,7 +30,9 @@ describe('printHelp', () => {
 
       	-N, --no-browse
       	  Do not open a browser after creating a pull request.
-      ",
+
+      	-c, --commit-from SHA
+      	  Specify since which commit you want to release.",
       ]
     `);
   });
