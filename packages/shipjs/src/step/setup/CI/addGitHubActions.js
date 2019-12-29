@@ -113,7 +113,7 @@ jobs:
           fi
       - run: npm run release:trigger
         env:
-          GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: \${{ secrets.NPM_AUTH_TOKEN }}
           SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}
 `,
@@ -151,7 +151,7 @@ jobs:
           git config --global user.name "<%= gitUserName %>"
       - run: npm run release:prepare -- --yes --no-browse
         env:
-          GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}
 
   create_done_comment:
@@ -212,7 +212,7 @@ jobs:
           git config --global user.name "<%= gitUserName %>"
       - run: npm run release:prepare -- --yes --no-browse
         env:
-          GITHUB_TOKEN: \${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}
 `,
     { baseBranch, cronExpr, gitUserName, gitUserEmail }
