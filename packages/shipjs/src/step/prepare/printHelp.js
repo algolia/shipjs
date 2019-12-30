@@ -11,7 +11,10 @@ export default () =>
     const yes = `--yes`;
     const dryRun = `--dry-run`;
     const noBrowse = `--no-browse`;
-    const all = [help, dir, yes, dryRun, noBrowse].map(x => `[${x}]`).join(' ');
+    const commitFrom = `--commit-from ${underline('SHA')}`;
+    const all = [help, dir, yes, dryRun, noBrowse, commitFrom]
+      .map(x => `[${x}]`)
+      .join(' ');
 
     const messages = [
       bold('NAME'),
@@ -40,6 +43,8 @@ export default () =>
       indent(`-N, ${noBrowse}`),
       indent('  Do not open a browser after creating a pull request.'),
       '',
+      indent(`-c, ${commitFrom}`),
+      indent('  Specify since which commit you want to release.'),
     ];
     print(messages.join('\n'));
   });

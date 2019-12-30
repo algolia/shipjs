@@ -2,6 +2,10 @@ module.exports = {
   title: 'Ship.js',
   description: 'Take control of what is going to be your next release.',
   themeConfig: {
+    algolia: {
+      apiKey: '32d9de316be64a2a99557e931ff200a3',
+      indexName: 'shipjs',
+    },
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/' },
