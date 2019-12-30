@@ -2,10 +2,9 @@
   "name": "website",
   "version": "1.0.0",
   "scripts": {
-    "build": "vuepress build && echo 'ship.js.org' > .vuepress/dist/CNAME",
-    "deploy": "gh-pages -d .vuepress/dist",
+    "build": "vuepress build",
+    "deploy:gh": "node scripts/deploy-gh.js",
     "dev": "vuepress dev",
-    "ship": "npm run build && npm run deploy",
     "test": "echo \"Error: no test specified\""
   },
   "dependencies": {},
