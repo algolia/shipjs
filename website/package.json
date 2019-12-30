@@ -10,7 +10,7 @@
   "dependencies": {},
   "devDependencies": {
     "@vuepress/plugin-google-analytics": "1.2.0",
-    "gh-pages": "^2.1.1",
+    "gh-pages": "2.1.1",
     "vuepress": "1.2.0"
   },
   "main": "index.js",
