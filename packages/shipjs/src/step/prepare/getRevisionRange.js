@@ -1,10 +1,10 @@
 import inquirer from 'inquirer';
 import { hasTag, silentExec } from 'shipjs-lib';
 import runStep from '../runStep';
-import { print } from '../../util';
-import { info, warning } from '../../color';
+import { print, exitProcess } from '../../util';
+import { info, warning, error } from '../../color';
 
-export default async ({ commitFrom, currentVersion, dir }) =>
+export default async ({ yes, commitFrom, currentVersion, dir }) =>
   await runStep(
     { title: 'Getting a revision range for this release.' },
     async () => {
@@ -20,7 +20,20 @@ export default async ({ commitFrom, currentVersion, dir }) =>
         return { revisionRange };
       }
 
-      print(warning(`Git tag 'v${currentVersion}' doesn't exist.`));
+      const tagNotExistingMessage = `Git tag 'v${currentVersion}' doesn't exist.`;
+      if (yes) {
+        print(error(tagNotExistingMessage));
+        print(
+          info(
+            'Ship.js cannot figure out since which commit you want to release.'
+          )
+        );
+        print(info('Try again with the following option added:'));
+        print(info('  --commit-from SHA'));
+        exitProcess(1);
+      }
+
+      print(warning(tagNotExistingMessage));
       const commits = silentExec(`git log --pretty=format:"%h%d %s"`, {
         dir,
       })

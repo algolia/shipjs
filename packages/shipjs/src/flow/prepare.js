@@ -53,6 +53,7 @@ async function prepare({
   fetchTags({ dir, dryRun });
   push({ remote, currentBranch: baseBranch, dir, dryRun });
   const { revisionRange } = await getRevisionRange({
+    yes,
     commitFrom,
     currentVersion,
     dir,
