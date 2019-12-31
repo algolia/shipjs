@@ -23,6 +23,11 @@ export default async ({ yes, commitFrom, currentVersion, dir }) =>
       const tagNotExistingMessage = `Git tag 'v${currentVersion}' doesn't exist.`;
       if (yes) {
         print(error(tagNotExistingMessage));
+        print(
+          info(
+            'Ship.js cannot figure out since which commit you want to release.'
+          )
+        );
         print(info('Try again with the following option added:'));
         print(info('  --commit-from SHA'));
         exitProcess(1);
