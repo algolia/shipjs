@@ -1,3 +1,12 @@
+## [0.13.1](https://github.com/algolia/shipjs/compare/v0.13.0...v0.13.1) (2019-12-31)
+
+
+### Bug Fixes
+
+* **trigger:** fix a bug it threw an exception at `finished` step ([#581](https://github.com/algolia/shipjs/issues/581)) ([eb60e56](https://github.com/algolia/shipjs/commit/eb60e56172841abcec5a46820d978fb19b852e94))
+
+
+
 # [0.13.0](https://github.com/algolia/shipjs/compare/v0.12.1...v0.13.0) (2019-12-31)
 
 
