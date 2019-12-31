@@ -15,7 +15,7 @@ import gitPush from '../step/release/gitPush';
 import createGitHubRelease from '../step/release/createGitHubRelease';
 import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess';
 import checkGitHubToken from '../step/checkGitHubToken';
-import finished from '../step/finished';
+import finished from '../step/release/finished';
 import { detectYarn } from '../util';
 
 async function release({ help = false, dir = '.', dryRun = false }) {
