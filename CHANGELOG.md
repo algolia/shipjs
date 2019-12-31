@@ -1,3 +1,19 @@
+# [0.13.0](https://github.com/algolia/shipjs/compare/v0.12.1...v0.13.0) (2019-12-31)
+
+
+### Bug Fixes
+
+* **github-actions:** fix image name ([#557](https://github.com/algolia/shipjs/issues/557)) ([33f710c](https://github.com/algolia/shipjs/commit/33f710c36e552eca2d27d290ce1c987955335984))
+* replace GH_TOKEN with GITHUB_TOKEN ([#568](https://github.com/algolia/shipjs/issues/568)) ([835e26f](https://github.com/algolia/shipjs/commit/835e26f6d61813b46abd8c028e9b166c351adcab))
+
+
+### Features
+
+* **prepare:** add --commit-from option ([#572](https://github.com/algolia/shipjs/issues/572)) ([041d3d9](https://github.com/algolia/shipjs/commit/041d3d9c1f6fc944c3259c702973fbff9721c0a0))
+* **release:** notify GitHub release url instead of CHANGELOG ([#555](https://github.com/algolia/shipjs/issues/555)) ([c017067](https://github.com/algolia/shipjs/commit/c0170677d013757c56ca76cea4ce1b2cee45a80a)), closes [#506](https://github.com/algolia/shipjs/issues/506)
+
+
+
 ## [0.12.1](https://github.com/algolia/shipjs/compare/v0.12.0...v0.12.1) (2019-12-24)
 
 
