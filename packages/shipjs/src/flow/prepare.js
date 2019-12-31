@@ -21,7 +21,7 @@ import createPullRequest from '../step/prepare/createPullRequest';
 import notifyPrepared from '../step/prepare/notifyPrepared';
 import pushToStagingBranch from '../step/prepare/pushToStagingBranch';
 import checkGitHubToken from '../step/checkGitHubToken';
-import finished from '../step/finished';
+import finished from '../step/prepare/finished';
 
 import { print } from '../util';
 import { warning } from '../color';
