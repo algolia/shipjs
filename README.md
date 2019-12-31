@@ -10,7 +10,7 @@
 
 <p align="center">
   Take control of what is going to be your next release.<br>
-  <a href="https://shipjs.netlify.com/"> https://shipjs.netlify.com/</a>
+  <a href="https://community.algolia.com/shipjs/">https://community.algolia.com/shipjs/</a>
 </p>
 
 ## Features
@@ -96,7 +96,7 @@ However you can also configure your CI service(e.g. CircleCI) to do this for you
 
 ## Getting Started
 
-Let's move on to the [guide](https://shipjs.netlify.com/guide/getting-started.html).
+Let's move on to the [guide](https://community.algolia.com/shipjs/guide/getting-started.html).
 
 ## How is it different from semantic-release?
 
@@ -112,7 +112,7 @@ Ship.js gives you more control over the release process. Ship.js automatically c
 
 ## How to Contribute?
 
-[Read Contribution Guide →](https://shipjs.netlify.com/guide/contributing.html)
+[Read Contribution Guide →](https://community.algolia.com/shipjs/guide/contributing.html)
 
 ## Contributors ✨
 
