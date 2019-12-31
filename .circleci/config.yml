@@ -71,6 +71,20 @@ jobs:
       - run:
           name: Try to Release
           command: yarn release:trigger
+  gh_pages:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: *install_yarn_version
+      - restore_cache: *restore_yarn_cache
+      - run: *run_yarn_install
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Release website to gh-pages
+          command: |
+            git config --global user.email "karis612@gmail.com"
+            git config --global user.name "Eunjae Lee"
+            yarn workspace website deploy:gh
 workflows:
   version: 2
   ci:
@@ -79,6 +93,13 @@ workflows:
       - release_if_needed:
           requires:
             - test
+  gh_pages:
+    jobs:
+      - gh_pages:
+          filters:
+            branches:
+              only:
+                - master
   prepare_release_every_tuesday:
     triggers:
       - schedule:

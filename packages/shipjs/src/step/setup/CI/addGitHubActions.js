@@ -58,7 +58,7 @@ export default ({
         () => {
           print('  You still need to finish setting up at GitHub Actions.');
           print(
-            '  > https://shipjs.netlify.com/guide/getting-started.html#setup-github-actions'
+            '  > https://community.algolia.com/shipjs/guide/getting-started.html#setup-github-actions'
           );
         },
       ].filter(Boolean);
