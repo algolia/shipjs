@@ -21,11 +21,6 @@ export default async ({ yes, commitFrom, currentVersion, dir }) =>
       }
 
       const tagNotExistingMessage = `Git tag 'v${currentVersion}' doesn't exist.`;
-      const commits = silentExec(`git log --pretty=format:"%h%d %s"`, {
-        dir,
-      })
-        .toString()
-        .split('\n');
       if (yes) {
         print(error(tagNotExistingMessage));
         print(info('Try again with the following option added:'));
@@ -34,6 +29,11 @@ export default async ({ yes, commitFrom, currentVersion, dir }) =>
       }
 
       print(warning(tagNotExistingMessage));
+      const commits = silentExec(`git log --pretty=format:"%h%d %s"`, {
+        dir,
+      })
+        .toString()
+        .split('\n');
       const { answer } = await inquirer.prompt([
         {
           type: 'list',
