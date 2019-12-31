@@ -81,7 +81,10 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Release website to gh-pages
-          command: yarn workspace website deploy:gh
+          command: |
+            git config --global user.email "karis612@gmail.com"
+            git config --global user.name "Eunjae Lee"
+            yarn workspace website deploy:gh
 workflows:
   version: 2
   ci:
