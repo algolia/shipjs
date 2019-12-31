@@ -93,6 +93,10 @@ workflows:
       - release_if_needed:
           requires:
             - test
+          filters:
+            branches:
+              only:
+                - master
   gh_pages:
     jobs:
       - gh_pages:
