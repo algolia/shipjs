@@ -63,7 +63,7 @@ versionUpdated: ({ version, releaseType, dir, exec }) => { /* ... */ }
 This is a lifecycle hook where you can put additional code after version is updated. You can read [an example here](../guide/useful-config.html#extra-work-on-updating-version).
 
 - version: `x.y.z`
-- releaseType: `'major' | 'minor' | 'patch'`
+- releaseType: `'major' | 'minor' | 'patch' | 'prerelease'`
 - dir: current working dir
 - exec: `shelljs.exec` bound with the `dir`.
    - For example, `exec('yarn some-command')`
