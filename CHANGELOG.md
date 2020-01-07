@@ -1,3 +1,13 @@
+## [0.13.2](https://github.com/algolia/shipjs/compare/v0.13.1...v0.13.2) (2020-01-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency inquirer to v7.0.2 ([#590](https://github.com/algolia/shipjs/issues/590)) ([8a9191e](https://github.com/algolia/shipjs/commit/8a9191e238d3a8a60327ed164f45073165503f52))
+* **deps:** update dependency inquirer to v7.0.3 ([#593](https://github.com/algolia/shipjs/issues/593)) ([f1bf046](https://github.com/algolia/shipjs/commit/f1bf0466a2b2c57862bd3aeff771e340374e0197))
+
+
+
 ## [0.13.1](https://github.com/algolia/shipjs/compare/v0.13.0...v0.13.1) (2019-12-31)
 
 
