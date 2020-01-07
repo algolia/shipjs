@@ -14,7 +14,7 @@ const exec = util.promisify(require('child_process').exec);
   );
   fs.writeFileSync(configPath, configWithBase);
   await exec('vuepress build');
-  await exec('gh-pages -d .vuepress/dist');
+  await exec(`gh-pages -m "auto commit [ci skip]" -d .vuepress/dist`);
 
   fs.writeFileSync(configPath, originalConfig);
 })();
