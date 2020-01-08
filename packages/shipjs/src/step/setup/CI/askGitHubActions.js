@@ -2,7 +2,24 @@ import inquirer from 'inquirer';
 import formatMessage from '../formatMessage';
 
 export default async function askGitHubActions() {
-  const { manualPrepare } = await inquirer.prompt([
+  const registriesMap = {
+    'npm registry': 'https://registry.npmjs.org',
+    'github registry': 'https://npm.pkg.github.com',
+  };
+
+  const registriesNames = Object.keys(registriesMap);
+  const {
+    selectedRegistryName,
+    manualPrepare,
+    schedulePrepare,
+  } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'selectedRegistryName',
+      message: 'Where do you publish package?',
+      choices: registriesNames,
+      default: registriesNames[0],
+    },
     {
       type: 'confirm',
       name: 'manualPrepare',
@@ -12,9 +29,6 @@ export default async function askGitHubActions() {
       ),
       default: true,
     },
-  ]);
-
-  const { schedulePrepare } = await inquirer.prompt([
     {
       type: 'confirm',
       name: 'schedulePrepare',
@@ -22,6 +36,7 @@ export default async function askGitHubActions() {
       default: true,
     },
   ]);
+
   const offset = new Date().getTimezoneOffset() / 60;
   const hour = 11 + offset;
   const tuesday = 2;
@@ -42,7 +57,11 @@ export default async function askGitHubActions() {
     ].filter(Boolean)
   );
 
+  const registry = registriesMap[selectedRegistryName];
+
   return {
+    registry,
+    registryName: selectedRegistryName,
     manualPrepare,
     schedulePrepare,
     cronExpr,

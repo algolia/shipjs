@@ -10,6 +10,8 @@ import { info, warning } from '../../../color';
 export default ({
   baseBranch,
   releaseBranch,
+  registry,
+  registryName,
   manualPrepare,
   schedulePrepare,
   cronExpr,
@@ -26,7 +28,7 @@ export default ({
 
       const log = [
         createGitHubAction({
-          content: getBaseConfig({ releaseBranch }),
+          content: getBaseConfig({ registry, registryName, releaseBranch }),
           actionPath: '.github/workflows/shipjs-trigger.yml',
           dir,
           dryRun,
@@ -56,7 +58,7 @@ export default ({
           }),
 
         () => {
-          print('  You still need to finish setting up at GitHub Actions.');
+          print('  You still need to finish setting up GitHub Actions.');
           print(
             '  > https://community.algolia.com/shipjs/guide/getting-started.html#setup-github-actions'
           );
@@ -88,7 +90,7 @@ function createGitHubAction({ content, actionPath, dir, dryRun }) {
   };
 }
 
-function getBaseConfig({ releaseBranch }) {
+function getBaseConfig({ registry, registryName, releaseBranch }) {
   return ejs.render(
     `name: Ship js trigger
 on:
@@ -97,13 +99,13 @@ on:
       - <%= releaseBranch %>
 jobs:
   build:
-    name: Build
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
         with:
-          registry-url: "https://registry.npmjs.org"
+          registry-url: "<%= registry %>"
       - run: git switch <%= releaseBranch %>
       - run: |
           if [ -f "yarn.lock" ]; then
@@ -114,10 +116,10 @@ jobs:
       - run: npm run release:trigger
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: \${{ secrets.NPM_AUTH_TOKEN }}
+          <% if (registryName === 'github registry') { %>NODE_AUTH_TOKEN: \${{ secrets.GITHUB_TOKEN }}<% } else { %>NODE_AUTH_TOKEN: \${{ secrets.NODE_AUTH_TOKEN }}<% } %>
           SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}
 `,
-    { releaseBranch }
+    { registry, registryName, releaseBranch }
   );
 }
 
