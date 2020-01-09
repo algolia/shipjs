@@ -56,7 +56,7 @@ export default ({
           }),
 
         () => {
-          print('  You still need to finish setting up at GitHub Actions.');
+          print('  You still need to finish setting up GitHub Actions.');
           print(
             '  > https://community.algolia.com/shipjs/guide/getting-started.html#setup-github-actions'
           );
@@ -97,14 +97,15 @@ on:
       - <%= releaseBranch %>
 jobs:
   build:
-    name: Build
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+        with:
+          ref: <%= releaseBranch %>
       - uses: actions/setup-node@master
         with:
           registry-url: "https://registry.npmjs.org"
-      - run: git switch <%= releaseBranch %>
       - run: |
           if [ -f "yarn.lock" ]; then
             yarn install
