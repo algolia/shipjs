@@ -2,7 +2,7 @@ import runStep from '../runStep';
 import { wrapExecWithDir, print } from '../../util';
 import { info } from '../../color';
 
-export default ({ config, dir, dryRun }) =>
+export default ({ version, config, dir, dryRun }) =>
   runStep(
     {
       title: 'Running "afterPublish" callback.',
@@ -14,6 +14,6 @@ export default ({ config, dir, dryRun }) =>
         print(`-> execute ${info('afterPublish()')} callback.`);
         return;
       }
-      await config.afterPublish({ exec: wrapExecWithDir(dir), dir });
+      await config.afterPublish({ exec: wrapExecWithDir(dir), dir, version });
     }
   );
