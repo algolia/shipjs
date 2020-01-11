@@ -100,10 +100,10 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
         with:
           ref: <%= releaseBranch %>
-      - uses: actions/setup-node@master
+      - uses: actions/setup-node@v1
         with:
           registry-url: "https://registry.npmjs.org"
       - run: |
@@ -136,11 +136,11 @@ jobs:
       startsWith(github.event.comment.body, '@shipjs prepare')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           ref: <%= baseBranch %>
-      - uses: actions/setup-node@master
+      - uses: actions/setup-node@v1
       - run: |
           if [ -f "yarn.lock" ]; then
             yarn install
@@ -197,11 +197,11 @@ jobs:
   schedule_prepare:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           ref: <%= baseBranch %>
-      - uses: actions/setup-node@master
+      - uses: actions/setup-node@v1
       - run: |
           if [ -f "yarn.lock" ]; then
             yarn install
