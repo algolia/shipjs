@@ -1,2 +1,7 @@
 [build.environment]
   YARN_VERSION = "1.13.0"
+
+[[redirects]]
+  from = "/*"
+  to = "https://community.algolia.com/shipjs"
+  status = 301
