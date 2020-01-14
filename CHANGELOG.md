@@ -115,7 +115,7 @@
 
 From `0.11.0`, `GITHUB_TOKEN` is required as an environment variable for Ship.js to work.
 
-Please refer to [the guide](./GUIDE.md#github-token).
+Please refer to [the guide](https://community.algolia.com/shipjs/guide/getting-started.html#github-token).
 
 ### Bug Fixes
 
