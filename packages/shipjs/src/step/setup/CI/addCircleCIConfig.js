@@ -21,10 +21,10 @@ export default ({ baseBranch, schedulePrepare, cronExpr, dir, dryRun }) =>
             '  You can manually configure CircleCI through these two steps:'
           );
           print(
-            '  > Basic setup: https://github.com/algolia/shipjs/blob/master/GUIDE.md#automate-part-3-shipjs-trigger-on-your-ci'
+            '  > Basic setup: https://community.algolia.com/shipjs/guide/getting-started.html#automate-part-3-trigger'
           );
           print(
-            '  > Schedule your release: https://github.com/algolia/shipjs/blob/master/GUIDE.md#schedule-your-release'
+            '  > Schedule your release: https://community.algolia.com/shipjs/guide/useful-config.html#schedule-your-release'
           );
         };
       }
@@ -46,7 +46,7 @@ export default ({ baseBranch, schedulePrepare, cronExpr, dir, dryRun }) =>
         print(`${info('✔')} Created \`.circleci/config.yml\`.`);
         print('  You still need to finish setting up at CircleCI.');
         print(
-          '  > https://github.com/algolia/shipjs/blob/master/GUIDE.md#automate-part-3-shipjs-trigger-on-your-ci'
+          '  > https://community.algolia.com/shipjs/guide/getting-started.html#automate-part-3-trigger'
         );
       };
     }

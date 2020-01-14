@@ -61,7 +61,9 @@ export default async ({
     return () => {
       print(`${info('✔')} Created \`ship.config.js\`.`);
       print('  You can learn more about the configuration.');
-      print('  > https://github.com/algolia/shipjs/blob/master/GUIDE.md');
+      print(
+        '  > https://community.algolia.com/shipjs/guide/useful-config.html'
+      );
     };
   });
 
