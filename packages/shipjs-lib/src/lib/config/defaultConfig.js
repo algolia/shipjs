@@ -67,6 +67,7 @@ export default {
     return lines.join('\n');
   },
   pullRequestReviewer: undefined,
+  pullRequestTeamReviewer: undefined,
   mergeStrategy: {
     toSameBranch: ['master'],
     // toReleaseBranch: {
