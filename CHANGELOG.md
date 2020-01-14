@@ -3,8 +3,6 @@
 
 ### Bug Fixes
 
-* **deps:** update dependency inquirer to v7.0.2 ([#590](https://github.com/algolia/shipjs/issues/590)) ([8a9191e](https://github.com/algolia/shipjs/commit/8a9191e238d3a8a60327ed164f45073165503f52))
-* **deps:** update dependency inquirer to v7.0.3 ([#593](https://github.com/algolia/shipjs/issues/593)) ([f1bf046](https://github.com/algolia/shipjs/commit/f1bf0466a2b2c57862bd3aeff771e340374e0197))
 * replace switch with build in checkout ([#602](https://github.com/algolia/shipjs/issues/602)) ([ef5f8b9](https://github.com/algolia/shipjs/commit/ef5f8b9ba9571c787b7e4ec7569ed4920f3189d9))
 
 
