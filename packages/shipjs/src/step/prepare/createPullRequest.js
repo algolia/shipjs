@@ -105,7 +105,7 @@ export default async ({
       base: destinationBranch,
     });
 
-    if (reviewers.length > 0) {
+    if (reviewers.length > 0 || teamReviewers.length > 0) {
       await octokit.pulls.createReviewRequest({
         owner,
         repo,
