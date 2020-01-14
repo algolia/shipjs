@@ -34,7 +34,6 @@ module.exports = {
     );
   },
   beforeCommitChanges: ({ exec }) => {
-    exec("yarn toc");
     exec("./scripts/update-contributors-badge.js");
   },
   beforePublish: ({ exec }) => {
