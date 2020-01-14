@@ -1,3 +1,20 @@
+# [0.14.0](https://github.com/algolia/shipjs/compare/v0.13.1...v0.14.0) (2020-01-14)
+
+
+### Bug Fixes
+
+* **release**: add `version` in `afterPublish` hook ([#608](https://github.com/algolia/shipjs/issues/608)) ([76c5591](https://github.com/algolia/shipjs/commit/76c5591c7fe7aa52b1dfab64fa084c96a09a1206))
+* **action**: pin GitHub Action versions ([#612](https://github.com/algolia/shipjs/issues/612)) ([b5e576a](https://github.com/algolia/shipjs/commit/b5e576a7d3c904676ec66dfac9e946a234470124))
+* **action**: replace switch with build in checkout ([#602](https://github.com/algolia/shipjs/issues/602)) ([ef5f8b9](https://github.com/algolia/shipjs/commit/ef5f8b9ba9571c787b7e4ec7569ed4920f3189d9))
+* **slack:** use tag name instead of release tag ([#609](https://github.com/algolia/shipjs/issues/609)) ([f183425](https://github.com/algolia/shipjs/commit/f18342579214ac99be33f71bc6b8f37c52fea8b8))
+
+
+### Features
+
+* **prepare:** provide a config to assign team as reviewer ([#619](https://github.com/algolia/shipjs/issues/619)) ([14ebf38](https://github.com/algolia/shipjs/commit/14ebf3865954c1ca2b07e03cb02dbe3f06f1f593))
+
+
+
 ## [0.13.1](https://github.com/algolia/shipjs/compare/v0.13.0...v0.13.1) (2019-12-31)
 
 
