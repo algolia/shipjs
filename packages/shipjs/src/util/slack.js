@@ -65,7 +65,7 @@ export async function notifyReleaseSuccess({
   config,
   appName,
   version,
-  releaseTag,
+  tagName,
   latestCommitHash,
   latestCommitUrl,
   repoURL,
@@ -81,7 +81,7 @@ export async function notifyReleaseSuccess({
       ? releaseSuccess({
           appName,
           version,
-          releaseTag,
+          tagName,
           latestCommitHash,
           latestCommitUrl,
           repoURL,
