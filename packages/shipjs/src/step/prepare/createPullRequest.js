@@ -29,6 +29,7 @@ export default async ({
       formatPullRequestMessage,
       publishCommand,
       pullRequestReviewer,
+      pullRequestTeamReviewer,
       remote,
       monorepo,
     } = config;
@@ -87,6 +88,9 @@ export default async ({
     const reviewers = Array.isArray(pullRequestReviewer)
       ? pullRequestReviewer
       : (pullRequestReviewer || '').split(',');
+    const teamReviewers = Array.isArray(pullRequestTeamReviewer)
+      ? pullRequestTeamReviewer
+      : (pullRequestTeamReviewer || '').split(',');
     const octokit = new Octokit({
       auth: `token ${process.env.GITHUB_TOKEN}`,
     });
@@ -107,6 +111,7 @@ export default async ({
         repo,
         pull_number: number, // eslint-disable-line camelcase
         reviewers,
+        team_reviewers: teamReviewers, // eslint-disable-line camelcase
       });
     }
 
