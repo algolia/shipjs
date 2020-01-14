@@ -6,6 +6,7 @@ describe('runAfterPublish', () => {
   it('works', async () => {
     const afterPublish = jest.fn();
     await runAfterPublish({
+      version: '1.2.3',
       config: {
         afterPublish,
       },
@@ -17,6 +18,7 @@ describe('runAfterPublish', () => {
       Object {
         "dir": ".",
         "exec": undefined,
+        "version": "1.2.3",
       }
     `);
   });
