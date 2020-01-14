@@ -3,12 +3,9 @@
 
 ### Bug Fixes
 
-* **deps:** update dependency inquirer to v7.0.2 ([#590](https://github.com/algolia/shipjs/issues/590)) ([8a9191e](https://github.com/algolia/shipjs/commit/8a9191e238d3a8a60327ed164f45073165503f52))
-* **deps:** update dependency inquirer to v7.0.3 ([#593](https://github.com/algolia/shipjs/issues/593)) ([f1bf046](https://github.com/algolia/shipjs/commit/f1bf0466a2b2c57862bd3aeff771e340374e0197))
-* add `version` in `afterPublish` hook ([#608](https://github.com/algolia/shipjs/issues/608)) ([76c5591](https://github.com/algolia/shipjs/commit/76c5591c7fe7aa52b1dfab64fa084c96a09a1206))
-* add condition to create review request ([#620](https://github.com/algolia/shipjs/issues/620)) ([25fc1b1](https://github.com/algolia/shipjs/commit/25fc1b12ebbbff4c86f67421eabfef58d7e0b72f))
-* pin GitHub Action versions ([#612](https://github.com/algolia/shipjs/issues/612)) ([b5e576a](https://github.com/algolia/shipjs/commit/b5e576a7d3c904676ec66dfac9e946a234470124))
-* replace switch with build in checkout ([#602](https://github.com/algolia/shipjs/issues/602)) ([ef5f8b9](https://github.com/algolia/shipjs/commit/ef5f8b9ba9571c787b7e4ec7569ed4920f3189d9))
+* **release**: add `version` in `afterPublish` hook ([#608](https://github.com/algolia/shipjs/issues/608)) ([76c5591](https://github.com/algolia/shipjs/commit/76c5591c7fe7aa52b1dfab64fa084c96a09a1206))
+* **action**: pin GitHub Action versions ([#612](https://github.com/algolia/shipjs/issues/612)) ([b5e576a](https://github.com/algolia/shipjs/commit/b5e576a7d3c904676ec66dfac9e946a234470124))
+* **action**: replace switch with build in checkout ([#602](https://github.com/algolia/shipjs/issues/602)) ([ef5f8b9](https://github.com/algolia/shipjs/commit/ef5f8b9ba9571c787b7e4ec7569ed4920f3189d9))
 * **slack:** use tag name instead of release tag ([#609](https://github.com/algolia/shipjs/issues/609)) ([f183425](https://github.com/algolia/shipjs/commit/f18342579214ac99be33f71bc6b8f37c52fea8b8))
 
 
