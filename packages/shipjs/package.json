@@ -3,6 +3,9 @@
   "version": "0.14.0",
   "description": "Take control of what is going to be your next release.",
   "main": "index.js",
+  "engines": {
+    "node": ">=8"
+  },
   "bin": {
     "shipjs": "./bin/shipjs"
   },
