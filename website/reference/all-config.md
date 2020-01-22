@@ -191,7 +191,7 @@ publishCommand: ({ isYarn, tag, defaultCommand, dir }) => {
 
 ```js
 // example
-afterPublish: ({ exec, dir }) => { /* do something */ }
+afterPublish: ({ exec, dir, version, releaseTag }) => { /* do something */ }
 ```
 
 ## `testCommandBeforeRelease`

@@ -49,7 +49,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   runBuild({ isYarn, config, dir, dryRun });
   await runBeforePublish({ config, dir, dryRun });
   runPublish({ isYarn, config, releaseTag, dir, dryRun });
-  await runAfterPublish({ version, config, dir, dryRun });
+  await runAfterPublish({ version, releaseTag, config, dir, dryRun });
   const { tagName } = createGitTag({ version, config, dir, dryRun });
   gitPush({ tagName, config, dir, dryRun });
   await createGitHubRelease({ version, config, dir, dryRun });

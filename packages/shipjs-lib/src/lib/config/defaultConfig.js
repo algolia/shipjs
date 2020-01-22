@@ -108,7 +108,7 @@ export default {
   buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build'),
   beforePublish: undefined, // ({ exec, dir }) => {}
   publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand,
-  afterPublish: undefined, // ({ exec, dir }) => {}
+  afterPublish: undefined, // ({ exec, dir, version, releaseTag }) => {}
   getTagName: ({ version }) => `v${version}`,
   testCommandBeforeRelease: ({ isYarn }) =>
     isYarn ? 'yarn test' : 'npm run test',
