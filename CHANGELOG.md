@@ -1,3 +1,13 @@
+## [0.14.1](https://github.com/algolia/shipjs/compare/v0.14.0...v0.14.1) (2020-01-22)
+
+
+### Bug Fixes
+
+* clean up all cases for releaseType ([#631](https://github.com/algolia/shipjs/issues/631)) ([89e5d73](https://github.com/algolia/shipjs/commit/89e5d732d0ac1d4d2a4750703c583ff82c450cfd))
+* pass releaseTag to afterPublish hook ([#632](https://github.com/algolia/shipjs/issues/632)) ([6b5febb](https://github.com/algolia/shipjs/commit/6b5febb0d2ab8f6d375a4116a23a5821941271ac))
+
+
+
 # [0.14.0](https://github.com/algolia/shipjs/compare/v0.13.1...v0.14.0) (2020-01-14)
 
 
