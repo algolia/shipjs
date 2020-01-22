@@ -1,3 +1,32 @@
+## [0.14.1](https://github.com/algolia/shipjs/compare/v0.14.0...v0.14.1) (2020-01-22)
+
+
+### Bug Fixes
+
+* clean up all cases for releaseType ([#631](https://github.com/algolia/shipjs/issues/631)) ([89e5d73](https://github.com/algolia/shipjs/commit/89e5d732d0ac1d4d2a4750703c583ff82c450cfd))
+* pass releaseTag to afterPublish hook ([#632](https://github.com/algolia/shipjs/issues/632)) ([6b5febb](https://github.com/algolia/shipjs/commit/6b5febb0d2ab8f6d375a4116a23a5821941271ac))
+
+### `releaseType`
+
+The following shows how `releaseType` is determined.
+
+#### normal cases
+- `1.2.3` -> `2.0.0`: `major`
+- `1.2.3` -> `1.3.0`: `minor`
+- `1.2.3` -> `1.2.4`: `patch`
+
+#### next version has a tag
+- `1.2.3` -> `1.2.4-alpha.0`: `prerelease`
+- `1.2.4-alpha.0` -> `1.2.4-alpha.1`: `prerelease`
+
+#### version with a tag -> version without one
+- `1.2.4-alpha.0` -> `1.2.4`: `patch`
+- `1.2.4-alpha.0` -> `1.2.5`: `patch`
+- `1.2.4-alpha.0` -> `1.3.0`: `minor`
+- `1.2.4-alpha.0` -> `2.0.0`: `major`
+- `1.3.0-alpha.0` -> `1.3.0`: `minor`
+Just like normal cases, the new version decides the `releaseType`.
+
 # [0.14.0](https://github.com/algolia/shipjs/compare/v0.13.1...v0.14.0) (2020-01-14)
 
 
