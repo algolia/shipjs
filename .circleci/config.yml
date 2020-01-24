@@ -45,7 +45,7 @@ jobs:
           command: yarn lint
       - run:
           name: Unit Tests
-          command: yarn test
+          command: yarn test:ci
   prepare_release:
     <<: *defaults
     steps:
