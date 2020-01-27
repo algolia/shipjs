@@ -1,3 +1,12 @@
+## [0.14.2](https://github.com/algolia/shipjs/compare/v0.14.1...v0.14.2) (2020-01-27)
+
+
+### Bug Fixes
+
+* add version in buildCommand hook ([#640](https://github.com/algolia/shipjs/issues/640)) ([420dbb9](https://github.com/algolia/shipjs/commit/420dbb9ef381d998a0fcb973e21828cbea6bd8a4))
+
+
+
 ## [0.14.1](https://github.com/algolia/shipjs/compare/v0.14.0...v0.14.1) (2020-01-22)
 
 
