@@ -46,7 +46,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   });
   const isYarn = detectYarn(dir);
   runTest({ isYarn, config, dir, dryRun });
-  runBuild({ isYarn, config, dir, dryRun });
+  runBuild({ isYarn, config, version, dir, dryRun });
   await runBeforePublish({ config, dir, dryRun });
   runPublish({ isYarn, config, releaseTag, dir, dryRun });
   await runAfterPublish({ version, releaseTag, config, dir, dryRun });
