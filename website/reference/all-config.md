@@ -129,7 +129,7 @@ To learn more, you can read [this guide](../guide/useful-config.html#mergestrate
 
 *default:*
 ```js
-buildCommand: ({ isYarn }) => (isYarn ? 'yarn build' : 'npm run build')
+buildCommand: ({ isYarn, version }) => (isYarn ? 'yarn build' : 'npm run build')
 ```
 
 If there's nothing to build before publishing, you can skip this step:
