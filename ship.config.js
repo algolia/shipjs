@@ -38,6 +38,10 @@ module.exports = {
   },
   beforePublish: ({ exec }) => {
     exec("cp README.md packages/shipjs/");
+  },
+  testCommandBeforeRelease: () => 'echo "No test before release"', // TODO: remove later
+  slack: {
+    releaseStart: null // TODO: remove later
   }
 };
 
