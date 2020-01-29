@@ -3,6 +3,7 @@
 require = require('esm')(module);
 (async function() {
   try {
+    process.env.SHIPJS = true;
     await require('../src/cli').cli(process.argv);
   } catch (e) {
     console.error(e);
