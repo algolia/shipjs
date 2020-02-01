@@ -6,7 +6,7 @@ export default [
   {
     input: 'src/index.js',
     output: [{ file: pkg.main, format: 'es' }],
-    external: ['fs', 'path', 'url'],
+    external: ['fs', 'path', 'url'].concat(Object.keys(pkg.dependencies)),
     plugins: [resolve({ preferBuiltins: true }), commonjs()],
   },
 ];
