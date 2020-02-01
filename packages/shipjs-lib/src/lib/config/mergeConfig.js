@@ -1,4 +1,4 @@
-const merge = require('deepmerge');
+import merge from 'deepmerge';
 
 export default function mergeConfig(config1, config2) {
   const config = {
