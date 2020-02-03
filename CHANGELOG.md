@@ -1,3 +1,18 @@
+# [0.15.0](https://github.com/algolia/shipjs/compare/v0.14.2...v0.15.0) (2020-02-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency arg to v4.1.3 ([#653](https://github.com/algolia/shipjs/issues/653)) ([354f853](https://github.com/algolia/shipjs/commit/354f853e35452ebb7177ef19bf7935c2de750e0b))
+
+
+### Features
+
+* add environment variable `SHIPJS=true` ([#647](https://github.com/algolia/shipjs/issues/647)) ([582df3c](https://github.com/algolia/shipjs/commit/582df3ca459ba3b9bc692dd792552f11f937bd78))
+* **prepare:** add `shouldPrepare` ([#654](https://github.com/algolia/shipjs/issues/654)) ([166626d](https://github.com/algolia/shipjs/commit/166626d2ee8c66170943f99c9212ae486bae45f0))
+
+
+
 ## [0.14.2](https://github.com/algolia/shipjs/compare/v0.14.1...v0.14.2) (2020-01-27)
 
 
