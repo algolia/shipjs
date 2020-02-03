@@ -7,6 +7,8 @@ export { default as getReleaseTag } from './lib/util/getReleaseTag';
 export { default as getReleaseType } from './lib/util/getReleaseType';
 
 /* git */
+export { default as getCommitTitles } from './lib/git/getCommitTitles';
+export { default as getCommitBodies } from './lib/git/getCommitBodies';
 export { default as hasLocalBranch } from './lib/git/hasLocalBranch';
 export { default as hasRemoteBranch } from './lib/git/hasRemoteBranch';
 export { default as getCurrentBranch } from './lib/git/getCurrentBranch';
@@ -32,3 +34,4 @@ export { default as loadConfig } from './lib/config/loadConfig';
 /* etc */
 export { default as getAppName } from './lib/util/getAppName';
 export { default as expandPackageList } from './lib/util/expandPackageList';
+export { default as getCommitNumbersPerType } from './lib/util/getCommitNumbersPerType';
