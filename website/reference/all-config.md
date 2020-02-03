@@ -31,6 +31,42 @@ Ship.js currently does not provide independent versioning. It means all the pack
 
 1. Ship.js will only publish the packages from `packagesToPublish`.
 
+## `shouldPrepare`
+
+*default*: `undefined`
+
+```js
+// example
+shouldPrepare: ({
+                  commits,
+                  nextVersion,
+                  releaseType,
+                  releaseTag,
+                  commitNumbersPerType,
+               }) => { /* ... */ }
+```
+
+This is a lifecycle hook where you can decide whether or not to proceed with the preparation.
+
+- commits: string of commit titles. Be aware that it's not an array of strings. It comes from `git log --pretty=format:%s`.
+- nextVersion: `x.y.z`
+- releaseType: `'major' | 'minor' | 'patch' | 'prerelease'`
+- releaseTag: `'latest' | 'alpha' | 'beta' | ...`
+- commitNumbersPerType: an object with keys of conventional commit type, and with values of number of commits of the type. `{ feat: 2, fix: 4, chore: 8 }`
+
+```js
+// example
+shouldPrepare: ({ releaseType, commitNumbersPerType }) => {
+  const { fix = 0 } = commitNumbersPerType;
+  if (releaseType === "patch" && fix === 0) {
+    return false;
+  }
+  return true;
+}
+```
+
+With the config above, you can skip if it's going to be a patch release but without any `fix` commits.
+
 ## `updateChangelog`
 
 *default:* `true`
