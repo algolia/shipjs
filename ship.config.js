@@ -42,6 +42,14 @@ module.exports = {
   testCommandBeforeRelease: () => 'echo "No test before release"', // TODO: remove later
   slack: {
     releaseStart: null // TODO: remove later
+  },
+  // skip preparation if master contain only `chore` commits
+  shouldPrepare: ({ releaseType, commitNumbersPerType }) => {
+    const { fix = 0 } = commitNumbersPerType;
+    if (releaseType === "patch" && fix === 0) {
+      return false;
+    }
+    return true;
   }
 };
 
