@@ -1,7 +1,7 @@
 import {
   GIT_COMMIT_PREFIX_PATCH,
   GIT_COMMIT_PREFIX_MINOR,
-  GIT_COMMIT_BREAKING_CHANGE
+  GIT_COMMIT_BREAKING_CHANGE,
 } from '../const';
 import { inc, prerelease } from 'semver';
 import getCommitTitles from '../git/getCommitTitles';
