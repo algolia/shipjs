@@ -1,7 +1,7 @@
 import {
   GIT_COMMIT_PREFIX_PATCH,
   GIT_COMMIT_PREFIX_MINOR,
-  GIT_COMMIT_BREAKING_CHANGE,
+  GIT_COMMIT_BREAKING_CHANGE
 } from '../const';
 import { inc, prerelease } from 'semver';
 import getCommitTitles from '../git/getCommitTitles';
@@ -12,7 +12,12 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
   if (prerelease(version)) {
     return { version: inc(version, 'prerelease') };
   }
-  if (bodies.toUpperCase().includes(GIT_COMMIT_BREAKING_CHANGE)) {
+  if (
+    bodies
+      .toUpperCase()
+      .split('\n')
+      .some(line => line.startsWith(GIT_COMMIT_BREAKING_CHANGE))
+  ) {
     return { version: inc(version, 'major') };
   }
   const { numbers, ignoredMessages } = getCommitNumbersPerType(titles);
