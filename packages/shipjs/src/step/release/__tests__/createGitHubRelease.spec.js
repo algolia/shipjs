@@ -2,7 +2,7 @@ import globby from 'globby';
 import fs from 'fs';
 import mime from 'mime-types';
 import { getRepoInfo } from 'shipjs-lib';
-import Octokit from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import createGitHubRelease from '../createGitHubRelease';
 jest.mock('temp-write');
 jest.mock('@octokit/rest');
