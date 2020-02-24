@@ -14,6 +14,9 @@
     "release:trigger": "shipjs trigger",
     "contributors:add": "all-contributors add"
   },
+  "engines": {
+    "node": ">=8.16.0"
+  },
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
   "private": true,
