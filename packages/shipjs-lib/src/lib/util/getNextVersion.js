@@ -12,7 +12,12 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
   if (prerelease(version)) {
     return { version: inc(version, 'prerelease') };
   }
-  if (bodies.toUpperCase().includes(GIT_COMMIT_BREAKING_CHANGE)) {
+  if (
+    bodies
+      .toUpperCase()
+      .split('\n')
+      .some(line => line.startsWith(GIT_COMMIT_BREAKING_CHANGE))
+  ) {
     return { version: inc(version, 'major') };
   }
   const { numbers, ignoredMessages } = getCommitNumbersPerType(titles);
