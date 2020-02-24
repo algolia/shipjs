@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import globby from 'globby';
-import Octokit from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import mime from 'mime-types';
 import { getRepoInfo } from 'shipjs-lib';
 import runStep from '../runStep';
