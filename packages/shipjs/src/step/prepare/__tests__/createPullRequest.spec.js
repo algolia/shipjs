@@ -1,5 +1,5 @@
 import { getRepoInfo } from 'shipjs-lib';
-import Octokit from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import createPullRequest from '../createPullRequest';
 import { run } from '../../../util';
 import { getDestinationBranchName } from '../../../helper';
