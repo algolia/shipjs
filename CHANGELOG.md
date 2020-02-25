@@ -1,3 +1,18 @@
+# [0.16.0](https://github.com/algolia/shipjs/compare/v0.15.0...v0.16.0) (2020-02-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @octokit/rest to v17 ([#669](https://github.com/algolia/shipjs/issues/669)) ([7573618](https://github.com/algolia/shipjs/commit/7573618382197f4416a3eddda2dc88987c0aaed6))
+* detect major versions correctly ([#666](https://github.com/algolia/shipjs/issues/666)) ([5c5cca1](https://github.com/algolia/shipjs/commit/5c5cca180a37a163bef53df28d222c923eab87c2)), closes [#634](https://github.com/algolia/shipjs/issues/634)
+
+
+### Features
+
+* **error:** tell user where to create a GitHub token ([#665](https://github.com/algolia/shipjs/issues/665)) ([901fcd8](https://github.com/algolia/shipjs/commit/901fcd8120acd6f6e59dabb4cdb718fc50fe75cf))
+
+
+
 # [0.15.0](https://github.com/algolia/shipjs/compare/v0.14.2...v0.15.0) (2020-02-03)
 
 
