@@ -5,7 +5,6 @@
 
 * detect major versions correctly ([#666](https://github.com/algolia/shipjs/issues/666)) ([5c5cca1](https://github.com/algolia/shipjs/commit/5c5cca180a37a163bef53df28d222c923eab87c2)), closes [#634](https://github.com/algolia/shipjs/issues/634)
 * pass version to buildCommand ([#676](https://github.com/algolia/shipjs/issues/676)) ([c25b49b](https://github.com/algolia/shipjs/commit/c25b49b8d8c70d649b04e151e9898515e064fa47))
-* **deps:** update dependency @octokit/rest to v17 ([#669](https://github.com/algolia/shipjs/issues/669)) ([7573618](https://github.com/algolia/shipjs/commit/7573618382197f4416a3eddda2dc88987c0aaed6))
 
 
 ### Features
