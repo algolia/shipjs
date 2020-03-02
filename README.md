@@ -133,6 +133,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://haroen.me"><img src="https://avatars3.githubusercontent.com/u/6270048?v=4" width="100px;" alt=""/><br /><sub><b>Haroen Viaene</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=Haroenv" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/heavenshell"><img src="https://avatars1.githubusercontent.com/u/56591?v=4" width="100px;" alt=""/><br /><sub><b>Shinya Ohyanagi</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=heavenshell" title="Code">💻</a></td>
   </tr>
 </table>
 
