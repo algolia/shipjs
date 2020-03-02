@@ -50,7 +50,7 @@
     "globby": "^10.0.1",
     "inquirer": "7.0.5",
     "mime-types": "^2.1.25",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.0",
     "open": "^7.0.0",
     "prettier": "^1.18.2",
     "serialize-javascript": "^3.0.0",
