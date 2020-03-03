@@ -1,3 +1,12 @@
+## [0.16.1](https://github.com/algolia/shipjs/compare/v0.16.0...v0.16.1) (2020-03-03)
+
+
+### Bug Fixes
+
+* **setup:** use .prettierrc if exists ([#681](https://github.com/algolia/shipjs/issues/681)) ([39b93be](https://github.com/algolia/shipjs/commit/39b93be68d371ef3b762e2ee16505170ae758430))
+
+
+
 # [0.16.0](https://github.com/algolia/shipjs/compare/v0.15.0...v0.16.0) (2020-02-25)
 
 
