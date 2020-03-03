@@ -3,9 +3,6 @@
 
 ### Bug Fixes
 
-* **deps:** update dependency inquirer to v7.0.5 ([#682](https://github.com/algolia/shipjs/issues/682)) ([974f9e9](https://github.com/algolia/shipjs/commit/974f9e99aa18af3366b9879a06eaf48e4f30e627))
-* **deps:** update dependency mkdirp to v1 ([#637](https://github.com/algolia/shipjs/issues/637)) ([86e3ca5](https://github.com/algolia/shipjs/commit/86e3ca567268d1631a50c987308d47e8c644e68d))
-* **deps:** update dependency serialize-javascript to v3 ([#664](https://github.com/algolia/shipjs/issues/664)) ([d0ec6f3](https://github.com/algolia/shipjs/commit/d0ec6f3413a035eac2a0ec7cf9b95c03919c8666))
 * **setup:** use .prettierrc if exists ([#681](https://github.com/algolia/shipjs/issues/681)) ([39b93be](https://github.com/algolia/shipjs/commit/39b93be68d371ef3b762e2ee16505170ae758430))
 
 
