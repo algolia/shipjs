@@ -17,6 +17,31 @@ describe('expandPackageList', () => {
     ]);
   });
 
+  it('expands package list with @(x|y) expression', () => {
+    silentExec('./tests/bootstrap-examples/simple-monorepo.sh');
+
+    expect(
+      expandPackageList(
+        ['.', 'packages/@(package_a|package_b)'],
+        'sandbox/simple-monorepo'
+      )
+    ).toEqual([
+      `${process.cwd()}/sandbox/simple-monorepo`,
+      `${process.cwd()}/sandbox/simple-monorepo/packages/package_a`,
+      `${process.cwd()}/sandbox/simple-monorepo/packages/package_b`,
+    ]);
+
+    expect(
+      expandPackageList(
+        ['.', 'packages/@(package_a|not-existing)'],
+        'sandbox/simple-monorepo'
+      )
+    ).toEqual([
+      `${process.cwd()}/sandbox/simple-monorepo`,
+      `${process.cwd()}/sandbox/simple-monorepo/packages/package_a`,
+    ]);
+  });
+
   it('gets only directories with package.json', () => {
     silentExec('./tests/bootstrap-examples/monorepo-with-nonpkg-directory.sh');
     const projectName = 'monorepo-with-nonpkg-directory';
