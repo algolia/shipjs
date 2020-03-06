@@ -7,7 +7,11 @@ import {
 import open from 'open';
 import { Octokit } from '@octokit/rest';
 import runStep from '../runStep';
-import { getDestinationBranchName, getPublishCommand } from '../../helper';
+import {
+  getDestinationBranchName,
+  getPublishCommand,
+  getPackageDirName,
+} from '../../helper';
 import { print, run, exitProcess, detectYarn } from '../../util';
 import { warning } from '../../color';
 
@@ -133,15 +137,16 @@ function getPublishCommandInStr({
     const { packagesToPublish } = monorepo;
     const packageList = expandPackageList(packagesToPublish, dir);
     return packageList
-      .map(
-        packageDir =>
-          `- ${packageDir} -> ${getPublishCommand({
-            isYarn,
-            publishCommand,
-            tag,
-            dir: packageDir,
-          })}`
-      )
+      .map(packageDir => {
+        const dirName = getPackageDirName(packageDir, dir);
+        const command = getPublishCommand({
+          isYarn,
+          publishCommand,
+          tag,
+          dir: packageDir,
+        });
+        return `- ${dirName} -> ${command}`;
+      })
       .join('\n');
   } else {
     return getPublishCommand({ isYarn, publishCommand, tag, dir });
