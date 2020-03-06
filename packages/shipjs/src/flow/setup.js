@@ -5,7 +5,7 @@ import addDevDependencies from '../step/setup/addDevDependencies';
 import addScriptsToPackageJson from '../step/setup/addScriptsToPackageJson';
 import addShipConfig from '../step/setup/addShipConfig';
 import { print } from '../util';
-import { success } from '../color';
+import { success, bold } from '../color';
 
 async function setup({ help = false, dir = '.', dryRun = false }) {
   if (help) {
@@ -65,6 +65,12 @@ async function setup({ help = false, dir = '.', dryRun = false }) {
       printMessage();
     }
   });
+  print('');
+  print(
+    `${bold(
+      'To learn more, visit'
+    )} https://community.algolia.com/shipjs/guide/getting-started.html`
+  );
 }
 
 const arg = {
