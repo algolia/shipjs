@@ -104,8 +104,8 @@ export default async ({
     });
 
     if (
-      pullRequestReviewers.length > 0 ||
-      pullRequestTeamReviewers.length > 0
+      (pullRequestReviewers || []).length > 0 ||
+      (pullRequestTeamReviewers || []).length > 0
     ) {
       await octokit.pulls.createReviewRequest({
         owner,
