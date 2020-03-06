@@ -10,7 +10,7 @@ This version introduces some breaking changes.
 
 * In your `ship.config.js`, rename `pullRequestTeamReviewer` to `pullRequestTeamReviewers` (which accepts only an array of strings).
 
-* `releaseStart` for Slack message has been removed. If you want to bring this back, please create an issue and let's discuss.
+* `releaseStart` for Slack message has been removed. If you'd like to have it back, please create an issue and let's discuss.
 
 * The default value of `testCommandBeforeRelease` is now `undefined`. It used to be `({ isYarn }) => isYarn ? 'yarn test' : 'npm run test'`. This change assumes many of you already run tests with CI services when you create pull requests. With the previous config, Ship.js unnecessarily ran tests before release. If you'd like to have it back, add some config like the following:
 
