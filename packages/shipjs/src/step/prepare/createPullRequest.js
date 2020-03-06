@@ -32,8 +32,8 @@ export default async ({
       formatPullRequestTitle,
       formatPullRequestMessage,
       publishCommand,
-      pullRequestReviewer,
-      pullRequestTeamReviewer,
+      pullRequestReviewers,
+      pullRequestTeamReviewers,
       remote,
       monorepo,
     } = config;
@@ -89,12 +89,6 @@ export default async ({
       return {};
     }
 
-    const reviewers = Array.isArray(pullRequestReviewer)
-      ? pullRequestReviewer
-      : (pullRequestReviewer || '').split(',');
-    const teamReviewers = Array.isArray(pullRequestTeamReviewer)
-      ? pullRequestTeamReviewer
-      : (pullRequestTeamReviewer || '').split(',');
     const octokit = new Octokit({
       auth: `token ${process.env.GITHUB_TOKEN}`,
     });
@@ -109,13 +103,16 @@ export default async ({
       base: destinationBranch,
     });
 
-    if (reviewers.length > 0 || teamReviewers.length > 0) {
+    if (
+      pullRequestReviewers.length > 0 ||
+      pullRequestTeamReviewers.length > 0
+    ) {
       await octokit.pulls.createReviewRequest({
         owner,
         repo,
         pull_number: number, // eslint-disable-line camelcase
-        reviewers,
-        team_reviewers: teamReviewers, // eslint-disable-line camelcase
+        reviewers: pullRequestReviewers,
+        team_reviewers: pullRequestTeamReviewers, // eslint-disable-line camelcase
       });
     }
 

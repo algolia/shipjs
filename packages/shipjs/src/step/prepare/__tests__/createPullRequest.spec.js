@@ -25,7 +25,7 @@ const getDefaultParams = ({
     formatPullRequestTitle,
     formatPullRequestMessage,
     remote: 'origin',
-    pullRequestReviewer: ['foo', 'bar'],
+    pullRequestReviewers: ['foo', 'bar'],
   },
   noBrowse,
   dir: '.',
