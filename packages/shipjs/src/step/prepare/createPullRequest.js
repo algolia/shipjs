@@ -5,7 +5,7 @@ import {
   getReleaseTag,
 } from 'shipjs-lib';
 import open from 'open';
-import Octokit from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import runStep from '../runStep';
 import { getDestinationBranchName, getPublishCommand } from '../../helper';
 import { print, run, exitProcess, detectYarn } from '../../util';

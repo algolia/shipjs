@@ -4,7 +4,7 @@
   <a href="http://npmjs.com/package/shipjs"><img alt="npm" src="https://img.shields.io/npm/v/shipjs"></a>
   <a href="https://circleci.com/gh/algolia/shipjs"><img alt="CircleCI" src="https://img.shields.io/circleci/build/gh/algolia/shipjs"></a>
   <a href="https://github.com/algolia/shipjs/blob/master/LICENSE"><img alt="NPM" src="https://img.shields.io/npm/l/shipjs"></a>
-  <a href="https://github.com/algolia/shipjs#contributors-"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-8-orange.svg"></a>
+  <a href="https://github.com/algolia/shipjs#contributors-"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-9-orange.svg"></a>
   <a href="https://join.slack.com/t/shipjs/shared_invite/enQtODc3OTc3NjQ0NDg3LTU3ZDgyMzlkNzY2YTMxMGQ1MzE3OGMzZjMzYjU5Y2NmZDQ5Mzk1ZWUxZjk3NWFjMDIwYmI0ZGUyY2E2YTZkYzk"><img alt="Chat on Slack" src="https://img.shields.io/badge/chat-on%20Slack-orange"></a>
 </p>
 
@@ -133,6 +133,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://haroen.me"><img src="https://avatars3.githubusercontent.com/u/6270048?v=4" width="100px;" alt=""/><br /><sub><b>Haroen Viaene</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=Haroenv" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/heavenshell"><img src="https://avatars1.githubusercontent.com/u/56591?v=4" width="100px;" alt=""/><br /><sub><b>Shinya Ohyanagi</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=heavenshell" title="Code">💻</a></td>
   </tr>
 </table>
 

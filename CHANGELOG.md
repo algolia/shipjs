@@ -1,3 +1,54 @@
+## [0.16.1](https://github.com/algolia/shipjs/compare/v0.16.0...v0.16.1) (2020-03-03)
+
+
+### Bug Fixes
+
+* **setup:** use .prettierrc if exists ([#681](https://github.com/algolia/shipjs/issues/681)) ([39b93be](https://github.com/algolia/shipjs/commit/39b93be68d371ef3b762e2ee16505170ae758430))
+
+
+
+# [0.16.0](https://github.com/algolia/shipjs/compare/v0.15.0...v0.16.0) (2020-02-25)
+
+
+### Bug Fixes
+
+* detect major versions correctly ([#666](https://github.com/algolia/shipjs/issues/666)) ([5c5cca1](https://github.com/algolia/shipjs/commit/5c5cca180a37a163bef53df28d222c923eab87c2)), closes [#634](https://github.com/algolia/shipjs/issues/634)
+* pass version to buildCommand ([#676](https://github.com/algolia/shipjs/issues/676)) ([c25b49b](https://github.com/algolia/shipjs/commit/c25b49b8d8c70d649b04e151e9898515e064fa47))
+
+
+### Features
+
+* **error:** tell user where to create a GitHub token ([#665](https://github.com/algolia/shipjs/issues/665)) ([901fcd8](https://github.com/algolia/shipjs/commit/901fcd8120acd6f6e59dabb4cdb718fc50fe75cf))
+
+
+
+# [0.15.0](https://github.com/algolia/shipjs/compare/v0.14.2...v0.15.0) (2020-02-03)
+
+
+### Features
+
+* add environment variable `SHIPJS=true` ([#647](https://github.com/algolia/shipjs/issues/647)) ([582df3c](https://github.com/algolia/shipjs/commit/582df3ca459ba3b9bc692dd792552f11f937bd78))
+* **prepare:** add `shouldPrepare` ([#654](https://github.com/algolia/shipjs/issues/654)) ([166626d](https://github.com/algolia/shipjs/commit/166626d2ee8c66170943f99c9212ae486bae45f0))
+
+#### `shouldPrepare`
+*default*: `undefined`
+
+```js
+// example
+shouldPrepare: ({
+                  commits,
+                  nextVersion,
+                  releaseType,
+                  releaseTag,
+                  commitNumbersPerType,
+               }) => { /* ... */ }
+```
+
+This is a lifecycle hook where you can decide whether or not to proceed with the preparation.
+
+Read [the guide](https://community.algolia.com/shipjs/reference/all-config.html#shouldprepare) to learn more about the hook.
+
+
 ## [0.14.2](https://github.com/algolia/shipjs/compare/v0.14.1...v0.14.2) (2020-01-27)
 
 

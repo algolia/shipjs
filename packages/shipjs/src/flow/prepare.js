@@ -20,6 +20,7 @@ import commitChanges from '../step/prepare/commitChanges';
 import createPullRequest from '../step/prepare/createPullRequest';
 import notifyPrepared from '../step/prepare/notifyPrepared';
 import pushToStagingBranch from '../step/prepare/pushToStagingBranch';
+import validatePreparationConditions from '../step/prepare/validatePreparationConditions';
 import checkGitHubToken from '../step/checkGitHubToken';
 import finished from '../step/prepare/finished';
 
@@ -66,6 +67,14 @@ async function prepare({
     dryRun,
   });
   const releaseType = getReleaseType(currentVersion, nextVersion);
+  await validatePreparationConditions({
+    config,
+    releaseType,
+    nextVersion,
+    revisionRange,
+    dir,
+    dryRun,
+  });
   const { stagingBranch } = prepareStagingBranch({
     config,
     nextVersion,

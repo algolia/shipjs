@@ -7,6 +7,7 @@ export default {
   //   packagesToBump: ['packages/*', 'examples/*'],
   //   packagesToPublish: ['packages/*'],
   // },
+  shouldPrepare: undefined, // async ({ commits, nextVersion, releaseType, releaseTag, commitNumbersPerType }) => {},
   updateChangelog: true,
   conventionalChangelogArgs: '-p angular -i CHANGELOG.md -s',
   installCommand: ({ isYarn }) =>
