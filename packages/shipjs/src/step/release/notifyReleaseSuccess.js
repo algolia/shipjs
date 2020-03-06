@@ -14,7 +14,7 @@ export default async ({
     {
       title: 'Notifying releaseSuccess to Slack',
       skipIf: () =>
-        !config.slackIncomingHook ||
+        !process.env.SLACK_INCOMING_HOOK ||
         !config.slack ||
         !config.slack.releaseSuccess,
     },
