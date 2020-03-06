@@ -128,6 +128,10 @@ function runConventionalChangelog({
   resolve,
   reject,
 }) {
+  if (!fs.existsSync(args.outfile)) {
+    fs.writeFileSync(args.outfile, '');
+  }
+
   const changelogStream = conventionalChangelog(
     args,
     templateContext,
