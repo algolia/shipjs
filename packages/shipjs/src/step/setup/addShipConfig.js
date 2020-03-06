@@ -19,7 +19,7 @@ export default async ({
   dryRun,
 }) =>
   await runStep({ title: 'Creating ship.config.js' }, async () => {
-    const { testExists, buildExists } = checkIfScriptsExist({ dir });
+    const { buildExists } = checkIfScriptsExist({ dir });
     const config = {
       ...(isScoped &&
         isPublic && {
@@ -43,7 +43,6 @@ export default async ({
           packagesToPublish,
         },
       }),
-      ...(!testExists && { testCommandBeforeRelease: () => null }),
       ...(!buildExists && { buildCommand: () => null }),
     };
     if (dryRun) {
@@ -70,10 +69,8 @@ export default async ({
 function checkIfScriptsExist({ dir }) {
   const filePath = path.resolve(dir, 'package.json');
   const json = JSON.parse(fs.readFileSync(filePath).toString());
-  const { test, build } = json.scripts || {};
+  const { build } = json.scripts || {};
   return {
-    testExists:
-      Boolean(test) && test !== 'echo "Error: no test specified" && exit 1',
     buildExists: Boolean(build),
   };
 }

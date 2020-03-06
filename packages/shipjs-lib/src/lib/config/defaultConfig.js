@@ -111,8 +111,7 @@ export default {
   publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand,
   afterPublish: undefined, // ({ exec, dir, version, releaseTag }) => {}
   getTagName: ({ version }) => `v${version}`,
-  testCommandBeforeRelease: ({ isYarn }) =>
-    isYarn ? 'yarn test' : 'npm run test',
+  testCommandBeforeRelease: undefined, // ({ isYarn }) => isYarn ? 'yarn test' : 'npm run test',
   appName: undefined,
   slackIncomingHook: undefined,
   slack: {

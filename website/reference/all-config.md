@@ -232,17 +232,16 @@ afterPublish: ({ exec, dir, version, releaseTag }) => { /* do something */ }
 
 ## `testCommandBeforeRelease`
 
-*default:*
-```js
-testCommandBeforeRelease: ({ isYarn }) => isYarn ? 'yarn test' : 'npm run test'
-```
+*default:* `undefined`
 
 Ship.js runs this command at `shipjs trigger` before publishing the package to make sure if it works correctly.
 
-If you don't have any testing tool and want to skip this step, you can do so like the following:
+By default, it's undefined because you may already have a CI service running tests on your GitHub PR.
+
+If you want to run something right before release, you can do so like the following:
 
 ```js
-testCommandBeforeRelease: () => null
+testCommandBeforeRelease: ({ isYarn }) => isYarn ? 'yarn test' : 'npm run test'
 ```
 
 ## `releases`
