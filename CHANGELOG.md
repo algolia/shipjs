@@ -1,3 +1,39 @@
+# [0.17.0](https://github.com/algolia/shipjs/compare/v0.16.1...v0.17.0) (2020-03-06)
+
+### BREAKING CHANGE
+
+<img src="./assets/breaking-change.png" alt="BREAKING CHANGE" title="BREAKING CHANGE" width=250 height=60 />
+
+This version introduces some breaking changes.
+
+* In your `ship.config.js`, rename `pullRequestReviewer` to `pullRequestReviewers` (which accepts only an array of strings).
+
+* In your `ship.config.js`, rename `pullRequestTeamReviewer` to `pullRequestTeamReviewers` (which accepts only an array of strings).
+
+* `releaseStart` for Slack message has been removed. If you'd like to have it back, please create an issue and let's discuss.
+
+* The default value of `testCommandBeforeRelease` is now `undefined`. It used to be `({ isYarn }) => isYarn ? 'yarn test' : 'npm run test'`. This change assumes many of you already run tests with CI services when you create pull requests. With the previous config, Ship.js unnecessarily ran tests before release. If you'd like to have it back, add some config like the following:
+
+```
+testCommandBeforeRelease: ({ isYarn }) => isYarn ? 'yarn test' : 'npm run test',
+```
+
+
+### Bug Fixes
+
+* **setup:** do not write ship.config.js if not necessary ([#705](https://github.com/algolia/shipjs/issues/705)) ([82f8cbc](https://github.com/algolia/shipjs/commit/82f8cbca1ce3b87cf629f83c95202c2cde3f5b49))
+* **setup:** fix wrong config(packagesToBump, packagesToPublish) for monorepo ([#701](https://github.com/algolia/shipjs/issues/701)) ([0590a38](https://github.com/algolia/shipjs/commit/0590a384d036ff13586d744b6cadc103dd6ef0da))
+
+* clean up reviewer related configs ([#707](https://github.com/algolia/shipjs/issues/707)) ([833d684](https://github.com/algolia/shipjs/commit/833d684d516bf75bdc3ae62c634ff1c8b7e3340c))
+* allow @(a|b|c) syntax for packagesToBump and packagesToPublish ([#702](https://github.com/algolia/shipjs/issues/702)) ([de9083c](https://github.com/algolia/shipjs/commit/de9083c95066bd998c9b0071ddd9bd682f270700))
+* remove releaseStart hook for slack message ([#703](https://github.com/algolia/shipjs/issues/703)) ([2a9502b](https://github.com/algolia/shipjs/commit/2a9502b75c94406db7dff3a6779f07215b6731ca))
+* create CHANGELOG if missing ([#697](https://github.com/algolia/shipjs/issues/697)) ([72cb4ec](https://github.com/algolia/shipjs/commit/72cb4eca2ad43c4d1d62b8e427233f283d5a0a73))
+* empty testCommandBeforeRelease by default ([#696](https://github.com/algolia/shipjs/issues/696)) ([34753b0](https://github.com/algolia/shipjs/commit/34753b061a6f73f6a72218fa703bdf99237cefc7))
+* **shipjs-lib:** exclude dependencies from final bundle ([#651](https://github.com/algolia/shipjs/issues/651)) ([f6ec4cf](https://github.com/algolia/shipjs/commit/f6ec4cfff0ae578fff54f7e6f23367839dfb3cc1))
+* check nullable value for reviewers ([#709](https://github.com/algolia/shipjs/issues/709)) ([df7c0be](https://github.com/algolia/shipjs/commit/df7c0be8f25655727b52c54b53f997745d3e32fe))
+
+
+
 ## [0.16.1](https://github.com/algolia/shipjs/compare/v0.16.0...v0.16.1) (2020-03-03)
 
 
@@ -300,6 +336,8 @@ Please refer to [the guide](https://community.algolia.com/shipjs/guide/getting-s
   - This is automatically done and uses the changelog as content of release.
 - upload assets to GitHub release ([#334](https://github.com/algolia/shipjs/issues/334)) ([fcf2807](https://github.com/algolia/shipjs/commit/fcf2807))
   - At `ship.config.js`, You can configure `releaeses.assetsToUpload`. More details in configuration will come soon.
+
+### BREAKING CHANGE
 
 <img src="./assets/breaking-change.png" alt="BREAKING CHANGE" title="BREAKING CHANGE" width=250 height=60 />
 
