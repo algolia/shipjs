@@ -145,8 +145,9 @@ async function askMonorepo(dir) {
         [
           'What are your packages that you want to publish?',
           'Among packagesToBump, there can be some packages you do not want to publish.',
-          'For example, while you have ["packages/*", "examples/*"] as packagesToBump,',
-          'you can have ["packages/*"] as packagesToPublish.',
+          'For example,',
+          '  - packagesToBump: ["packages/*", "examples/*"]',
+          '  - packagesToPublish: ["packages/*"]',
           packagesCandidate
             ? ''
             : 'It should be an array of strings, for example: ["packages/*"]',
@@ -159,7 +160,12 @@ async function askMonorepo(dir) {
     },
   ]);
 
-  return { useMonorepo, mainVersionFile, packagesToBump, packagesToPublish };
+  return {
+    useMonorepo,
+    mainVersionFile,
+    packagesToBump: JSON.parse(packagesToBump),
+    packagesToPublish: JSON.parse(packagesToPublish),
+  };
 }
 
 async function askPackageAccess(dir) {
