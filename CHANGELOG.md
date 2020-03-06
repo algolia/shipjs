@@ -303,6 +303,8 @@ Please refer to [the guide](https://community.algolia.com/shipjs/guide/getting-s
 
 ### BREAKING CHANGES
 
+![BREAKING CHANGE][breaking-change]
+
 It's a breaking change but haven't bumped the major version since it's still in beta.
 
 Please bear with any inconvenience.
@@ -405,3 +407,5 @@ Please bear with any inconvenience.
 # 0.1.0 (2019-08-02)
 
 ### Initial Release
+
+[breaking-change]: ./assets/breaking-change.png "BREAKING CHANGE"
