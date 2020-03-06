@@ -121,19 +121,27 @@ beforeCommitChanges: ({ nextVersion, releaseType, exec, dir }) => {
 
 This is a lifecycle hook which is executed right before `git commit` happens. You can put additional code like modifying some other files.
 
-## `pullRequestReviewer`
+## `pullRequestReviewers`
 
 _default:_ `undefined`
 
-You can put either a string or an array of strings.
+You can put an array of strings.
 
 ```js
-pullRequestReviewer: 'user-name-or-team-name';
-// or
-pullRequestReviewer: ['user1', 'user2', 'user3'];
+pullRequestReviewers: ['user1', 'user2', 'user3'];
 ```
 
 One thing you need to be aware of is, you cannot assign yourself as a reviewer. You can put github username of your team or colleagues.
+
+## `pullRequestTeamReviewers`
+
+_default:_ `undefined`
+
+You can put an array of strings.
+
+```js
+pullRequestTeamReviewers: ['team-username1'];
+```
 
 ## `mergeStrategy`
 

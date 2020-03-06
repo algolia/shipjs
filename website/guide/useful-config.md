@@ -180,16 +180,12 @@ You can assign reviewers on the PR.
 
 ```js
 module.exports = {
-  pullRequestReviewer: "user-login"
-  // or
-  pullRequestReviewer: ["user-login1", "user-login2", "user-login3"],
+  pullRequestReviewers: ["user-login1", "user-login2", "user-login3"],
 
   ...
 
   // also
-  pullRequestTeamReviewer: "team-slug",
-  // or
-  pullRequestTeamReviewer: ["team-slug1", "team-slug2"],
+  pullRequestTeamReviewers: ["team-slug1", "team-slug2"],
 };
 ```
 

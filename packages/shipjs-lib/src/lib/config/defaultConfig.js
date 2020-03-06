@@ -67,8 +67,8 @@ export default {
     ];
     return lines.join('\n');
   },
-  pullRequestReviewer: undefined,
-  pullRequestTeamReviewer: undefined,
+  pullRequestReviewers: undefined,
+  pullRequestTeamReviewers: undefined,
   mergeStrategy: {
     toSameBranch: ['master'],
     // toReleaseBranch: {
