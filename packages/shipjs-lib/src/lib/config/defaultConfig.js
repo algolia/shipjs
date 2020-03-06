@@ -140,31 +140,6 @@ export default {
         },
       ],
     }),
-    releaseStart: ({
-      appName,
-      version,
-      latestCommitHash,
-      latestCommitUrl,
-    }) => ({
-      pretext: `:rocket: Starting to release *${appName}@${version}*`,
-      fields: [
-        {
-          title: 'Branch',
-          value: 'master',
-          short: true,
-        },
-        {
-          title: 'Commit',
-          value: `*<${latestCommitUrl}|${latestCommitHash}>*`,
-          short: true,
-        },
-        {
-          title: 'Version',
-          value: version,
-          short: true,
-        },
-      ],
-    }),
     releaseSuccess: ({
       appName,
       version,

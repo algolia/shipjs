@@ -2,7 +2,7 @@
 
 ## `monorepo`
 
-*default:* `undefined`
+_default:_ `undefined`
 
 ```js
 // example
@@ -12,38 +12,38 @@ module.exports = {
     packagesToBump: ['packages/*', 'examples/*'],
     packagesToPublish: ['packages/*'],
   },
-}
+};
 ```
 
 If `monorepo` is defined, Ship.js will treat the project as a monorepo.
 
-:::warning NOTICE
-Ship.js currently does not provide independent versioning. It means all the packages in the monorepo must have the same version.
-:::
+:::warning NOTICE Ship.js currently does not provide independent versioning. It means all the packages in the monorepo must have the same version. :::
 
-* **`shipjs prepare`**
+- **`shipjs prepare`**
 
 1. Ship.js reads version from `mainVersionFile`.
 2. When next version is decided, Ship.js will update the version at `mainVersionFile`.
 3. Ship.js will update all the versions in `packagesToBump`.
 
-* **`shipjs trigger`**
+- **`shipjs trigger`**
 
 1. Ship.js will only publish the packages from `packagesToPublish`.
 
 ## `shouldPrepare`
 
-*default*: `undefined`
+_default_: `undefined`
 
 ```js
 // example
 shouldPrepare: ({
-                  commits,
-                  nextVersion,
-                  releaseType,
-                  releaseTag,
-                  commitNumbersPerType,
-               }) => { /* ... */ }
+  commits,
+  nextVersion,
+  releaseType,
+  releaseTag,
+  commitNumbersPerType,
+}) => {
+  /* ... */
+};
 ```
 
 This is a lifecycle hook where you can decide whether or not to proceed with the preparation.
@@ -58,30 +58,31 @@ This is a lifecycle hook where you can decide whether or not to proceed with the
 // example
 shouldPrepare: ({ releaseType, commitNumbersPerType }) => {
   const { fix = 0 } = commitNumbersPerType;
-  if (releaseType === "patch" && fix === 0) {
+  if (releaseType === 'patch' && fix === 0) {
     return false;
   }
   return true;
-}
+};
 ```
 
 With the config above, you can skip if it's going to be a patch release but without any `fix` commits.
 
 ## `updateChangelog`
 
-*default:* `true`
+_default:_ `true`
 
 If `false`, Ship.js won't run `conventional-changelog` during `shipjs prepare`.
 
 ## `conventionalChangelogArgs`
 
-*default:* `'-p angular -i CHANGELOG.md -s'`
+_default:_ `'-p angular -i CHANGELOG.md -s'`
 
 This is passed to `conventional-changelog` CLI to update CHANGELOG.md.
 
 ## `installCommand`
 
-*default:*
+_default:_
+
 ```js
 installCommand: ({ isYarn }) =>
     isYarn ? 'yarn install --silent' : 'npm install'`
@@ -89,11 +90,13 @@ installCommand: ({ isYarn }) =>
 
 ## `versionUpdated`
 
-*default:* `undefined`
+_default:_ `undefined`
 
 ```js
 // example
-versionUpdated: ({ version, releaseType, dir, exec }) => { /* ... */ }
+versionUpdated: ({ version, releaseType, dir, exec }) => {
+  /* ... */
+};
 ```
 
 This is a lifecycle hook where you can put additional code after version is updated. You can read [an example here](../guide/useful-config.html#extra-work-on-updating-version).
@@ -102,37 +105,40 @@ This is a lifecycle hook where you can put additional code after version is upda
 - releaseType: `'major' | 'minor' | 'patch' | 'prerelease'`
 - dir: current working dir
 - exec: `shelljs.exec` bound with the `dir`.
-   - For example, `exec('yarn some-command')`
-   - This is a synchronous function.
+  - For example, `exec('yarn some-command')`
+  - This is a synchronous function.
 
 ## `beforeCommitChanges`
 
-*default:* `undefined`
+_default:_ `undefined`
 
 ```js
 // example
-beforeCommitChanges: ({ nextVersion, releaseType, exec, dir }) => { /* ... */ }
+beforeCommitChanges: ({ nextVersion, releaseType, exec, dir }) => {
+  /* ... */
+};
 ```
 
 This is a lifecycle hook which is executed right before `git commit` happens. You can put additional code like modifying some other files.
 
 ## `pullRequestReviewer`
 
-*default:* `undefined`
+_default:_ `undefined`
 
 You can put either a string or an array of strings.
 
 ```js
-pullRequestReviewer: "user-name-or-team-name"
+pullRequestReviewer: 'user-name-or-team-name';
 // or
-pullRequestReviewer: ["user1", "user2", "user3"]
+pullRequestReviewer: ['user1', 'user2', 'user3'];
 ```
 
 One thing you need to be aware of is, you cannot assign yourself as a reviewer. You can put github username of your team or colleagues.
 
 ## `mergeStrategy`
 
-*default:*
+_default:_
+
 ```js
 mergeStrategy: {
   toSameBranch: ['master'],
@@ -163,38 +169,44 @@ To learn more, you can read [this guide](../guide/useful-config.html#mergestrate
 
 ## `buildCommand`
 
-*default:*
+_default:_
+
 ```js
-buildCommand: ({ isYarn, version }) => (isYarn ? 'yarn build' : 'npm run build')
+buildCommand: ({ isYarn, version }) =>
+  isYarn ? 'yarn build' : 'npm run build';
 ```
 
 If there's nothing to build before publishing, you can skip this step:
 
 ```js
-buildCommand: () => null
+buildCommand: () => null;
 ```
 
 ## `beforePublish`
 
-*default:* `undefined`
+_default:_ `undefined`
 
 ```js
 // example
-beforePublish: ({ exec, dir }) => { /* do something */ }
+beforePublish: ({ exec, dir }) => {
+  /* do something */
+};
 ```
 
 ## `publishCommand`
 
-*default:*
+_default:_
+
 ```js
-publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand
+publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand;
 ```
 
 `defaultCommand`:
+
 ```js
 isYarn
-    ? `yarn publish --no-git-tag-version --non-interactive --tag ${tag}`
-    : `npm publish --tag ${tag}`
+  ? `yarn publish --no-git-tag-version --non-interactive --tag ${tag}`
+  : `npm publish --tag ${tag}`;
 ```
 
 By default, `publishCommand` will return either `yarn publish ...` or `npm publish ...`.
@@ -204,7 +216,8 @@ By default, `publishCommand` will return either `yarn publish ...` or `npm publi
 If your project is a scoped package and you want it to be public, you need to add `--access public` to the publish command. To do so,
 
 ```js
-publishCommand: ({ isYarn, tag, defaultCommand, dir }) => `${defaultCommand} --access public`
+publishCommand: ({ isYarn, tag, defaultCommand, dir }) =>
+  `${defaultCommand} --access public`;
 ```
 
 ### Monorepo
@@ -213,26 +226,28 @@ If your project is a monorepo and if you want to use different publish command p
 
 ```js
 publishCommand: ({ isYarn, tag, defaultCommand, dir }) => {
-  if (dir.endsWith("/website")) {
-    return "npx now";
+  if (dir.endsWith('/website')) {
+    return 'npx now';
   } else {
     return defaultCommand;
   }
-}
+};
 ```
 
 ## `afterPublish`
 
-*default:* `undefined`
+_default:_ `undefined`
 
 ```js
 // example
-afterPublish: ({ exec, dir, version, releaseTag }) => { /* do something */ }
+afterPublish: ({ exec, dir, version, releaseTag }) => {
+  /* do something */
+};
 ```
 
 ## `testCommandBeforeRelease`
 
-*default:* `undefined`
+_default:_ `undefined`
 
 Ship.js runs this command at `shipjs trigger` before publishing the package to make sure if it works correctly.
 
@@ -241,12 +256,13 @@ By default, it's undefined because you may already have a CI service running tes
 If you want to run something right before release, you can do so like the following:
 
 ```js
-testCommandBeforeRelease: ({ isYarn }) => isYarn ? 'yarn test' : 'npm run test'
+testCommandBeforeRelease: ({ isYarn }) =>
+  isYarn ? 'yarn test' : 'npm run test';
 ```
 
 ## `releases`
 
-*default:* `undefined`
+_default:_ `undefined`
 
 By default, Ship.js will create a release on "releases" tab at GitHub.
 
@@ -261,19 +277,19 @@ releases: {
 ```
 
 - `assetsToUpload`: String | String[] | Function
-   - `archive.zip`
-   - `archive.*.zip`
-   - `['package.json', 'dist/*.zip']`
-   - `({dir, version, tagName}) => [...]`
+  - `archive.zip`
+  - `archive.*.zip`
+  - `['package.json', 'dist/*.zip']`
+  - `({dir, version, tagName}) => [...]`
 - `extractChangelog`: `({ version, dir }) => 'some specific changelog to that version'`
 
 ## `appName`
 
-*default:* `undefined`
+_default:_ `undefined`
 
 ```js
 // example
-appName: 'My Awesome Package'
+appName: 'My Awesome Package';
 ```
 
 This is used when Ship.js sends message to your Slack channel. If it's `undefined`, Ship.js will take `name` from your `package.json` by default.
@@ -283,7 +299,6 @@ This is used when Ship.js sends message to your Slack channel. If it's `undefine
 If you configure an environment variable `SLACK_INCOMING_HOOK`, Ship.js will send messages
 
 - when `shipjs prepare` is finished (`prepare`)
-- when `shipjs trigger` begins (`releaseStart`)
 - when `shipjs trigger` is finished (`releaseSuccess`)
 
 You can specify sender's username:
@@ -296,7 +311,7 @@ slack: {
 }
 ```
 
-As described above, there are three phases of Slack messages: `prepare`, `releaseStart` and `releaseSuccess`.
+As described above, there are three phases of Slack messages: `prepare` and `releaseSuccess`.
 
 You can customize the messages. The following is the default value. You can read [this documentation from Slack](https://api.slack.com/docs/messages/builder) to learn how to format messages.
 
@@ -319,31 +334,6 @@ slack: {
         title: 'Pull Request',
         value: pullRequestUrl,
         short: false,
-      },
-    ],
-  }),
-  releaseStart: ({
-    appName,
-    version,
-    latestCommitHash,
-    latestCommitUrl,
-  }) => ({
-    pretext: `:rocket: Starting to release *${appName}@${version}*`,
-    fields: [
-      {
-        title: 'Branch',
-        value: 'master',
-        short: true,
-      },
-      {
-        title: 'Commit',
-        value: `*<${latestCommitUrl}|${latestCommitHash}>*`,
-        short: true,
-      },
-      {
-        title: 'Version',
-        value: version,
-        short: true,
       },
     ],
   }),
@@ -384,11 +374,11 @@ If you don't want, you can skip some of the messages:
 
 ```js
 slack: {
-  releaseStart: null,
+  prepared: null,
 }
 ```
 
-In this way, Ship.js won't send a message when it starts to release.
+In this way, Ship.js won't send a message when a pull request is prepared.
 
 When Ship.js loads your `ship.config.js`, it deep-merges `slack` object.
 
@@ -396,28 +386,32 @@ When Ship.js loads your `ship.config.js`, it deep-merges `slack` object.
 defaultConfig = {
   slack: {
     default: {
-      username: 'Ship.js'
+      username: 'Ship.js',
     },
-    prepared: () => { /* ... */ },
-    releaseStart: () => { /* ... */ },
-    releaseSuccess: () => { /* ... */ },
-  }
-}
+    prepared: () => {
+      /* ... */
+    },
+    releaseSuccess: () => {
+      /* ... */
+    },
+  },
+};
 
 yourConfig = {
   slack: {
-    releaseStart: null,
-  }
-}
+    prepared: null,
+  },
+};
 
 finalConfig = {
   slack: {
     default: {
-      username: 'Ship.js'
+      username: 'Ship.js',
     },
-    prepared: () => { /* ... */ },
-    releaseStart: null, // <- only this is affected
-    releaseSuccess: () => { /* ... */ },
-  }
-}
+    prepared: null, // <- only this is affected
+    releaseSuccess: () => {
+      /* ... */
+    },
+  },
+};
 ```

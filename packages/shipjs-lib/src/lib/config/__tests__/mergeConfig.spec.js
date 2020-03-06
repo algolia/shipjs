@@ -44,7 +44,6 @@ describe('mergeConfig', () => {
             username: 'Ship.js',
           },
           prepared: () => {},
-          releaseStart: () => {},
           releaseSuccess: () => {},
         },
       },
@@ -58,7 +57,6 @@ describe('mergeConfig', () => {
     );
     expect(config.slack.default.username).toEqual('Release');
     expect(config.slack.prepared).toBeInstanceOf(Function);
-    expect(config.slack.releaseStart).toBeInstanceOf(Function);
     expect(config.slack.releaseSuccess).toBeInstanceOf(Function);
   });
 
@@ -70,19 +68,17 @@ describe('mergeConfig', () => {
             username: 'Ship.js',
           },
           prepared: () => {},
-          releaseStart: () => {},
           releaseSuccess: () => {},
         },
       },
       {
         slack: {
-          releaseStart: null,
+          releaseSuccess: null,
         },
       }
     );
     expect(config.slack.default.username).toEqual('Ship.js');
     expect(config.slack.prepared).toBeInstanceOf(Function);
-    expect(config.slack.releaseStart).toBeNull();
-    expect(config.slack.releaseSuccess).toBeInstanceOf(Function);
+    expect(config.slack.releaseSuccess).toBeNull();
   });
 });
