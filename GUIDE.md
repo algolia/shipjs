@@ -17,7 +17,7 @@
   - [Extra work on updating version](#extra-work-on-updating-version)
   - [Schedule your release](#schedule-your-release)
   - [Assign Reviewers](#assign-reviewers)
-  - [`slackIncomingHook`](#slackincominghook)
+  - [`SLACK_INCOMING_HOOK`](#slack_incoming_hook)
   - [Release projects somewhere else](#release-projects-somewhere-else)
 - [All Configurations](#all-configurations)
 - [Commands](#commands)
@@ -336,25 +336,16 @@ One thing you need to be aware of is, you cannot assign yourself as a reviewer. 
 
 The assignees will receive a notification from GitHub when the PR is created. Whenever they review and merge the PR, it will be automatically released by the prior configuration you've done [above](#integrate-with-circle-ci).
 
-### `slackIncomingHook`
-
-```js
-module.exports = {
-  slackIncomingHook: "https://..."
-};
-```
-
-With this configured, messages will be sent to your Slack channel
-
-- when `shipjs prepare` is finished
-- when `shipjs trigger` begins
-- when `shipjs trigger` is finished
-
-If your repository is public, you can provide the hook URL as an environment variable instead of exposing it in the config file.
+### `SLACK_INCOMING_HOOK`
 
 ```bash
 SLACK_INCOMING_HOOK=xxx yarn release:prepare
 ```
+
+With this environment variable, messages will be sent to your Slack channel
+
+- when `shipjs prepare` is finished
+- when `shipjs trigger` is finished
 
 ### Release projects somewhere else
 

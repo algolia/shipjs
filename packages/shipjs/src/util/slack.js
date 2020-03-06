@@ -1,12 +1,12 @@
 import { IncomingWebhook } from '@slack/webhook';
 
 async function sendSlackMessage({ config, sendArguments }) {
-  const { slackIncomingHook, slack } = config;
+  const { slack } = config;
 
-  if (!slackIncomingHook || !sendArguments) {
+  if (!process.env.SLACK_INCOMING_HOOK || !sendArguments) {
     return;
   }
-  const webhook = new IncomingWebhook(slackIncomingHook);
+  const webhook = new IncomingWebhook(process.env.SLACK_INCOMING_HOOK);
   await webhook.send({
     ...(slack.default || {}),
     ...sendArguments,

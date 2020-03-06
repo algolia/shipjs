@@ -6,7 +6,9 @@ export default async ({ config, appName, version, pullRequestUrl }) =>
     {
       title: 'Notifying notifyPrepared to Slack',
       skipIf: () =>
-        !config.slackIncomingHook || !config.slack || !config.slack.prepared,
+        !process.env.SLACK_INCOMING_HOOK ||
+        !config.slack ||
+        !config.slack.prepared,
     },
     async () => {
       await notifyPrepared({
