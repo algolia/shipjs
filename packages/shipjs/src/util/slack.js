@@ -37,30 +37,6 @@ export async function notifyPrepared({
   });
 }
 
-export async function notifyReleaseStart({
-  config,
-  appName,
-  version,
-  latestCommitHash,
-  latestCommitUrl,
-}) {
-  const { slack = {} } = config;
-  const { releaseStart } = slack;
-  if (!releaseStart) {
-    return;
-  }
-
-  const sendArguments =
-    typeof releaseStart === 'function'
-      ? releaseStart({ appName, version, latestCommitHash, latestCommitUrl })
-      : releaseStart;
-
-  await sendSlackMessage({
-    config,
-    sendArguments,
-  });
-}
-
 export async function notifyReleaseSuccess({
   config,
   appName,

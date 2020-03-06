@@ -4,7 +4,6 @@ import printHelp from '../step/release/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';
 import validate from '../step/release/validate';
 import gatherRepoInfo from '../step/release/gatherRepoInfo';
-import notifyReleaseStart from '../step/release/notifyReleaseStart';
 import runTest from '../step/release/runTest';
 import runBuild from '../step/release/runBuild';
 import runBeforePublish from '../step/release/runBeforePublish';
@@ -37,13 +36,6 @@ async function release({ help = false, dir = '.', dryRun = false }) {
     repoURL,
     releaseTag,
   } = gatherRepoInfo({ remote, version, dir });
-  await notifyReleaseStart({
-    config,
-    appName,
-    version,
-    latestCommitHash,
-    latestCommitUrl,
-  });
   const isYarn = detectYarn(dir);
   runTest({ isYarn, config, dir, dryRun });
   runBuild({ isYarn, config, version, dir, dryRun });
