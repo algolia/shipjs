@@ -301,7 +301,7 @@ Please refer to [the guide](https://community.algolia.com/shipjs/guide/getting-s
 - upload assets to GitHub release ([#334](https://github.com/algolia/shipjs/issues/334)) ([fcf2807](https://github.com/algolia/shipjs/commit/fcf2807))
   - At `ship.config.js`, You can configure `releaeses.assetsToUpload`. More details in configuration will come soon.
 
-### BREAKING CHANGES
+<img src="./assets/breaking-change.png" alt="BREAKING CHANGE" title="BREAKING CHANGE" width=250 height=60 />
 
 It's a breaking change but haven't bumped the major version since it's still in beta.
 
