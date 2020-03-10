@@ -36,7 +36,7 @@ Add the following to the `scripts` section in your `package.json`.
 
 GitHub token is used in both `shipjs prepare` and `shipjs trigger`.
 
-1. Go to https://github.com/settings/tokens/new
+1. Go to [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new)
 2. Check "repo(Full control of private repositories)"
 3. Generate/copy the token
 
