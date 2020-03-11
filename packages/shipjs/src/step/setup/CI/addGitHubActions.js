@@ -1,4 +1,3 @@
-import { getGitConfig } from 'shipjs-lib';
 import runStep from '../../runStep';
 import fs from 'fs';
 import path from 'path';
@@ -21,9 +20,6 @@ export default ({
       title: 'Creating GitHub Actions configuration',
     },
     () => {
-      const gitUserName = getGitConfig('user.name') || 'Your Name';
-      const gitUserEmail = getGitConfig('user.email') || 'your@email.com';
-
       const log = [
         createGitHubAction({
           content: getBaseConfig({ releaseBranch }),
@@ -33,11 +29,7 @@ export default ({
         }),
         manualPrepare &&
           createGitHubAction({
-            content: getManualPrepareConfig({
-              baseBranch,
-              gitUserName,
-              gitUserEmail,
-            }),
+            content: getManualPrepareConfig({ baseBranch }),
             actionPath: '.github/workflows/shipjs-manual-prepare.yml',
             dir,
             dryRun,
@@ -47,8 +39,6 @@ export default ({
             content: getScheduleConfig({
               baseBranch,
               cronExpr,
-              gitUserName,
-              gitUserEmail,
             }),
             actionPath: '.github/workflows/shipjs-schedule-prepare.yml',
             dir,
@@ -122,7 +112,7 @@ jobs:
   );
 }
 
-function getManualPrepareConfig({ baseBranch, gitUserName, gitUserEmail }) {
+function getManualPrepareConfig({ baseBranch }) {
   return ejs.render(
     `name: Ship js Manual Prepare
 on:
@@ -148,8 +138,8 @@ jobs:
             npm install
           fi
       - run: |
-          git config --global user.email "<%= gitUserEmail %>"
-          git config --global user.name "<%= gitUserName %>"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
       - run: npm run release:prepare -- --yes --no-browse
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -177,16 +167,11 @@ jobs:
         with:
           args: comment "@\${{ github.actor }} \`shipjs prepare\` fail"
 `,
-    { baseBranch, gitUserName, gitUserEmail }
+    { baseBranch }
   );
 }
 
-function getScheduleConfig({
-  baseBranch,
-  cronExpr,
-  gitUserName,
-  gitUserEmail,
-}) {
+function getScheduleConfig({ baseBranch, cronExpr }) {
   return ejs.render(
     `name: Ship js Schedule Prepare
 on:
@@ -209,13 +194,13 @@ jobs:
             npm install
           fi
       - run: |
-          git config --global user.email "<%= gitUserEmail %>"
-          git config --global user.name "<%= gitUserName %>"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
       - run: npm run release:prepare -- --yes --no-browse
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}
 `,
-    { baseBranch, cronExpr, gitUserName, gitUserEmail }
+    { baseBranch, cronExpr }
   );
 }
