@@ -1,3 +1,18 @@
+# [0.18.0](https://github.com/algolia/shipjs/compare/v0.17.0...v0.18.0) (2020-03-17)
+
+
+### Bug Fixes
+
+* use github-actions[bot] name and email for generated pull requests ([#719](https://github.com/algolia/shipjs/issues/719)) ([ea4571e](https://github.com/algolia/shipjs/commit/ea4571e82cb4199e788c12f9b0db743814e06931))
+* **deps:** update dependency inquirer to v7.1.0 ([#715](https://github.com/algolia/shipjs/issues/715)) ([29a8b43](https://github.com/algolia/shipjs/commit/29a8b4351f636ba913a5d6f4915db5935e7abd27))
+
+
+### Features
+
+* **prepare:** add a new hook `getNextVersion` ([#724](https://github.com/algolia/shipjs/issues/724)) ([21cf827](https://github.com/algolia/shipjs/commit/21cf8273319871e84ddfe4ef3c56333228ce72a7))
+
+
+
 # [0.17.0](https://github.com/algolia/shipjs/compare/v0.16.1...v0.17.0) (2020-03-06)
 
 ### BREAKING CHANGE
