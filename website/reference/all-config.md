@@ -17,7 +17,9 @@ module.exports = {
 
 If `monorepo` is defined, Ship.js will treat the project as a monorepo.
 
-:::warning NOTICE Ship.js currently does not provide independent versioning. It means all the packages in the monorepo must have the same version. :::
+:::warning NOTICE
+Ship.js currently does not provide independent versioning. It means all the packages in the monorepo must have the same version.
+:::
 
 - **`shipjs prepare`**
 
