@@ -3,8 +3,7 @@
 
 ### Bug Fixes
 
-* use github-actions[bot] name and email for generated pull requests ([#719](https://github.com/algolia/shipjs/issues/719)) ([ea4571e](https://github.com/algolia/shipjs/commit/ea4571e82cb4199e788c12f9b0db743814e06931))
-* **deps:** update dependency inquirer to v7.1.0 ([#715](https://github.com/algolia/shipjs/issues/715)) ([29a8b43](https://github.com/algolia/shipjs/commit/29a8b4351f636ba913a5d6f4915db5935e7abd27))
+* **setup:** use github-actions[bot] name and email for generated pull requests ([#719](https://github.com/algolia/shipjs/issues/719)) ([ea4571e](https://github.com/algolia/shipjs/commit/ea4571e82cb4199e788c12f9b0db743814e06931))
 
 
 ### Features
