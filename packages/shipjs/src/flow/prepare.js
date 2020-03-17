@@ -59,7 +59,12 @@ async function prepare({
     currentVersion,
     dir,
   });
-  let { nextVersion } = getNextVersion({ revisionRange, currentVersion, dir });
+  let { nextVersion } = getNextVersion({
+    config,
+    revisionRange,
+    currentVersion,
+    dir,
+  });
   nextVersion = await confirmNextVersion({
     yes,
     currentVersion,
