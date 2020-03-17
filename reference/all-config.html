@@ -8,7 +8,7 @@
     <meta name="generator" content="VuePress 1.3.1">
     
     
-    <link rel="preload" href="/shipjs/assets/css/0.styles.62d503e4.css" as="style"><link rel="preload" href="/shipjs/assets/js/app.676cc359.js" as="script"><link rel="preload" href="/shipjs/assets/js/3.1efa5434.js" as="script"><link rel="preload" href="/shipjs/assets/js/12.8bc86446.js" as="script"><link rel="prefetch" href="/shipjs/assets/js/10.902b5e56.js"><link rel="prefetch" href="/shipjs/assets/js/11.3ce20224.js"><link rel="prefetch" href="/shipjs/assets/js/13.1ee2fb55.js"><link rel="prefetch" href="/shipjs/assets/js/14.6e079ec2.js"><link rel="prefetch" href="/shipjs/assets/js/15.3f94b1da.js"><link rel="prefetch" href="/shipjs/assets/js/4.0facde43.js"><link rel="prefetch" href="/shipjs/assets/js/5.e7d44109.js"><link rel="prefetch" href="/shipjs/assets/js/6.f35fc59a.js"><link rel="prefetch" href="/shipjs/assets/js/7.bc8d1864.js"><link rel="prefetch" href="/shipjs/assets/js/8.28f31855.js"><link rel="prefetch" href="/shipjs/assets/js/9.5d3bcc82.js"><link rel="prefetch" href="/shipjs/assets/js/vendors~docsearch.07de1b2e.js">
+    <link rel="preload" href="/shipjs/assets/css/0.styles.62d503e4.css" as="style"><link rel="preload" href="/shipjs/assets/js/app.97242503.js" as="script"><link rel="preload" href="/shipjs/assets/js/3.1efa5434.js" as="script"><link rel="preload" href="/shipjs/assets/js/12.58194134.js" as="script"><link rel="prefetch" href="/shipjs/assets/js/10.902b5e56.js"><link rel="prefetch" href="/shipjs/assets/js/11.3ce20224.js"><link rel="prefetch" href="/shipjs/assets/js/13.1ee2fb55.js"><link rel="prefetch" href="/shipjs/assets/js/14.6e079ec2.js"><link rel="prefetch" href="/shipjs/assets/js/15.3f94b1da.js"><link rel="prefetch" href="/shipjs/assets/js/4.0facde43.js"><link rel="prefetch" href="/shipjs/assets/js/5.e7d44109.js"><link rel="prefetch" href="/shipjs/assets/js/6.f35fc59a.js"><link rel="prefetch" href="/shipjs/assets/js/7.bc8d1864.js"><link rel="prefetch" href="/shipjs/assets/js/8.28f31855.js"><link rel="prefetch" href="/shipjs/assets/js/9.5d3bcc82.js"><link rel="prefetch" href="/shipjs/assets/js/vendors~docsearch.07de1b2e.js">
     <link rel="stylesheet" href="/shipjs/assets/css/0.styles.62d503e4.css">
   </head>
   <body>
@@ -32,7 +32,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
     packagesToPublish<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'packages/*'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre></div><p>If <code>monorepo</code> is defined, Ship.js will treat the project as a monorepo.</p> <div class="custom-block warning"><p class="custom-block-title">NOTICE Ship.js currently does not provide independent versioning. It means all the packages in the monorepo must have the same version. :::</p> <ul><li><strong><code>shipjs prepare</code></strong></li></ul> <ol><li>Ship.js reads version from <code>mainVersionFile</code>.</li> <li>When next version is decided, Ship.js will update the version at <code>mainVersionFile</code>.</li> <li>Ship.js will update all the versions in <code>packagesToBump</code>.</li></ol> <ul><li><strong><code>shipjs trigger</code></strong></li></ul> <ol><li>Ship.js will only publish the packages from <code>packagesToPublish</code>.</li></ol> <h2 id="shouldprepare"><a href="#shouldprepare" class="header-anchor">#</a> <code>shouldPrepare</code></h2> <p><em>default</em>: <code>undefined</code></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// example</span>
+</code></pre></div><p>If <code>monorepo</code> is defined, Ship.js will treat the project as a monorepo.</p> <div class="custom-block warning"><p class="custom-block-title">NOTICE</p> <p>Ship.js currently does not provide independent versioning. It means all the packages in the monorepo must have the same version.</p></div> <ul><li><strong><code>shipjs prepare</code></strong></li></ul> <ol><li>Ship.js reads version from <code>mainVersionFile</code>.</li> <li>When next version is decided, Ship.js will update the version at <code>mainVersionFile</code>.</li> <li>Ship.js will update all the versions in <code>packagesToBump</code>.</li></ol> <ul><li><strong><code>shipjs trigger</code></strong></li></ul> <ol><li>Ship.js will only publish the packages from <code>packagesToPublish</code>.</li></ol> <h2 id="shouldprepare"><a href="#shouldprepare" class="header-anchor">#</a> <code>shouldPrepare</code></h2> <p><em>default</em>: <code>undefined</code></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// example</span>
 <span class="token function-variable function">shouldPrepare</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>
   commits<span class="token punctuation">,</span>
   nextVersion<span class="token punctuation">,</span>
@@ -211,7 +211,7 @@ finalConfig <span class="token operator">=</span> <span class="token punctuation
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre></div></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
       ←
       <a href="/shipjs/guide/community.html" class="prev">
         Community
@@ -220,6 +220,6 @@ finalConfig <span class="token operator">=</span> <span class="token punctuation
       </a>
       →
     </span></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/shipjs/assets/js/app.676cc359.js" defer></script><script src="/shipjs/assets/js/3.1efa5434.js" defer></script><script src="/shipjs/assets/js/12.8bc86446.js" defer></script>
+    <script src="/shipjs/assets/js/app.97242503.js" defer></script><script src="/shipjs/assets/js/3.1efa5434.js" defer></script><script src="/shipjs/assets/js/12.58194134.js" defer></script>
   </body>
 </html>
