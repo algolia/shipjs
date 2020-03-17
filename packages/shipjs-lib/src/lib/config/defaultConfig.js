@@ -13,6 +13,7 @@ export default {
   installCommand: ({ isYarn }) =>
     isYarn ? 'yarn install --silent' : 'npm install',
   versionUpdated: undefined, // ({ version, releaseType, dir, exec }) => {},
+  getNextVersion: undefined, // ({ revisionRange, commitTitles, commitBodies, currentVersion, dir }) => {},
   beforeCommitChanges: undefined, // ({ nextVersion, releaseType, exec, dir }) => {},
   getStagingBranchName: ({ nextVersion, releaseType }) =>
     `releases/v${nextVersion}`,

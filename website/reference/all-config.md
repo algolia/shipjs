@@ -88,6 +88,26 @@ installCommand: ({ isYarn }) =>
     isYarn ? 'yarn install --silent' : 'npm install'`
 ```
 
+## `getNextVersion`
+
+_default:_ `undefined`
+
+This hook determines what the next version should be. It returns the next version as string. If not given, by default, Ship.js follows [conventional commits](https://www.conventionalcommits.org).
+
+- revisionRange: for example, `v0.1.0..HEAD`
+- commitTitles: string of commit titles. Be aware that it's not an array of strings. It comes from `git log --pretty=format:%s`.
+- commitBodies: string of commit bodies. Be aware that it's not an array of strings. It comes from `git log --pretty=format:%b`.
+- currentVersion: for example, `0.1.0`
+- dir: current working dir
+
+```js
+// example
+getNextVersion: ({ revisionRange, commitTitles, commitBodies, currentVersion, dir }) => {
+  // do something
+  return nextVersion; // for example, `"0.2.0"`
+}
+```
+
 ## `versionUpdated`
 
 _default:_ `undefined`

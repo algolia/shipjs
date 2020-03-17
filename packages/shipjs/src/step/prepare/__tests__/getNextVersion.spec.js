@@ -9,15 +9,28 @@ describe('getNextVersion', () => {
       version: '0.1.2',
       ignoredMessages: [],
     }));
-    const { nextVersion } = getNextVersionStep({});
+    const { nextVersion } = getNextVersionStep({ config: {} });
     expect(nextVersion).toEqual('0.1.2');
+  });
+
+  it('returns next version by hook from config', () => {
+    getNextVersion.mockImplementationOnce(() => ({
+      version: '0.1.2',
+      ignoredMessages: [],
+    }));
+    const { nextVersion } = getNextVersionStep({
+      config: {
+        getNextVersion: () => '1.2.3',
+      },
+    });
+    expect(nextVersion).toEqual('1.2.3');
   });
 
   it('exits with nothing to release', () => {
     getNextVersion.mockImplementationOnce(() => ({
       version: null,
     }));
-    getNextVersionStep({});
+    getNextVersionStep({ config: {} });
     expect(exitProcess).toHaveBeenCalledTimes(1);
     expect(exitProcess).toHaveBeenCalledWith(0);
   });
@@ -29,7 +42,7 @@ describe('getNextVersion', () => {
       version: '0.1.2',
       ignoredMessages: ['hello world', 'foo bar', 'out of convention'],
     }));
-    getNextVersionStep({});
+    getNextVersionStep({ config: {} });
     expect(output).toMatchInlineSnapshot(`
       Array [
         "› Calculating the next version.",

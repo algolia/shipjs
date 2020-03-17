@@ -25,18 +25,21 @@ const getDefaultParams = ({
   dryRun: false,
 });
 
-const createRelease = jest.fn().mockImplementation(() => ({
-  data: {
-    upload_url: 'https://dummy/upload/url', // eslint-disable-line camelcase
-  },
-}));
+const createRelease = jest.fn();
 const uploadReleaseAsset = jest.fn();
-Octokit.mockImplementation(function() {
-  this.repos = { createRelease, uploadReleaseAsset };
-});
 
 describe('createGitHubRelease', () => {
   beforeEach(() => {
+    createRelease.mockImplementation(() => ({
+      data: {
+        upload_url: 'https://dummy/upload/url', // eslint-disable-line camelcase
+      },
+    }));
+
+    Octokit.mockImplementation(function() {
+      this.repos = { createRelease, uploadReleaseAsset };
+    });
+
     getRepoInfo.mockImplementation(() => ({
       owner: 'my',
       name: 'repo',
