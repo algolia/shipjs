@@ -25,7 +25,7 @@ export default async ({ yes, commitFrom, currentVersion, dir }) =>
         print(error(tagNotExistingMessage));
         print(
           info(
-            'Ship.js cannot figure out since which commit you want to release.'
+            'Ship.js cannot figure out from which commit you want to release.'
           )
         );
         print(info('Try again with the following option added:'));
@@ -44,7 +44,7 @@ export default async ({ yes, commitFrom, currentVersion, dir }) =>
           type: 'list',
           pageSize: 10,
           name: 'answer',
-          message: 'Since which commit do you want to release?',
+          message: 'From which commit do you want to release?',
           choices: commits.map((commit, index) => `${index + 1}) ${commit}`),
         },
       ]);

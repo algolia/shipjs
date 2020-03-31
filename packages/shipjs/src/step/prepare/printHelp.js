@@ -44,7 +44,7 @@ export default () =>
       indent('  Do not open a browser after creating a pull request.'),
       '',
       indent(`-c, ${commitFrom}`),
-      indent('  Specify since which commit you want to release.'),
+      indent('  Specify from which commit you want to release.'),
     ];
     print(messages.join('\n'));
   });
