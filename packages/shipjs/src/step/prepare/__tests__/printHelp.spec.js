@@ -32,7 +32,7 @@ describe('printHelp', () => {
       	  Do not open a browser after creating a pull request.
 
       	-c, --commit-from SHA
-      	  Specify since which commit you want to release.",
+      	  Specify from which commit you want to release.",
       ]
     `);
   });
