@@ -1,3 +1,3 @@
 export function mockColor(colorFn) {
-  colorFn.mockImplementation(str => str);
+  colorFn.mockImplementation((str) => str);
 }

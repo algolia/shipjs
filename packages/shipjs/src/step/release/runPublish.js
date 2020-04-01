@@ -11,7 +11,7 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
     if (monorepo) {
       const { packagesToPublish } = monorepo;
       const packageList = expandPackageList(packagesToPublish, dir);
-      packageList.forEach(packageDir => {
+      packageList.forEach((packageDir) => {
         const command = getPublishCommand({
           isYarn,
           publishCommand,

@@ -16,16 +16,16 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
     bodies
       .toUpperCase()
       .split('\n')
-      .some(line => line.startsWith(GIT_COMMIT_BREAKING_CHANGE))
+      .some((line) => line.startsWith(GIT_COMMIT_BREAKING_CHANGE))
   ) {
     return { version: inc(version, 'major') };
   }
   const { numbers, ignoredMessages } = getCommitNumbersPerType(titles);
   const minor = Array.from(GIT_COMMIT_PREFIX_MINOR).some(
-    prefix => numbers[prefix] > 0
+    (prefix) => numbers[prefix] > 0
   );
   const patch = Array.from(GIT_COMMIT_PREFIX_PATCH).some(
-    prefix => numbers[prefix] > 0
+    (prefix) => numbers[prefix] > 0
   );
   if (minor) {
     return { version: inc(version, 'minor'), ignoredMessages };

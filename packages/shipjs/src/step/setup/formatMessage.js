@@ -6,7 +6,7 @@ const formatMessage = (message, description = '') =>
     ...description
       .trim()
       .split('\n')
-      .map(line => `  ${reset(grey(line.trim()))}`),
+      .map((line) => `  ${reset(grey(line.trim()))}`),
   ].join('\n');
 
 export default formatMessage;

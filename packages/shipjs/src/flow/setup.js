@@ -59,7 +59,7 @@ async function setup({ help = false, dir = '.', dryRun = false }) {
 
   print('');
   print(success('🎉  FINISHED'));
-  outputs.forEach(printMessage => {
+  outputs.forEach((printMessage) => {
     if (printMessage && typeof printMessage === 'function') {
       print('');
       printMessage();

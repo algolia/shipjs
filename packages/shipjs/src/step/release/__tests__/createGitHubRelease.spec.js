@@ -36,7 +36,7 @@ describe('createGitHubRelease', () => {
       },
     }));
 
-    Octokit.mockImplementation(function() {
+    Octokit.mockImplementation(function () {
       this.repos = { createRelease, uploadReleaseAsset };
     });
 
@@ -47,7 +47,7 @@ describe('createGitHubRelease', () => {
     fs.readFileSync = jest.fn();
     fs.statSync = jest.fn().mockImplementation(() => ({ size: 1024 }));
     mime.lookup.mockImplementation(() => 'application/zip');
-    globby.mockImplementation(path => Promise.resolve([path]));
+    globby.mockImplementation((path) => Promise.resolve([path]));
   });
 
   it('works without assets', async () => {

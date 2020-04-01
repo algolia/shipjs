@@ -11,14 +11,12 @@ $ git branch -r
 */
 
 export default function getRemoteBranches(dir = '.') {
-  const remote = silentExec('git remote', { dir })
-    .toString()
-    .trim();
+  const remote = silentExec('git remote', { dir }).toString().trim();
   return silentExec('git branch -r', { dir })
     .toString()
     .trim()
     .split('\n')
-    .map(line => line.trim())
-    .filter(line => !line.includes(' -> '))
-    .map(line => line.slice(remote.length + 1));
+    .map((line) => line.trim())
+    .filter((line) => !line.includes(' -> '))
+    .map((line) => line.slice(remote.length + 1));
 }
