@@ -123,7 +123,7 @@ describe('getNextVersionFromCommitMessages', () => {
 
   it('increases version with postfixes', () => {
     const list = ['alpha', 'beta', 'rc', 'canary', 'whatever'];
-    list.forEach(tag => {
+    list.forEach((tag) => {
       const version = `0.0.1-${tag}.123`;
       // Even if there is a `feat` commit, it still increases the number only.
       const titles = `fix: abc

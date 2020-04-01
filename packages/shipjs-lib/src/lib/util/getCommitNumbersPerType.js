@@ -3,7 +3,7 @@ import { GIT_COMMIT_PREFIX_PATCH, GIT_COMMIT_PREFIX_MINOR } from '../const';
 export default function getCommitNumbersPerType(commitTitles) {
   const ignoredMessages = [];
   const numbers = {};
-  commitTitles.split('\n').forEach(rawTitle => {
+  commitTitles.split('\n').forEach((rawTitle) => {
     const title = rawTitle.trim();
     if (!title) {
       return;

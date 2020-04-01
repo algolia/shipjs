@@ -61,7 +61,7 @@ describe('createPullRequest', () => {
     const create = jest.fn().mockImplementationOnce(() => ({
       data: { number: 13, html_url: 'https://github.com/my/repo/pull/13' }, // eslint-disable-line camelcase
     }));
-    Octokit.mockImplementationOnce(function() {
+    Octokit.mockImplementationOnce(function () {
       this.pulls = { create, createReviewRequest: jest.fn() };
     });
     const { pullRequestUrl } = await createPullRequest(getDefaultParams());

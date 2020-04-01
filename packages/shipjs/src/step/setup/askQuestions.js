@@ -35,10 +35,10 @@ export default async ({ dir }) =>
 
 async function askBranches(dir) {
   let branches = getRemoteBranches(dir);
-  let baseBranchCandidate = ['develop', 'dev', 'master'].find(item =>
+  let baseBranchCandidate = ['develop', 'dev', 'master'].find((item) =>
     branches.includes(item)
   );
-  let releaseBranchCandidate = ['releases', 'release', 'master'].find(item =>
+  let releaseBranchCandidate = ['releases', 'release', 'master'].find((item) =>
     branches.includes(item)
   );
   if (branches.length === 0) {
@@ -72,7 +72,7 @@ async function askBranches(dir) {
 }
 
 async function askCI() {
-  const choices = integrations.map(config => config.name);
+  const choices = integrations.map((config) => config.name);
   const { ciTypeText } = await inquirer.prompt([
     {
       type: 'list',

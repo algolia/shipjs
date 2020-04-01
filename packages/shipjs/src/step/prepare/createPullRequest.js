@@ -134,7 +134,7 @@ function getPublishCommandInStr({
     const { packagesToPublish } = monorepo;
     const packageList = expandPackageList(packagesToPublish, dir);
     return packageList
-      .map(packageDir => {
+      .map((packageDir) => {
         const dirName = getPackageDirName(packageDir, dir);
         const command = getPublishCommand({
           isYarn,

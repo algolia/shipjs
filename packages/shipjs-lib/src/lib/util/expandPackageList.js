@@ -1,27 +1,27 @@
 import { resolve, join, sep } from 'path';
 import { statSync, readdirSync, existsSync } from 'fs';
 
-const isDirectory = dir => statSync(dir).isDirectory();
-const getDirectories = dir =>
+const isDirectory = (dir) => statSync(dir).isDirectory();
+const getDirectories = (dir) =>
   readdirSync(dir)
-    .map(name => join(dir, name))
+    .map((name) => join(dir, name))
     .filter(isDirectory);
-const hasPackageJson = dir => existsSync(`${dir}/package.json`);
-const flatten = arr => arr.reduce((acc, item) => acc.concat(item), []);
+const hasPackageJson = (dir) => existsSync(`${dir}/package.json`);
+const flatten = (arr) => arr.reduce((acc, item) => acc.concat(item), []);
 
 export default function expandPackageList(list, dir = '.') {
   return flatten(
-    list.map(item => {
+    list.map((item) => {
       const partIndex = item
         .split(sep)
-        .findIndex(part => part.startsWith('@(') && part.endsWith(')'));
+        .findIndex((part) => part.startsWith('@(') && part.endsWith(')'));
       if (partIndex !== -1) {
         const parts = item.split(sep);
         const part = parts[partIndex];
         const newList = part
           .slice(2, part.length - 1)
           .split('|')
-          .map(subPart => {
+          .map((subPart) => {
             const newParts = [...parts];
             newParts[partIndex] = subPart;
             return newParts.join(sep);

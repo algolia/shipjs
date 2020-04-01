@@ -16,7 +16,7 @@ export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
         print(`Your configuration: ${JSON.stringify(packagesToBump)}`);
         print(`Main version file: ${mainVersionFile}`);
         print(`Actual packages to bump:`);
-        packageList.forEach(packageDir =>
+        packageList.forEach((packageDir) =>
           print(`-> ${info(`${packageDir}/package.json`)}`)
         );
         if (versionUpdated) {
@@ -26,7 +26,7 @@ export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
       }
 
       updateVersion({ nextVersion, dir, fileName: mainVersionFile });
-      packageList.forEach(packageDir => {
+      packageList.forEach((packageDir) => {
         print(`-> ${info(`${packageDir}/package.json`)}`);
         updateVersion({ nextVersion, dir: packageDir });
       });

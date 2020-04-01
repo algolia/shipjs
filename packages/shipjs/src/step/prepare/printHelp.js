@@ -4,7 +4,7 @@ import { bold, underline } from '../../color';
 
 export default () =>
   runStep({}, () => {
-    const indent = line => `\t${line}`;
+    const indent = (line) => `\t${line}`;
 
     const help = `--help`;
     const dir = `--dir ${underline('PATH')}`;
@@ -13,7 +13,7 @@ export default () =>
     const noBrowse = `--no-browse`;
     const commitFrom = `--commit-from ${underline('SHA')}`;
     const all = [help, dir, yes, dryRun, noBrowse, commitFrom]
-      .map(x => `[${x}]`)
+      .map((x) => `[${x}]`)
       .join(' ');
 
     const messages = [

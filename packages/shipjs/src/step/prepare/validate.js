@@ -13,7 +13,7 @@ function printValidationError({ result, baseBranches }) {
   };
 
   print(error('Failed to prepare a release for the following reason(s).'));
-  result.forEach(reason => {
+  result.forEach((reason) => {
     print(info(`  - ${messageMap[reason]}`));
   });
 }

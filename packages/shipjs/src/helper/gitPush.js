@@ -19,7 +19,7 @@ export default function gitPush({ remote, refs, dir, dryRun }) {
         printCommand: false,
       });
     }
-    refs.forEach(ref => {
+    refs.forEach((ref) => {
       run({ command: `git push origin-with-token ${ref}`, dir, dryRun });
     });
     run({
@@ -29,7 +29,7 @@ export default function gitPush({ remote, refs, dir, dryRun }) {
       printCommand: false,
     });
   } else {
-    refs.forEach(ref => {
+    refs.forEach((ref) => {
       run({
         command: `git push ${remote} ${ref}`,
         dir,

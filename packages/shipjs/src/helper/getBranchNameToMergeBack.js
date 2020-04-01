@@ -6,7 +6,7 @@ export default function getBranchNameToMergeBack({
     return currentBranch;
   } else {
     return Object.entries(mergeStrategy.toReleaseBranch).find(
-      entry => entry[1] === currentBranch
+      (entry) => entry[1] === currentBranch
     )[0];
   }
 }

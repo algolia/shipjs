@@ -28,7 +28,7 @@ export default ({ config, revisionRange, currentVersion, dir }) =>
             'The following commit messages out of convention are ignored:'
           )
         );
-        ignoredMessages.forEach(message => print(`  ${message}`));
+        ignoredMessages.forEach((message) => print(`  ${message}`));
       }
       nextVersion = version;
     }
