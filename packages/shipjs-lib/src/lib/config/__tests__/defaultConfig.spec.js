@@ -41,6 +41,7 @@ describe('defaultConfig', () => {
     const baseBranch = 'master';
     const stagingBranch = 'releases/v0.1.1';
     const currentVersion = '0.1.0';
+    const currentTag = 'v0.1.0';
     const nextVersion = '0.1.1';
 
     it('gets message for same branch strategy', () => {
@@ -57,6 +58,7 @@ describe('defaultConfig', () => {
         destinationBranch,
         mergeStrategy,
         currentVersion,
+        currentTag,
         nextVersion,
         publishCommandInStr,
       });

@@ -114,6 +114,7 @@ async function prepare({
     baseBranch,
     stagingBranch,
     currentVersion,
+    currentTag,
     nextVersion,
     releaseType,
     noBrowse,
