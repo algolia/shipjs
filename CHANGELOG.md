@@ -1,3 +1,13 @@
+## [0.18.1](https://github.com/algolia/shipjs/compare/v0.18.0...v0.18.1) (2020-04-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency prettier to v2 ([#732](https://github.com/algolia/shipjs/issues/732)) ([96d6ff2](https://github.com/algolia/shipjs/commit/96d6ff22214849b7c0c665b3d104b00ded43b38a))
+* **prepare:** respect custom tag name when getting a revision range ([#751](https://github.com/algolia/shipjs/issues/751)) ([a1baa93](https://github.com/algolia/shipjs/commit/a1baa93927a11dfe6f96b9c40fc80e9f54f51e32))
+
+
+
 # [0.18.0](https://github.com/algolia/shipjs/compare/v0.17.0...v0.18.0) (2020-03-17)
 
 
