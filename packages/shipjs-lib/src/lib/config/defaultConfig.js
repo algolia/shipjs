@@ -31,6 +31,7 @@ export default {
     destinationBranch,
     mergeStrategy,
     currentVersion,
+    currentTag,
     nextVersion,
     releaseType,
     publishCommandInStr,
@@ -45,7 +46,7 @@ export default {
       `- Merge: \`${stagingBranch}\` → \`${destinationBranch}\``,
       ...(mergeStrategy.toSameBranch.includes(baseBranch)
         ? [
-            `- [Compare the changes between the versions](${repoURL}/compare/v${currentVersion}...${stagingBranch})`,
+            `- [Compare the changes between the versions](${repoURL}/compare/${currentTag}...${stagingBranch})`,
             `> :warning: When merging this pull request, you need to **_"Squash and merge"_** and make sure the title starts with \`${pullRequestTitle}\`.`,
             `> After that, a commit \`${pullRequestTitle}\` will be added and \`shipjs trigger\` will be able to trigger the release based on the commit.`,
             `> Fore more information, please refer to the mergeStrategy section of the [guide](https://community.algolia.com/shipjs/guide/useful-config.html#mergestrategy).`,
