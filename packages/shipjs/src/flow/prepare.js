@@ -53,10 +53,11 @@ async function prepare({
   pull({ remote, currentBranch: baseBranch, dir, dryRun });
   fetchTags({ dir, dryRun });
   push({ remote, currentBranch: baseBranch, dir, dryRun });
+  const currentTag = config.getTagName({ version: currentVersion });
   const { revisionRange } = await getRevisionRange({
     yes,
     commitFrom,
-    currentVersion,
+    currentTag,
     dir,
   });
   let { nextVersion } = getNextVersion({
