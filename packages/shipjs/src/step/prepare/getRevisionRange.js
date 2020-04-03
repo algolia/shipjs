@@ -4,7 +4,7 @@ import runStep from '../runStep';
 import { print, exitProcess } from '../../util';
 import { info, warning, error } from '../../color';
 
-export default async ({ yes, commitFrom, currentVersion, dir }) =>
+export default async ({ yes, commitFrom, currentTag, dir }) =>
   await runStep(
     { title: 'Getting a revision range for this release.' },
     async () => {
@@ -14,13 +14,13 @@ export default async ({ yes, commitFrom, currentVersion, dir }) =>
         };
       }
 
-      let revisionRange = `v${currentVersion}..HEAD`;
-      if (hasTag(`v${currentVersion}`, dir)) {
+      let revisionRange = `${currentTag}..HEAD`;
+      if (hasTag(currentTag, dir)) {
         print(info(`  ${revisionRange}`));
         return { revisionRange };
       }
 
-      const tagNotExistingMessage = `Git tag 'v${currentVersion}' doesn't exist.`;
+      const tagNotExistingMessage = `Git tag '${currentTag}' doesn't exist.`;
       if (yes) {
         print(error(tagNotExistingMessage));
         print(
