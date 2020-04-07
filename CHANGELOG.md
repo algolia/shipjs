@@ -3,7 +3,6 @@
 
 ### Bug Fixes
 
-* **deps:** update dependency chalk to v4 ([#747](https://github.com/algolia/shipjs/issues/747)) ([b9cba2e](https://github.com/algolia/shipjs/commit/b9cba2e0d040dfd663348002e625570699ab526d))
 * **prepare:** fix wrong comparison url in the PR summary when getTagName is overridden in ship.config.js ([#753](https://github.com/algolia/shipjs/issues/753)) ([4a40920](https://github.com/algolia/shipjs/commit/4a40920e7874b51b6c324a8a23ae7690c87159fc))
 
 
