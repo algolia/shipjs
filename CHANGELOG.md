@@ -1,3 +1,12 @@
+## [0.18.2](https://github.com/algolia/shipjs/compare/v0.18.1...v0.18.2) (2020-04-07)
+
+
+### Bug Fixes
+
+* **prepare:** fix wrong comparison url in the PR summary when getTagName is overridden in ship.config.js ([#753](https://github.com/algolia/shipjs/issues/753)) ([4a40920](https://github.com/algolia/shipjs/commit/4a40920e7874b51b6c324a8a23ae7690c87159fc))
+
+
+
 ## [0.18.1](https://github.com/algolia/shipjs/compare/v0.18.0...v0.18.1) (2020-04-03)
 
 
