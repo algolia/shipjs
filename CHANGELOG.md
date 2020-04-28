@@ -1,3 +1,12 @@
+## [0.18.3](https://github.com/algolia/shipjs/compare/v0.18.2...v0.18.3) (2020-04-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency shelljs to v0.8.4 ([#776](https://github.com/algolia/shipjs/issues/776)) ([b70fc24](https://github.com/algolia/shipjs/commit/b70fc244ec3d1f653777e436b1ac3f4ffea0bf6c))
+
+
+
 ## [0.18.2](https://github.com/algolia/shipjs/compare/v0.18.1...v0.18.2) (2020-04-07)
 
 
