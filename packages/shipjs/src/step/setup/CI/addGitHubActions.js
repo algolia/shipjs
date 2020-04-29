@@ -22,7 +22,7 @@ export default ({
     () => {
       const log = [
         createGitHubAction({
-          content: getBaseConfig({ releaseBranch }),
+          content: getBaseConfig({ baseBranch, releaseBranch }),
           actionPath: '.github/workflows/shipjs-trigger.yml',
           dir,
           dryRun,
@@ -53,7 +53,7 @@ export default ({
         },
       ].filter(Boolean);
 
-      return () => log.forEach((printResult) => printResult());
+      return () => log.forEach(printResult => printResult());
     }
   );
 
@@ -78,7 +78,7 @@ function createGitHubAction({ content, actionPath, dir, dryRun }) {
   };
 }
 
-function getBaseConfig({ releaseBranch }) {
+function getBaseConfig({ baseBranch, releaseBranch }) {
   return ejs.render(
     `name: Ship js trigger
 on:
@@ -93,6 +93,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: <%= releaseBranch %>
+          <%= if(baseBranch !== releaseBranch) fetch-depth: 0 %>
       - uses: actions/setup-node@v1
         with:
           registry-url: "https://registry.npmjs.org"
@@ -102,13 +103,14 @@ jobs:
           else
             npm install
           fi
+      <%= if(baseBranch !== releaseBranch) - run: git fetch %>
       - run: npm run release:trigger
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: \${{ secrets.NPM_AUTH_TOKEN }}
           SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}
 `,
-    { releaseBranch }
+    { baseBranch, releaseBranch }
   );
 }
 
