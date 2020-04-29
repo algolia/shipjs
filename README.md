@@ -143,15 +143,15 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-## Badge [![deploy](https://img.shields.io/badge/deploy-🛳Ship.js-blue?style=flat)](https://github.com/algolia/shipjs)
+## Badge [![deploy](https://img.shields.io/badge/deploy-🛳%20Ship.js-blue?style=flat)](https://github.com/algolia/shipjs)
 Show the world you're using Ship.js
 
 ```md
-[![deploy](https://img.shields.io/badge/deploy-🛳Ship.js-blue?style=flat)](https://github.com/algolia/shipjs)
+[![deploy](https://img.shields.io/badge/deploy-🛳%20Ship.js-blue?style=flat)](https://github.com/algolia/shipjs)
 ```
 
 ```html
 <a title="deploy" href="https://github.com/algolia/shipjs" rel="nofollow">
-  <img src="https://img.shields.io/badge/deploy-🛳Ship.js-blue?style=flat">
+  <img src="https://img.shields.io/badge/deploy-🛳%20Ship.js-blue?style=flat">
 </a>
 ```
