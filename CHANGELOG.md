@@ -1,3 +1,14 @@
+## [0.18.3](https://github.com/algolia/shipjs/compare/v0.18.2...v0.18.3) (2020-05-04)
+
+
+### Bug Fixes
+
+* **actions:** add fetch-depth and git fetch ([#778](https://github.com/algolia/shipjs/issues/778)) ([994e4ff](https://github.com/algolia/shipjs/commit/994e4ff8177a6cb7e74a27c2dc0dab03ba512a5c))
+* **deps:** update dependency shelljs to v0.8.4 ([#776](https://github.com/algolia/shipjs/issues/776)) ([b70fc24](https://github.com/algolia/shipjs/commit/b70fc244ec3d1f653777e436b1ac3f4ffea0bf6c))
+* **release:** skip running publishCommand if nullish ([#793](https://github.com/algolia/shipjs/issues/793)) ([eb62c8d](https://github.com/algolia/shipjs/commit/eb62c8dfa500888587172e796538d12238dc7a10))
+
+
+
 ## [0.18.2](https://github.com/algolia/shipjs/compare/v0.18.1...v0.18.2) (2020-04-07)
 
 
