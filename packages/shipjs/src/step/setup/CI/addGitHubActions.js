@@ -53,7 +53,7 @@ export default ({
         },
       ].filter(Boolean);
 
-      return () => log.forEach(printResult => printResult());
+      return () => log.forEach((printResult) => printResult());
     }
   );
 
