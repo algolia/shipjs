@@ -18,8 +18,12 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
           tag,
           dir: packageDir,
         });
-        print(`Running the following at ${info(packageDir)}`);
-        run({ command, dir: packageDir, dryRun });
+        if (command) {
+          print(`Running the following at ${info(packageDir)}`);
+          run({ command, dir: packageDir, dryRun });
+        } else {
+          print(`No publish command for ${info(packageDir)}`);
+        }
       });
     } else {
       const command = getPublishCommand({ isYarn, publishCommand, tag, dir });
