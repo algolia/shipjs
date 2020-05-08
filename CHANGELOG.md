@@ -1,3 +1,13 @@
+## [0.18.4](https://github.com/algolia/shipjs/compare/v0.18.3...v0.18.4) (2020-05-08)
+
+
+### Bug Fixes
+
+* **actions:** fix ejs syntax ([#801](https://github.com/algolia/shipjs/issues/801)) ([8055a9f](https://github.com/algolia/shipjs/commit/8055a9f5ce7d4d4f6d904dd096e4a244e2676f9d))
+* **release:** push to correct branch in toReleaseBranch strategy ([#803](https://github.com/algolia/shipjs/issues/803)) ([1367315](https://github.com/algolia/shipjs/commit/1367315976244289ccb66c8c8d96ee62d421418f))
+
+
+
 ## [0.18.3](https://github.com/algolia/shipjs/compare/v0.18.2...v0.18.3) (2020-05-04)
 
 
