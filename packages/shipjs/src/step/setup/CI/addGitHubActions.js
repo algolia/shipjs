@@ -93,7 +93,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: <%= releaseBranch %>
-          <%= if(baseBranch !== releaseBranch) fetch-depth: 0 %>
+          <% if (baseBranch !== releaseBranch) { %>
+          fetch-depth: 0
+          <% } %>
       - uses: actions/setup-node@v1
         with:
           registry-url: "https://registry.npmjs.org"
@@ -103,7 +105,9 @@ jobs:
           else
             npm install
           fi
-      <%= if(baseBranch !== releaseBranch) - run: git fetch %>
+      <% if (baseBranch !== releaseBranch) { %>
+      - run: git fetch
+      <% } %>
       - run: npm run release:trigger
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
