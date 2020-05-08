@@ -1,5 +1,5 @@
 {
-  "version": "0.18.3",
+  "version": "0.18.4",
   "scripts": {
     "prepare": "yarn build",
     "build": "yarn workspace shipjs-lib build",
