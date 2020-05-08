@@ -19,6 +19,6 @@ export default ({ tagName, config, dir, dryRun }) =>
       // flow: develop -> master -> (here) develop
       run({ command: `git checkout ${destinationBranch}`, dir, dryRun });
       run({ command: `git merge ${currentBranch}`, dir, dryRun });
-      gitPush({ remote, refs: [currentBranch, tagName], dir, dryRun });
+      gitPush({ remote, refs: [destinationBranch, tagName], dir, dryRun });
     }
   });
