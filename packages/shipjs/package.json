@@ -23,6 +23,7 @@
   "files": [
     "bin/shipjs",
     "src",
+    "!src/**/__tests__",
     "index.js"
   ],
   "author": "Algolia <support@algolia.com>",
