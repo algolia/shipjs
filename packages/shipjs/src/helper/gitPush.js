@@ -5,7 +5,13 @@ import {
 } from 'shipjs-lib';
 import { print, run } from '../util';
 
-export default function gitPush({ remote, refs, dir, dryRun }) {
+export default function gitPush({
+  remote,
+  refs,
+  forcePushBranches = [],
+  dir,
+  dryRun,
+}) {
   const token = process.env.GITHUB_TOKEN;
   if (token) {
     if (!hasRemote('origin-with-token', dir)) {
@@ -20,7 +26,12 @@ export default function gitPush({ remote, refs, dir, dryRun }) {
       });
     }
     refs.forEach((ref) => {
-      run({ command: `git push origin-with-token ${ref}`, dir, dryRun });
+      const force = forcePushBranches.includes(ref);
+      run({
+        command: `git push${force ? ' -f' : ''} origin-with-token ${ref}`,
+        dir,
+        dryRun,
+      });
     });
     run({
       command: `git remote remove origin-with-token`,
@@ -30,8 +41,9 @@ export default function gitPush({ remote, refs, dir, dryRun }) {
     });
   } else {
     refs.forEach((ref) => {
+      const force = forcePushBranches.includes(ref);
       run({
-        command: `git push ${remote} ${ref}`,
+        command: `git push${force ? ' -f' : ''} ${remote} ${ref}`,
         dir,
         dryRun,
       });

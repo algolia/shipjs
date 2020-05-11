@@ -6,19 +6,31 @@ import { run } from '../../util';
 export default ({ tagName, config, dir, dryRun }) =>
   runStep({ title: 'Pushing to the remote.' }, () => {
     const currentBranch = getCurrentBranch(dir);
-    const { mergeStrategy, remote } = config;
+    const { mergeStrategy, remote, forcePushBranches } = config;
     const destinationBranch = getBranchNameToMergeBack({
       currentBranch,
       mergeStrategy,
     });
     if (currentBranch === destinationBranch) {
-      gitPush({ remote, refs: [currentBranch, tagName], dir, dryRun });
+      gitPush({
+        remote,
+        refs: [currentBranch, tagName],
+        forcePushBranches,
+        dir,
+        dryRun,
+      });
     } else {
       // currentBranch: 'master'
       // destinationBranch: 'develop'
       // flow: develop -> master -> (here) develop
       run({ command: `git checkout ${destinationBranch}`, dir, dryRun });
       run({ command: `git merge ${currentBranch}`, dir, dryRun });
-      gitPush({ remote, refs: [destinationBranch, tagName], dir, dryRun });
+      gitPush({
+        remote,
+        refs: [destinationBranch, tagName],
+        forcePushBranches,
+        dir,
+        dryRun,
+      });
     }
   });

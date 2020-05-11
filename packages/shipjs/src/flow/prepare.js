@@ -49,10 +49,10 @@ async function prepare({
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
   validateMergeStrategy({ config });
-  const { remote } = config;
+  const { remote, forcePushBranches } = config;
   pull({ remote, currentBranch: baseBranch, dir, dryRun });
   fetchTags({ dir, dryRun });
-  push({ remote, currentBranch: baseBranch, dir, dryRun });
+  push({ remote, currentBranch: baseBranch, forcePushBranches, dir, dryRun });
   const currentTag = config.getTagName({ version: currentVersion });
   const { revisionRange } = await getRevisionRange({
     yes,

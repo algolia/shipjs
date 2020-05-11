@@ -93,4 +93,30 @@ describe('gitPush', () => {
       }
     `);
   });
+
+  it('force pushes', () => {
+    gitPush({
+      remote: 'origin',
+      refs: ['master', 'v1.2.3'],
+      forcePushBranches: ['master'],
+      dir: '.',
+      dryRun: false,
+    });
+    expect(print).toHaveBeenCalledTimes(0);
+    expect(run).toHaveBeenCalledTimes(2);
+    expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
+      Object {
+        "command": "git push -f origin master",
+        "dir": ".",
+        "dryRun": false,
+      }
+    `);
+    expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
+      Object {
+        "command": "git push origin v1.2.3",
+        "dir": ".",
+        "dryRun": false,
+      }
+    `);
+  });
 });
