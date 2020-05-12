@@ -1,3 +1,12 @@
+# [0.19.0](https://github.com/algolia/shipjs/compare/v0.18.4...v0.19.0) (2020-05-12)
+
+
+### Features
+
+* force push to protected branch with explicit config ([#813](https://github.com/algolia/shipjs/issues/813)) ([3647853](https://github.com/algolia/shipjs/commit/364785329d128ff95f4a9b0f31ec83fd5e27f0c7))
+
+
+
 ## [0.18.4](https://github.com/algolia/shipjs/compare/v0.18.3...v0.18.4) (2020-05-08)
 
 
