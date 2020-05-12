@@ -115,6 +115,7 @@ export default {
   getTagName: ({ version }) => `v${version}`,
   testCommandBeforeRelease: undefined, // ({ isYarn }) => isYarn ? 'yarn test' : 'npm run test',
   appName: undefined,
+  forcePushBranches: [],
   slack: {
     default: {
       username: 'Ship.js',
