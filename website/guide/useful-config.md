@@ -133,9 +133,9 @@ module.exports = {
 
 ## Schedule your release
 
-At Part 1, by running `yarn release:prepare`, you get a PR for next release. What if you even automate this?
+At Part 1, by running `yarn run release`, you get a PR for next release. What if you even automate this?
 
-You can configure your CI to run periodically `yarn release:prepare`.
+You can configure your CI to run periodically `yarn run release`.
 
 ```yml
 version: 2
@@ -153,7 +153,7 @@ jobs:
           command: |
             git config --global user.email "you@example.com"
             git config --global user.name "Your Name"
-            yarn release:prepare --yes --no-browse
+            yarn run release --yes --no-browse
 workflows:
   version: 2
   prepare_release_every_tuesday:

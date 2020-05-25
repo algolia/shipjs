@@ -27,8 +27,7 @@ Add the following to the `scripts` section in your `package.json`.
 ```js
 "scripts: {
   //...
-  "release:prepare": "shipjs prepare",
-  "release:trigger": "shipjs trigger",
+  "release": "shipjs prepare",
 }
 ```
 
@@ -52,20 +51,18 @@ If you automate flows in your CI, you can add the token to Environment Variable 
 If you're not sure, you can always run commands in dry mode.
 
 ```bash
-yarn release:prepare --dry-run
-
-or
-
-yarn release:trigger --dry-run
+yarn run release --dry-run
+# or
+npm run release --dry-run
 ```
 
 It will show you which steps are going to be executed without actually executing them.
 
 ## On your local machine
 
-- Part 1: `yarn release:prepare` will create a pull request.
+- Part 1: `yarn run release` will create a pull request.
 - Part 2: Review and merge the PR.
-- Part 3: `git pull` and `yarn release:trigger` to actually publish it to NPM.
+- Part 3: `git pull` and `yarn shipjs trigger`(or `npx shipjs trigger`) to actually publish it to NPM.
 
 ## Automate Part 3 (`trigger`)
 
@@ -88,10 +85,10 @@ jobs:
           command: yarn install
       - run:
           name: Try to Release
-          command: yarn release:trigger
+          command: yarn shipjs trigger
 ```
 
-At Part 2, if you merge the PR, a new commit will be added and CircleCI will run `yarn release:trigger`. Then, it will check if the latest commit message is in convention and the current branch is right. If the conditions are met, it will trigger a release. Otherwise, it will skip.
+At Part 2, if you merge the PR, a new commit will be added and CircleCI will run `yarn shipjs trigger`(or `npx shipjs trigger`). Then, it will check if the latest commit message is in convention and the current branch is right. If the conditions are met, it will trigger a release. Otherwise, it will skip.
 
 By default, it will check if the commit message is `chore: release vx.y.z`(which is the title of the PR).
 
