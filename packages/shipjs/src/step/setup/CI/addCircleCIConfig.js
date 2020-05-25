@@ -120,7 +120,7 @@ jobs:
           command: |
             git config --global user.email "<%= gitUserEmail %>"
             git config --global user.name "<%= gitUserName %>"
-            yarn release:prepare --yes --no-browse
+            yarn run release --yes --no-browse
 <% } %>
   release_if_needed:
     <<: *defaults
@@ -132,7 +132,7 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Try to Release
-          command: yarn release:trigger
+          command: yarn shipjs trigger
 workflows:
   version: 2
   ci:

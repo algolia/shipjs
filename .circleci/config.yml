@@ -59,7 +59,7 @@ jobs:
           command: |
             git config --global user.email "karis612@gmail.com"
             git config --global user.name "Eunjae Lee"
-            yarn release:prepare --yes --no-browse
+            yarn run release --yes --no-browse
   release_if_needed:
     <<: *defaults
     steps:
@@ -70,7 +70,7 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Try to Release
-          command: yarn release:trigger
+          command: yarn shipjs trigger
   gh_pages:
     <<: *defaults
     steps:

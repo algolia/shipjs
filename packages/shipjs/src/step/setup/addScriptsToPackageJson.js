@@ -11,8 +11,7 @@ export default async ({ dir, dryRun }) =>
       const filePath = path.resolve(dir, 'package.json');
       const json = JSON.parse(fs.readFileSync(filePath).toString());
       json.scripts = json.scripts || {};
-      json.scripts['release:prepare'] = 'shipjs prepare';
-      json.scripts['release:trigger'] = 'shipjs trigger';
+      json.scripts.release = 'shipjs prepare';
       fs.writeFileSync(filePath, `${JSON.stringify(json, null, 2)}\n`);
       await runPrettier({ filePath, dir });
     }
@@ -20,6 +19,6 @@ export default async ({ dir, dryRun }) =>
       print(
         `${info(
           '✔'
-        )} Added \`release:prepare\` and \`release:trigger\` in \`scripts\` section of \`package.json\`.`
+        )} Added \`release\` in \`scripts\` section of \`package.json\`.`
       );
   });

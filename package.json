@@ -10,8 +10,7 @@
     "tw2": "yarn workspace shipjs test:watch",
     "web": "yarn workspace website dev",
     "bootstrap": "./packages/shipjs-lib/tests/bootstrap.sh",
-    "release:prepare": "shipjs prepare",
-    "release:trigger": "shipjs trigger",
+    "release": "shipjs prepare",
     "contributors:add": "all-contributors add"
   },
   "engines": {

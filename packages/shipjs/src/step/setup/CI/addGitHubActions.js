@@ -108,7 +108,7 @@ jobs:
       <% if (baseBranch !== releaseBranch) { %>
       - run: git fetch
       <% } %>
-      - run: npm run release:trigger
+      - run: npx shipjs trigger
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: \${{ secrets.NPM_AUTH_TOKEN }}
@@ -146,7 +146,7 @@ jobs:
       - run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-      - run: npm run release:prepare -- --yes --no-browse
+      - run: npm run release -- --yes --no-browse
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}
@@ -202,7 +202,7 @@ jobs:
       - run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-      - run: npm run release:prepare -- --yes --no-browse
+      - run: npm run release -- --yes --no-browse
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           SLACK_INCOMING_HOOK: \${{ secrets.SLACK_INCOMING_HOOK }}

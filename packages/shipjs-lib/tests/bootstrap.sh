@@ -40,8 +40,7 @@ git add abc
 git commit -m "fix(abc): fix a bug"
 
 yarn add shipjs -D
-npx json -I -f package.json -e 'this.scripts["release:prepare"] = "shipjs prepare"'
-npx json -I -f package.json -e 'this.scripts["release:trigger"] = "shipjs trigger"'
+npx json -I -f package.json -e 'this.scripts["release"] = "shipjs prepare"'
 git add .
 git commit -m "chore: add shipjs"
 
@@ -53,11 +52,11 @@ echo ""
 echo "All is ready. Try the following:"
 echo ""
 echo "  $ cd ../$REPO_NAME"
-echo "  $ yarn release:prepare"
+echo "  $ yarn run release"
 echo ""
 echo "It will open a pull request."
 echo "Review and merge it."
-echo "After that, run 'git pull && yarn release:trigger'. It will be released to npm."
+echo "After that, run 'git pull && yarn shipjs trigger'. It will be released to npm."
 echo "Check out the package.json."
 echo ""
 echo "  $ cat package.json"
