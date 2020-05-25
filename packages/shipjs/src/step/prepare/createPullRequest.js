@@ -61,26 +61,30 @@ export default async ({
       exitProcess(0);
     }
     const { url: repoURL, owner, name: repo } = getRepoInfo(remote, dir);
-    const publishCommandInStr = getPublishCommandInStr({
+
+    const diffURL = `${repoURL}/compare/${currentTag}...${stagingBranch}`;
+    const publishCommands = getPublishCommands({
       isYarn: detectYarn(dir),
       tag: getReleaseTag(nextVersion),
       monorepo,
       publishCommand,
       dir,
     });
+
     const title = formatPullRequestTitle({ version: nextVersion, releaseType });
     const message = formatPullRequestMessage({
-      formatPullRequestTitle,
+      repo,
       repoURL,
       baseBranch,
       stagingBranch,
       destinationBranch,
-      mergeStrategy,
-      currentVersion,
-      currentTag,
-      nextVersion,
       releaseType,
-      publishCommandInStr,
+      diffURL,
+      currentVersion,
+      nextVersion,
+      publishCommands,
+      mergeStrategy,
+      title,
     });
     run({ command: `git remote prune ${remote}`, dir, dryRun });
 
@@ -125,28 +129,23 @@ export default async ({
     return { pullRequestUrl: url };
   });
 
-function getPublishCommandInStr({
-  isYarn,
-  tag,
-  monorepo,
-  publishCommand,
-  dir,
-}) {
+function getPublishCommands({ isYarn, tag, monorepo, publishCommand, dir }) {
   if (monorepo) {
     const { packagesToPublish } = monorepo;
     const packageList = expandPackageList(packagesToPublish, dir);
-    return packageList
-      .map((packageDir) => {
-        const dirName = getPackageDirName(packageDir, dir);
-        const command = getPublishCommand({
-          isYarn,
-          publishCommand,
-          tag,
-          dir: packageDir,
-        });
-        return `- ${dirName} -> ${command}`;
-      })
-      .join('\n');
+    return packageList.map((packageDir) => {
+      const dirName = getPackageDirName(packageDir, dir);
+      const command = getPublishCommand({
+        isYarn,
+        publishCommand,
+        tag,
+        dir: packageDir,
+      });
+      return {
+        dirName,
+        command,
+      };
+    });
   } else {
     return getPublishCommand({ isYarn, publishCommand, tag, dir });
   }
