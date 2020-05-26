@@ -33,6 +33,8 @@ Ship.js currently does not provide independent versioning. It means all the pack
 
 ## `shouldPrepare`
 
+_used at_: `shipjs prepare`
+
 _default_: `undefined`
 
 ```js
@@ -71,17 +73,23 @@ With the config above, you can skip if it's going to be a patch release but with
 
 ## `updateChangelog`
 
+_used at_: `shipjs prepare`
+
 _default:_ `true`
 
 If `false`, Ship.js won't run `conventional-changelog` during `shipjs prepare`.
 
 ## `conventionalChangelogArgs`
 
+_used at_: `shipjs prepare`
+
 _default:_ `'-p angular -i CHANGELOG.md -s'`
 
 This is passed to `conventional-changelog` CLI to update CHANGELOG.md.
 
 ## `installCommand`
+
+_used at_: `shipjs prepare`
 
 _default:_
 
@@ -91,6 +99,8 @@ installCommand: ({ isYarn }) =>
 ```
 
 ## `getNextVersion`
+
+_used at_: `shipjs prepare`
 
 _default:_ `undefined`
 
@@ -112,6 +122,8 @@ getNextVersion: ({ revisionRange, commitTitles, commitBodies, currentVersion, di
 
 ## `versionUpdated`
 
+_used at_: `shipjs prepare`
+
 _default:_ `undefined`
 
 ```js
@@ -132,6 +144,8 @@ This is a lifecycle hook where you can put additional code after version is upda
 
 ## `beforeCommitChanges`
 
+_used at_: `shipjs prepare`
+
 _default:_ `undefined`
 
 ```js
@@ -145,6 +159,8 @@ This is a lifecycle hook which is executed right before `git commit` happens. Yo
 
 ## `pullRequestReviewers`
 
+_used at_: `shipjs prepare`
+
 _default:_ `undefined`
 
 You can put an array of strings.
@@ -156,6 +172,8 @@ pullRequestReviewers: ['user1', 'user2', 'user3'];
 One thing you need to be aware of is, you cannot assign yourself as a reviewer. You can put github username of your team or colleagues.
 
 ## `pullRequestTeamReviewers`
+
+_used at_: `shipjs prepare`
 
 _default:_ `undefined`
 
@@ -199,6 +217,8 @@ To learn more, you can read [this guide](../guide/useful-config.html#mergestrate
 
 ## `buildCommand`
 
+_used at_: `shipjs trigger`
+
 _default:_
 
 ```js
@@ -214,6 +234,8 @@ buildCommand: () => null;
 
 ## `beforePublish`
 
+_used at_: `shipjs trigger`
+
 _default:_ `undefined`
 
 ```js
@@ -224,6 +246,8 @@ beforePublish: ({ exec, dir }) => {
 ```
 
 ## `publishCommand`
+
+_used at_: `shipjs trigger`
 
 _default:_
 
@@ -266,6 +290,8 @@ publishCommand: ({ isYarn, tag, defaultCommand, dir }) => {
 
 ## `afterPublish`
 
+_used at_: `shipjs trigger`
+
 _default:_ `undefined`
 
 ```js
@@ -276,6 +302,8 @@ afterPublish: ({ exec, dir, version, releaseTag }) => {
 ```
 
 ## `testCommandBeforeRelease`
+
+_used at_: `shipjs trigger`
 
 _default:_ `undefined`
 
@@ -291,6 +319,8 @@ testCommandBeforeRelease: ({ isYarn }) =>
 ```
 
 ## `releases`
+
+_used at_: `shipjs trigger`
 
 _default:_ `undefined`
 
@@ -315,6 +345,8 @@ releases: {
 
 ## `appName`
 
+_used at_: `shipjs trigger`
+
 _default:_ `undefined`
 
 ```js
@@ -325,6 +357,8 @@ appName: 'My Awesome Package';
 This is used when Ship.js sends message to your Slack channel. If it's `undefined`, Ship.js will take `name` from your `package.json` by default.
 
 ## Messaging to Slack
+
+_used at_: `shipjs trigger`
 
 If you configure an environment variable `SLACK_INCOMING_HOOK`, Ship.js will send messages
 
