@@ -61,9 +61,9 @@
     "tempfile": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.10.1",
+    "@babel/core": "7.10.2",
     "@babel/plugin-transform-runtime": "7.10.1",
-    "@babel/preset-env": "7.10.1",
+    "@babel/preset-env": "7.10.2",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.0.1",
     "eslint": "7.1.0",
