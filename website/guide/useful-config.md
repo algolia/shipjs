@@ -117,6 +117,36 @@ One thing you need to be aware of is, you cannot assign yourself as a reviewer. 
 
 The assignees will receive a notification from GitHub when the PR is created. Whenever they review and merge the PR, it will be automatically released by the prior configuration you've done [here](../guide/getting-started.html#automate-part-3-trigger).
 
+## Release Snapshot
+
+If you want to maintain a branch for release snapshot, you can use `afterPublish` hook.
+
+For example, you normally work on `develop` and want to have the latest release at `master`.
+
+```js
+module.exports = {
+  afterPublish: ({ exec }) => {
+    exec(`git config --global user.email "your@email.com"`);
+    exec(`git config --global user.name "Your Name"`);
+    
+    exec('git checkout master');
+    exec('git merge develop');
+    exec('git push origin master');
+  }
+}
+```
+
+In this way, you can keep `master` up-to-date with the latest release.
+
+:::warning NOTICE
+Normally you cannot create commits and push them from your CI service.
+
+In case of CircleCI, you can read the following document to configure either deploy key or user key to enable it.
+
+[Deployment Keys and User Keys - CircleCI](https://circleci.com/docs/2.0/gh-bb-integration/#deployment-keys-and-user-keys)
+:::
+
+
 ## `SLACK_INCOMING_HOOK`
 
 If you configure an environment variable `SLACK_INCOMING_HOOK`, Ship.js will send messages
