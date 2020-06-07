@@ -75,7 +75,7 @@ A minimal `.circleci/config.yml` looks like the following:
 ```yaml
 version: 2
 jobs:
-  release_if_needed:
+  trigger_shipjs:
     docker:
       - image: 'circleci/node:latest'
     steps:
@@ -84,13 +84,13 @@ jobs:
           name: Install
           command: yarn install
       - run:
-          name: Release If Needed
+          name: Triggering Ship.js to Release
           command: yarn shipjs trigger
 workflows:
   version: 2
-  ci:
+  release_if_needed:
     jobs:
-      - release_if_needed:
+      - trigger_shipjs:
           filters:
             branches:
               only:
