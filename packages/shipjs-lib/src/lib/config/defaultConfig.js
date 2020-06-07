@@ -35,7 +35,6 @@ export default {
     title,
   }) => {
     const repoLink = `[${repo}](${repoURL})`;
-    const branchFlow = `${baseBranch} → ${stagingBranch} (current) → ${destinationBranch}`;
     const diffLink = `[\`${currentVersion}\` → \`${nextVersion}\`](${diffURL})`;
     const publishCommandsTable =
       typeof publishCommands === 'string'
@@ -62,7 +61,7 @@ After that, a commit \`${title}\` will be added and you or your CI can run \`shi
 This pull request prepares the following release:
 | Package | Branch | Update | Change |
 |---|---|---|---|
-| ${repoLink} | ${branchFlow} | ${releaseType} | ${diffLink} |
+| ${repoLink} | ${stagingBranch} | ${releaseType} | ${diffLink} |
 
 ### Release Summary
 This is going to be published with the following command:
