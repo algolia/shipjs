@@ -112,9 +112,9 @@ You will review and merge this PR.
 
 You can add more commits to this PR if needed.
 
-According to your merge strategy, you might either `Squash and merge` or `Merge pull request`.
+Merge the PR into a single commit by `Squash and merge`.
 
-For more information, please refer to the [mergeStrategy section of the guide](./useful-config.html#mergestrategy).
+You can read [this](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-merges#squash-and-merge-your-pull-request-commits) to learn more.
 
 ### Part 3. Trigger a release (`shipjs trigger`)
 
