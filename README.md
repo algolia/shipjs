@@ -108,7 +108,7 @@ Ship.js gives you more control over the release process. Ship.js automatically c
 - Confirm which commits are going to be released and discuss them with colleagues.
 - Edit the automatically generated changelog for clarity & readability.
 - Run any automated tests on the package release candidate.
-- Build a release candidate automatically (with [Pika CI](https://github.com/marketplace/pika-ci-cd)).
+- Build a release candidate automatically (with [Pika CI](https://github.com/marketplace/pika-ci-cd) or [CodeSandbox](https://github.com/apps/codesandbox)).
 
 ## How to Contribute?
 
@@ -139,11 +139,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ## Badge [![deploy](https://img.shields.io/badge/deploy-🛳%20Ship.js-blue?style=flat)](https://github.com/algolia/shipjs)
+
 Show the world you're using Ship.js
 
 ```md
@@ -152,6 +154,6 @@ Show the world you're using Ship.js
 
 ```html
 <a title="deploy" href="https://github.com/algolia/shipjs" rel="nofollow">
-  <img src="https://img.shields.io/badge/deploy-🛳%20Ship.js-blue?style=flat">
+  <img src="https://img.shields.io/badge/deploy-🛳%20Ship.js-blue?style=flat" />
 </a>
 ```
