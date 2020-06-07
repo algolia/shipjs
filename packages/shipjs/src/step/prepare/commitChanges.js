@@ -12,11 +12,10 @@ export default async ({
   dryRun,
 }) =>
   await runStep({ title: 'Committing the changes.' }, async () => {
-    const { formatCommitMessage, mergeStrategy, beforeCommitChanges } = config;
+    const { formatCommitMessage, beforeCommitChanges } = config;
     const message = formatCommitMessage({
       version: nextVersion,
       releaseType,
-      mergeStrategy,
       baseBranch,
     });
     if (dryRun) {

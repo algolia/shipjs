@@ -1,41 +1,6 @@
 import mergeConfig from '../mergeConfig';
 
 describe('mergeConfig', () => {
-  it('overwrites the children of mergeStrategy', () => {
-    const config = mergeConfig(
-      {
-        mergeStrategy: {
-          toSameBranch: ['master'],
-        },
-      },
-      {
-        mergeStrategy: {
-          toSameBranch: undefined,
-          toReleaseBranch: undefined,
-        },
-      }
-    );
-    const { mergeStrategy } = config;
-    expect(mergeStrategy.toSameBranch).toBe(undefined);
-    expect(mergeStrategy.toReleaseBranch).toBe(undefined);
-  });
-
-  it('gets default children of mergeStrategy', () => {
-    const config = mergeConfig(
-      {
-        mergeStrategy: {
-          toSameBranch: ['master'],
-        },
-      },
-      {
-        mergeStrategy: {},
-      }
-    );
-    const { mergeStrategy } = config;
-    expect(mergeStrategy.toSameBranch).toEqual([]);
-    expect(mergeStrategy.toReleaseBranch).toEqual({});
-  });
-
   it('deepmerge', () => {
     const config = mergeConfig(
       {

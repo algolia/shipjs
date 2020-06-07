@@ -1,36 +1,16 @@
 import { getCurrentBranch } from 'shipjs-lib';
 import runStep from '../runStep';
-import { gitPush, getBranchNameToMergeBack } from '../../helper';
-import { run } from '../../util';
+import { gitPush } from '../../helper';
 
 export default ({ tagName, config, dir, dryRun }) =>
   runStep({ title: 'Pushing to the remote.' }, () => {
     const currentBranch = getCurrentBranch(dir);
-    const { mergeStrategy, remote, forcePushBranches } = config;
-    const destinationBranch = getBranchNameToMergeBack({
-      currentBranch,
-      mergeStrategy,
+    const { remote, forcePushBranches } = config;
+    gitPush({
+      remote,
+      refs: [currentBranch, tagName],
+      forcePushBranches,
+      dir,
+      dryRun,
     });
-    if (currentBranch === destinationBranch) {
-      gitPush({
-        remote,
-        refs: [currentBranch, tagName],
-        forcePushBranches,
-        dir,
-        dryRun,
-      });
-    } else {
-      // currentBranch: 'master'
-      // destinationBranch: 'develop'
-      // flow: develop -> master -> (here) develop
-      run({ command: `git checkout ${destinationBranch}`, dir, dryRun });
-      run({ command: `git merge ${currentBranch}`, dir, dryRun });
-      gitPush({
-        remote,
-        refs: [destinationBranch, tagName],
-        forcePushBranches,
-        dir,
-        dryRun,
-      });
-    }
   });

@@ -9,8 +9,6 @@ import { print } from '../../util';
 export default async ({
   isScoped,
   isPublic,
-  baseBranch,
-  releaseBranch,
   useMonorepo,
   mainVersionFile,
   packagesToBump,
@@ -20,7 +18,6 @@ export default async ({
 }) =>
   await runStep({ title: 'Creating ship.config.js' }, async () => {
     const { buildExists } = checkIfScriptsExist({ dir });
-    const mergeStrategy = getMergeStrategy({ baseBranch, releaseBranch });
 
     const config = {
       ...(isScoped &&
@@ -28,7 +25,6 @@ export default async ({
           publishCommand: ({ defaultCommand }) =>
             `${defaultCommand} --access public`,
         }),
-      ...(mergeStrategy && { mergeStrategy }),
       ...(useMonorepo && {
         monorepo: {
           mainVersionFile,
@@ -64,22 +60,6 @@ export default async ({
       );
     };
   });
-
-function getMergeStrategy({ baseBranch, releaseBranch }) {
-  if (baseBranch === releaseBranch && baseBranch === 'master') {
-    return null; // Let's leave this empty and use the default config instead.
-  }
-
-  return baseBranch === releaseBranch
-    ? {
-        toSameBranch: [baseBranch],
-      }
-    : {
-        toReleaseBranch: {
-          [baseBranch]: releaseBranch,
-        },
-      };
-}
 
 function checkIfScriptsExist({ dir }) {
   const filePath = path.resolve(dir, 'package.json');

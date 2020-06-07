@@ -1,19 +1,9 @@
-import {
-  expandPackageList,
-  hasRemoteBranch,
-  getRepoInfo,
-  getReleaseTag,
-} from 'shipjs-lib';
+import { expandPackageList, getRepoInfo, getReleaseTag } from 'shipjs-lib';
 import open from 'open';
 import { Octokit } from '@octokit/rest';
 import runStep from '../runStep';
-import {
-  getDestinationBranchName,
-  getPublishCommand,
-  getPackageDirName,
-} from '../../helper';
-import { print, run, exitProcess, detectYarn } from '../../util';
-import { warning } from '../../color';
+import { getPublishCommand, getPackageDirName } from '../../helper';
+import { print, run, detectYarn } from '../../util';
 
 export default async ({
   baseBranch,
@@ -29,7 +19,6 @@ export default async ({
 }) =>
   await runStep({ title: 'Creating a pull request.' }, async () => {
     const {
-      mergeStrategy,
       formatPullRequestTitle,
       formatPullRequestMessage,
       publishCommand,
@@ -38,28 +27,6 @@ export default async ({
       remote,
       monorepo,
     } = config;
-    const destinationBranch = getDestinationBranchName({
-      baseBranch,
-      mergeStrategy,
-    });
-    if (
-      baseBranch !== destinationBranch &&
-      !hasRemoteBranch(remote, destinationBranch, dir)
-    ) {
-      print(warning('You want to release using a dedicated release branch.'));
-      print(
-        warning(
-          `The name of the branch is \`${destinationBranch}\`, but you don't have it yet.`
-        )
-      );
-      print(warning('Create that branch pointing to a latest stable commit.'));
-      print(warning('After that, try again.'));
-      print('');
-      print(warning('Rolling back for now...'));
-      run({ command: `git checkout ${baseBranch}`, dir, dryRun });
-      run({ command: `git branch -D ${stagingBranch}`, dir, dryRun });
-      exitProcess(0);
-    }
     const { url: repoURL, owner, name: repo } = getRepoInfo(remote, dir);
 
     const diffURL = `${repoURL}/compare/${currentTag}...${stagingBranch}`;
@@ -77,13 +44,12 @@ export default async ({
       repoURL,
       baseBranch,
       stagingBranch,
-      destinationBranch,
+      destinationBranch: baseBranch,
       releaseType,
       diffURL,
       currentVersion,
       nextVersion,
       publishCommands,
-      mergeStrategy,
       title,
     });
     run({ command: `git remote prune ${remote}`, dir, dryRun });
@@ -106,7 +72,7 @@ export default async ({
       title,
       body: message,
       head: stagingBranch,
-      base: destinationBranch,
+      base: baseBranch,
     });
 
     if (
