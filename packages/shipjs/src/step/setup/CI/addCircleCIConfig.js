@@ -122,7 +122,7 @@ jobs:
             git config --global user.name "<%= gitUserName %>"
             yarn run release --yes --no-browse
 <% } %>
-  trigger_shipjs:
+  shipjs_trigger:
     <<: *defaults
     steps:
       - checkout
@@ -137,7 +137,7 @@ workflows:
   version: 2
   release_if_needed:
     jobs:
-      - trigger_shipjs:
+      - shipjs_trigger:
           filters:
             branches:
               only:
