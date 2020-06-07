@@ -17,10 +17,8 @@ export default {
   beforeCommitChanges: undefined, // ({ nextVersion, releaseType, exec, dir }) => {},
   getStagingBranchName: ({ nextVersion, releaseType }) =>
     `releases/v${nextVersion}`,
-  formatCommitMessage: ({ version, releaseType, mergeStrategy, baseBranch }) =>
-    mergeStrategy.toSameBranch.includes(baseBranch)
-      ? `chore: release v${version}`
-      : `chore: prepare v${version}`,
+  formatCommitMessage: ({ version, releaseType, baseBranch }) =>
+    `chore: release v${version}`,
   formatPullRequestTitle: ({ version, releaseType }) =>
     `chore: release v${version}`,
   formatPullRequestMessage: ({
@@ -34,7 +32,6 @@ export default {
     currentVersion,
     nextVersion,
     publishCommands, // either a string or an array (if monorepo)
-    mergeStrategy,
     title,
   }) => {
     const repoLink = `[${repo}](${repoURL})`;
@@ -51,25 +48,13 @@ ${publishCommands
   .join('\n')}
 `.trim();
 
-    const mergeInstruction = mergeStrategy.toSameBranch.includes(baseBranch)
-      ? `
+    const mergeInstruction = `
 When merging this pull request, you need to **Squash and merge** and make sure that the title starts with \`${title}\`.
 <details>
 <summary>See details</summary>
 
 After that, a commit \`${title}\` will be added and you or your CI can run \`shipjs trigger\` to trigger the release based on the commit.
-Fore more information, please refer to the mergeStrategy section of the [guide](https://community.algolia.com/shipjs/guide/useful-config.html#mergestrategy).
 ![Squash and merge](https://raw.githubusercontent.com/algolia/shipjs/v${shipJsVersion}/assets/squash-and-merge.png)
-</details>
-    `.trim()
-      : `
-When merging this pull request, you need to **Merge pull request(Create a merge commit)** and also, you **must modify** the title to start with \`${title}\`.
-<details>
-<summary>See details</summary>
-
-After that, a commit \`${title}\` will be added and you or your CI can run \`shipjs trigger\` to trigger the release based on the commit.
-Fore more information, please refer to the mergeStrategy section of the [guide](https://community.algolia.com/shipjs/guide/useful-config.html#mergestrategy).
-![Merge pull request](https://raw.githubusercontent.com/algolia/shipjs/v${shipJsVersion}/assets/merge-pull-request.png)
 </details>
     `.trim();
 
