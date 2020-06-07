@@ -75,7 +75,7 @@ A minimal `.circleci/config.yml` looks like the following:
 ```yaml
 version: 2
 jobs:
-  build:
+  shipjs_trigger:
     docker:
       - image: 'circleci/node:latest'
     steps:
@@ -84,8 +84,17 @@ jobs:
           name: Install
           command: yarn install
       - run:
-          name: Try to Release
+          name: Triggering Ship.js to Release
           command: yarn shipjs trigger
+workflows:
+  version: 2
+  release_if_needed:
+    jobs:
+      - shipjs_trigger:
+          filters:
+            branches:
+              only:
+                - master
 ```
 
 At Part 2, if you merge the PR, a new commit will be added and CircleCI will run `yarn shipjs trigger`(or `npx shipjs trigger`). Then, it will check if the latest commit message is in convention and the current branch is right. If the conditions are met, it will trigger a release. Otherwise, it will skip.
