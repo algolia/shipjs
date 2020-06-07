@@ -8,7 +8,7 @@ import runStep from '../runStep';
 
 export default async ({ dir }) =>
   await runStep({}, async () => {
-    const { baseBranch, releaseBranch } = await askBranches(dir);
+    const { baseBranch } = await askBranches(dir);
     const { ciIntegration, ciConfig } = await askCI(dir);
     const {
       useMonorepo,
@@ -21,7 +21,6 @@ export default async ({ dir }) =>
 
     return {
       baseBranch,
-      releaseBranch,
       ciIntegration,
       ciConfig,
       useMonorepo,
@@ -38,15 +37,11 @@ async function askBranches(dir) {
   let baseBranchCandidate = ['develop', 'dev', 'master'].find((item) =>
     branches.includes(item)
   );
-  let releaseBranchCandidate = ['releases', 'release', 'master'].find((item) =>
-    branches.includes(item)
-  );
   if (branches.length === 0) {
     branches = ['master'];
     baseBranchCandidate = 'master';
-    releaseBranchCandidate = 'master';
   }
-  const { baseBranch, releaseBranch } = await inquirer.prompt([
+  const { baseBranch } = await inquirer.prompt([
     {
       type: 'list',
       name: 'baseBranch',
@@ -57,18 +52,8 @@ async function askBranches(dir) {
       ),
       default: baseBranchCandidate,
     },
-    {
-      type: 'list',
-      name: 'releaseBranch',
-      choices: branches,
-      message: formatMessage(
-        'What is your release branch?',
-        "If you maintain a branch where you keep latest release, choose the branch.\nIf you don't, choose your base branch."
-      ),
-      default: releaseBranchCandidate,
-    },
   ]);
-  return { baseBranch, releaseBranch };
+  return { baseBranch };
 }
 
 async function askCI() {
