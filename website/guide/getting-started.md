@@ -90,11 +90,11 @@ jobs:
 
 At Part 2, if you merge the PR, a new commit will be added and CircleCI will run `yarn shipjs trigger`(or `npx shipjs trigger`). Then, it will check if the latest commit message is in convention and the current branch is right. If the conditions are met, it will trigger a release. Otherwise, it will skip.
 
-By default, it will check if the commit message is `chore: release vx.y.z`(which is the title of the PR).
+When merging a PR from this strategy, you need to "Squash and merge" and make sure the commit title is the same with the title of the PR.
 
-According to your merge strategy, you might either `Squash and merge` or `Merge pull request`.
+You can go to "Settings" menu of your repository, and even force "Squash and merge" behavior under "Merge button" section.
 
-For more information, please refer to the [mergeStrategy section.](./useful-config.html#mergestrategy)
+To learn more, you can read [this](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-merges#squash-and-merge-your-pull-request-commits).
 
 ### NPM Token
 
