@@ -139,6 +139,10 @@ workflows:
     jobs:
       - test
       - release_if_needed:
+          filters:
+            branches:
+              only:
+                - <%= baseBranch %>
           requires:
             - test
 <% if (schedulePrepare) { %>
