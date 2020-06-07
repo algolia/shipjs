@@ -1,6 +1,59 @@
 # [0.20.0-beta.0](https://github.com/algolia/shipjs/compare/v0.19.0...v0.20.0-beta.0) (2020-06-07)
 
+### BREAKING CHANGE
 
+<img src="./assets/breaking-change.png" alt="BREAKING CHANGE" title="BREAKING CHANGE" width=250 height=60 />
+
+From this version, `mergeStrategy` no longer exists.
+
+### If you don't know what it is,
+
+Make sure you run `shipjs trigger` only on the branches you've specified.
+
+If you have a CircleCI config like the following:
+
+```yaml
+version: 2
+jobs:
+  shipjs_trigger:
+    docker:
+      - image: "circleci/node:latest"
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: yarn install
+      - run:
+          name: Triggering Ship.js to Release
+          command: yarn shipjs trigger
+workflows:
+  version: 2
+  release_if_needed:
+    jobs:
+      - shipjs_trigger
+```
+
+then, modify the last part like the following:
+
+```yaml
+workflows:
+  version: 2
+  release_if_needed:
+    jobs:
+      - shipjs_trigger:
+          filters:
+            branches:
+              only:
+                - master # or whatever branch you'd like (normally your base branch)
+```
+
+This ensures `shipjs trigger` runs only on the specified branches.
+
+### If you were using it,
+
+Ship.js used to have `toSameBranch` and `toReleaseBranch` strategies. Now they're gone and it only works like `toSameBranch` strategy. As explained above, you need to specify branches where to run `shipjs trigger`, though.
+
+If you were using `toReleaseBranch`, there is a workaround. You can read [Release Snapshot](https://community.algolia.com/shipjs/guide/useful-config.html#release-snapshot) to achieve what you used to do.
 
 # [0.19.0](https://github.com/algolia/shipjs/compare/v0.18.4...v0.19.0) (2020-05-12)
 

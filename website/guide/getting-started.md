@@ -94,7 +94,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - master # or whatever branch you'd like (normally your base branch)
 ```
 
 At Part 2, if you merge the PR, a new commit will be added and CircleCI will run `yarn shipjs trigger`(or `npx shipjs trigger`). Then, it will check if the latest commit message is in convention and the current branch is right. If the conditions are met, it will trigger a release. Otherwise, it will skip.
