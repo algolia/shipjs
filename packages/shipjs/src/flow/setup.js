@@ -17,7 +17,6 @@ async function setup({ help = false, dir = '.', dryRun = false }) {
   }
   const {
     baseBranch,
-    releaseBranch,
     useMonorepo,
     mainVersionFile,
     packagesToBump,
@@ -33,8 +32,6 @@ async function setup({ help = false, dir = '.', dryRun = false }) {
     await addShipConfig({
       isScoped,
       isPublic,
-      baseBranch,
-      releaseBranch,
       useMonorepo,
       mainVersionFile,
       packagesToBump,
@@ -47,7 +44,6 @@ async function setup({ help = false, dir = '.', dryRun = false }) {
       isScoped,
       isPublic,
       baseBranch,
-      releaseBranch,
       useMonorepo,
       mainVersionFile,
       packagesToBump,

@@ -122,7 +122,7 @@ jobs:
             git config --global user.name "<%= gitUserName %>"
             yarn run release --yes --no-browse
 <% } %>
-  release_if_needed:
+  shipjs_trigger:
     <<: *defaults
     steps:
       - checkout
@@ -131,16 +131,17 @@ jobs:
       - run: *run_yarn_install
       - save_cache: *save_yarn_cache
       - run:
-          name: Try to Release
+          name: Triggering Ship.js to Release
           command: yarn shipjs trigger
 workflows:
   version: 2
-  ci:
+  release_if_needed:
     jobs:
-      - test
-      - release_if_needed:
-          requires:
-            - test
+      - shipjs_trigger:
+          filters:
+            branches:
+              only:
+                - <%= baseBranch %>
 <% if (schedulePrepare) { %>
   schedule_release:
     triggers:

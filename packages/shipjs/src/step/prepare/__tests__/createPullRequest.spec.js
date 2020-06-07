@@ -2,7 +2,6 @@ import { getRepoInfo } from 'shipjs-lib';
 import { Octokit } from '@octokit/rest';
 import createPullRequest from '../createPullRequest';
 import { run } from '../../../util';
-import { getDestinationBranchName } from '../../../helper';
 jest.mock('@octokit/rest');
 
 const getDefaultParams = ({
@@ -19,9 +18,6 @@ const getDefaultParams = ({
   nextVersion,
   releaseType,
   config: {
-    mergeStrategy: {
-      toSameBranch: ['master'],
-    },
     formatPullRequestTitle,
     formatPullRequestMessage,
     remote: 'origin',
@@ -41,7 +37,6 @@ describe('createPullRequest', () => {
       branch: 'master',
       url: 'https://github.com/my/repo',
     }));
-    getDestinationBranchName.mockImplementation(() => 'master');
   });
 
   it('works in dry mode', async () => {
