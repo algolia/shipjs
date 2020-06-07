@@ -183,38 +183,6 @@ You can put an array of strings.
 pullRequestTeamReviewers: ['team-username1'];
 ```
 
-## `mergeStrategy`
-
-_default:_
-
-```js
-mergeStrategy: {
-  toSameBranch: ['master'],
-}
-```
-
-This decides how you manage and use your branches for release.
-
-```js
-// example
-mergeStrategy: {
-  toReleaseBranch: {
-    develop: 'master'
-  }
-}
-
-// or
-mergeStrategy: {
-  toReleaseBranch: {
-    master: 'releases/stable',
-    legacy: 'releases/legacy',
-    next: 'releases/next',
-  }
-}
-```
-
-To learn more, you can read [this guide](../guide/useful-config.html#mergestrategy).
-
 ## `buildCommand`
 
 _used at_: `shipjs trigger`

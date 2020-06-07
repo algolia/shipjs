@@ -4,7 +4,6 @@ import printHelp from '../step/prepare/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';
 import validate from '../step/prepare/validate';
 import getRevisionRange from '../step/prepare/getRevisionRange';
-import validateMergeStrategy from '../step/prepare/validateMergeStrategy';
 import pull from '../step/pull';
 import fetchTags from '../step/prepare/fetchTags';
 import push from '../step/prepare/push';
@@ -48,7 +47,6 @@ async function prepare({
   checkGitHubToken({ dryRun });
   const config = loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
-  validateMergeStrategy({ config });
   const { remote, forcePushBranches } = config;
   pull({ remote, currentBranch: baseBranch, dir, dryRun });
   fetchTags({ dir, dryRun });
