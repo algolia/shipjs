@@ -80,16 +80,9 @@ describe('defaultConfig', () => {
     const commitMessage = 'chore: release v0.1.2';
 
     it('returns error with wrong commit message', () => {
-      const mergeStrategy = {
-        toSameBranch: ['master'],
-        toReleaseBranch: {},
-      };
-      const currentBranch = 'master';
       const result = shouldRelease({
         commitMessage: '',
         currentVersion,
-        currentBranch,
-        mergeStrategy,
         formatPullRequestTitle,
       });
       expect(result).toMatchInlineSnapshot(`
@@ -98,58 +91,13 @@ describe('defaultConfig', () => {
       `);
     });
 
-    it('returns true with same branch strategy', () => {
-      const mergeStrategy = {
-        toSameBranch: ['master'],
-        toReleaseBranch: {},
-      };
-      const currentBranch = 'master';
+    it('returns true', () => {
       const result = shouldRelease({
         commitMessage,
         currentVersion,
-        currentBranch,
-        mergeStrategy,
         formatPullRequestTitle,
       });
       expect(result).toBe(true);
-    });
-
-    it('returns true with release branch strategy', () => {
-      const mergeStrategy = {
-        toSameBranch: [],
-        toReleaseBranch: {
-          master: 'release/stable',
-        },
-      };
-      const currentBranch = 'release/stable';
-      const result = shouldRelease({
-        commitMessage,
-        currentVersion,
-        currentBranch,
-        mergeStrategy,
-        formatPullRequestTitle,
-      });
-      expect(result).toBe(true);
-    });
-
-    it('returns error without matching any strategy', () => {
-      const mergeStrategy = {
-        toSameBranch: ['master'],
-        toReleaseBranch: {
-          dev: 'release/legacy',
-        },
-      };
-      const currentBranch = 'develop';
-      const result = shouldRelease({
-        commitMessage,
-        currentVersion,
-        currentBranch,
-        mergeStrategy,
-        formatPullRequestTitle,
-      });
-      expect(result).toMatchInlineSnapshot(
-        `"The current branch needs to be one of [master, release/legacy]"`
-      );
     });
   });
 });

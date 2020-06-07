@@ -4,82 +4,6 @@ At the root of your project, you can create `ship.config.js` file to customize t
 
 Everything is optional.
 
-## `mergeStrategy`
-
-```js
-module.exports = {
-  mergeStrategy: {
-    toSameBranch: ['master'],
-  },
-};
-```
-
-The default value for `mergeStrategy` is the above. It means `shipjs prepare` will work only on `master` branch.
-
-`shipjs prepare` will checkout to a staging branch(e.g. `releases/v1.0.1`) and create a PR from the staging branch to `master`.
-
-So, by default, Ship.js works on your `master` branch only.
-
-Let's look at the configuration below:
-
-```js
-module.exports = {
-  mergeStrategy: {
-    toSameBranch: ['legacy'],
-    toReleaseBranch: {
-      develop: 'master',
-    },
-  },
-};
-```
-
-Let's assume you're working on the latest version 1.x on `develop` and `master` is the latest release branch.
-
-You also maintain a `legacy` version which is 0.x.
-
-### `toSameBranch` strategy
-
-When you run `shipjs prepare` on `legacy` branch, it will
-
-- checkout to a staging branch(e.g. `releases/v0.8.3`).
-- create a PR from the staging branch to `legacy` branch.
-
-Let's assume you configured your CI to monitor `legacy` branch. When you review and merge the PR, your CI will run `shipjs trigger` and it will
-
-1. run tests.
-2. release to NPM.
-3. create a git tag(e.g. `v0.8.3`).
-4. push to git remote.
-
-> When merging a PR from this strategy, you need to "Squash and merge" and make sure the commit title is the same with the title of the PR.
->
-> You can go to "Settings" menu of your repository, and even force "Squash and merge" behavior under "Merge button" section.
-
-### `toReleaseBranch` strategy
-
-When you run `shipjs prepare` on `develop` branch, it will
-
-- checkout to a staging branch(e.g. `releases/v1.4.2`).
-- create a PR from the staging branch to `master` branch.
-
-When you review and merge the PR, your CI will run `shipjs trigger` and it will
-
-1. run tests.
-2. release to NPM.
-3. create a git tag(e.g. `v1.4.2`).
-4. merge `master` back to `develop`.
-5. push to git remote.
-
-So the flow is like this:
-
-> develop -> releases/v1.4.3 -> master -> (merged back to) develop
-
-You see the difference between two strategies, right?
-
-> When merging a PR from this strategy, you need to "Merge pull request(Create a merge commit)" and also, you must modify the commit title to the title of the PR.
->
-> You go to "Settings" menu of your repository, and even force "Merge pull request" behavior under "Merge button" section.
-
 ## Monorepo
 
 Ship.js currently supports monorepo project(Independent versioning is not supported at the moment).
@@ -192,6 +116,36 @@ module.exports = {
 One thing you need to be aware of is, you cannot assign yourself as a reviewer. You can put github username of your team or colleagues. The value can be either a string or an array of strings.
 
 The assignees will receive a notification from GitHub when the PR is created. Whenever they review and merge the PR, it will be automatically released by the prior configuration you've done [here](../guide/getting-started.html#automate-part-3-trigger).
+
+## Release Snapshot
+
+If you want to maintain a branch for release snapshot, you can use `afterPublish` hook.
+
+For example, you normally work on `develop` and want to have the latest release at `master`.
+
+```js
+module.exports = {
+  afterPublish: ({ exec }) => {
+    exec(`git config --global user.email "your@email.com"`);
+    exec(`git config --global user.name "Your Name"`);
+    
+    exec('git checkout master');
+    exec('git merge develop');
+    exec('git push origin master');
+  }
+}
+```
+
+In this way, you can keep `master` up-to-date with the latest release.
+
+:::warning NOTICE
+Normally you cannot create commits and push them from your CI service.
+
+In case of CircleCI, you can read the following document to configure either deploy key or user key to enable it.
+
+[Deployment Keys and User Keys - CircleCI](https://circleci.com/docs/2.0/gh-bb-integration/#deployment-keys-and-user-keys)
+:::
+
 
 ## `SLACK_INCOMING_HOOK`
 
