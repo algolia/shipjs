@@ -99,7 +99,7 @@ workflows:
 
 At Part 2, if you merge the PR, a new commit will be added and CircleCI will run `yarn shipjs trigger`(or `npx shipjs trigger`). Then, it will check if the latest commit message is in convention and the current branch is right. If the conditions are met, it will trigger a release. Otherwise, it will skip.
 
-When merging a PR from this strategy, you need to "Squash and merge" and make sure the commit title is the same with the title of the PR.
+When merging a PR, you need to "Squash and merge" into a single commit.
 
 You can go to "Settings" menu of your repository, and even force "Squash and merge" behavior under "Merge button" section.
 
