@@ -1,4 +1,3 @@
-export { default as getBaseBranches } from './getBaseBranches';
 export { default as getChangelog } from './getChangelog';
 export { default as extractSpecificChangelog } from './extractSpecificChangelog';
 export { default as gitPush } from './gitPush';
