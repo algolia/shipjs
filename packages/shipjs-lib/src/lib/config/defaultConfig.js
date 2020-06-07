@@ -59,7 +59,7 @@ After that, a commit \`${title}\` will be added and you or your CI can run \`shi
 
     const message = `
 This pull request prepares the following release:
-| Package | Branch | Update | Change |
+| Repository | Branch | Update | Change |
 |---|---|---|---|
 | ${repoLink} | ${stagingBranch} | ${releaseType} | ${diffLink} |
 

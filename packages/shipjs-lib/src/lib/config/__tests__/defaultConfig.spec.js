@@ -51,7 +51,7 @@ describe('defaultConfig', () => {
     });
     expect(message).toMatchInlineSnapshot(`
         "This pull request prepares the following release:
-        | Package | Branch | Update | Change |
+        | Repository | Branch | Update | Change |
         |---|---|---|---|
         | [shipjs](https://github.com/algolia/shipjs) | releases/v0.1.1 | patch | [\`0.1.0\` → \`0.1.1\`](https://github.com/algolia/shipjs/compare/v0.1.0...releases/v0.1.1) |
 
