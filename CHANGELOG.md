@@ -1,3 +1,7 @@
+# [0.20.0-beta.2](https://github.com/algolia/shipjs/compare/v0.20.0-beta.1...v0.20.0-beta.2) (2020-06-09)
+
+
+
 # [0.20.0-beta.1](https://github.com/algolia/shipjs/compare/v0.19.0...v0.20.0-beta.1) (2020-06-07)
 
 ### BREAKING CHANGE
