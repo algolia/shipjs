@@ -41,8 +41,8 @@ GitHub token is used in both `shipjs prepare` and `shipjs trigger`.
 
 You can put it in the following two ways:
 
-1. Prepend it in your command like: `GITHUB_TOKEN=xxx shipjs prepare`
-2. Create a file named ".env" and put the following content: `GITHUB_TOKEN=xxx` (".env" should not be committed. Add it to ".gitignore".)
+* Prepend it in your command like: `GITHUB_TOKEN=xxx shipjs prepare`
+* Create a file named ".env" and put the following content: `GITHUB_TOKEN=xxx` (".env" should not be committed. Add it to ".gitignore".)
 
 If you automate flows in your CI, you can add the token to Environment Variable section in your CI service.
 
