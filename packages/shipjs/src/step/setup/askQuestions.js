@@ -33,19 +33,19 @@ export default async ({ dir }) =>
   });
 
 async function askBranches(dir) {
-  let branches = getRemoteBranches(dir);
-  let baseBranchCandidate = ['develop', 'dev', 'master'].find((item) =>
-    branches.includes(item)
+  let remoteBranches = getRemoteBranches(dir);
+  let baseBranchCandidate = ['develop', 'dev', 'master', 'main'].find((item) =>
+    remoteBranches.includes(item)
   );
-  if (branches.length === 0) {
-    branches = ['master'];
+  if (remoteBranches.length === 0) {
+    remoteBranches = ['master'];
     baseBranchCandidate = 'master';
   }
   const { baseBranch } = await inquirer.prompt([
     {
       type: 'list',
       name: 'baseBranch',
-      choices: branches,
+      choices: remoteBranches,
       message: formatMessage(
         'What is your base branch?',
         'This is also called "Default branch".\nYou usually merge pull-requests into this branch.'
