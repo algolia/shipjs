@@ -17,6 +17,7 @@ export default function getRemoteBranches(dir = '.') {
     .trim()
     .split('\n')
     .map((line) => line.trim())
+    .filter(Boolean)
     .filter((line) => !line.includes(' -> '))
     .map((line) => line.slice(remote.length + 1));
 }
