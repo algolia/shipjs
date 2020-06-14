@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import { getRemoteBranches } from 'shipjs-lib';
+import { getRemoteBranches, getCurrentBranch } from 'shipjs-lib';
 import fs from 'fs';
 import path from 'path';
 import formatMessage from './formatMessage';
@@ -38,8 +38,9 @@ async function askBranches(dir) {
     remoteBranches.includes(item)
   );
   if (remoteBranches.length === 0) {
-    remoteBranches = ['master'];
-    baseBranchCandidate = 'master';
+    const currentBranch = getCurrentBranch(dir);
+    remoteBranches = [currentBranch];
+    baseBranchCandidate = currentBranch;
   }
   const { baseBranch } = await inquirer.prompt([
     {
