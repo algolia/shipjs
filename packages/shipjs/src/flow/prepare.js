@@ -70,7 +70,7 @@ async function prepare({
     nextVersion,
     dryRun,
   });
-  const releaseType = getReleaseType(currentVersion, nextVersion);
+  const releaseType = getReleaseType(nextVersion);
   await validatePreparationConditions({
     config,
     releaseType,
