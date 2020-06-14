@@ -1,3 +1,12 @@
+# [0.20.0-beta.2](https://github.com/algolia/shipjs/compare/v0.20.0-beta.1...v0.20.0-beta.2) (2020-06-14)
+
+
+### Bug Fixes
+
+* **setup:** use current branch when there is no remote at setup flow ([#881](https://github.com/algolia/shipjs/issues/881)) ([5a0e152](https://github.com/algolia/shipjs/commit/5a0e15224a6ecbe6ec4a909b998a11bc03b28799))
+
+
+
 # [0.20.0-beta.1](https://github.com/algolia/shipjs/compare/v0.19.0...v0.20.0-beta.1) (2020-06-07)
 
 ### BREAKING CHANGE
