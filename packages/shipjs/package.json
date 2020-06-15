@@ -54,7 +54,7 @@
     "mkdirp": "^1.0.0",
     "open": "^7.0.0",
     "prettier": "^2.0.0",
-    "serialize-javascript": "^3.0.0",
+    "serialize-javascript": "^4.0.0",
     "shell-quote": "^1.7.2",
     "shipjs-lib": "0.20.0-beta.3",
     "temp-write": "4.0.0",
