@@ -1,3 +1,14 @@
+# [0.20.0-beta.3](https://github.com/algolia/shipjs/compare/v0.20.0-beta.2...v0.20.0-beta.3) (2020-06-15)
+
+
+### Bug Fixes
+
+* **prepare:** return correct releaseType ([#885](https://github.com/algolia/shipjs/issues/885)) ([7d918f6](https://github.com/algolia/shipjs/commit/7d918f6851bec175ab4f98f91f439ee7cfdb19c9))
+* **setup:** get correct remote branches ([#883](https://github.com/algolia/shipjs/issues/883)) ([551dde0](https://github.com/algolia/shipjs/commit/551dde0656131b52de66020afa68bc53aa0b71ae))
+* **setup:** update circleci node version to v12 ([#884](https://github.com/algolia/shipjs/issues/884)) ([6579294](https://github.com/algolia/shipjs/commit/6579294b8d884634a72b29bca4a01dcede232f7e))
+
+
+
 # [0.20.0-beta.2](https://github.com/algolia/shipjs/compare/v0.20.0-beta.1...v0.20.0-beta.2) (2020-06-14)
 
 
