@@ -9,9 +9,9 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@vuepress/plugin-google-analytics": "1.5.0",
+    "@vuepress/plugin-google-analytics": "1.5.2",
     "gh-pages": "3.0.0",
-    "vuepress": "1.5.0"
+    "vuepress": "1.5.2"
   },
   "main": "index.js",
   "author": "Eunjae Lee <karis612@gmail.com> (https://github.com/eunjae-lee)",
