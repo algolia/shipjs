@@ -1,28 +1,5 @@
-# [0.20.0](https://github.com/algolia/shipjs/compare/v0.20.0-beta.3...v0.20.0) (2020-06-16)
+# [0.20.0](https://github.com/algolia/shipjs/compare/v0.19.0...v0.20.0) (2020-06-16)
 
-
-
-# [0.20.0-beta.3](https://github.com/algolia/shipjs/compare/v0.20.0-beta.2...v0.20.0-beta.3) (2020-06-15)
-
-
-### Bug Fixes
-
-* **prepare:** return correct releaseType ([#885](https://github.com/algolia/shipjs/issues/885)) ([7d918f6](https://github.com/algolia/shipjs/commit/7d918f6851bec175ab4f98f91f439ee7cfdb19c9))
-* **setup:** get correct remote branches ([#883](https://github.com/algolia/shipjs/issues/883)) ([551dde0](https://github.com/algolia/shipjs/commit/551dde0656131b52de66020afa68bc53aa0b71ae))
-* **setup:** update circleci node version to v12 ([#884](https://github.com/algolia/shipjs/issues/884)) ([6579294](https://github.com/algolia/shipjs/commit/6579294b8d884634a72b29bca4a01dcede232f7e))
-
-
-
-# [0.20.0-beta.2](https://github.com/algolia/shipjs/compare/v0.20.0-beta.1...v0.20.0-beta.2) (2020-06-14)
-
-
-### Bug Fixes
-
-* **setup:** use current branch when there is no remote at setup flow ([#881](https://github.com/algolia/shipjs/issues/881)) ([5a0e152](https://github.com/algolia/shipjs/commit/5a0e15224a6ecbe6ec4a909b998a11bc03b28799))
-
-
-
-# [0.20.0-beta.1](https://github.com/algolia/shipjs/compare/v0.19.0...v0.20.0-beta.1) (2020-06-07)
 
 ### BREAKING CHANGE
 
@@ -73,11 +50,20 @@ workflows:
 
 This ensures `shipjs trigger` runs only on the specified branches.
 
-### If you were using it,
+### If you were using `mergeStrategy`,
 
 Ship.js used to have `toSameBranch` and `toReleaseBranch` strategies. Now they're gone and it only works like `toSameBranch` strategy. As explained above, you need to specify branches where to run `shipjs trigger`, though.
 
 If you were using `toReleaseBranch`, there is a workaround. You can read [Release Snapshot](https://community.algolia.com/shipjs/guide/useful-config.html#release-snapshot) to achieve what you used to do.
+
+
+### Bug Fixes
+
+* **prepare:** return correct releaseType ([#885](https://github.com/algolia/shipjs/issues/885)) ([7d918f6](https://github.com/algolia/shipjs/commit/7d918f6851bec175ab4f98f91f439ee7cfdb19c9))
+* **setup:** get correct remote branches ([#883](https://github.com/algolia/shipjs/issues/883)) ([551dde0](https://github.com/algolia/shipjs/commit/551dde0656131b52de66020afa68bc53aa0b71ae))
+* **setup:** update circleci node version to v12 ([#884](https://github.com/algolia/shipjs/issues/884)) ([6579294](https://github.com/algolia/shipjs/commit/6579294b8d884634a72b29bca4a01dcede232f7e))
+* **setup:** use current branch when there is no remote at setup flow ([#881](https://github.com/algolia/shipjs/issues/881)) ([5a0e152](https://github.com/algolia/shipjs/commit/5a0e15224a6ecbe6ec4a909b998a11bc03b28799))
+
 
 # [0.19.0](https://github.com/algolia/shipjs/compare/v0.18.4...v0.19.0) (2020-05-12)
 
