@@ -5,21 +5,21 @@ module.exports = {
   monorepo: {
     mainVersionFile: "package.json",
     packagesToBump: ["packages/*"],
-    packagesToPublish: ["packages/*"]
+    packagesToPublish: ["packages/*"],
   },
   versionUpdated: ({ version, dir, exec }) => {
     // update lerna.json
-    updateJson(dir, "lerna.json", json => {
+    updateJson(dir, "lerna.json", (json) => {
       json.version = version;
     });
 
     // update package.json
-    updateJson(dir, "package.json", json => {
+    updateJson(dir, "package.json", (json) => {
       json.version = version;
     });
 
     // update dependency
-    updateJson(dir, "packages/shipjs/package.json", json => {
+    updateJson(dir, "packages/shipjs/package.json", (json) => {
       json.dependencies["shipjs-lib"] = version;
     });
 
@@ -40,17 +40,14 @@ module.exports = {
     exec("cp README.md packages/shipjs/");
   },
   testCommandBeforeRelease: () => 'echo "No test before release"', // TODO: remove later
-  slack: {
-    releaseStart: null // TODO: remove later
-  },
-  // skip preparation if master contain only `chore` commits
+  // skip preparation if the patch update contains no fix
   shouldPrepare: ({ releaseType, commitNumbersPerType }) => {
     const { fix = 0 } = commitNumbersPerType;
     if (releaseType === "patch" && fix === 0) {
       return false;
     }
     return true;
-  }
+  },
 };
 
 const updateJson = (dir, fileName, fn) => {
