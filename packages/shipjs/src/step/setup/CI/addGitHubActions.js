@@ -149,22 +149,32 @@ jobs:
     needs: manual_prepare
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github@master
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/github-script@0.9.0
         with:
-          args: comment "@\${{ github.actor }} \`shipjs prepare\` done"
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "@\${{ github.actor }} \`shipjs prepare\` done"
+            })
 
   create_fail_comment:
     if: cancelled() || failure()
     needs: manual_prepare
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github@master
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/github-script@0.9.0
         with:
-          args: comment "@\${{ github.actor }} \`shipjs prepare\` fail"
+        github-token: \${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: "@\${{ github.actor }} \`shipjs prepare\` fail"
+          })
 `,
     { baseBranch }
   );
