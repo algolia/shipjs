@@ -81,13 +81,14 @@ function getBaseConfig({ baseBranch }) {
   return ejs.render(
     `name: Ship js trigger
 on:
-  push:
-    branches:
-      - <%= baseBranch %>
+  pull_request:
+    types:
+      - closed
 jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'releases/v')
     steps:
       - uses: actions/checkout@v2
         with:
