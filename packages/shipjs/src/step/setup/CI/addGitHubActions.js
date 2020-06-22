@@ -91,6 +91,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          fetch-depth: 0
           ref: <%= baseBranch %>
       - uses: actions/setup-node@v1
         with:
