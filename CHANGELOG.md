@@ -1,3 +1,12 @@
+# [0.21.0](https://github.com/algolia/shipjs/compare/v0.20.0...v0.21.0) (2020-06-22)
+
+
+### Features
+
+* **setup:** improve GitHub Actions flow made with ([#904](https://github.com/algolia/shipjs/issues/904)) ([dc7047a](https://github.com/algolia/shipjs/commit/dc7047aea94869dad7baece1683050b1310207cd))
+
+
+
 # [0.20.0](https://github.com/algolia/shipjs/compare/v0.19.0...v0.20.0) (2020-06-16)
 
 
