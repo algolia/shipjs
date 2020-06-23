@@ -98,6 +98,10 @@ However you can also configure your CI service(e.g. CircleCI) to do this for you
 
 Let's move on to the [guide](https://community.algolia.com/shipjs/guide/getting-started.html).
 
+Or, you can watch this video if you prefer.
+
+[![Getting Started with Ship.js](https://img.youtube.com/vi/FPj7urChN_E/0.jpg)](https://www.youtube.com/watch?v=FPj7urChN_E)
+
 ## How is it different from semantic-release?
 
 **semantic-release** is a tool for `fully automated version management and package publishing`.
