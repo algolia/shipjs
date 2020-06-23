@@ -1,5 +1,9 @@
 # Getting Started
 
+You can following the guide below, or watch this video.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FPj7urChN_E" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 ## Installation
 
 Running the following command will guide you to set it up interactively.
@@ -41,8 +45,8 @@ GitHub token is used in both `shipjs prepare` and `shipjs trigger`.
 
 You can put it in the following two ways:
 
-* Prepend it in your command like: `GITHUB_TOKEN=xxx shipjs prepare`
-* Create a file named ".env" and put the following content: `GITHUB_TOKEN=xxx` (".env" should not be committed. Add it to ".gitignore".)
+- Prepend it in your command like: `GITHUB_TOKEN=xxx shipjs prepare`
+- Create a file named ".env" and put the following content: `GITHUB_TOKEN=xxx` (".env" should not be committed. Add it to ".gitignore".)
 
 If you automate flows in your CI, you can add the token to Environment Variable section in your CI service.
 
@@ -116,13 +120,11 @@ Setup an NPM token to allow Ship.js(**at CircleCI**) to release the package to N
    - Name: `NPM_AUTH_TOKEN`
    - Value: Paste the token from clipboard.
 
-:::warning WARNING for 2FA
-If you have enabled 2FA for both authorization and publishing, when `shipjs trigger` runs, it will be prompted for one-time password. You probably have configured CI service (CircleCI, GitHub Actions, etc) to run that command for you. It means `shipjs trigger` will be stuck.
+:::warning WARNING for 2FA If you have enabled 2FA for both authorization and publishing, when `shipjs trigger` runs, it will be prompted for one-time password. You probably have configured CI service (CircleCI, GitHub Actions, etc) to run that command for you. It means `shipjs trigger` will be stuck.
 
 For now, we don't have any solution to avoid this problem. So we recommend you not to use two-factor authentication for publishing, but only for authorization.
 
-![NPM two-factor authentication](./npm-2fa.png)
-:::
+![NPM two-factor authentication](./npm-2fa.png) :::
 
 ### GitHub Token
 
