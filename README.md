@@ -100,7 +100,7 @@ Let's move on to the [guide](https://community.algolia.com/shipjs/guide/getting-
 
 Or, you can watch this video if you prefer.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/FPj7urChN_E" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+[![Getting Started with Ship.js](https://img.youtube.com/vi/FPj7urChN_E/0.jpg)](https://www.youtube.com/watch?v=FPj7urChN_E)
 
 ## How is it different from semantic-release?
 
