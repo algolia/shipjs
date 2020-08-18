@@ -45,7 +45,7 @@ async function prepare({
   }
   printDeprecated({ firstRelease, releaseCount });
   checkGitHubToken({ dryRun });
-  const config = loadConfig(dir);
+  const config = await loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
   const { remote, forcePushBranches } = config;
   pull({ remote, currentBranch: baseBranch, dir, dryRun });
@@ -120,7 +120,7 @@ async function prepare({
     dir,
     dryRun,
   });
-  const appName = getAppName(dir);
+  const appName = await getAppName(dir);
   await notifyPrepared({
     config,
     appName,

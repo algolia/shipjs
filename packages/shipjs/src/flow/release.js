@@ -26,7 +26,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
     printDryRunBanner();
   }
   checkGitHubToken({ dryRun });
-  const config = loadConfig(dir);
+  const config = await loadConfig(dir);
   const { remote } = config;
   const { currentVersion: version } = validate({ config, dir });
   const {
@@ -35,7 +35,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
     latestCommitUrl,
     repoURL,
     releaseTag,
-  } = gatherRepoInfo({ remote, version, dir });
+  } = await gatherRepoInfo({ remote, version, dir });
   const isYarn = detectYarn(dir);
   runTest({ isYarn, config, dir, dryRun });
   runBuild({ isYarn, config, version, dir, dryRun });
