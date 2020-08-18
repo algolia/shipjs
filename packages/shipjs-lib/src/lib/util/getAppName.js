@@ -1,4 +1,4 @@
-import { promises } from 'fs';
+import { promises as fs } from 'fs';
 import { resolve } from 'path';
 import loadConfig from '../config/loadConfig';
 
@@ -8,7 +8,7 @@ export default async function getAppName(dir = '.') {
     return appName;
   }
   const { name } = JSON.parse(
-    await promises.readFile(resolve(dir, 'package.json'))
+    await fs.readFile(resolve(dir, 'package.json'))
   );
   return name;
 }

@@ -1,13 +1,13 @@
 import dotenv from 'dotenv';
 import { resolve } from 'path';
-import { promises, constants } from 'fs';
+import { promises as fs, constants } from 'fs';
 
 import defaultConfig from './defaultConfig';
 import mergeConfig from './mergeConfig';
 dotenv.config();
 
 const exist = path =>
-  promises
+  fs
     .access(path, constants.F_OK)
     .then(() => path)
     .catch(() => false);
