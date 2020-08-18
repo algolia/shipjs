@@ -12,6 +12,9 @@ const exist = path =>
     .then(() => path)
     .catch(() => false);
 
+const pickDefault = obj =>
+  typeof obj.default === 'object' ? obj.default : obj;
+
 export default async function loadConfig(
   dir = '.',
   filename = 'ship.config',
@@ -24,7 +27,9 @@ export default async function loadConfig(
   );
 
   const userConfig =
-    fullPath && (await exist(fullPath)) ? await import(fullPath) : {};
+    fullPath && (await exist(fullPath))
+      ? await import(fullPath).then(pickDefault)
+      : {};
 
   return mergeConfig(defaultConfig, userConfig);
 }
