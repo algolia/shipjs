@@ -4,7 +4,7 @@ import path from 'path';
 
 const baseConfig = expect.objectContaining({});
 
-const d = dirName => path.resolve(__dirname, dirName);
+const d = (dirName) => path.resolve(__dirname, dirName);
 
 describe('loadConfig', () => {
   it('does not throw when there is no config', async () => {

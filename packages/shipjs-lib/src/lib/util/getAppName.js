@@ -7,8 +7,6 @@ export default async function getAppName(dir = '.') {
   if (appName) {
     return appName;
   }
-  const { name } = JSON.parse(
-    await fs.readFile(resolve(dir, 'package.json'))
-  );
+  const { name } = JSON.parse(await fs.readFile(resolve(dir, 'package.json')));
   return name;
 }
