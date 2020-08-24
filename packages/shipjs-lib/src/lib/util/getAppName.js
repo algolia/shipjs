@@ -1,12 +1,12 @@
-import { readFileSync } from 'fs';
+import { promises as fs } from 'fs';
 import { resolve } from 'path';
 import loadConfig from '../config/loadConfig';
 
-export default function getAppName(dir = '.') {
-  const { appName } = loadConfig(dir);
+export default async function getAppName(dir = '.') {
+  const { appName } = await loadConfig(dir);
   if (appName) {
     return appName;
   }
-  const { name } = JSON.parse(readFileSync(resolve(dir, 'package.json')));
+  const { name } = JSON.parse(await fs.readFile(resolve(dir, 'package.json')));
   return name;
 }
