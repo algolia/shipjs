@@ -1,3 +1,12 @@
+# [0.21.0](https://github.com/algolia/shipjs/compare/v0.20.1...v0.21.0) (2020-08-24)
+
+
+### Features
+
+* add basic support for esm ([#914](https://github.com/algolia/shipjs/issues/914)) ([42918d5](https://github.com/algolia/shipjs/commit/42918d5e3b1a57ef4096b2ddeb67282075aa01ea))
+
+
+
 ## [0.20.1](https://github.com/algolia/shipjs/compare/v0.20.0...v0.20.1) (2020-06-22)
 
 
