@@ -22,8 +22,8 @@ export default async ({
     const config = {
       ...(isScoped &&
         isPublic && {
-          publishCommand: ({ defaultCommand }) =>
-            `${defaultCommand} --access public`,
+          publishCommand: ({ defaultCommand, tag }) =>
+            `${defaultCommand} --access public --tag ${tag}`,
         }),
       ...(useMonorepo && {
         monorepo: {
