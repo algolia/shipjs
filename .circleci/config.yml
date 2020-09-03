@@ -87,9 +87,12 @@ jobs:
             yarn workspace website deploy:gh
 workflows:
   version: 2
-  release_if_needed:
+  ci:
     jobs:
+      - test
       - shipjs_trigger:
+          requires:
+            - test
           filters:
             branches:
               only:
