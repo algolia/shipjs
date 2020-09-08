@@ -22,7 +22,7 @@ describe('runPublish', () => {
     expect(run).toHaveBeenCalledTimes(1);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
       Object {
-        "command": "yarn publish --no-git-tag-version --non-interactive --tag latest",
+        "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": ".",
         "dryRun": false,
       }
@@ -76,14 +76,14 @@ describe('runPublish', () => {
     expect(run).toHaveBeenCalledTimes(2);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
       Object {
-        "command": "yarn publish --no-git-tag-version --non-interactive --tag latest",
+        "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": "/package-a",
         "dryRun": false,
       }
     `);
     expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
       Object {
-        "command": "yarn publish --no-git-tag-version --non-interactive --tag latest",
+        "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": "/package-b",
         "dryRun": false,
       }
