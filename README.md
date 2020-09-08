@@ -42,7 +42,7 @@ When releasing, you go through something like the following:
 
 - Update the version in `package.json`
 - Update the changelog
-- Actually release it (e.g. `yarn build && yarn publish`)
+- Actually release it (e.g. `npm run build && npm publish`)
 - Create a git tag
 - Create a release on GitHub
 

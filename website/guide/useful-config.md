@@ -169,6 +169,6 @@ module.exports = {
 };
 ```
 
-By default, `publishCommand` returns `yarn publish` or `npm publish`. You can override it like the above to release it to wherever you want.
+By default, `publishCommand` returns `npm publish`. You can override it like the above to release it to wherever you want.
 
 If you have configured `monorepo`, this command will run in each package in `monorepo.packagesToPublish`.

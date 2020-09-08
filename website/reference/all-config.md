@@ -227,11 +227,11 @@ publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand;
 
 ```js
 isYarn
-  ? `yarn publish --no-git-tag-version --non-interactive --tag ${tag}`
+  ? `npm_config_registry=https://registry.npmjs.org/ npm publish --tag ${tag}`
   : `npm publish --tag ${tag}`;
 ```
 
-By default, `publishCommand` will return either `yarn publish ...` or `npm publish ...`.
+By default, `publishCommand` will return `npm publish ...`.
 
 ### Scoped Package
 
