@@ -1,3 +1,13 @@
+## [0.21.1-beta.0](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1-beta.0) (2020-09-08)
+
+
+### Bug Fixes
+
+* **setup:** add --tag to publish command in generated config ([#916](https://github.com/algolia/shipjs/issues/916)) ([53121e2](https://github.com/algolia/shipjs/commit/53121e22292df864413dff36238ad2daf1ae17c9))
+* **trigger:** replace yarn publish with npm publish ([#919](https://github.com/algolia/shipjs/issues/919)) ([66149dc](https://github.com/algolia/shipjs/commit/66149dc4da2884a57dca03296fbc24262843964a))
+
+
+
 # [0.21.0](https://github.com/algolia/shipjs/compare/v0.20.1...v0.21.0) (2020-08-24)
 
 
