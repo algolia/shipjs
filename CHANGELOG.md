@@ -1,3 +1,12 @@
+## [0.21.1](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1) (2020-09-08)
+
+
+### Bug Fixes
+
+* **setup:** add --tag to publish command in generated config ([#916](https://github.com/algolia/shipjs/issues/916)) ([53121e2](https://github.com/algolia/shipjs/commit/53121e22292df864413dff36238ad2daf1ae17c9))
+
+
+
 # [0.21.0](https://github.com/algolia/shipjs/compare/v0.20.1...v0.21.0) (2020-08-24)
 
 
