@@ -1,3 +1,12 @@
+## [0.21.1-beta.1](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1-beta.1) (2020-09-10)
+
+
+### Bug Fixes
+
+* update registry before publish instead of using env var which didn't work ([#921](https://github.com/algolia/shipjs/issues/921)) ([48f26bd](https://github.com/algolia/shipjs/commit/48f26bd63e019844b888c5b591fb1492111d6334))
+
+
+
 ## [0.21.1-beta.0](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1-beta.0) (2020-09-08)
 
 
