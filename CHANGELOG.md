@@ -1,3 +1,12 @@
+## [0.21.1-beta.2](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1-beta.2) (2020-09-10)
+
+
+### Bug Fixes
+
+* set npm config to read NPM_AUTH_TOKEN ([#923](https://github.com/algolia/shipjs/issues/923)) ([1c935a3](https://github.com/algolia/shipjs/commit/1c935a354fb167a3fd5bc9587c857ec338df59db))
+
+
+
 ## [0.21.1-beta.0](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1-beta.0) (2020-09-08)
 
 
