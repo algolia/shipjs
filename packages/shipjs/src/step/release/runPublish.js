@@ -8,6 +8,15 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
   runStep({ title: 'Publishing.' }, () => {
     const { publishCommand, monorepo } = config;
 
+    if (isYarn) {
+      print('Configuring the registry to https://registry.npmjs.org/');
+      run({
+        command: 'yarn config set registry https://registry.npmjs.org/',
+        dir,
+        dryRun,
+      });
+    }
+
     if (monorepo) {
       const { packagesToPublish } = monorepo;
       const packageList = expandPackageList(packagesToPublish, dir);

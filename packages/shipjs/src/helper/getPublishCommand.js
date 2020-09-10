@@ -4,9 +4,7 @@ export default function getPublishCommand({
   tag,
   dir,
 }) {
-  const npmPublish = `npm publish --tag ${tag}`;
-  const setRegistry = 'npm_config_registry=https://registry.npmjs.org/';
-  const defaultCommand = isYarn ? `${setRegistry} ${npmPublish}` : npmPublish;
+  const defaultCommand = `npm publish --tag ${tag}`;
 
   return publishCommand({ isYarn, tag, defaultCommand, dir });
 }
