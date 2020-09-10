@@ -19,8 +19,15 @@ describe('runPublish', () => {
       dir: '.',
       dryRun: false,
     });
-    expect(run).toHaveBeenCalledTimes(1);
+    expect(run).toHaveBeenCalledTimes(2);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
+      Object {
+        "command": "npm config set \\"//registry.npmjs.org/:_authToken\\" \\"\\\\\${NPM_AUTH_TOKEN}\\"",
+        "dir": ".",
+        "dryRun": false,
+      }
+    `);
+    expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
       Object {
         "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": ".",
@@ -39,8 +46,15 @@ describe('runPublish', () => {
       dir: '.',
       dryRun: false,
     });
-    expect(run).toHaveBeenCalledTimes(1);
+    expect(run).toHaveBeenCalledTimes(2);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
+      Object {
+        "command": "npm config set \\"//registry.npmjs.org/:_authToken\\" \\"\\\\\${NPM_AUTH_TOKEN}\\"",
+        "dir": ".",
+        "dryRun": false,
+      }
+    `);
+    expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
       Object {
         "command": "npm publish --tag latest",
         "dir": ".",
@@ -73,15 +87,22 @@ describe('runPublish', () => {
         "Running the following at /package-b",
       ]
     `);
-    expect(run).toHaveBeenCalledTimes(2);
+    expect(run).toHaveBeenCalledTimes(3);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
+      Object {
+        "command": "npm config set \\"//registry.npmjs.org/:_authToken\\" \\"\\\\\${NPM_AUTH_TOKEN}\\"",
+        "dir": ".",
+        "dryRun": false,
+      }
+    `);
+    expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
       Object {
         "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": "/package-a",
         "dryRun": false,
       }
     `);
-    expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
+    expect(run.mock.calls[2][0]).toMatchInlineSnapshot(`
       Object {
         "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": "/package-b",
