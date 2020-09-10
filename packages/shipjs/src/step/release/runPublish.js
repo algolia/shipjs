@@ -8,6 +8,14 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
   runStep({ title: 'Publishing.' }, () => {
     const { publishCommand, monorepo } = config;
 
+    // This adds the following line to ~/.npmrc
+    // > registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}
+    run({
+      command: `npm config set "//registry.npmjs.org/:_authToken" "\\\${NPM_AUTH_TOKEN}"`,
+      dir,
+      dryRun,
+    });
+
     if (monorepo) {
       const { packagesToPublish } = monorepo;
       const packageList = expandPackageList(packagesToPublish, dir);
