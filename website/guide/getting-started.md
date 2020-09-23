@@ -37,6 +37,10 @@ Add the following to the `scripts` section in your `package.json`.
 
 ### GitHub Token
 
+:::warning
+If you use Ship.js at work, I recommend you to get a token from a shared account, not from your personal account because after you quit, your token will still be used.
+:::
+
 GitHub token is used in both `shipjs prepare` and `shipjs trigger`.
 
 1. Go to [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new)
