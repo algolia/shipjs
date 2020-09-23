@@ -1,34 +1,11 @@
-## [0.21.1](https://github.com/algolia/shipjs/compare/v0.21.1-beta.2...v0.21.1) (2020-09-23)
-
-
-
-## [0.21.1-beta.2](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1-beta.2) (2020-09-10)
-
-
-### Bug Fixes
-
-* set npm config to read NPM_AUTH_TOKEN ([#923](https://github.com/algolia/shipjs/issues/923)) ([1c935a3](https://github.com/algolia/shipjs/commit/1c935a354fb167a3fd5bc9587c857ec338df59db))
-* **setup:** add --tag to publish command in generated config ([#916](https://github.com/algolia/shipjs/issues/916)) ([53121e2](https://github.com/algolia/shipjs/commit/53121e22292df864413dff36238ad2daf1ae17c9))
-* **trigger:** replace yarn publish with npm publish ([#919](https://github.com/algolia/shipjs/issues/919)) ([66149dc](https://github.com/algolia/shipjs/commit/66149dc4da2884a57dca03296fbc24262843964a))
-
-
-
-## [0.21.1-beta.2](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1-beta.2) (2020-09-10)
-
-
-### Bug Fixes
-
-* set npm config to read NPM_AUTH_TOKEN ([#923](https://github.com/algolia/shipjs/issues/923)) ([1c935a3](https://github.com/algolia/shipjs/commit/1c935a354fb167a3fd5bc9587c857ec338df59db))
-
-
-
-## [0.21.1-beta.0](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1-beta.0) (2020-09-08)
+## [0.21.1](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1) (2020-09-23)
 
 
 ### Bug Fixes
 
 * **setup:** add --tag to publish command in generated config ([#916](https://github.com/algolia/shipjs/issues/916)) ([53121e2](https://github.com/algolia/shipjs/commit/53121e22292df864413dff36238ad2daf1ae17c9))
 * **trigger:** replace yarn publish with npm publish ([#919](https://github.com/algolia/shipjs/issues/919)) ([66149dc](https://github.com/algolia/shipjs/commit/66149dc4da2884a57dca03296fbc24262843964a))
+* **trigger:** set npm config to read NPM_AUTH_TOKEN ([#923](https://github.com/algolia/shipjs/issues/923)) ([1c935a3](https://github.com/algolia/shipjs/commit/1c935a354fb167a3fd5bc9587c857ec338df59db))
 
 
 
