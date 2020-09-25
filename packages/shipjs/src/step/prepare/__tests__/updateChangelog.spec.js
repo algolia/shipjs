@@ -1,5 +1,5 @@
 const path = require('path');
-import { prepareParams, parseArgs } from '../updateChangelog';
+import { prepareParams } from '../updateChangelog';
 import tempWrite from 'temp-write';
 
 describe('prepareParams', () => {
