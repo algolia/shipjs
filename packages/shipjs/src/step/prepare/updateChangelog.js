@@ -78,7 +78,7 @@ const argSpec = {
   '-t': '--tag-prefix',
 };
 
-function prepareParams({
+export function prepareParams({
   dir,
   conventionalChangelogArgs,
   releaseCount,
@@ -118,6 +118,9 @@ function prepareParams({
   }
   const templateContext =
     args.context && require(path.resolve(dir, args.context));
+  if (args.config) {
+    args.config = require(path.resolve(dir, args.config));
+  }
   return { args, gitRawCommitsOpts, templateContext };
 }
 
