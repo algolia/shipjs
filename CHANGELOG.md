@@ -1,3 +1,17 @@
+# [0.22.0](https://github.com/algolia/shipjs/compare/v0.21.1...v0.22.0) (2020-09-28)
+
+
+### Bug Fixes
+
+* typo in GitHubAction config ([#928](https://github.com/algolia/shipjs/issues/928)) ([489647d](https://github.com/algolia/shipjs/commit/489647da63b6208497014d5eb276d5b09ebb9d1a))
+
+
+### Features
+
+* understands `--config <FILE>` option in `conventionalChangelogArgs` ([#927](https://github.com/algolia/shipjs/issues/927)) ([06c7226](https://github.com/algolia/shipjs/commit/06c7226fa66185edd23f6626b6a2b8b7df1d93b6))
+
+
+
 ## [0.21.1](https://github.com/algolia/shipjs/compare/v0.21.0...v0.21.1) (2020-09-23)
 
 
