@@ -124,11 +124,13 @@ Setup an NPM token to allow Ship.js(**at CircleCI**) to release the package to N
    - Name: `NPM_AUTH_TOKEN`
    - Value: Paste the token from clipboard.
 
-:::warning WARNING for 2FA If you have enabled 2FA for both authorization and publishing, when `shipjs trigger` runs, it will be prompted for one-time password. You probably have configured CI service (CircleCI, GitHub Actions, etc) to run that command for you. It means `shipjs trigger` will be stuck.
+:::warning WARNING for 2FA
+If you have enabled 2FA for both authorization and publishing, when `shipjs trigger` runs, it will be prompted for one-time password. You probably have configured CI service (CircleCI, GitHub Actions, etc) to run that command for you. It means `shipjs trigger` will be stuck.
 
-For now, we don't have any solution to avoid this problem. So we recommend you not to use two-factor authentication for publishing, but only for authorization.
+NPM has [released](https://github.blog/changelog/2020-10-02-npm-automation-tokens/) a new feature "Automation token" to solve this.
 
-![NPM two-factor authentication](./npm-2fa.png) :::
+![NPM automatin token](./automation-token.png)
+:::
 
 ### GitHub Token
 
