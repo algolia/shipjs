@@ -4,7 +4,7 @@
   <a href="http://npmjs.com/package/shipjs"><img alt="npm" src="https://img.shields.io/npm/v/shipjs"></a>
   <a href="https://circleci.com/gh/algolia/shipjs"><img alt="CircleCI" src="https://img.shields.io/circleci/build/gh/algolia/shipjs"></a>
   <a href="https://github.com/algolia/shipjs/blob/master/LICENSE"><img alt="NPM" src="https://img.shields.io/npm/l/shipjs"></a>
-  <a href="https://github.com/algolia/shipjs#contributors-"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-9-orange.svg"></a>
+  <a href="https://github.com/algolia/shipjs#contributors-"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-11-orange.svg"></a>
   <a href="https://join.slack.com/t/shipjs/shared_invite/enQtODc3OTc3NjQ0NDg3LTU3ZDgyMzlkNzY2YTMxMGQ1MzE3OGMzZjMzYjU5Y2NmZDQ5Mzk1ZWUxZjk3NWFjMDIwYmI0ZGUyY2E2YTZkYzk"><img alt="Chat on Slack" src="https://img.shields.io/badge/chat-on%20Slack-orange"></a>
 </p>
 
