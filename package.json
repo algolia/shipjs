@@ -1,6 +1,7 @@
 {
   "version": "0.22.0",
   "scripts": {
+    "postinstall": "patch-package",
     "prepare": "yarn build",
     "build": "yarn workspace shipjs-lib build",
     "lint": "lerna run lint --stream",
@@ -29,5 +30,9 @@
   "devDependencies": {
     "all-contributors-cli": "6.15.0",
     "lerna": "3.22.0"
+  },
+  "dependencies": {
+    "patch-package": "^6.2.2",
+    "postinstall-postinstall": "^2.1.0"
   }
 }
