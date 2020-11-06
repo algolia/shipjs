@@ -13,16 +13,6 @@ module.exports = {
       json.version = version;
     });
 
-    // update package.json
-    updateJson(dir, "package.json", (json) => {
-      json.version = version;
-    });
-
-    // update dependency
-    updateJson(dir, "packages/shipjs/package.json", (json) => {
-      json.dependencies["shipjs-lib"] = version;
-    });
-
     // update `version.js`
     fs.writeFileSync(
       path.resolve(dir, "packages/shipjs/src/version.js"),
