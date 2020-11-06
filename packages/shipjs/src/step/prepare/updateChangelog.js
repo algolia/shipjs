@@ -4,6 +4,7 @@ import conventionalChangelogCore from 'conventional-changelog-core';
 import conventionalChangelogPresetLoader from 'conventional-changelog-preset-loader';
 import tempfile from 'tempfile';
 import addStream from 'add-stream';
+import merge from 'deepmerge';
 import runStep from '../runStep';
 import { parseArgs } from '../../util';
 
@@ -26,21 +27,22 @@ export default ({
       }
       return new Promise((resolve, reject) => {
         const { conventionalChangelogArgs } = config;
-        const { args, gitRawCommitsOpts, templateContext } = prepareParams({
+        prepareParams({
           dir,
           conventionalChangelogArgs,
           releaseCount,
           firstRelease,
           revisionRange,
           reject,
-        });
-        runConventionalChangelog({
-          args,
-          templateContext,
-          gitRawCommitsOpts,
-          resolve,
-          reject,
-          dir,
+        }).then(({ args, gitRawCommitsOpts, templateContext }) => {
+          runConventionalChangelog({
+            args,
+            templateContext,
+            gitRawCommitsOpts,
+            resolve,
+            reject,
+            dir,
+          });
         });
       });
     }
@@ -80,7 +82,7 @@ const argSpec = {
   '-t': '--tag-prefix',
 };
 
-export function prepareParams({
+export async function prepareParams({
   dir,
   conventionalChangelogArgs,
   releaseCount,
@@ -121,13 +123,12 @@ export function prepareParams({
   const templateContext =
     args.context && require(path.resolve(dir, args.context));
   args.config = args.config ? require(path.resolve(dir, args.config)) : {};
-
   if (args.preset) {
     try {
-      args.config = {
-        ...conventionalChangelogPresetLoader(args.preset),
-        ...args.config,
-      };
+      args.config = merge(
+        await conventionalChangelogPresetLoader(args.preset),
+        args.config
+      );
     } catch (err) {
       if (typeof args.preset === 'object') {
         args.warn(`Preset: "${args.preset.name}" ${err.message}`);
@@ -157,10 +158,10 @@ function runConventionalChangelog({
   const changelogStream = conventionalChangelogCore(
     args,
     templateContext,
-    gitRawCommitsOpts,
+    { ...gitRawCommitsOpts, path: dir },
     undefined,
     undefined,
-    { path: dir }
+    { path: dir, cwd: dir }
   ).on('error', reject);
 
   const readStream = fs.createReadStream(args.infile).on('error', reject);

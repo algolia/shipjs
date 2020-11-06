@@ -4,7 +4,7 @@ import { parseArgs } from '../../../util';
 import tempWrite from 'temp-write';
 
 describe('prepareParams', () => {
-  it('loads configuration from --config option', () => {
+  it('loads configuration from --config option', async () => {
     parseArgs.mockImplementation(jest.requireActual('../../../util').parseArgs);
     const config = {
       writerOpts: {
@@ -15,7 +15,7 @@ describe('prepareParams', () => {
     const configPath = tempWrite.sync(configString);
     const configDir = path.basename(path.dirname(configPath));
 
-    const { args } = prepareParams({
+    const { args } = await prepareParams({
       dir: configDir,
       conventionalChangelogArgs: `-i CHANGELOG.md -s --config ${configPath}`,
       revisionRange: '1.0.0..1.0.1',
