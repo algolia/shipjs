@@ -11,6 +11,7 @@ module.exports = {
     mainVersionFile: 'package.json',
     packagesToBump: ['packages/*', 'examples/*'],
     packagesToPublish: ['packages/*'],
+    updateDependencies: true // optional, default: true
   },
 };
 ```
@@ -21,13 +22,33 @@ If `monorepo` is defined, Ship.js will treat the project as a monorepo.
 Ship.js currently does not provide independent versioning. It means all the packages in the monorepo must have the same version.
 :::
 
-- **`shipjs prepare`**
+### **`shipjs prepare`**
 
 1. Ship.js reads version from `mainVersionFile`.
 2. When next version is decided, Ship.js will update the version at `mainVersionFile`.
 3. Ship.js will update all the versions in `packagesToBump`.
+4. When `updateDependencies: true`, it updates the dependencies, too.
 
-- **`shipjs trigger`**
+For example,
+
+```js
+// ship.config.js
+packagesToBump: ['packages/my-package-core', 'packages/my-package-js']
+```
+
+```js
+// packages/my-package-js/package.json
+{
+  ...
+  "dependencies": {
+    "my-package-core": "^x.y.z"
+  }
+}
+```
+
+Ship.js will check `dependencies`, `devDependencies` and `peerDependencies` and update the version to the latest. If you don't want this behavior, put `updateDependencies: false` in the config.
+
+### **`shipjs trigger`**
 
 1. Ship.js will only publish the packages from `packagesToPublish`.
 
