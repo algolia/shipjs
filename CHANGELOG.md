@@ -1,16 +1,22 @@
 # [0.23.0](https://github.com/algolia/shipjs/compare/v0.22.0...v0.23.0) (2020-11-06)
 
+### BREAKING CHANGE
 
-### Bug Fixes
+<img src="./assets/breaking-change.png" alt="BREAKING CHANGE" title="BREAKING CHANGE" width=250 height=60 />
 
-* specify path for changelog ([#673](https://github.com/algolia/shipjs/issues/673)) ([74531a3](https://github.com/algolia/shipjs/commit/74531a3c9d28ea45ef44354d7d072597e51bb44c))
-* **github-actions:** use the `actions/github-script` action instead of the deprecated `actions/github` action ([#934](https://github.com/algolia/shipjs/issues/934)) ([4f56bdb](https://github.com/algolia/shipjs/commit/4f56bdbc28d23fdade20cbb0c0d75a7a72a9f001))
+If you don't use Ship.js in a monorepo, this breaking change doesn't affect you.
 
+If you do, we have a good addition for you. Ship.js will update the versions of the dependencies in the monorepo. You can learn more from [here](https://community.algolia.com/shipjs/reference/all-config.html#monorepo).
 
 ### Features
 
 * **monorepo:** update dependencies ([#937](https://github.com/algolia/shipjs/issues/937)) ([03d47db](https://github.com/algolia/shipjs/commit/03d47dbd402a8d446f421d86038190d0b08d07be))
 
+
+### Bug Fixes
+
+* specify path for changelog ([#673](https://github.com/algolia/shipjs/issues/673)) ([74531a3](https://github.com/algolia/shipjs/commit/74531a3c9d28ea45ef44354d7d072597e51bb44c))
+* **github-actions:** use the `actions/github-script` action instead of the deprecated `actions/github` action ([#934](https://github.com/algolia/shipjs/issues/934)) ([4f56bdb](https://github.com/algolia/shipjs/commit/4f56bdbc28d23fdade20cbb0c0d75a7a72a9f001))
 
 
 # [0.22.0](https://github.com/algolia/shipjs/compare/v0.21.1...v0.22.0) (2020-09-28)
