@@ -1,7 +1,22 @@
 import { expandPackageList, updateVersion } from 'shipjs-lib';
 import { print } from '../../../util';
+import { prepareJsons } from '../../../helper/dependencyUpdater';
+
+jest.mock('../../../helper/dependencyUpdater', () => {
+  return {
+    ...jest.requireActual('../../../helper/dependencyUpdater'),
+    prepareJsons: jest.fn(() => []),
+  };
+});
+
 import updateVersionMonorepo from '../updateVersionMonorepo';
 import { mockPrint } from '../../../../tests/util';
+
+jest.mock('../updateVersionMonorepo', () => {
+  const newModule = jest.requireActual('../updateVersionMonorepo');
+  newModule.prepareJsons = jest.fn(() => []);
+  return newModule;
+});
 
 describe('updateVersionMonorepo', () => {
   it('works', () => {
@@ -66,6 +81,7 @@ describe('updateVersionMonorepo', () => {
     ]);
     const output = [];
     mockPrint(print, output);
+    prepareJsons.mockImplementation(() => []);
     updateVersionMonorepo({
       config: {
         versionUpdated: () => {},
@@ -84,6 +100,7 @@ describe('updateVersionMonorepo', () => {
         "Actual packages to bump:",
         "-> packages/a/package.json",
         "-> packages/b/package.json",
+        "Updating dependencies:",
         "-> execute versionUpdated() callback.",
       ]
     `);
