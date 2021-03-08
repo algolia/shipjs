@@ -2,6 +2,8 @@
 
 ## `monorepo`
 
+_type_: `object`
+
 _default:_ `undefined`
 
 ```js
@@ -56,6 +58,8 @@ Ship.js will check `dependencies`, `devDependencies` and `peerDependencies` and 
 
 _used at_: `shipjs prepare`
 
+_type_: `callback` returns `boolean`
+
 _default_: `undefined`
 
 ```js
@@ -96,6 +100,8 @@ With the config above, you can skip if it's going to be a patch release but with
 
 _used at_: `shipjs prepare`
 
+_type_: `boolean`
+
 _default:_ `true`
 
 If `false`, Ship.js won't run `conventional-changelog` during `shipjs prepare`.
@@ -104,6 +110,8 @@ If `false`, Ship.js won't run `conventional-changelog` during `shipjs prepare`.
 
 _used at_: `shipjs prepare`
 
+_type_: `string`
+
 _default:_ `'-p angular -i CHANGELOG.md -s'`
 
 This is passed to `conventional-changelog` CLI to update CHANGELOG.md.
@@ -111,6 +119,8 @@ This is passed to `conventional-changelog` CLI to update CHANGELOG.md.
 ## `installCommand`
 
 _used at_: `shipjs prepare`
+
+_type_: `callback` returns `string`
 
 _default:_
 
@@ -122,6 +132,8 @@ installCommand: ({ isYarn }) =>
 ## `getNextVersion`
 
 _used at_: `shipjs prepare`
+
+_type_: `callback` returns `string`
 
 _default:_ `undefined`
 
@@ -145,6 +157,8 @@ getNextVersion: ({ revisionRange, commitTitles, commitBodies, currentVersion, di
 
 _used at_: `shipjs prepare`
 
+_type_: `callback` returns `string`
+
 _default:_ `undefined`
 
 ```js
@@ -167,6 +181,8 @@ This is a lifecycle hook where you can put additional code after version is upda
 
 _used at_: `shipjs prepare`
 
+_type_: `callback` returns `string`
+
 _default:_ `undefined`
 
 ```js
@@ -182,6 +198,8 @@ This is a lifecycle hook which is executed right before `git commit` happens. Yo
 
 _used at_: `shipjs prepare`
 
+_type_: `array` of `strings`
+
 _default:_ `undefined`
 
 You can put an array of strings.
@@ -196,6 +214,8 @@ One thing you need to be aware of is, you cannot assign yourself as a reviewer. 
 
 _used at_: `shipjs prepare`
 
+_type_: `array` of `strings`
+
 _default:_ `undefined`
 
 You can put an array of strings.
@@ -207,6 +227,8 @@ pullRequestTeamReviewers: ['team-username1'];
 ## `buildCommand`
 
 _used at_: `shipjs trigger`
+
+_type_: `callback` returns `string`
 
 _default:_
 
@@ -225,6 +247,8 @@ buildCommand: () => null;
 
 _used at_: `shipjs trigger`
 
+_type_: `callback`
+
 _default:_ `undefined`
 
 ```js
@@ -237,6 +261,8 @@ beforePublish: ({ exec, dir }) => {
 ## `publishCommand`
 
 _used at_: `shipjs trigger`
+
+_type_: `callback` returns `string`
 
 _default:_
 
@@ -281,6 +307,8 @@ publishCommand: ({ isYarn, tag, defaultCommand, dir }) => {
 
 _used at_: `shipjs trigger`
 
+_type_: `callback`
+
 _default:_ `undefined`
 
 ```js
@@ -293,6 +321,8 @@ afterPublish: ({ exec, dir, version, releaseTag }) => {
 ## `testCommandBeforeRelease`
 
 _used at_: `shipjs trigger`
+
+_type_: `callback` returns `string`
 
 _default:_ `undefined`
 
@@ -310,6 +340,8 @@ testCommandBeforeRelease: ({ isYarn }) =>
 ## `releases`
 
 _used at_: `shipjs trigger`
+
+_type_: `object`
 
 _default:_ `undefined`
 
@@ -336,6 +368,8 @@ releases: {
 
 _used at_: `shipjs trigger`
 
+_type_: `string`
+
 _default:_ `undefined`
 
 ```js
@@ -348,6 +382,8 @@ This is used when Ship.js sends message to your Slack channel. If it's `undefine
 ## Messaging to Slack
 
 _used at_: `shipjs trigger`
+
+_type_: `object`
 
 If you configure an environment variable `SLACK_INCOMING_HOOK`, Ship.js will send messages
 

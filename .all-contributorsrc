@@ -115,6 +115,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "incredimike",
+      "name": "Mike Walker",
+      "avatar_url": "https://avatars.githubusercontent.com/u/125589?v=4",
+      "profile": "http://incredimike.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
