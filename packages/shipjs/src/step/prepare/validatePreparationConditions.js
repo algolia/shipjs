@@ -13,7 +13,6 @@ export default async ({
   nextVersion,
   revisionRange,
   dir,
-  dryRun,
 }) =>
   await runStep(
     {
@@ -22,10 +21,6 @@ export default async ({
     },
     async () => {
       const { shouldPrepare } = config;
-      if (dryRun) {
-        print(`-> execute ${info('shouldPrepare()')} callback.`);
-        return;
-      }
       const releaseTag = getReleaseTag(nextVersion);
       const commits = getCommitTitles(revisionRange, dir);
       const { numbers: commitNumbersPerType } = getCommitNumbersPerType(
