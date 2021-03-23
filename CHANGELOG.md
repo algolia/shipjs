@@ -1,3 +1,12 @@
+## [0.23.1](https://github.com/algolia/shipjs/compare/v0.23.0...v0.23.1) (2021-03-09)
+
+
+### Bug Fixes
+
+* **prepare:** allow shouldPrepare callback to run during --dry-run ([#947](https://github.com/algolia/shipjs/issues/947)) ([8602ba0](https://github.com/algolia/shipjs/commit/8602ba06fc32f73c871c4b8d624a288a87ca0d89))
+
+
+
 # [0.23.0](https://github.com/algolia/shipjs/compare/v0.22.0...v0.23.0) (2020-11-06)
 
 ### BREAKING CHANGE
