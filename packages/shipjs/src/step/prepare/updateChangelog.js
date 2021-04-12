@@ -130,13 +130,15 @@ export async function prepareParams({
         args.config
       );
     } catch (err) {
+      /* eslint-disable no-console */
       if (typeof args.preset === 'object') {
-        args.warn(`Preset: "${args.preset.name}" ${err.message}`);
+        console.error(`Preset: "${args.preset.name}" ${err.message}`);
       } else if (typeof args.preset === 'string') {
-        args.warn(`Preset: "${args.preset}" ${err.message}`);
+        console.error(`Preset: "${args.preset}" ${err.message}`);
       } else {
-        args.warn(`Preset: ${err.message}`);
+        console.error(`Preset: ${err.message}`);
       }
+      /* eslint-enable no-console */
     }
   }
 
