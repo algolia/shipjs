@@ -1,3 +1,12 @@
+## [0.23.3](https://github.com/algolia/shipjs/compare/v0.23.2...v0.23.3) (2021-06-14)
+
+
+### Bug Fixes
+
+* **prepare:** add missing version in the changelog ([#954](https://github.com/algolia/shipjs/issues/954)) ([2a8e7c5](https://github.com/algolia/shipjs/commit/2a8e7c569754dd57c71ff684a43ae8cfc8d1f384))
+
+
+
 ## [0.23.2](https://github.com/algolia/shipjs/compare/v0.23.1...v0.23.2) (2021-04-12)
 
 
