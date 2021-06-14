@@ -95,6 +95,7 @@ async function prepare({
     config,
     revisionRange,
     firstRelease,
+    nextVersion,
     releaseCount,
     dir,
     dryRun,
