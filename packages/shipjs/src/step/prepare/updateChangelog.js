@@ -11,6 +11,7 @@ import { parseArgs } from '../../util';
 export default ({
   config,
   firstRelease,
+  nextVersion,
   releaseCount,
   revisionRange,
   dir,
@@ -37,7 +38,10 @@ export default ({
         }).then(({ args, gitRawCommitsOpts, templateContext }) => {
           runConventionalChangelog({
             args,
-            templateContext,
+            templateContext: {
+              ...templateContext,
+              version: nextVersion,
+            },
             gitRawCommitsOpts,
             resolve,
             reject,
