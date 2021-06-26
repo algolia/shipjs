@@ -39,7 +39,7 @@
     "jest": "26.0.1",
     "jest-watch-typeahead": "0.6.0",
     "json": "9.0.6",
-    "prettier": "2.0.5",
+    "prettier": "2.3.2",
     "rollup": "2.14.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0"
