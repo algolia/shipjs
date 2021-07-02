@@ -29,7 +29,7 @@
     "@babel/preset-env": "7.10.2",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.0.1",
-    "eslint": "7.2.0",
+    "eslint": "7.30.0",
     "eslint-config-algolia": "16.0.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-eslint-comments": "3.2.0",
