@@ -178,6 +178,14 @@ beforeCommitChanges: ({ nextVersion, releaseType, exec, dir }) => {
 
 This is a lifecycle hook which is executed right before `git commit` happens. You can put additional code like modifying some other files.
 
+## `draftPullRequest`
+
+_used at_: `shipjs prepare`
+
+_default:_ `false`
+
+If `true`, Ship.js will create a draft pull request.
+
 ## `pullRequestReviewers`
 
 _used at_: `shipjs prepare`
