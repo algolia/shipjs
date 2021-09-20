@@ -22,6 +22,7 @@ export default async ({
       formatPullRequestTitle,
       formatPullRequestMessage,
       publishCommand,
+      draftPullRequest,
       pullRequestReviewers,
       pullRequestTeamReviewers,
       remote,
@@ -73,6 +74,7 @@ export default async ({
       body: message,
       head: stagingBranch,
       base: baseBranch,
+      draft: draftPullRequest,
     });
 
     if (
