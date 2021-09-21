@@ -1,3 +1,12 @@
+# [0.24.0](https://github.com/algolia/shipjs/compare/v0.23.3...v0.24.0) (2021-09-21)
+
+
+### Features
+
+* options for draft pull requests ([#959](https://github.com/algolia/shipjs/issues/959)) ([9556036](https://github.com/algolia/shipjs/commit/955603622acf988efd8cf3148d8d6fb60c255a17))
+
+
+
 ## [0.23.3](https://github.com/algolia/shipjs/compare/v0.23.2...v0.23.3) (2021-06-14)
 
 
