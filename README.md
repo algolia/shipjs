@@ -140,6 +140,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/heavenshell"><img src="https://avatars1.githubusercontent.com/u/56591?v=4" width="100px;" alt=""/><br /><sub><b>Shinya Ohyanagi</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=heavenshell" title="Code">💻</a></td>
     <td align="center"><a href="https://donghoon-song.github.io"><img src="https://avatars0.githubusercontent.com/u/32301380?v=4" width="100px;" alt=""/><br /><sub><b>Donghoon Song</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=donghoon-song" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/miyajan"><img src="https://avatars1.githubusercontent.com/u/945853?v=4" width="100px;" alt=""/><br /><sub><b>Miyata Jumpei</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=miyajan" title="Code">💻</a></td>
+    <td align="center"><a href="https://riotz.works"><img src="https://avatars.githubusercontent.com/u/31102213?v=4" width="100px;" alt=""/><br /><sub><b>lulzneko</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=lulzneko" title="Code">💻</a> <a href="https://github.com/algolia/shipjs/commits?author=lulzneko" title="Documentation">📖</a></td>
   </tr>
 </table>
 
