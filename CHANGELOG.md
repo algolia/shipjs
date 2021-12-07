@@ -1,3 +1,12 @@
+## [0.24.1](https://github.com/algolia/shipjs/compare/v0.24.0...v0.24.1) (2021-12-07)
+
+
+### Bug Fixes
+
+* add 'ci' to list of accepted types ([#965](https://github.com/algolia/shipjs/issues/965)) ([82a2a31](https://github.com/algolia/shipjs/commit/82a2a31089083eb5d6a87a7c1ee2aa47a7377717))
+
+
+
 # [0.24.0](https://github.com/algolia/shipjs/compare/v0.23.3...v0.24.0) (2021-09-21)
 
 
