@@ -61,7 +61,7 @@ If you're not sure, you can always run commands in dry mode.
 ```bash
 yarn run release --dry-run
 # or
-npm run release --dry-run
+npm run release -- --dry-run
 ```
 
 It will show you which steps are going to be executed without actually executing them.
