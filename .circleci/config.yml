@@ -28,7 +28,7 @@ aliases:
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/node:12.18.0
+    - image: cimg/node:12.18.0
 
 version: 2
 jobs:
