@@ -6,7 +6,7 @@ export const GIT_COMMIT_PREFIX_PATCH = new Set([
   'perf',
   'test',
   'chore',
-  'ci'
+  'ci',
 ]);
 
 export const GIT_COMMIT_PREFIX_MINOR = new Set(['feat']);
