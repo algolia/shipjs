@@ -32,7 +32,7 @@
     "lerna": "3.22.0"
   },
   "dependencies": {
-    "patch-package": "^6.2.2",
+    "patch-package": "6.4.7",
     "postinstall-postinstall": "^2.1.0"
   }
 }
