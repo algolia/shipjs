@@ -1,3 +1,12 @@
+## [0.24.2](https://github.com/algolia/shipjs/compare/v0.24.1...v0.24.2) (2022-01-31)
+
+
+### Bug Fixes
+
+* **deps:** bump `shelljs` to ensure vuln fixed ([#969](https://github.com/algolia/shipjs/issues/969)) ([aa72b45](https://github.com/algolia/shipjs/commit/aa72b45205a14bc75a0d924e95cb351676da4b80))
+
+
+
 ## [0.24.1](https://github.com/algolia/shipjs/compare/v0.24.0...v0.24.1) (2021-12-07)
 
 
