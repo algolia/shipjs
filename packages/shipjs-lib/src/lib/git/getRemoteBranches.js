@@ -23,7 +23,7 @@ export default function getRemoteBranches(dir = '.') {
     .filter((line) => !line.includes(' -> '))
     .map((line) => {
       const origin = origins.find((_origin) => line.startsWith(`${_origin}/`));
-      return origin ? line.slice(origin.length + 1) : null;
+      return line.slice(origin.length + 1);
     })
     .filter(Boolean);
 }
