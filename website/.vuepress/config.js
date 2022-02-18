@@ -3,8 +3,9 @@ module.exports = {
   description: 'Take control of what is going to be your next release.',
   themeConfig: {
     algolia: {
-      apiKey: '32d9de316be64a2a99557e931ff200a3',
+      apiKey: '8e903cfc085194284d0f4090fb0d5e9b',
       indexName: 'shipjs',
+      appId: 'CQ6J2YX94R',
     },
     nav: [
       { text: 'Home', link: '/' },
