@@ -125,6 +125,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "vinayakkulkarni",
+      "name": "Vinayak Kulkarni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19776877?v=4",
+      "profile": "https://vinayakkulkarni.dev",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
