@@ -1,3 +1,12 @@
+## [0.24.3](https://github.com/algolia/shipjs/compare/v0.24.2...v0.24.3) (2022-02-22)
+
+
+### Bug Fixes
+
+* get remote branches correctly when there are multiple origins ([#974](https://github.com/algolia/shipjs/issues/974)) ([cbfe80d](https://github.com/algolia/shipjs/commit/cbfe80d88576fe8e1ef5dea3c3e44e48d1b2c05a))
+
+
+
 ## [0.24.2](https://github.com/algolia/shipjs/compare/v0.24.1...v0.24.2) (2022-01-31)
 
 
