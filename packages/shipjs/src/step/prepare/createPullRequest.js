@@ -81,7 +81,7 @@ export default async ({
       (pullRequestReviewers || []).length > 0 ||
       (pullRequestTeamReviewers || []).length > 0
     ) {
-      await octokit.pulls.createReviewRequest({
+      await octokit.pulls.requestReviewers({
         owner,
         repo,
         pull_number: number, // eslint-disable-line camelcase
