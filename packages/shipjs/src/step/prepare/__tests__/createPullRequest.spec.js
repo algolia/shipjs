@@ -57,7 +57,7 @@ describe('createPullRequest', () => {
       data: { number: 13, html_url: 'https://github.com/my/repo/pull/13' }, // eslint-disable-line camelcase
     }));
     Octokit.mockImplementationOnce(function () {
-      this.pulls = { create, createReviewRequest: jest.fn() };
+      this.pulls = { create, requestReviewers: jest.fn() };
     });
     const { pullRequestUrl } = await createPullRequest(getDefaultParams());
     expect(pullRequestUrl).toEqual('https://github.com/my/repo/pull/13');
