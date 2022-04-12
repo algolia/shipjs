@@ -1,3 +1,12 @@
+## [0.24.4](https://github.com/algolia/shipjs/compare/v0.24.3...v0.24.4) (2022-04-12)
+
+
+### Bug Fixes
+
+* **github:** use non-deprecated requestReviewers function ([#978](https://github.com/algolia/shipjs/issues/978)) ([be87a2c](https://github.com/algolia/shipjs/commit/be87a2c496ac8a7d31b53411fcba82b4a450f693))
+
+
+
 ## [0.24.3](https://github.com/algolia/shipjs/compare/v0.24.2...v0.24.3) (2022-02-22)
 
 
