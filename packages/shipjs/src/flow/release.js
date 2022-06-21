@@ -15,7 +15,7 @@ import createGitHubRelease from '../step/release/createGitHubRelease';
 import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess';
 import checkGitHubToken from '../step/checkGitHubToken';
 import finished from '../step/release/finished';
-import fetchAndRebase from '../step/fetchAndRebase';
+import pull from '../step/pull';
 import { detectYarn } from '../util';
 
 async function release({ help = false, dir = '.', dryRun = false }) {
@@ -45,7 +45,7 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   await runAfterPublish({ version, releaseTag, config, dir, dryRun });
   const { tagName } = createGitTag({ version, config, dir, dryRun });
   const currentBranch = getCurrentBranch(dir);
-  await fetchAndRebase({ remote, currentBranch, dir, dryRun });
+  pull({ remote, currentBranch, dir, dryRun, rebase: true });
   gitPush({ tagName, config, dir, dryRun });
   await createGitHubRelease({ version, config, dir, dryRun });
   await notifyReleaseSuccess({
