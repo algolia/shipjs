@@ -1,4 +1,4 @@
-import { loadConfig } from 'shipjs-lib';
+import { getCurrentBranch, loadConfig } from 'shipjs-lib';
 
 import printHelp from '../step/release/printHelp';
 import printDryRunBanner from '../step/printDryRunBanner';
@@ -15,6 +15,7 @@ import createGitHubRelease from '../step/release/createGitHubRelease';
 import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess';
 import checkGitHubToken from '../step/checkGitHubToken';
 import finished from '../step/release/finished';
+import fetchAndRebase from '../step/fetchAndRebase';
 import { detectYarn } from '../util';
 
 async function release({ help = false, dir = '.', dryRun = false }) {
@@ -43,6 +44,8 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   runPublish({ isYarn, config, releaseTag, dir, dryRun });
   await runAfterPublish({ version, releaseTag, config, dir, dryRun });
   const { tagName } = createGitTag({ version, config, dir, dryRun });
+  const currentBranch = getCurrentBranch(dir);
+  await fetchAndRebase({ remote, currentBranch, dir, dryRun });
   gitPush({ tagName, config, dir, dryRun });
   await createGitHubRelease({ version, config, dir, dryRun });
   await notifyReleaseSuccess({
