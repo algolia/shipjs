@@ -15,8 +15,14 @@ describe('pull', () => {
     });
   });
 
-  it('works with rebase flag', () => {
-    pull({ remote, currentBranch, dir: '.', dryRun: false, rebase: true });
+  it('works with rebase option', () => {
+    pull({
+      remote,
+      currentBranch,
+      dir: '.',
+      dryRun: false,
+      options: '--rebase',
+    });
     expect(run).toHaveBeenCalledTimes(1);
     expect(run).toHaveBeenCalledWith({
       command: 'git pull --rebase origin-with-token main',
