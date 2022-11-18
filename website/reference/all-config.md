@@ -54,6 +54,10 @@ Ship.js will check `dependencies`, `devDependencies` and `peerDependencies` and 
 
 ## `version`
 
+_used at_: `shipjs prepare`
+
+_default_: `undefined`
+
 If `version` is defined, Ship.js will skip all other validation and creation of changelog. It will only run `version` hook.
 
 ```js
