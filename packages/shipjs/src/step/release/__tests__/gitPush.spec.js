@@ -6,7 +6,7 @@ describe('gitPush', () => {
   it('works', () => {
     getCurrentBranch.mockImplementationOnce(() => 'master');
     gitPush({
-      tagName: 'v1.2.3',
+      tagNames: ['v1.2.3'],
       config: {
         remote: 'origin',
       },

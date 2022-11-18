@@ -19,7 +19,7 @@ module.exports = {
 If `monorepo` is defined, Ship.js will treat the project as a monorepo.
 
 :::warning NOTICE
-Ship.js currently does not provide independent versioning. It means all the packages in the monorepo must have the same version.
+Ship.js currently does not provide independent versioning. If you want to use it, you can use the `version` hook and use eg. lerna to update versions.
 :::
 
 ### **`shipjs prepare`**
@@ -51,6 +51,16 @@ Ship.js will check `dependencies`, `devDependencies` and `peerDependencies` and 
 ### **`shipjs trigger`**
 
 1. Ship.js will only publish the packages from `packagesToPublish`.
+
+## `version`
+
+If `version` is defined, Ship.js will skip all other validation and creation of changelog. It will only run `version` hook.
+
+```js
+version: ({ exec }) => {
+  exec('yarn lerna version --no-push --no-git-tag-version --yes --conventional-commits');
+}
+```
 
 ## `shouldPrepare`
 
