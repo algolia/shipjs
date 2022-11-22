@@ -42,14 +42,14 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   await runBeforePublish({ config, dir, dryRun });
   runPublish({ isYarn, config, releaseTag, dir, dryRun });
   await runAfterPublish({ version, releaseTag, config, dir, dryRun });
-  const { tagName } = createGitTag({ version, config, dir, dryRun });
-  gitPush({ tagName, config, dir, dryRun });
+  const { tagNames } = createGitTag({ version, config, dir, dryRun });
+  gitPush({ tagNames, config, dir, dryRun });
   await createGitHubRelease({ version, config, dir, dryRun });
   await notifyReleaseSuccess({
     config,
     appName,
     version,
-    tagName,
+    tagNames,
     latestCommitHash,
     latestCommitUrl,
     repoURL,

@@ -6,7 +6,7 @@ import mime from 'mime-types';
 import { getRepoInfo } from 'shipjs-lib';
 import runStep from '../runStep';
 import { getChangelog } from '../../helper';
-import { print } from '../../util';
+import { arrayify, print } from '../../util';
 
 export default async ({ version, config, dir, dryRun }) =>
   await runStep(
@@ -19,58 +19,60 @@ export default async ({ version, config, dir, dryRun }) =>
         getTagName,
         releases: { assetsToUpload, extractChangelog } = {},
       } = config;
-      const tagName = getTagName({ version });
+      const tagNames = arrayify(getTagName({ version }));
 
-      // extract matching changelog
-      const getChangelogFn = extractChangelog || getChangelog;
-      const changelog = getChangelogFn({ version, dir });
-      const content = changelog || '';
+      for await (const tagName of tagNames) {
+        // extract matching changelog
+        const getChangelogFn = extractChangelog || getChangelog;
+        const changelog = getChangelogFn({ version, dir });
+        const content = changelog || '';
 
-      // handle assets
-      const assetPaths = await getAssetPaths({
-        assetsToUpload,
-        dir,
-        version,
-        tagName,
-      });
+        // handle assets
+        const assetPaths = await getAssetPaths({
+          assetsToUpload,
+          dir,
+          version,
+          tagName,
+        });
 
-      if (dryRun) {
-        print('Creating a release with the following:');
-        print(`  - content: ${content}`);
-        if (assetPaths.length > 0) {
-          print(`  - assets: ${assetPaths.join(' ')}`);
+        if (dryRun) {
+          print('Creating a release with the following:');
+          print(`  - content: ${content}`);
+          if (assetPaths.length > 0) {
+            print(`  - assets: ${assetPaths.join(' ')}`);
+          }
+          return;
         }
-        return;
-      }
 
-      const { owner, name: repo } = getRepoInfo(remote, dir);
+        const { owner, name: repo } = getRepoInfo(remote, dir);
 
-      const octokit = new Octokit({
-        auth: `token ${process.env.GITHUB_TOKEN}`,
-      });
+        const octokit = new Octokit({
+          auth: `token ${process.env.GITHUB_TOKEN}`,
+        });
 
-      const {
-        data: { upload_url }, // eslint-disable-line camelcase
-      } = await octokit.repos.createRelease({
-        owner,
-        repo,
-        tag_name: tagName, // eslint-disable-line camelcase
-        name: tagName,
-        body: content,
-      });
+        const {
+          data: { upload_url }, // eslint-disable-line camelcase
+        } = await octokit.repos.createRelease({
+          owner,
+          repo,
+          tag_name: tagName, // eslint-disable-line camelcase
+          name: tagName,
+          body: content,
+        });
 
-      if (assetPaths.length > 0) {
-        for (const assetPath of assetPaths) {
-          const file = path.resolve(dir, assetPath);
-          octokit.repos.uploadReleaseAsset({
-            file: fs.readFileSync(file),
-            headers: {
-              'content-length': fs.statSync(file).size,
-              'content-type': mime.lookup(file),
-            },
-            name: path.basename(file),
-            url: upload_url, // eslint-disable-line camelcase
-          });
+        if (assetPaths.length > 0) {
+          for (const assetPath of assetPaths) {
+            const file = path.resolve(dir, assetPath);
+            octokit.repos.uploadReleaseAsset({
+              file: fs.readFileSync(file),
+              headers: {
+                'content-length': fs.statSync(file).size,
+                'content-type': mime.lookup(file),
+              },
+              name: path.basename(file),
+              url: upload_url, // eslint-disable-line camelcase
+            });
+          }
         }
       }
     }

@@ -1,3 +1,4 @@
+export { arrayify } from './arrayify';
 export { default as detectYarn } from './detectYarn';
 export { default as exitProcess } from './exitProcess';
 export { default as indentedPrint } from './indentedPrint';

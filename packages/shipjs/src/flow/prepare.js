@@ -23,7 +23,7 @@ import validatePreparationConditions from '../step/prepare/validatePreparationCo
 import checkGitHubToken from '../step/checkGitHubToken';
 import finished from '../step/prepare/finished';
 
-import { print } from '../util';
+import { arrayify, print, wrapExecWithDir } from '../util';
 import { warning } from '../color';
 
 async function prepare({
@@ -47,38 +47,67 @@ async function prepare({
   checkGitHubToken({ dryRun });
   const config = await loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
-  const { remote, forcePushBranches } = config;
-  pull({ remote, currentBranch: baseBranch, dir, dryRun });
-  fetchTags({ dir, dryRun });
-  push({ remote, currentBranch: baseBranch, forcePushBranches, dir, dryRun });
-  const currentTag = config.getTagName({ version: currentVersion });
-  const { revisionRange } = await getRevisionRange({
-    yes,
-    commitFrom,
-    currentTag,
-    dir,
-  });
-  let { nextVersion } = getNextVersion({
-    config,
-    revisionRange,
-    currentVersion,
-    dir,
-  });
-  nextVersion = await confirmNextVersion({
-    yes,
-    currentVersion,
-    nextVersion,
-    dryRun,
-  });
-  const releaseType = getReleaseType(nextVersion);
-  await validatePreparationConditions({
-    config,
-    releaseType,
-    nextVersion,
-    revisionRange,
-    dir,
-    dryRun,
-  });
+  const { remote, forcePushBranches, version } = config;
+
+  const currentTag = arrayify(
+    config.getTagName({ version: currentVersion })
+  )[0];
+  let nextVersion;
+  let releaseType;
+
+  if (version) {
+    ({ nextVersion } = await version({
+      exec: wrapExecWithDir(dir),
+    }));
+    releaseType = getReleaseType(nextVersion);
+  } else {
+    pull({ remote, currentBranch: baseBranch, dir, dryRun });
+    fetchTags({ dir, dryRun });
+    push({ remote, currentBranch: baseBranch, forcePushBranches, dir, dryRun });
+    const { revisionRange } = await getRevisionRange({
+      yes,
+      commitFrom,
+      currentTag,
+      dir,
+    });
+    ({ nextVersion } = getNextVersion({
+      config,
+      revisionRange,
+      currentVersion,
+      dir,
+    }));
+    nextVersion = await confirmNextVersion({
+      yes,
+      currentVersion,
+      nextVersion,
+      dryRun,
+    });
+    releaseType = getReleaseType(nextVersion);
+    await validatePreparationConditions({
+      config,
+      releaseType,
+      nextVersion,
+      revisionRange,
+      dir,
+      dryRun,
+    });
+
+    const updateVersionFn = config.monorepo
+      ? updateVersionMonorepo
+      : updateVersion;
+    await updateVersionFn({ config, nextVersion, releaseType, dir, dryRun });
+    installDependencies({ config, dir, dryRun });
+    await updateChangelog({
+      config,
+      revisionRange,
+      firstRelease,
+      nextVersion,
+      releaseCount,
+      dir,
+      dryRun,
+    });
+  }
+
   const { stagingBranch } = prepareStagingBranch({
     config,
     nextVersion,
@@ -86,20 +115,6 @@ async function prepare({
     dir,
   });
   checkoutToStagingBranch({ stagingBranch, dir, dryRun });
-  const updateVersionFn = config.monorepo
-    ? updateVersionMonorepo
-    : updateVersion;
-  await updateVersionFn({ config, nextVersion, releaseType, dir, dryRun });
-  installDependencies({ config, dir, dryRun });
-  await updateChangelog({
-    config,
-    revisionRange,
-    firstRelease,
-    nextVersion,
-    releaseCount,
-    dir,
-    dryRun,
-  });
   await commitChanges({
     nextVersion,
     releaseType,
