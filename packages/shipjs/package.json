@@ -33,7 +33,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.6.3",
-    "@octokit/rest": "^17.0.0",
+    "@octokit/rest": "^17.11.0",
     "@slack/webhook": "^5.0.1",
     "add-stream": "^1.0.0",
     "arg": "4.1.3",
