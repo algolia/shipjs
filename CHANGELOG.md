@@ -1,3 +1,12 @@
+## [0.25.1](https://github.com/algolia/shipjs/compare/v0.25.0...v0.25.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* **tags:** write an annotated git tag ([#989](https://github.com/algolia/shipjs/issues/989)) ([5c19401](https://github.com/algolia/shipjs/commit/5c19401ac10e3a0ee779d8136c37bc0f177cba6b))
+
+
+
 # [0.25.0](https://github.com/algolia/shipjs/compare/v0.24.4...v0.25.0) (2022-11-22)
 
 
