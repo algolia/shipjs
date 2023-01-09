@@ -17,7 +17,12 @@ import checkGitHubToken from '../step/checkGitHubToken';
 import finished from '../step/release/finished';
 import { detectYarn } from '../util';
 
-async function release({ help = false, dir = '.', dryRun = false }) {
+async function release({
+  help = false,
+  dir = '.',
+  dryRun = false,
+  publishOnly = false,
+}) {
   if (help) {
     printHelp();
     return;
@@ -29,22 +34,18 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   const config = await loadConfig(dir);
   const { remote } = config;
   const { currentVersion: version } = validate({ config, dir });
-  const {
-    appName,
-    latestCommitHash,
-    latestCommitUrl,
-    repoURL,
-    releaseTag,
-  } = await gatherRepoInfo({ remote, version, dir });
+  const { appName, latestCommitHash, latestCommitUrl, repoURL, releaseTag } = await gatherRepoInfo({ remote, version, dir });
   const isYarn = detectYarn(dir);
   runTest({ isYarn, config, dir, dryRun });
   runBuild({ isYarn, config, version, dir, dryRun });
   await runBeforePublish({ config, dir, dryRun });
   runPublish({ isYarn, config, releaseTag, dir, dryRun });
   await runAfterPublish({ version, releaseTag, config, dir, dryRun });
-  const { tagNames } = createGitTag({ version, config, dir, dryRun });
-  gitPush({ tagNames, config, dir, dryRun });
-  await createGitHubRelease({ version, config, dir, dryRun });
+  if (!publishOnly) {
+    const { tagNames } = createGitTag({ version, config, dir, dryRun });
+    gitPush({ tagNames, config, dir, dryRun });
+    await createGitHubRelease({ version, config, dir, dryRun });
+  }
   await notifyReleaseSuccess({
     config,
     appName,
@@ -61,6 +62,7 @@ const arg = {
   '--dir': String,
   '--help': Boolean,
   '--dry-run': Boolean,
+  '--publishOnly': Boolean,
 
   // Aliases
   '-d': '--dir',
