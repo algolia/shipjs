@@ -11,7 +11,7 @@ describe('createGitTag', () => {
     });
     expect(run).toHaveBeenCalledTimes(1);
     expect(run).toHaveBeenCalledWith({
-      command: 'git tag v1.2.3',
+      command: 'git tag -a v1.2.3 -m v1.2.3',
       dir: '.',
       dryRun: false,
     });
@@ -27,7 +27,8 @@ describe('createGitTag', () => {
     });
     expect(run).toHaveBeenCalledTimes(1);
     expect(run).toHaveBeenCalledWith({
-      command: 'git tag instantsearch.js@1.2.3 && git tag swag@4',
+      command:
+        'git tag -a instantsearch.js@1.2.3 -m instantsearch.js@1.2.3 && git tag -a swag@4 -m swag@4',
       dir: '.',
       dryRun: false,
     });
