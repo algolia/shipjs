@@ -1,6 +1,6 @@
 {
   "name": "shipjs",
-  "version": "0.25.0",
+  "version": "0.25.1",
   "description": "Take control of what is going to be your next release.",
   "main": "index.js",
   "engines": {
@@ -20,12 +20,7 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix"
   },
-  "files": [
-    "bin/shipjs",
-    "src",
-    "!src/**/__tests__",
-    "index.js"
-  ],
+  "files": ["bin/shipjs", "src", "!src/**/__tests__", "index.js"],
   "author": "Algolia <support@algolia.com>",
   "homepage": "https://github.com/algolia/shipjs",
   "bugs": {
@@ -59,7 +54,7 @@
     "prettier": "^2.0.0",
     "serialize-javascript": "^3.0.0",
     "shell-quote": "^1.7.2",
-    "shipjs-lib": "0.25.0",
+    "shipjs-lib": "0.25.1",
     "temp-write": "4.0.0",
     "tempfile": "^3.0.0"
   },
