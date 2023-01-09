@@ -57,8 +57,8 @@ jobs:
       - run:
           name: Prepare release
           command: |
-            git config --global user.email "karis612@gmail.com"
-            git config --global user.name "Eunjae Lee"
+            git config --global user.email "instantsearch-bot@algolia.com"
+            git config --global user.name "Algolia"
             yarn run release --yes --no-browse
   shipjs_trigger:
     <<: *defaults
@@ -70,7 +70,10 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Triggering Ship.js to Release
-          command: yarn shipjs trigger
+          command: |
+            git config --global user.email "instantsearch-bot@algolia.com"
+            git config --global user.name "Algolia"
+            yarn shipjs trigger
   gh_pages:
     <<: *defaults
     steps:
@@ -82,8 +85,8 @@ jobs:
       - run:
           name: Release website to gh-pages
           command: |
-            git config --global user.email "karis612@gmail.com"
-            git config --global user.name "Eunjae Lee"
+            git config --global user.email "instantsearch-bot@algolia.com"
+            git config --global user.name "Algolia"
             yarn workspace website deploy:gh
 workflows:
   version: 2

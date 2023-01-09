@@ -132,7 +132,10 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Triggering Ship.js to Release
-          command: yarn shipjs trigger
+          command: |
+            git config --global user.email "<%= gitUserEmail %>"
+            git config --global user.name "<%= gitUserName %>"
+            yarn shipjs trigger
 workflows:
   version: 2
   release_if_needed:
