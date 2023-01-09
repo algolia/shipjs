@@ -126,7 +126,7 @@ For example, you normally work on `develop` and want to have the latest release 
 ```js
 module.exports = {
   afterPublish: ({ exec }) => {
-    exec(`git config --global user.email "your@email.com"`);
+    exec(`git config --global user.email "you@example.com"`);
     exec(`git config --global user.name "Your Name"`);
     
     exec('git checkout master');

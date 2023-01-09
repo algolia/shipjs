@@ -93,7 +93,10 @@ jobs:
           command: yarn install
       - run:
           name: Triggering Ship.js to Release
-          command: yarn shipjs trigger
+          command: |
+            git config --global user.email "you@example.com"
+            git config --global user.name "Your Name"
+            yarn shipjs trigger
 workflows:
   version: 2
   release_if_needed:
