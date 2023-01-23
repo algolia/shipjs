@@ -4,6 +4,7 @@
 ### Bug Fixes
 
 * **tags:** write an annotated git tag ([#989](https://github.com/algolia/shipjs/issues/989)) ([5c19401](https://github.com/algolia/shipjs/commit/5c19401ac10e3a0ee779d8136c37bc0f177cba6b))
+Note: this requires a git email and name to be set before `trigger`.
 
 
 
