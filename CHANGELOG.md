@@ -1,3 +1,12 @@
+# [0.26.0](http://algolia/shipjs/compare/v0.25.1...v0.26.0) (2023-03-15)
+
+
+### Features
+
+* **changelog:** send tagname to changelog function ([#994](https://github.com/algolia/shipjs/issues/994)) ([95f526d](https://github.com/algolia/shipjs/commits/95f526d5c9389b68a1c89ecdb0bf65574ebc7057))
+
+
+
 ## [0.25.1](https://github.com/algolia/shipjs/compare/v0.25.0...v0.25.1) (2023-01-09)
 
 
