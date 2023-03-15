@@ -24,7 +24,7 @@ export default async ({ version, config, dir, dryRun }) =>
       for await (const tagName of tagNames) {
         // extract matching changelog
         const getChangelogFn = extractChangelog || getChangelog;
-        const changelog = getChangelogFn({ version, dir });
+        const changelog = getChangelogFn({ tagName, version, dir });
         const content = changelog || '';
 
         // handle assets
