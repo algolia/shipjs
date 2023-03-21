@@ -1,3 +1,12 @@
+## [0.26.1](https://github.com/algolia/shipjs/compare/v0.26.0...v0.26.1) (2023-03-21)
+
+
+### Bug Fixes
+
+* **github-actions:** update versions of checkout and node actions ([#996](https://github.com/algolia/shipjs/issues/996)) ([c4ad293](https://github.com/algolia/shipjs/commit/c4ad29301ef86dd722e142a31cae7241405d2f51))
+
+
+
 # [0.26.0](http://algolia/shipjs/compare/v0.25.1...v0.26.0) (2023-03-15)
 
 
