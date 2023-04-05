@@ -63,7 +63,7 @@ export default async ({ version, config, dir, dryRun }) =>
         if (assetPaths.length > 0) {
           for (const assetPath of assetPaths) {
             const file = path.resolve(dir, assetPath);
-            octokit.repos.uploadReleaseAsset({
+            await octokit.repos.uploadReleaseAsset({
               file: fs.readFileSync(file),
               headers: {
                 'content-length': fs.statSync(file).size,
