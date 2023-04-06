@@ -1,3 +1,12 @@
+## [0.26.2](https://github.com/algolia/shipjs/compare/v0.26.1...v0.26.2) (2023-04-06)
+
+
+### Bug Fixes
+
+* await asset upload ([#998](https://github.com/algolia/shipjs/issues/998)) ([0f92a1b](https://github.com/algolia/shipjs/commit/0f92a1bb07f1f56403cc692c3c783d9ed5a060cc))
+
+
+
 ## [0.26.1](https://github.com/algolia/shipjs/compare/v0.26.0...v0.26.1) (2023-03-21)
 
 
