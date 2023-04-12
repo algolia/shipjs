@@ -62,15 +62,13 @@ export default async ({ version, config, dir, dryRun }) =>
         if (assetPaths.length > 0) {
           for (const assetPath of assetPaths) {
             const file = path.resolve(dir, assetPath);
-            const filename = assetPath.split('/').pop();
             await octokit.repos.uploadReleaseAsset({
               data: fs.readFileSync(file),
               owner,
               repo,
               release_id: releaseId, // eslint-disable-line camelcase
-              name: filename,
+              name: path.basename(assetPath),
             });
-            print(`asset uploaded: ${filename}`);
           }
         }
       }
