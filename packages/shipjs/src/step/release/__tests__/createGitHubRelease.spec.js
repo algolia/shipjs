@@ -1,6 +1,5 @@
 import globby from 'globby';
 import fs from 'fs';
-import mime from 'mime-types';
 import { getRepoInfo } from 'shipjs-lib';
 import { Octokit } from '@octokit/rest';
 import createGitHubRelease from '../createGitHubRelease';
@@ -9,7 +8,6 @@ jest.mock('@octokit/rest');
 jest.mock('globby');
 jest.mock('shipjs-lib');
 jest.mock('fs');
-jest.mock('mime-types');
 
 const getDefaultParams = ({
   assetsToUpload,
@@ -32,7 +30,7 @@ describe('createGitHubRelease', () => {
   beforeEach(() => {
     createRelease.mockImplementation(() => ({
       data: {
-        upload_url: 'https://dummy/upload/url', // eslint-disable-line camelcase
+        id: 'releaseId',
       },
     }));
 
@@ -46,7 +44,6 @@ describe('createGitHubRelease', () => {
     }));
     fs.readFileSync = jest.fn();
     fs.statSync = jest.fn().mockImplementation(() => ({ size: 1024 }));
-    mime.lookup.mockImplementation(() => 'application/zip');
     globby.mockImplementation((path) => Promise.resolve([path]));
   });
 
@@ -92,24 +89,20 @@ describe('createGitHubRelease', () => {
       Array [
         Array [
           Object {
-            "file": undefined,
-            "headers": Object {
-              "content-length": 1024,
-              "content-type": "application/zip",
-            },
+            "data": undefined,
             "name": "path1",
-            "url": "https://dummy/upload/url",
+            "owner": "my",
+            "release_id": "releaseId",
+            "repo": "repo",
           },
         ],
         Array [
           Object {
-            "file": undefined,
-            "headers": Object {
-              "content-length": 1024,
-              "content-type": "application/zip",
-            },
+            "data": undefined,
             "name": "path2",
-            "url": "https://dummy/upload/url",
+            "owner": "my",
+            "release_id": "releaseId",
+            "repo": "repo",
           },
         ],
       ]
@@ -139,24 +132,20 @@ describe('createGitHubRelease', () => {
       Array [
         Array [
           Object {
-            "file": undefined,
-            "headers": Object {
-              "content-length": 1024,
-              "content-type": "application/zip",
-            },
+            "data": undefined,
             "name": "path1",
-            "url": "https://dummy/upload/url",
+            "owner": "my",
+            "release_id": "releaseId",
+            "repo": "repo",
           },
         ],
         Array [
           Object {
-            "file": undefined,
-            "headers": Object {
-              "content-length": 1024,
-              "content-type": "application/zip",
-            },
+            "data": undefined,
             "name": "path2",
-            "url": "https://dummy/upload/url",
+            "owner": "my",
+            "release_id": "releaseId",
+            "repo": "repo",
           },
         ],
       ]
@@ -186,13 +175,11 @@ describe('createGitHubRelease', () => {
       Array [
         Array [
           Object {
-            "file": undefined,
-            "headers": Object {
-              "content-length": 1024,
-              "content-type": "application/zip",
-            },
+            "data": undefined,
             "name": "path1",
-            "url": "https://dummy/upload/url",
+            "owner": "my",
+            "release_id": "releaseId",
+            "repo": "repo",
           },
         ],
       ]
