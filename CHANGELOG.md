@@ -1,3 +1,12 @@
+## [0.26.3](https://github.com/algolia/shipjs/compare/v0.26.2...v0.26.3) (2023-04-12)
+
+
+### Bug Fixes
+
+* **github:** update parameters used during upload of release assets ([#1000](https://github.com/algolia/shipjs/issues/1000)) ([0e66d1a](https://github.com/algolia/shipjs/commit/0e66d1a8bc7291ec70593c3f23f66166ee83535e))
+
+
+
 ## [0.26.2](https://github.com/algolia/shipjs/compare/v0.26.1...v0.26.2) (2023-04-06)
 
 
