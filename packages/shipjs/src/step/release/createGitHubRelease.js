@@ -2,7 +2,6 @@ import path from 'path';
 import fs from 'fs';
 import globby from 'globby';
 import { Octokit } from '@octokit/rest';
-import mime from 'mime-types';
 import { getRepoInfo } from 'shipjs-lib';
 import runStep from '../runStep';
 import { getChangelog } from '../../helper';
@@ -51,7 +50,7 @@ export default async ({ version, config, dir, dryRun }) =>
         });
 
         const {
-          data: { upload_url }, // eslint-disable-line camelcase
+          data: { id: releaseId },
         } = await octokit.repos.createRelease({
           owner,
           repo,
@@ -63,15 +62,15 @@ export default async ({ version, config, dir, dryRun }) =>
         if (assetPaths.length > 0) {
           for (const assetPath of assetPaths) {
             const file = path.resolve(dir, assetPath);
+            const filename = assetPath.split('/').pop();
             await octokit.repos.uploadReleaseAsset({
-              file: fs.readFileSync(file),
-              headers: {
-                'content-length': fs.statSync(file).size,
-                'content-type': mime.lookup(file),
-              },
-              name: path.basename(file),
-              url: upload_url, // eslint-disable-line camelcase
+              data: fs.readFileSync(file),
+              owner,
+              repo,
+              release_id: releaseId, // eslint-disable-line camelcase
+              name: filename,
             });
+            print(`asset uploaded: ${filename}`);
           }
         }
       }
