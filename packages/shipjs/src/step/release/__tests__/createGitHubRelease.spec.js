@@ -8,7 +8,6 @@ jest.mock('@octokit/rest');
 jest.mock('globby');
 jest.mock('shipjs-lib');
 jest.mock('fs');
-jest.mock('mime-types');
 
 const getDefaultParams = ({
   assetsToUpload,
