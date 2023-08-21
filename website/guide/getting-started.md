@@ -129,7 +129,7 @@ Setup an NPM token to allow Ship.js(**at CircleCI**) to release the package to N
 
 NPM has [released](https://github.blog/changelog/2020-10-02-npm-automation-tokens/) a new feature "Automation token" to solve this.
 
-![NPM automatin token](./automation-token.png) :::
+![NPM automation token](./automation-token.png) :::
 
 ### GitHub Token
 
