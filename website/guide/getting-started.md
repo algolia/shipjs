@@ -37,9 +37,7 @@ Add the following to the `scripts` section in your `package.json`.
 
 ### GitHub Token
 
-:::warning
-If you use Ship.js at work, I recommend you to get a token from a shared account, not from your personal account because after you quit, your token will still be used.
-:::
+:::warning If you use Ship.js at work, I recommend you to get a token from a shared account, not from your personal account because after you quit, your token will still be used. :::
 
 GitHub token is used in both `shipjs prepare` and `shipjs trigger`.
 
@@ -127,13 +125,11 @@ Setup an NPM token to allow Ship.js(**at CircleCI**) to release the package to N
    - Name: `NPM_AUTH_TOKEN`
    - Value: Paste the token from clipboard.
 
-:::warning WARNING for 2FA
-If you have enabled 2FA for both authorization and publishing, when `shipjs trigger` runs, it will be prompted for one-time password. You probably have configured CI service (CircleCI, GitHub Actions, etc) to run that command for you. It means `shipjs trigger` will be stuck.
+:::warning WARNING for 2FA If you have enabled 2FA for both authorization and publishing, when `shipjs trigger` runs, it will be prompted for one-time password. You probably have configured CI service (CircleCI, GitHub Actions, etc) to run that command for you. It means `shipjs trigger` will be stuck.
 
 NPM has [released](https://github.blog/changelog/2020-10-02-npm-automation-tokens/) a new feature "Automation token" to solve this.
 
-![NPM automatin token](./automation-token.png)
-:::
+![NPM automation token](./automation-token.png) :::
 
 ### GitHub Token
 
@@ -157,3 +153,15 @@ If you are using GitHub Actions, you need to setup the NPM token to release pack
 4. Click "Add a new secret".
    - Name: `NPM_AUTH_TOKEN`
    - Value: Paste the token from clipboard.
+
+## Setup with 'Nothing'
+
+If you never use any CI environment, you need to use NPM token to release package to NPM:
+
+1. Login at [https://www.npmjs.com/](https://www.npmjs.com/), click your profile icon and go to "Auth Tokens".
+2. Click "Create New Token", make sure the access level is "Read and Publish" and copy the token.
+
+You can put it in the following two ways:
+
+- Prepend it in your command like: `NPM_AUTH_TOKEN=xxx shipjs trigger`
+- Create a file named ".env" and put the following content: `NPM_AUTH_TOKEN=xxx` (".env" should not be committed. Add it to ".gitignore".)
