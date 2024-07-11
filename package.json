@@ -17,7 +17,7 @@
   "engines": {
     "node": ">=8.16.0"
   },
-  "author": "Algolia <support@algolia.com>",
+  "author": "Algolia <https://alg.li/support>",
   "license": "MIT",
   "private": true,
   "workspaces": {
