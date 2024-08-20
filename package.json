@@ -1,5 +1,5 @@
 {
-  "version": "0.26.3",
+  "version": "0.26.4",
   "scripts": {
     "postinstall": "patch-package",
     "prepare": "yarn build",

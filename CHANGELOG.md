@@ -1,3 +1,12 @@
+## [0.26.4](https://github.com/algolia/shipjs/compare/v0.26.3...v0.26.4) (2024-08-20)
+
+
+### Bug Fixes
+
+* change author url ([#1004](https://github.com/algolia/shipjs/issues/1004)) ([33c295d](https://github.com/algolia/shipjs/commit/33c295d79dd0ac7703dc658ab39b0b7c4517ca23))
+
+
+
 ## [0.26.3](https://github.com/algolia/shipjs/compare/v0.26.2...v0.26.3) (2023-04-12)
 
 
