@@ -1,6 +1,6 @@
 {
   "name": "shipjs-lib",
-  "version": "0.26.3",
+  "version": "0.26.4",
   "description": "Take control of what is going to be your next release.",
   "main": "dist/index.esm.js",
   "scripts": {
