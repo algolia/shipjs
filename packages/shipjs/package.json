@@ -4,7 +4,7 @@
   "description": "Take control of what is going to be your next release.",
   "main": "index.js",
   "engines": {
-    "node": ">=8"
+    "node": ">=18"
   },
   "bin": {
     "shipjs": "./bin/shipjs"
@@ -18,9 +18,14 @@
     "test": "jest",
     "test:watch": "yarn test --watch",
     "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "yarn run lint --fix"
   },
-  "files": ["bin/shipjs", "src", "!src/**/__tests__", "index.js"],
+  "files": [
+    "bin/shipjs",
+    "src",
+    "!src/**/__tests__",
+    "index.js"
+  ],
   "author": "Algolia <support@algolia.com>",
   "homepage": "https://github.com/algolia/shipjs",
   "bugs": {
@@ -45,7 +50,6 @@
     "deepmerge": "^4.2.2",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.0",
-    "esm": "3.2.25",
     "globby": "^10.0.1",
     "inquirer": "7.1.0",
     "mkdirp": "^1.0.0",
