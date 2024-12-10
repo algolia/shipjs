@@ -1,7 +1,5 @@
 module.exports = {
   base: "/shipjs/",
-  base: "/shipjs/",
-  base: "/shipjs/",
   title: 'Ship.js',
   description: 'Take control of what is going to be your next release.',
   themeConfig: {
