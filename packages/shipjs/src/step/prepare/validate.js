@@ -3,9 +3,9 @@ import {
   getCurrentVersion,
   getCurrentBranch,
 } from 'shipjs-lib';
-import runStep from '../runStep';
-import { print, exitProcess } from '../../util';
-import { info, error } from '../../color';
+import runStep from '../runStep.js';
+import { print, exitProcess } from '../../util/index.js';
+import { info, error } from '../../color.js';
 
 export default ({ config, dir }) =>
   runStep(

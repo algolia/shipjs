@@ -3,7 +3,7 @@ import {
   getRepoURLWithTokenMasked,
   hasRemote,
 } from 'shipjs-lib';
-import { print, run } from '../util';
+import { print, run } from '../util/index.js';
 
 export default function gitPush({
   remote,

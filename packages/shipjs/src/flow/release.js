@@ -1,21 +1,21 @@
 import { loadConfig } from 'shipjs-lib';
 
-import printHelp from '../step/release/printHelp';
-import printDryRunBanner from '../step/printDryRunBanner';
-import validate from '../step/release/validate';
-import gatherRepoInfo from '../step/release/gatherRepoInfo';
-import runTest from '../step/release/runTest';
-import runBuild from '../step/release/runBuild';
-import runBeforePublish from '../step/release/runBeforePublish';
-import runPublish from '../step/release/runPublish';
-import runAfterPublish from '../step/release/runAfterPublish';
-import createGitTag from '../step/release/createGitTag';
-import gitPush from '../step/release/gitPush';
-import createGitHubRelease from '../step/release/createGitHubRelease';
-import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess';
-import checkGitHubToken from '../step/checkGitHubToken';
-import finished from '../step/release/finished';
-import { detectYarn } from '../util';
+import printHelp from '../step/release/printHelp.js';
+import printDryRunBanner from '../step/printDryRunBanner.js';
+import validate from '../step/release/validate.js';
+import gatherRepoInfo from '../step/release/gatherRepoInfo.js';
+import runTest from '../step/release/runTest.js';
+import runBuild from '../step/release/runBuild.js';
+import runBeforePublish from '../step/release/runBeforePublish.js';
+import runPublish from '../step/release/runPublish.js';
+import runAfterPublish from '../step/release/runAfterPublish.js';
+import createGitTag from '../step/release/createGitTag.js';
+import gitPush from '../step/release/gitPush.js';
+import createGitHubRelease from '../step/release/createGitHubRelease.js';
+import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess.js';
+import checkGitHubToken from '../step/checkGitHubToken.js';
+import finished from '../step/release/finished.js';
+import { detectYarn } from '../util/index.js';
 
 async function release({ help = false, dir = '.', dryRun = false }) {
   if (help) {

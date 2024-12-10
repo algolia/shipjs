@@ -1,5 +1,5 @@
-import { print } from '../util';
-import { bold, slateblue } from '../color';
+import { print } from '../util/index.js';
+import { bold, slateblue } from '../color.js';
 
 export default function runStep({ title, skipIf }, stepFn) {
   if (skipIf && typeof skipIf === 'function' && skipIf() === true) {

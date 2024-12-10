@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import { extractSpecificChangelog } from './';
+import { extractSpecificChangelog } from './index.js';
 
 export default function getChangelog({ version, dir }) {
   const changelogPath = path.resolve(dir, 'CHANGELOG.md');

@@ -5,8 +5,8 @@ import conventionalChangelogPresetLoader from 'conventional-changelog-preset-loa
 import tempfile from 'tempfile';
 import addStream from 'add-stream';
 import merge from 'deepmerge';
-import runStep from '../runStep';
-import { parseArgs } from '../../util';
+import runStep from '../runStep.js';
+import { parseArgs } from '../../util/index.js';
 
 export default ({
   config,

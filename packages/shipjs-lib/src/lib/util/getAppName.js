@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import { resolve } from 'path';
-import loadConfig from '../config/loadConfig';
+import loadConfig from '../config/loadConfig.js';
 
 export default async function getAppName(dir = '.') {
   const { appName } = await loadConfig(dir);

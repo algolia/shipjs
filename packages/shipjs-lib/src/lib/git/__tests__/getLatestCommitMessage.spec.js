@@ -1,5 +1,5 @@
-import getLatestCommitMessage from '../getLatestCommitMessage';
-import silentExec from '../../shell/silentExec';
+import getLatestCommitMessage from '../getLatestCommitMessage.js';
+import silentExec from '../../shell/silentExec.js';
 
 describe('getLatestCommitMessage', () => {
   it('gets latest commit message', () => {

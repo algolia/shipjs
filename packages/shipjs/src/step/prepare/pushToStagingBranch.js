@@ -1,5 +1,5 @@
-import runStep from '../runStep';
-import { gitPush } from '../../helper';
+import runStep from '../runStep.js';
+import { gitPush } from '../../helper/index.js';
 
 export default ({ remote, stagingBranch, dir, dryRun }) =>
   runStep({ title: 'Pushing to remote staging branch.' }, () => {

@@ -1,30 +1,30 @@
 import { getAppName, loadConfig, getReleaseType } from 'shipjs-lib';
 
-import printHelp from '../step/prepare/printHelp';
-import printDryRunBanner from '../step/printDryRunBanner';
-import validate from '../step/prepare/validate';
-import getRevisionRange from '../step/prepare/getRevisionRange';
-import pull from '../step/pull';
-import fetchTags from '../step/prepare/fetchTags';
-import push from '../step/prepare/push';
-import getNextVersion from '../step/prepare/getNextVersion';
-import confirmNextVersion from '../step/prepare/confirmNextVersion';
-import prepareStagingBranch from '../step/prepare/prepareStagingBranch';
-import checkoutToStagingBranch from '../step/prepare/checkoutToStagingBranch';
-import updateVersion from '../step/prepare/updateVersion';
-import updateVersionMonorepo from '../step/prepare/updateVersionMonorepo';
-import installDependencies from '../step/prepare/installDependencies';
-import updateChangelog from '../step/prepare/updateChangelog';
-import commitChanges from '../step/prepare/commitChanges';
-import createPullRequest from '../step/prepare/createPullRequest';
-import notifyPrepared from '../step/prepare/notifyPrepared';
-import pushToStagingBranch from '../step/prepare/pushToStagingBranch';
-import validatePreparationConditions from '../step/prepare/validatePreparationConditions';
-import checkGitHubToken from '../step/checkGitHubToken';
-import finished from '../step/prepare/finished';
+import printHelp from '../step/prepare/printHelp.js';
+import printDryRunBanner from '../step/printDryRunBanner.js';
+import validate from '../step/prepare/validate.js';
+import getRevisionRange from '../step/prepare/getRevisionRange.js';
+import pull from '../step/pull.js';
+import fetchTags from '../step/prepare/fetchTags.js';
+import push from '../step/prepare/push.js';
+import getNextVersion from '../step/prepare/getNextVersion.js';
+import confirmNextVersion from '../step/prepare/confirmNextVersion.js';
+import prepareStagingBranch from '../step/prepare/prepareStagingBranch.js';
+import checkoutToStagingBranch from '../step/prepare/checkoutToStagingBranch.js';
+import updateVersion from '../step/prepare/updateVersion.js';
+import updateVersionMonorepo from '../step/prepare/updateVersionMonorepo.js';
+import installDependencies from '../step/prepare/installDependencies.js';
+import updateChangelog from '../step/prepare/updateChangelog.js';
+import commitChanges from '../step/prepare/commitChanges.js';
+import createPullRequest from '../step/prepare/createPullRequest.js';
+import notifyPrepared from '../step/prepare/notifyPrepared.js';
+import pushToStagingBranch from '../step/prepare/pushToStagingBranch.js';
+import validatePreparationConditions from '../step/prepare/validatePreparationConditions.js';
+import checkGitHubToken from '../step/checkGitHubToken.js';
+import finished from '../step/prepare/finished.js';
 
-import { arrayify, print, wrapExecWithDir } from '../util';
-import { warning } from '../color';
+import { arrayify, print, wrapExecWithDir } from '../util/index.js';
+import { warning } from '../color.js';
 
 async function prepare({
   help = false,

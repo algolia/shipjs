@@ -1,4 +1,4 @@
-import silentExec from '../shell/silentExec';
+import silentExec from '../shell/silentExec.js';
 
 export default function hasLocalBranch(branchName, dir = '.') {
   return (

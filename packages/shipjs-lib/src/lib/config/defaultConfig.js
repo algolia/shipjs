@@ -1,4 +1,4 @@
-import shipJsVersion from '../../version';
+import shipJsVersion from '../../version.js';
 
 export default {
   remote: 'origin',

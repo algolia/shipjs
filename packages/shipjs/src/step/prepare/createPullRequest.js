@@ -1,9 +1,9 @@
 import { expandPackageList, getRepoInfo, getReleaseTag } from 'shipjs-lib';
 import open from 'open';
 import { Octokit } from '@octokit/rest';
-import runStep from '../runStep';
-import { getPublishCommand, getPackageDirName } from '../../helper';
-import { print, run, detectYarn } from '../../util';
+import runStep from '../runStep.js';
+import { getPublishCommand, getPackageDirName } from '../../helper/index.js';
+import { print, run, detectYarn } from '../../util/index.js';
 
 export default async ({
   baseBranch,

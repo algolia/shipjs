@@ -1,6 +1,6 @@
-import runStep from './runStep';
-import { print } from '../util';
-import { bold, warning } from '../color';
+import runStep from './runStep.js';
+import { print } from '../util/index.js';
+import { bold, warning } from '../color.js';
 
 export default () =>
   runStep({}, () => {

@@ -1,7 +1,7 @@
 import { updateVersion as updateVersionPackageJson } from 'shipjs-lib';
-import updateVersion from '../updateVersion';
-import { print } from '../../../util';
-import { mockPrint } from '../../../../tests/util';
+import updateVersion from '../updateVersion.js';
+import { print } from '../../../util/index.js';
+import { mockPrint } from '../../../../tests/util/index.js';
 
 describe('updateVersion', () => {
   it('works', () => {

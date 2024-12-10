@@ -1,4 +1,4 @@
-import { grey, reset } from '../../color';
+import { grey, reset } from '../../color.js';
 
 const formatMessage = (message, description = '') =>
   [

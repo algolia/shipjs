@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import confirmNextVersion from '../confirmNextVersion';
+import confirmNextVersion from '../confirmNextVersion.js';
 jest.mock('inquirer');
 
 describe('confirmNextVersion', () => {

@@ -1,6 +1,6 @@
-import { print } from '../../../util';
-import printHelp from '../printHelp';
-import { mockPrint } from '../../../../tests/util';
+import { print } from '../../../util/index.js';
+import printHelp from '../printHelp.js';
+import { mockPrint } from '../../../../tests/util/index.js';
 
 describe('printHelp', () => {
   it('prints help', () => {

@@ -1,4 +1,4 @@
-import getReleaseTag from '../getReleaseTag';
+import getReleaseTag from '../getReleaseTag.js';
 
 describe('getReleaseTag', () => {
   it('gets latest from a normal version', () => {

@@ -1,4 +1,4 @@
-import exec from './exec';
+import exec from './exec.js';
 
 export default function silentExec(command, opts = {}) {
   return exec(command, {

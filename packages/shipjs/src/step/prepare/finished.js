@@ -1,6 +1,6 @@
 import chalk from 'chalk';
-import runStep from '../runStep';
-import { print } from '../../util';
+import runStep from '../runStep.js';
+import { print } from '../../util/index.js';
 
 export default ({ baseBranch, stagingBranch, pullRequestUrl, dryRun }) =>
   runStep({ title: 'All Finished.' }, () => {

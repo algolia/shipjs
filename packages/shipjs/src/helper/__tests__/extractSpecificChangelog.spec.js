@@ -1,4 +1,4 @@
-import extractSpecificChangelog from '../extractSpecificChangelog';
+import extractSpecificChangelog from '../extractSpecificChangelog.js';
 import fs from 'fs';
 import path from 'path';
 

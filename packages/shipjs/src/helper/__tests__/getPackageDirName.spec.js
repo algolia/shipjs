@@ -1,5 +1,5 @@
 import path from 'path';
-import getPackageDirName from '../getPackageDirName';
+import getPackageDirName from '../getPackageDirName.js';
 
 describe('getPackageDirName', () => {
   it('subtracts dirName', () => {

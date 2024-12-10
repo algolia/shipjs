@@ -1,13 +1,13 @@
 import { expandPackageList, updateVersion } from 'shipjs-lib';
-import runStep from '../runStep';
-import { wrapExecWithDir, print } from '../../util';
-import { info } from '../../color';
+import runStep from '../runStep.js';
+import { wrapExecWithDir, print } from '../../util/index.js';
+import { info } from '../../color.js';
 import {
   printListToUpdate,
   getListToUpdate,
   prepareJsons,
   runUpdates,
-} from '../../helper/dependencyUpdater';
+} from '../../helper/dependencyUpdater.js';
 
 export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
   await runStep(

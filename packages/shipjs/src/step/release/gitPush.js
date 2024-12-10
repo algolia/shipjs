@@ -1,6 +1,6 @@
 import { getCurrentBranch } from 'shipjs-lib';
-import runStep from '../runStep';
-import { gitPush } from '../../helper';
+import runStep from '../runStep.js';
+import { gitPush } from '../../helper/index.js';
 
 export default ({ tagNames, config, dir, dryRun }) =>
   runStep({ title: 'Pushing to the remote.' }, () => {

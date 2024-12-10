@@ -3,9 +3,9 @@ import {
   getCommitTitles,
   getCommitNumbersPerType,
 } from 'shipjs-lib';
-import runStep from '../runStep';
-import { print, exitProcess } from '../../util';
-import { info } from '../../color';
+import runStep from '../runStep.js';
+import { print, exitProcess } from '../../util/index.js';
+import { info } from '../../color.js';
 
 export default async ({
   config,

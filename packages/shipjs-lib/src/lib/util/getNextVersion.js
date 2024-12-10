@@ -2,11 +2,11 @@ import {
   GIT_COMMIT_PREFIX_PATCH,
   GIT_COMMIT_PREFIX_MINOR,
   GIT_COMMIT_BREAKING_CHANGE,
-} from '../const';
+} from '../const.js';
 import { inc, prerelease } from 'semver';
-import getCommitTitles from '../git/getCommitTitles';
-import getCommitBodies from '../git/getCommitBodies';
-import getCommitNumbersPerType from './getCommitNumbersPerType';
+import getCommitTitles from '../git/getCommitTitles.js';
+import getCommitBodies from '../git/getCommitBodies.js';
+import getCommitNumbersPerType from './getCommitNumbersPerType.js';
 
 export function getNextVersionFromCommitMessages(version, titles, bodies) {
   if (prerelease(version)) {

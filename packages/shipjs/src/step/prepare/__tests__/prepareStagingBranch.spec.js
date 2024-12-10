@@ -1,7 +1,7 @@
 import { hasLocalBranch, hasRemoteBranch } from 'shipjs-lib';
-import { print, exitProcess } from '../../../util';
-import prepareStagingBranch from '../prepareStagingBranch';
-import { mockPrint } from '../../../../tests/util';
+import { print, exitProcess } from '../../../util/index.js';
+import prepareStagingBranch from '../prepareStagingBranch.js';
+import { mockPrint } from '../../../../tests/util/index.js';
 
 describe('prepareStagingBranch', () => {
   it('returns staging branch', () => {

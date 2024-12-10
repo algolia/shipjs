@@ -1,7 +1,7 @@
 import { getCurrentVersion } from 'shipjs-lib';
-import { print, exitProcess } from '../../../util';
-import { mockPrint } from '../../../../tests/util';
-import validate from '../validate';
+import { print, exitProcess } from '../../../util/index.js';
+import { mockPrint } from '../../../../tests/util/index.js';
+import validate from '../validate.js';
 
 describe('validate', () => {
   it('returns current version', () => {

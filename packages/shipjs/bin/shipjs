@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-require = require('esm')(module);
-(async function() {
+(async function () {
   try {
     process.env.SHIPJS = true;
-    await require('../src/cli').cli(process.argv);
+    const { cli } = await import('../src/cli.js');
+    cli(process.argv);
   } catch (e) {
     console.error(e);
     process.exit(1);

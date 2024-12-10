@@ -1,7 +1,7 @@
 import { getRepoURLWithToken, getRepoURLWithTokenMasked } from 'shipjs-lib';
-import { print, run } from '../../util';
-import { mockPrint } from '../../../tests/util';
-import gitPush from '../gitPush';
+import { print, run } from '../../util/index.js';
+import { mockPrint } from '../../../tests/util/index.js';
+import gitPush from '../gitPush.js';
 
 describe('gitPush', () => {
   const OLD_ENV = process.env;

@@ -1,4 +1,4 @@
-import getRepoInfo from './getRepoInfo';
+import getRepoInfo from './getRepoInfo.js';
 
 export default function getCommitUrl(remote, hash, dir = '.') {
   const { url: repoURL } = getRepoInfo(remote, dir);

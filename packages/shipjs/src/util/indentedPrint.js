@@ -1,4 +1,4 @@
-import print from './print';
+import print from './print.js';
 
 const makeSpaces = (num) => ' '.repeat(num);
 const indentPrint = (indent) => (...args) => print(makeSpaces(indent), ...args);

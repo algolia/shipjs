@@ -1,4 +1,4 @@
-import silentExec from '../shell/silentExec';
+import silentExec from '../shell/silentExec.js';
 
 /*
 $ git branch -r

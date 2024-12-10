@@ -1,6 +1,6 @@
-import runStep from '../runStep';
-import { detectYarn, run, print } from '../../util';
-import { info } from '../../color';
+import runStep from '../runStep.js';
+import { detectYarn, run, print } from '../../util/index.js';
+import { info } from '../../color.js';
 import fs from 'fs';
 import path from 'path';
 

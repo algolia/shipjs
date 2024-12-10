@@ -1,6 +1,6 @@
-module.exports = {
+export default {
   transform: {
-    '^.+\\.[t|j]sx?$': 'babel-jest',
+    '^.+.js$': 'babel-jest',
   },
   testEnvironment: 'node',
   watchPlugins: [

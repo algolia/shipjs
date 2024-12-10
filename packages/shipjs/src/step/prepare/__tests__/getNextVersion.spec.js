@@ -1,7 +1,7 @@
 import { getNextVersion } from 'shipjs-lib';
-import { print, exitProcess } from '../../../util';
-import getNextVersionStep from '../getNextVersion';
-import { mockPrint } from '../../../../tests/util';
+import { print, exitProcess } from '../../../util/index.js';
+import getNextVersionStep from '../getNextVersion.js';
+import { mockPrint } from '../../../../tests/util/index.js';
 
 describe('getNextVersion', () => {
   it('returns next version', () => {

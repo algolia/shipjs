@@ -1,6 +1,6 @@
-import runStep from './runStep';
-import { print, exitProcess } from '../util';
-import { error } from '../color';
+import runStep from './runStep.js';
+import { print, exitProcess } from '../util/index.js';
+import { error } from '../color.js';
 
 export default ({ dryRun }) =>
   runStep({ title: 'Checking GITHUB_TOKEN' }, () => {

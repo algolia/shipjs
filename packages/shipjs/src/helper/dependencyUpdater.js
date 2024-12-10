@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import { readFileSync, writeFileSync } from 'fs';
-import { print } from '../util';
-import { runPrettier } from '../helper';
+import { print } from '../util/index.js';
+import { runPrettier } from './index.js';
 
 const typesOfDependencies = [
   'dependencies',

@@ -1,7 +1,7 @@
-import silentExec from '../../shell/silentExec';
+import silentExec from '../../shell/silentExec.js';
 import getNextVersion, {
   getNextVersionFromCommitMessages,
-} from '../getNextVersion';
+} from '../getNextVersion.js';
 
 describe('getNextVersionFromCommitMessages', () => {
   it('getNextVersionFromCommitMessages with patch updated', () => {

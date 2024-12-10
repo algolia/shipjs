@@ -1,6 +1,6 @@
-import silentExec from '../../shell/silentExec';
-import getRemoteBranches from '../getRemoteBranches';
-jest.mock('../../shell/silentExec');
+import silentExec from '../../shell/silentExec.js';
+import getRemoteBranches from '../getRemoteBranches.js';
+jest.mock('../../shell/silentExec.js');
 
 describe('getRemoteBranches', () => {
   it('works', () => {

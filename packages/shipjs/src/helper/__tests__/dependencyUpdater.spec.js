@@ -1,6 +1,6 @@
-import { getListToUpdate, printListToUpdate } from '../dependencyUpdater';
-import { print } from '../../util';
-import { mockPrint } from '../../../tests/util';
+import { getListToUpdate, printListToUpdate } from '../dependencyUpdater.js';
+import { print } from '../../util/index.js';
+import { mockPrint } from '../../../tests/util/index.js';
 
 describe('getListToUpdate', () => {
   const list = [

@@ -1,5 +1,5 @@
-import checkoutToStagingBranch from '../checkoutToStagingBranch';
-import { run } from '../../../util';
+import checkoutToStagingBranch from '../checkoutToStagingBranch.js';
+import { run } from '../../../util/index.js';
 
 describe('checkoutToStagingBranch', () => {
   it('works', () => {

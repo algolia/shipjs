@@ -6,8 +6,8 @@ import {
   bold,
   underline,
   reset,
-} from './src/color';
-import { mockColor } from './tests/util';
+} from './src/color.js';
+import { mockColor } from './tests/util/index.js';
 jest.mock('shipjs-lib');
 jest.mock('./src/color');
 jest.mock('./src/helper');

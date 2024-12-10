@@ -1,4 +1,4 @@
-import hasRemoteBranch from '../hasRemoteBranch';
+import hasRemoteBranch from '../hasRemoteBranch.js';
 
 describe('hasRemoteBranch', () => {
   it('checks when it exists', () => {

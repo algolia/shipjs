@@ -1,7 +1,7 @@
 import { getRepoInfo } from 'shipjs-lib';
 import { Octokit } from '@octokit/rest';
-import createPullRequest from '../createPullRequest';
-import { run } from '../../../util';
+import createPullRequest from '../createPullRequest.js';
+import { run } from '../../../util/index.js';
 jest.mock('@octokit/rest');
 
 const getDefaultParams = ({
@@ -69,15 +69,8 @@ describe('createPullRequest', () => {
       .mockImplementation(({ version, type }) => `# v${version} (${type})`);
     const mockFormatPullRequestMessage = jest
       .fn()
-      .mockImplementation(
-        ({ formatPullRequestTitle, nextVersion, releaseType }) => {
-          return [
-            formatPullRequestTitle({
-              version: nextVersion,
-              releaseType,
-            }),
-          ].join('\n');
-        }
+      .mockImplementation(({ title, nextVersion, releaseType }) =>
+        [title, nextVersion, releaseType].join('\n')
       );
     createPullRequest(
       getDefaultParams({

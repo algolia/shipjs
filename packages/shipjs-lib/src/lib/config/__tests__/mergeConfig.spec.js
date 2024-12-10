@@ -1,4 +1,4 @@
-import mergeConfig from '../mergeConfig';
+import mergeConfig from '../mergeConfig.js';
 
 describe('mergeConfig', () => {
   it('deepmerge', () => {

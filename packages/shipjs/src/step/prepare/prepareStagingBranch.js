@@ -1,7 +1,7 @@
 import { hasLocalBranch, hasRemoteBranch } from 'shipjs-lib';
-import runStep from '../runStep';
-import { print, exitProcess } from '../../util';
-import { error } from '../../color';
+import runStep from '../runStep.js';
+import { print, exitProcess } from '../../util/index.js';
+import { error } from '../../color.js';
 
 export default ({ config, nextVersion, releaseType, dir }) =>
   runStep({ title: 'Preparing a staging branch' }, () => {

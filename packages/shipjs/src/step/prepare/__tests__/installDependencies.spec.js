@@ -1,5 +1,5 @@
-import { run } from '../../../util';
-import installDependencies from '../installDependencies';
+import { run } from '../../../util/index.js';
+import installDependencies from '../installDependencies.js';
 
 describe('installDependencies', () => {
   it('runs install command', () => {

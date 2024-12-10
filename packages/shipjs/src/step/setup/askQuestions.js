@@ -2,9 +2,9 @@ import inquirer from 'inquirer';
 import { getRemoteBranches, getCurrentBranch } from 'shipjs-lib';
 import fs from 'fs';
 import path from 'path';
-import formatMessage from './formatMessage';
-import integrations from './CI';
-import runStep from '../runStep';
+import formatMessage from './formatMessage.js';
+import integrations from './CI/index.js';
+import runStep from '../runStep.js';
 
 export default async ({ dir }) =>
   await runStep({}, async () => {

@@ -1,9 +1,9 @@
-import runStep from '../runStep';
+import runStep from '../runStep.js';
 import fs from 'fs';
 import path from 'path';
-import { runPrettier } from '../../helper';
-import { info } from '../../color';
-import { print } from '../../util';
+import { runPrettier } from '../../helper/index.js';
+import { info } from '../../color.js';
+import { print } from '../../util/index.js';
 
 export default async ({ dir, dryRun }) =>
   await runStep({ title: 'Adding scripts to package.json' }, async () => {

@@ -1,7 +1,7 @@
 import { getNextVersion, getCommitTitles, getCommitBodies } from 'shipjs-lib';
-import runStep from '../runStep';
-import { print, exitProcess } from '../../util';
-import { info, warning } from '../../color';
+import runStep from '../runStep.js';
+import { print, exitProcess } from '../../util/index.js';
+import { info, warning } from '../../color.js';
 
 export default ({ config, revisionRange, currentVersion, dir }) =>
   runStep({ title: 'Calculating the next version.' }, () => {

@@ -1,6 +1,6 @@
-import { print } from '../../../util';
-import runAfterPublish from '../runAfterPublish';
-import { mockPrint } from '../../../../tests/util';
+import { print } from '../../../util/index.js';
+import runAfterPublish from '../runAfterPublish.js';
+import { mockPrint } from '../../../../tests/util/index.js';
 
 describe('runAfterPublish', () => {
   it('works', async () => {

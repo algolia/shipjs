@@ -1,5 +1,5 @@
-import hasLocalBranch from '../hasLocalBranch';
-import silentExec from '../../shell/silentExec';
+import hasLocalBranch from '../hasLocalBranch.js';
+import silentExec from '../../shell/silentExec.js';
 
 describe('hasLocalBranch', () => {
   beforeAll(() => {

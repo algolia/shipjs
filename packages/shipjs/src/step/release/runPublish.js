@@ -1,8 +1,8 @@
 import { expandPackageList } from 'shipjs-lib';
-import runStep from '../runStep';
-import { run, print } from '../../util';
-import { getPublishCommand } from '../../helper';
-import { info } from '../../color';
+import runStep from '../runStep.js';
+import { run, print } from '../../util/index.js';
+import { getPublishCommand } from '../../helper/index.js';
+import { info } from '../../color.js';
 
 export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
   runStep({ title: 'Publishing.' }, () => {

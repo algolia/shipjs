@@ -1,4 +1,4 @@
-import defaultConfig from '../defaultConfig';
+import defaultConfig from '../defaultConfig.js';
 jest.mock('../../../version', () => '0.5.2');
 const {
   formatCommitMessage,

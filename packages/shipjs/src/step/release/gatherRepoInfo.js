@@ -5,7 +5,7 @@ import {
   getRepoInfo,
   getReleaseTag,
 } from 'shipjs-lib';
-import runStep from '../runStep';
+import runStep from '../runStep.js';
 
 export default async ({ remote, version, dir }) =>
   await runStep({ title: 'Gathering repository information.' }, async () => {

@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
-import runStep from '../runStep';
-import { print } from '../../util';
-import { info } from '../../color';
+import runStep from '../runStep.js';
+import { print } from '../../util/index.js';
+import { info } from '../../color.js';
 
 export default async ({ yes, currentVersion, nextVersion, dryRun }) =>
   await runStep({ title: 'Confirming the next version.' }, async () => {

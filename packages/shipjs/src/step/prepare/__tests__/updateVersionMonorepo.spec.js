@@ -1,6 +1,6 @@
 import { expandPackageList, updateVersion } from 'shipjs-lib';
-import { print } from '../../../util';
-import { prepareJsons } from '../../../helper/dependencyUpdater';
+import { print } from '../../../util/index.js';
+import { prepareJsons } from '../../../helper/dependencyUpdater.js';
 
 jest.mock('../../../helper/dependencyUpdater', () => {
   return {
@@ -9,8 +9,8 @@ jest.mock('../../../helper/dependencyUpdater', () => {
   };
 });
 
-import updateVersionMonorepo from '../updateVersionMonorepo';
-import { mockPrint } from '../../../../tests/util';
+import updateVersionMonorepo from '../updateVersionMonorepo.js';
+import { mockPrint } from '../../../../tests/util/index.js';
 
 jest.mock('../updateVersionMonorepo', () => {
   const newModule = jest.requireActual('../updateVersionMonorepo');

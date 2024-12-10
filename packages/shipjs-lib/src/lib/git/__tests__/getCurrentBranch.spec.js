@@ -1,5 +1,5 @@
-import silentExec from '../../shell/silentExec';
-import getCurrentBranch from '../getCurrentBranch';
+import silentExec from '../../shell/silentExec.js';
+import getCurrentBranch from '../getCurrentBranch.js';
 
 describe('getCurrentBranch', () => {
   it('gets current branch', () => {

@@ -1,4 +1,4 @@
-import { GIT_COMMIT_PREFIX_PATCH, GIT_COMMIT_PREFIX_MINOR } from '../const';
+import { GIT_COMMIT_PREFIX_PATCH, GIT_COMMIT_PREFIX_MINOR } from '../const.js';
 
 export default function getCommitNumbersPerType(commitTitles) {
   const ignoredMessages = [];

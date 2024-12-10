@@ -1,6 +1,6 @@
-import runStep from '../runStep';
-import { wrapExecWithDir, print } from '../../util';
-import { info } from '../../color';
+import runStep from '../runStep.js';
+import { wrapExecWithDir, print } from '../../util/index.js';
+import { info } from '../../color.js';
 
 export default ({ config, dir, dryRun }) =>
   runStep(

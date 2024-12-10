@@ -1,11 +1,11 @@
 import path from 'path';
 import dotenv from 'dotenv';
-import setup from './flow/setup';
-import prepare from './flow/prepare';
-import release from './flow/release';
-import { bold } from './color';
-import { print, parseArgs } from './util';
-import version from './version';
+import setup from './flow/setup.js';
+import prepare from './flow/prepare.js';
+import release from './flow/release.js';
+import { bold } from './color.js';
+import { print, parseArgs } from './util/index.js';
+import version from './version.js';
 
 const flowMap = {
   setup,

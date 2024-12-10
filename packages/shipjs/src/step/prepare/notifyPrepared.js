@@ -1,5 +1,5 @@
-import { notifyPrepared } from '../../util';
-import runStep from '../runStep';
+import { notifyPrepared } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default async ({ config, appName, version, pullRequestUrl }) =>
   await runStep(

@@ -3,9 +3,9 @@ import fs from 'fs';
 import globby from 'globby';
 import { Octokit } from '@octokit/rest';
 import { getRepoInfo } from 'shipjs-lib';
-import runStep from '../runStep';
-import { getChangelog } from '../../helper';
-import { arrayify, print } from '../../util';
+import runStep from '../runStep.js';
+import { getChangelog } from '../../helper/index.js';
+import { arrayify, print } from '../../util/index.js';
 
 export default async ({ version, config, dir, dryRun }) =>
   await runStep(

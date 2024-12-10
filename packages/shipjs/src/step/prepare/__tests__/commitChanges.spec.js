@@ -1,6 +1,6 @@
-import commitChanges from '../commitChanges';
-import { wrapExecWithDir, run, print } from '../../../util';
-import { mockPrint } from '../../../../tests/util';
+import commitChanges from '../commitChanges.js';
+import { wrapExecWithDir, run, print } from '../../../util/index.js';
+import { mockPrint } from '../../../../tests/util/index.js';
 jest.mock('temp-write', () => ({
   sync: () => '/temp/file/path',
 }));

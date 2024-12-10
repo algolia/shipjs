@@ -1,5 +1,5 @@
-import { notifyReleaseSuccess } from '../../util';
-import runStep from '../runStep';
+import { notifyReleaseSuccess } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default async ({
   config,

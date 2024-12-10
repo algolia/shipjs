@@ -1,8 +1,8 @@
 import { resolve } from 'path';
 import { promises as fs, constants } from 'fs';
 
-import defaultConfig from './defaultConfig';
-import mergeConfig from './mergeConfig';
+import defaultConfig from './defaultConfig.js';
+import mergeConfig from './mergeConfig.js';
 
 const exist = (path) =>
   fs

@@ -1,4 +1,4 @@
-import getReleaseType from '../getReleaseType';
+import getReleaseType from '../getReleaseType.js';
 
 describe('getReleaseType', () => {
   it('works', () => {

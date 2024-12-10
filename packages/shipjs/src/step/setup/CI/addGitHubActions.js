@@ -1,10 +1,10 @@
-import runStep from '../../runStep';
+import runStep from '../../runStep.js';
 import fs from 'fs';
 import path from 'path';
 import ejs from 'ejs';
 import mkdirp from 'mkdirp';
-import { print } from '../../../util';
-import { info, warning } from '../../../color';
+import { print } from '../../../util/index.js';
+import { info, warning } from '../../../color.js';
 
 export default ({
   baseBranch,

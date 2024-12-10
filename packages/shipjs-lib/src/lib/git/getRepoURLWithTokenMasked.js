@@ -1,4 +1,4 @@
-import getRemoteOriginUrl from './getRemoteOriginUrl';
+import getRemoteOriginUrl from './getRemoteOriginUrl.js';
 import gh from 'parse-github-url';
 
 export default function getRepoURLWithTokenMasked(remote, dir) {

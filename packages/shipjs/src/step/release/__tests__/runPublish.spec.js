@@ -1,7 +1,7 @@
 import { expandPackageList } from 'shipjs-lib';
-import { run, print } from '../../../util';
-import runPublish from '../runPublish';
-import { mockPrint } from '../../../../tests/util';
+import { run, print } from '../../../util/index.js';
+import runPublish from '../runPublish.js';
+import { mockPrint } from '../../../../tests/util/index.js';
 jest.unmock('../../../helper');
 // if `unmock` causes any trouble in the future,
 // we might try this: https://github.com/facebook/jest/issues/2649#issuecomment-360467278

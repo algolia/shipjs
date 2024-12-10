@@ -1,5 +1,5 @@
-import silentExec from '../../shell/silentExec';
-import expandPackageList from '../expandPackageList';
+import silentExec from '../../shell/silentExec.js';
+import expandPackageList from '../expandPackageList.js';
 
 describe('expandPackageList', () => {
   it('expands package list', () => {

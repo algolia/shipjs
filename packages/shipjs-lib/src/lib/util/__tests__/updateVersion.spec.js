@@ -1,6 +1,6 @@
-import silentExec from '../../shell/silentExec';
-import getCurrentVersion from '../getCurrentVersion';
-import updateVersion from '../updateVersion';
+import silentExec from '../../shell/silentExec.js';
+import getCurrentVersion from '../getCurrentVersion.js';
+import updateVersion from '../updateVersion.js';
 import { resolve } from 'path';
 
 describe('updateVersion', () => {

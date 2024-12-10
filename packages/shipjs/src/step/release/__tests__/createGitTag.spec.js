@@ -1,5 +1,5 @@
-import { run } from '../../../util';
-import createGitTag from '../createGitTag';
+import { run } from '../../../util/index.js';
+import createGitTag from '../createGitTag.js';
 
 describe('createGitTag', () => {
   it('works with one tag', () => {
