@@ -3,6 +3,7 @@
   "version": "0.26.4",
   "description": "Take control of what is going to be your next release.",
   "main": "index.js",
+  "type": "module",
   "engines": {
     "node": ">=18"
   },
