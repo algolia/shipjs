@@ -1,3 +1,17 @@
+# [0.27.0](https://github.com/algolia/shipjs/compare/v0.26.4...v0.27.0) (2024-12-10)
+
+
+### Features
+
+* use ES modules ([#1007](https://github.com/algolia/shipjs/issues/1007)) ([f33b9bc](https://github.com/algolia/shipjs/commit/f33b9bc4404f1364373bfd78951048bb3f71bedf))
+
+
+### BREAKING CHANGES
+
+* code is in in ES Modules now and earliest node support is 18
+
+
+
 ## [0.26.4](https://github.com/algolia/shipjs/compare/v0.26.3...v0.26.4) (2024-08-20)
 
 
