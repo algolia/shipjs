@@ -3,7 +3,7 @@
 (async function () {
   try {
     process.env.SHIPJS = true;
-    const { cli } = await import('../src/cli.mjs');
+    const { cli } = await import('../src/cli.js');
     cli(process.argv);
   } catch (e) {
     console.error(e);

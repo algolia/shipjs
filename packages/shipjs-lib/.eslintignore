@@ -2,4 +2,4 @@ node_modules
 dist
 sandbox
 
-src/lib/config/defaultConfig.mjs
+src/lib/config/defaultConfig.js
