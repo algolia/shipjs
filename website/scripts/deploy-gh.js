@@ -5,7 +5,7 @@ const path = require('path');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-(async function() {
+(async function () {
   const configPath = path.resolve(__dirname, '..', '.vuepress', 'config.js');
   const originalConfig = fs.readFileSync(configPath).toString();
   const configWithBase = originalConfig.replace(
