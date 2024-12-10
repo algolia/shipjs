@@ -1,4 +1,4 @@
-const {
+import {
   info,
   warning,
   error,
@@ -6,8 +6,8 @@ const {
   bold,
   underline,
   reset,
-} = require('./src/color.js');
-const { mockColor } = require('./tests/util/index.js');
+} from './src/color.js';
+import { mockColor } from './tests/util/index.js';
 jest.mock('shipjs-lib');
 jest.mock('./src/color');
 jest.mock('./src/helper');

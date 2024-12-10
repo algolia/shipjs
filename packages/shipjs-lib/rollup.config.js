@@ -1,8 +1,6 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import fs from 'fs';
-
-const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+import pkg from './package.json';
 
 export default [
   {
