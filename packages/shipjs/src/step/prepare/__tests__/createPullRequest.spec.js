@@ -66,7 +66,9 @@ describe('createPullRequest', () => {
   it('pass releaseType to hooks', () => {
     const mockFormatPullRequestTitle = jest
       .fn()
-      .mockImplementation(({ version, type }) => `# v${version} (${type})`);
+      .mockImplementation(
+        ({ version, releaseType }) => `# v${version} (${releaseType})`
+      );
     const mockFormatPullRequestMessage = jest
       .fn()
       .mockImplementation(({ title, nextVersion, releaseType }) =>
