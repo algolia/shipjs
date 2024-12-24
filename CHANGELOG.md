@@ -1,3 +1,13 @@
+## [0.27.1](https://github.com/algolia/shipjs/compare/v0.27.0...v0.27.1) (2024-12-24)
+
+
+### Bug Fixes
+
+* **site:** update vuepress ([30a1e9f](https://github.com/algolia/shipjs/commit/30a1e9fb5dac961b79fd7e08d47c1e37bdf1fd36))
+* **site:** update vuepress, set legacy openssl ([#1010](https://github.com/algolia/shipjs/issues/1010)) ([1c7e472](https://github.com/algolia/shipjs/commit/1c7e472e0463693bb56e3e6b8fd773d0d840c4b1))
+
+
+
 # [0.27.0](https://github.com/algolia/shipjs/compare/v0.26.4...v0.27.0) (2024-12-10)
 
 
