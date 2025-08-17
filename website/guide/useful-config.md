@@ -12,11 +12,19 @@ Ship.js currently supports monorepo project(Independent versioning is not suppor
 module.exports = {
   monorepo: {
     mainVersionFile: 'package.json', // or `lerna.json`, or whatever a json file you can read the latest `version` from.
-    packagesToBump: ['packages/*', 'examples/*'],
-    packagesToPublish: ['packages/*'],
+    packagesToBump: ['packages/*', 'examples/*', '!example/a'],
+    packagesToPublish: ['packages/*', '!examples/a'],
   },
 };
 ```
+
+Patterns supported in `packagesToBump` / `packagesToPublish`:
+- Plain paths (e.g. `.` or `packages/package_a`)
+- Trailing `/*` to include immediate subdirectories (e.g. `packages/*`)
+- `@(a|b)` style alternation (e.g. `packages/@(package_a|package_b)`)
+- Start with `!` to skip a path: `!packages/package_a`
+
+Ship.js only lists folders that have a `package.json`. Any paths that start with `!` are removed after the patterns are handled.
 
 With the config above, `prepare` command will
 
