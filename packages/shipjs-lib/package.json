@@ -41,9 +41,9 @@
     "jest-watch-typeahead": "2.2.2",
     "json": "9.0.6",
     "prettier": "2.0.5",
-    "rollup": "2.14.0",
-    "rollup-plugin-commonjs": "10.1.0",
-    "rollup-plugin-node-resolve": "5.2.0"
+    "@rollup/plugin-commonjs": "29.0.0",
+    "@rollup/plugin-node-resolve": "16.0.3",
+    "rollup": "4.34.8"
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
