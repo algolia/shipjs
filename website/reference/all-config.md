@@ -513,7 +513,6 @@ When the staging branch name matches any of the patterns in `forcePushBranches`,
 Common use cases:
 
 1. **Protected branches with required linear history**: Some repositories require a linear commit history. Force-pushing ensures the release branch is cleanly rebased.
-
 2. **Re-running prepare after changes**: If you need to re-run `shipjs prepare` after making changes to an existing release PR, force-push allows overwriting the existing branch.
 
 ```js
