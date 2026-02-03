@@ -1,17 +1,21 @@
 {
   "name": "website",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "build": "NODE_OPTIONS=--openssl-legacy-provider vuepress build",
-    "deploy:gh": "NODE_OPTIONS=--openssl-legacy-provider node scripts/deploy-gh.js",
-    "dev": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev",
+    "build": "vuepress build",
+    "deploy:gh": "node scripts/deploy-gh.js",
+    "dev": "vuepress dev",
     "test": "echo \"Error: no test specified\""
   },
   "dependencies": {},
   "devDependencies": {
-    "@vuepress/plugin-google-analytics": "1.9.10",
+    "@vuepress/bundler-vite": "2.0.0-rc.26",
+    "@vuepress/plugin-docsearch": "2.0.0-rc.122",
+    "@vuepress/plugin-google-analytics": "2.0.0-rc.122",
+    "@vuepress/theme-default": "2.0.0-rc.122",
     "gh-pages": "6.2.0",
-    "vuepress": "1.9.10"
+    "vuepress": "2.0.0-rc.26"
   },
   "main": "index.js",
   "author": "Algolia",
