@@ -6,7 +6,7 @@
     "build": "yarn workspace shipjs-lib build",
     "lint": "lerna run lint --stream",
     "test": "lerna run test --stream",
-    "test:ci": "lerna run test --stream -- --maxWorkers=1",
+    "test:ci": "lerna run test --stream",
     "tw1": "yarn workspace shipjs-lib test:watch",
     "tw2": "yarn workspace shipjs test:watch",
     "web": "yarn workspace website dev",
