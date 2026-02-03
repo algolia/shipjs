@@ -66,6 +66,21 @@ describe('runPublish', () => {
     `);
   });
 
+  it('skips npm config set when useOidcTokenProvider is true', () => {
+    runPublish({
+      isYarn: true,
+      config: {
+        publishCommand: ({ defaultCommand }) => defaultCommand,
+        useOidcTokenProvider: true,
+      },
+      releaseTag: 'latest',
+      dir: '.',
+      dryRun: false,
+    });
+    expect(run).toHaveBeenCalledTimes(1);
+    expect(run.mock.calls[0][0].command).not.toContain('npm config set');
+  });
+
   it('works with monorepo', () => {
     const output = [];
     mockPrint(print, output);
