@@ -1,5 +1,5 @@
-import { print } from '../../../util/index.js';
 import { mockPrint } from '../../../../tests/util/index.js';
+import { print } from '../../../util/index.js';
 import printHelp from '../printHelp.js';
 
 describe('printHelp', () => {
@@ -8,7 +8,7 @@ describe('printHelp', () => {
     mockPrint(print, output);
     printHelp();
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "NAME
       	shipjs trigger - Trigger release.
 

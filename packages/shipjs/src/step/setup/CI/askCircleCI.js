@@ -1,4 +1,5 @@
 import inquirer from 'inquirer';
+
 import formatMessage from '../formatMessage.js';
 
 export default async function askCircleCI() {

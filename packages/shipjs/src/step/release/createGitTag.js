@@ -1,5 +1,5 @@
-import runStep from '../runStep.js';
 import { arrayify, run } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default ({ version, config, dir, dryRun }) =>
   runStep({ title: 'Creating a git tag.' }, () => {

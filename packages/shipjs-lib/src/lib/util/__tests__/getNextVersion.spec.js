@@ -106,7 +106,7 @@ describe('getNextVersionFromCommitMessages', () => {
       titles,
       bodies
     );
-    expect(actual).toBe(null);
+    expect(actual).toBeNull();
   });
 
   it('throws when there is a commit message out of convention', () => {
@@ -183,7 +183,7 @@ describe('getNextVersion', () => {
       '0.0.1',
       'sandbox/no-commit-log'
     );
-    expect(actual).toBe(null);
+    expect(actual).toBeNull();
   });
 
   it('throws when there is a commit message out of convention', () => {

@@ -20,7 +20,7 @@ describe('mergeConfig', () => {
         },
       }
     );
-    expect(config.slack.default.username).toEqual('Release');
+    expect(config.slack.default.username).toBe('Release');
     expect(config.slack.prepared).toBeInstanceOf(Function);
     expect(config.slack.releaseSuccess).toBeInstanceOf(Function);
   });
@@ -42,7 +42,7 @@ describe('mergeConfig', () => {
         },
       }
     );
-    expect(config.slack.default.username).toEqual('Ship.js');
+    expect(config.slack.default.username).toBe('Ship.js');
     expect(config.slack.prepared).toBeInstanceOf(Function);
     expect(config.slack.releaseSuccess).toBeNull();
   });

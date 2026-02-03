@@ -1,5 +1,5 @@
-import { resolve } from 'path';
 import { promises as fs, constants } from 'fs';
+import { resolve } from 'path';
 
 import defaultConfig from './defaultConfig.js';
 import mergeConfig from './mergeConfig.js';

@@ -1,30 +1,29 @@
 import { getAppName, loadConfig, getReleaseType } from 'shipjs-lib';
 
-import printHelp from '../step/prepare/printHelp.js';
-import printDryRunBanner from '../step/printDryRunBanner.js';
-import validate from '../step/prepare/validate.js';
-import getRevisionRange from '../step/prepare/getRevisionRange.js';
-import pull from '../step/pull.js';
-import fetchTags from '../step/prepare/fetchTags.js';
-import push from '../step/prepare/push.js';
-import getNextVersion from '../step/prepare/getNextVersion.js';
-import confirmNextVersion from '../step/prepare/confirmNextVersion.js';
-import prepareStagingBranch from '../step/prepare/prepareStagingBranch.js';
+import { warning } from '../color.js';
+import checkGitHubToken from '../step/checkGitHubToken.js';
 import checkoutToStagingBranch from '../step/prepare/checkoutToStagingBranch.js';
+import commitChanges from '../step/prepare/commitChanges.js';
+import confirmNextVersion from '../step/prepare/confirmNextVersion.js';
+import createPullRequest from '../step/prepare/createPullRequest.js';
+import fetchTags from '../step/prepare/fetchTags.js';
+import finished from '../step/prepare/finished.js';
+import getNextVersion from '../step/prepare/getNextVersion.js';
+import getRevisionRange from '../step/prepare/getRevisionRange.js';
+import installDependencies from '../step/prepare/installDependencies.js';
+import notifyPrepared from '../step/prepare/notifyPrepared.js';
+import prepareStagingBranch from '../step/prepare/prepareStagingBranch.js';
+import printHelp from '../step/prepare/printHelp.js';
+import push from '../step/prepare/push.js';
+import pushToStagingBranch from '../step/prepare/pushToStagingBranch.js';
+import updateChangelog from '../step/prepare/updateChangelog.js';
 import updateVersion from '../step/prepare/updateVersion.js';
 import updateVersionMonorepo from '../step/prepare/updateVersionMonorepo.js';
-import installDependencies from '../step/prepare/installDependencies.js';
-import updateChangelog from '../step/prepare/updateChangelog.js';
-import commitChanges from '../step/prepare/commitChanges.js';
-import createPullRequest from '../step/prepare/createPullRequest.js';
-import notifyPrepared from '../step/prepare/notifyPrepared.js';
-import pushToStagingBranch from '../step/prepare/pushToStagingBranch.js';
+import validate from '../step/prepare/validate.js';
 import validatePreparationConditions from '../step/prepare/validatePreparationConditions.js';
-import checkGitHubToken from '../step/checkGitHubToken.js';
-import finished from '../step/prepare/finished.js';
-
+import printDryRunBanner from '../step/printDryRunBanner.js';
+import pull from '../step/pull.js';
 import { arrayify, print, wrapExecWithDir } from '../util/index.js';
-import { warning } from '../color.js';
 
 async function prepare({
   help = false,

@@ -1,7 +1,8 @@
 import { getNextVersion } from 'shipjs-lib';
+
+import { mockPrint } from '../../../../tests/util/index.js';
 import { print, exitProcess } from '../../../util/index.js';
 import getNextVersionStep from '../getNextVersion.js';
-import { mockPrint } from '../../../../tests/util/index.js';
 
 describe('getNextVersion', () => {
   it('returns next version', () => {
@@ -10,7 +11,7 @@ describe('getNextVersion', () => {
       ignoredMessages: [],
     }));
     const { nextVersion } = getNextVersionStep({ config: {} });
-    expect(nextVersion).toEqual('0.1.2');
+    expect(nextVersion).toBe('0.1.2');
   });
 
   it('returns next version by hook from config', () => {
@@ -23,7 +24,7 @@ describe('getNextVersion', () => {
         getNextVersion: () => '1.2.3',
       },
     });
-    expect(nextVersion).toEqual('1.2.3');
+    expect(nextVersion).toBe('1.2.3');
   });
 
   it('exits with nothing to release', () => {
@@ -44,7 +45,7 @@ describe('getNextVersion', () => {
     }));
     getNextVersionStep({ config: {} });
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Calculating the next version.",
         "The following commit messages out of convention are ignored:",
         "  hello world",

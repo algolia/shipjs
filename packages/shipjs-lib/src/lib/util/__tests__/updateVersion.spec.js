@@ -1,7 +1,8 @@
+import { resolve } from 'path';
+
 import silentExec from '../../shell/silentExec.js';
 import getCurrentVersion from '../getCurrentVersion.js';
 import updateVersion from '../updateVersion.js';
-import { resolve } from 'path';
 
 describe('updateVersion', () => {
   it('update version correctly', () => {

@@ -1,7 +1,9 @@
-const path = require('path');
-import { prepareParams } from '../updateChangelog.js';
-import { parseArgs } from '../../../util/index.js';
+import path from 'path';
+
 import tempWrite from 'temp-write';
+
+import { parseArgs } from '../../../util/index.js';
+import { prepareParams } from '../updateChangelog.js';
 
 describe('prepareParams', () => {
   it('loads configuration from --config option', async () => {

@@ -1,5 +1,5 @@
-import isWorkingTreeClean from '../isWorkingTreeClean.js';
 import silentExec from '../../shell/silentExec.js';
+import isWorkingTreeClean from '../isWorkingTreeClean.js';
 
 describe('isWorkingTreeClean', () => {
   it('checks if it is clean', () => {

@@ -1,7 +1,9 @@
-import { getRepoInfo } from 'shipjs-lib';
 import { Octokit } from '@octokit/rest';
-import createPullRequest from '../createPullRequest.js';
+import { getRepoInfo } from 'shipjs-lib';
+
 import { run } from '../../../util/index.js';
+import createPullRequest from '../createPullRequest.js';
+
 jest.mock('@octokit/rest');
 
 const getDefaultParams = ({
@@ -42,7 +44,7 @@ describe('createPullRequest', () => {
   it('works in dry mode', async () => {
     const ret = await createPullRequest(getDefaultParams({ dryRun: true }));
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "git remote prune origin",
         "dir": ".",
         "dryRun": true,
@@ -60,7 +62,7 @@ describe('createPullRequest', () => {
       this.pulls = { create, requestReviewers: jest.fn() };
     });
     const { pullRequestUrl } = await createPullRequest(getDefaultParams());
-    expect(pullRequestUrl).toEqual('https://github.com/my/repo/pull/13');
+    expect(pullRequestUrl).toBe('https://github.com/my/repo/pull/13');
   });
 
   it('pass releaseType to hooks', () => {

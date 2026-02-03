@@ -1,8 +1,11 @@
-import globby from 'globby';
 import fs from 'fs';
-import { getRepoInfo } from 'shipjs-lib';
+
 import { Octokit } from '@octokit/rest';
+import globby from 'globby';
+import { getRepoInfo } from 'shipjs-lib';
+
 import createGitHubRelease from '../createGitHubRelease.js';
+
 jest.mock('temp-write');
 jest.mock('@octokit/rest');
 jest.mock('globby');
@@ -42,8 +45,8 @@ describe('createGitHubRelease', () => {
       owner: 'my',
       name: 'repo',
     }));
-    fs.readFileSync = jest.fn();
-    fs.statSync = jest.fn().mockImplementation(() => ({ size: 1024 }));
+    jest.spyOn(fs, 'readFileSync').mockImplementation();
+    jest.spyOn(fs, 'statSync').mockImplementation(() => ({ size: 1024 }));
     globby.mockImplementation((path) => Promise.resolve([path]));
   });
 
@@ -51,8 +54,8 @@ describe('createGitHubRelease', () => {
     await createGitHubRelease(getDefaultParams());
     expect(createRelease).toHaveBeenCalledTimes(1);
     expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "body": "",
           "name": "v1.2.3",
           "owner": "my",
@@ -74,8 +77,8 @@ describe('createGitHubRelease', () => {
     );
     expect(createRelease).toHaveBeenCalledTimes(1);
     expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "body": "",
           "name": "v1.2.3",
           "owner": "my",
@@ -86,9 +89,9 @@ describe('createGitHubRelease', () => {
     `);
     expect(uploadReleaseAsset).toHaveBeenCalledTimes(2);
     expect(uploadReleaseAsset.mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
-          Object {
+      [
+        [
+          {
             "data": undefined,
             "name": "path1",
             "owner": "my",
@@ -96,8 +99,8 @@ describe('createGitHubRelease', () => {
             "repo": "repo",
           },
         ],
-        Array [
-          Object {
+        [
+          {
             "data": undefined,
             "name": "path2",
             "owner": "my",
@@ -117,8 +120,8 @@ describe('createGitHubRelease', () => {
     );
     expect(createRelease).toHaveBeenCalledTimes(1);
     expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "body": "",
           "name": "v1.2.3",
           "owner": "my",
@@ -129,9 +132,9 @@ describe('createGitHubRelease', () => {
     `);
     expect(uploadReleaseAsset).toHaveBeenCalledTimes(2);
     expect(uploadReleaseAsset.mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
-          Object {
+      [
+        [
+          {
             "data": undefined,
             "name": "path1",
             "owner": "my",
@@ -139,8 +142,8 @@ describe('createGitHubRelease', () => {
             "repo": "repo",
           },
         ],
-        Array [
-          Object {
+        [
+          {
             "data": undefined,
             "name": "path2",
             "owner": "my",
@@ -160,8 +163,8 @@ describe('createGitHubRelease', () => {
     );
     expect(createRelease).toHaveBeenCalledTimes(1);
     expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "body": "",
           "name": "v1.2.3",
           "owner": "my",
@@ -172,9 +175,9 @@ describe('createGitHubRelease', () => {
     `);
     expect(uploadReleaseAsset).toHaveBeenCalledTimes(1);
     expect(uploadReleaseAsset.mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
-          Object {
+      [
+        [
+          {
             "data": undefined,
             "name": "path1",
             "owner": "my",
@@ -202,8 +205,8 @@ describe('createGitHubRelease', () => {
     });
     expect(createRelease).toHaveBeenCalledTimes(1);
     expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "body": "# v1.2.3 (.)",
           "name": "v1.2.3",
           "owner": "my",

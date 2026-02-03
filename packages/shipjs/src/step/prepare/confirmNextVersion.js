@@ -1,7 +1,8 @@
 import inquirer from 'inquirer';
-import runStep from '../runStep.js';
-import { print } from '../../util/index.js';
+
 import { info } from '../../color.js';
+import { print } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default async ({ yes, currentVersion, nextVersion, dryRun }) =>
   await runStep({ title: 'Confirming the next version.' }, async () => {
@@ -20,15 +21,14 @@ export default async ({ yes, currentVersion, nextVersion, dryRun }) =>
     ]);
     if (correct) {
       return nextVersion;
-    } else {
-      const { userTypedVersion } = await inquirer.prompt([
-        {
-          type: 'input',
-          name: 'userTypedVersion',
-          message: 'What is the next version?',
-          default: nextVersion,
-        },
-      ]);
-      return userTypedVersion;
     }
+    const { userTypedVersion } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'userTypedVersion',
+        message: 'What is the next version?',
+        default: nextVersion,
+      },
+    ]);
+    return userTypedVersion;
   });

@@ -1,7 +1,8 @@
 import { updateVersion as updateVersionPackageJson } from 'shipjs-lib';
-import updateVersion from '../updateVersion.js';
-import { print } from '../../../util/index.js';
+
 import { mockPrint } from '../../../../tests/util/index.js';
+import { print } from '../../../util/index.js';
+import updateVersion from '../updateVersion.js';
 
 describe('updateVersion', () => {
   it('works', () => {
@@ -21,7 +22,7 @@ describe('updateVersion', () => {
       nextVersion: '1.2.3',
     });
     expect(versionUpdated.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "dir": ".",
         "exec": undefined,
         "releaseType": "patch",
@@ -40,7 +41,7 @@ describe('updateVersion', () => {
       dryRun: true,
     });
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Updating the version.",
         "-> package.json",
         "-> execute versionUpdated() callback.",

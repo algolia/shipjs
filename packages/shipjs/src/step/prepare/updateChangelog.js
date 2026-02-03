@@ -1,12 +1,14 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
+
+import addStream from 'add-stream';
 import conventionalChangelogCore from 'conventional-changelog-core';
 import conventionalChangelogPresetLoader from 'conventional-changelog-preset-loader';
-import tempfile from 'tempfile';
-import addStream from 'add-stream';
 import merge from 'deepmerge';
-import runStep from '../runStep.js';
+import tempfile from 'tempfile';
+
 import { parseArgs } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default ({
   config,
@@ -124,9 +126,12 @@ export async function prepareParams({
   if (args.commitPath) {
     gitRawCommitsOpts.path = args.commitPath;
   }
-  const templateContext =
-    args.context && require(path.resolve(dir, args.context));
-  args.config = args.config ? require(path.resolve(dir, args.config)) : {};
+  const templateContext = args.context
+    ? (await import(path.resolve(dir, args.context))).default
+    : undefined;
+  args.config = args.config
+    ? (await import(path.resolve(dir, args.config))).default
+    : {};
   if (args.preset) {
     try {
       args.config = merge(
