@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 import ejs from 'ejs';
-import { mkdirpSync } from 'mkdirp';
 
 import { info, warning } from '../../../color.js';
 import { print } from '../../../util/index.js';
@@ -71,7 +70,7 @@ function createGitHubAction({ content, actionPath, dir, dryRun }) {
     print(actionPath);
     print(content);
   } else {
-    mkdirpSync(path.dirname(filePath));
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
     fs.writeFileSync(filePath, content);
   }
   return () => {
