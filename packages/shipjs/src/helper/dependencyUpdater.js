@@ -85,7 +85,7 @@ export async function runUpdates(list) {
   list.forEach(({ name, packagePath, updates }) => {
     print(`  package: ${name} (${packagePath}}/package.json)`);
     const filePath = resolve(packagePath, 'package.json');
-    const json = JSON.parse(readFileSync(filePath).toString());
+    const json = JSON.parse(readFileSync(filePath, 'utf-8'));
     Object.keys(updates).forEach((dependencyType) => {
       print(`    ${dependencyType}:`);
       updates[dependencyType].forEach(
@@ -112,7 +112,7 @@ export function prepareJsons(packageList) {
   return packageList.map((packagePath) => ({
     packagePath,
     json: JSON.parse(
-      readFileSync(resolve(packagePath, 'package.json')).toString()
+      readFileSync(resolve(packagePath, 'package.json'), 'utf-8')
     ),
   }));
 }

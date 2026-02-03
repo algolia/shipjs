@@ -18,7 +18,7 @@ export default ({ dependencies, dir, dryRun }) =>
 
 function usesYarnWorkspace(dir) {
   return Boolean(
-    JSON.parse(fs.readFileSync(path.resolve(dir, 'package.json')).toString())
+    JSON.parse(fs.readFileSync(path.resolve(dir, 'package.json'), 'utf-8'))
       .workspaces
   );
 }

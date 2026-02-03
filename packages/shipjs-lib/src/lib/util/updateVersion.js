@@ -7,7 +7,7 @@ export default function updateVersion({
   fileName = 'package.json',
 }) {
   const filePath = resolve(dir, fileName);
-  const json = JSON.parse(readFileSync(filePath).toString());
+  const json = JSON.parse(readFileSync(filePath, 'utf-8'));
   json.version = nextVersion;
   writeFileSync(filePath, `${JSON.stringify(json, null, 2)}\n`);
 }
