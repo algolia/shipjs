@@ -519,3 +519,35 @@ finalConfig = {
   },
 };
 ```
+
+## `forcePushBranches`
+
+_used at_: `shipjs prepare`
+
+_default:_ `[]`
+
+An array of branch names that Ship.js should force-push to. This is useful when working with protected branches that require linear history or when you need to overwrite the staging branch.
+
+```js
+// example
+forcePushBranches: ['releases/*'];
+```
+
+When the staging branch name matches any of the patterns in `forcePushBranches`, Ship.js will use `git push --force` instead of a regular push.
+
+Common use cases:
+
+1. **Protected branches with required linear history**: Some repositories require a linear commit history. Force-pushing ensures the release branch is cleanly rebased.
+2. **Re-running prepare after changes**: If you need to re-run `shipjs prepare` after making changes to an existing release PR, force-push allows overwriting the existing branch.
+
+```js
+// Match all release branches
+forcePushBranches: ['releases/*'];
+
+// Match specific branches
+forcePushBranches: ['releases/v1.0.0', 'releases/v2.0.0'];
+```
+
+:::warning NOTICE
+Be careful when using force-push, as it can overwrite commits on the remote branch. Only use this for branches that you control and expect to be overwritten.
+:::
