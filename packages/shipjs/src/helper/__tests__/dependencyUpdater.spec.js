@@ -1,6 +1,6 @@
-import { getListToUpdate, printListToUpdate } from '../dependencyUpdater.js';
-import { print } from '../../util/index.js';
 import { mockPrint } from '../../../tests/util/index.js';
+import { print } from '../../util/index.js';
+import { getListToUpdate, printListToUpdate } from '../dependencyUpdater.js';
 
 describe('getListToUpdate', () => {
   const list = [
@@ -87,7 +87,7 @@ describe('getListToUpdate', () => {
     mockPrint(print, output);
     printListToUpdate(getListToUpdate('0.3.2', list));
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "  package: js (packages/package-js}/package.json)",
         "    dependencies:",
         "      core: ^0.3.1 -> ^0.3.2",

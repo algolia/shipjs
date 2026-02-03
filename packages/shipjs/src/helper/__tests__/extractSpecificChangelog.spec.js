@@ -1,18 +1,22 @@
-import extractSpecificChangelog from '../extractSpecificChangelog.js';
 import fs from 'fs';
 import path from 'path';
 
-const shipjsChangelogExample = fs
-  .readFileSync(path.resolve(__dirname, 'shipjs-changelog.md'))
-  .toString();
+import extractSpecificChangelog from '../extractSpecificChangelog.js';
 
-const conventionalChangelogExample = fs
-  .readFileSync(path.resolve(__dirname, 'conventional-changelog.md'))
-  .toString();
+const shipjsChangelogExample = fs.readFileSync(
+  path.resolve(__dirname, 'shipjs-changelog.md'),
+  'utf-8'
+);
 
-const lernaChangelogExample = fs
-  .readFileSync(path.resolve(__dirname, 'lerna-changelog.md'))
-  .toString();
+const conventionalChangelogExample = fs.readFileSync(
+  path.resolve(__dirname, 'conventional-changelog.md'),
+  'utf-8'
+);
+
+const lernaChangelogExample = fs.readFileSync(
+  path.resolve(__dirname, 'lerna-changelog.md'),
+  'utf-8'
+);
 
 describe('extractSpecificChangelog', () => {
   describe('conventional-changelog', () => {

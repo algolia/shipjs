@@ -1,7 +1,9 @@
 import { expandPackageList } from 'shipjs-lib';
+
+import { mockPrint } from '../../../../tests/util/index.js';
 import { run, print } from '../../../util/index.js';
 import runPublish from '../runPublish.js';
-import { mockPrint } from '../../../../tests/util/index.js';
+
 jest.unmock('../../../helper');
 // if `unmock` causes any trouble in the future,
 // we might try this: https://github.com/facebook/jest/issues/2649#issuecomment-360467278
@@ -21,14 +23,14 @@ describe('runPublish', () => {
     });
     expect(run).toHaveBeenCalledTimes(2);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
-        "command": "npm config set \\"//registry.npmjs.org/:_authToken\\" \\"\\\\\${NPM_AUTH_TOKEN}\\"",
+      {
+        "command": "npm config set "//registry.npmjs.org/:_authToken" "\\\${NPM_AUTH_TOKEN}"",
         "dir": ".",
         "dryRun": false,
       }
     `);
     expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": ".",
         "dryRun": false,
@@ -48,14 +50,14 @@ describe('runPublish', () => {
     });
     expect(run).toHaveBeenCalledTimes(2);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
-        "command": "npm config set \\"//registry.npmjs.org/:_authToken\\" \\"\\\\\${NPM_AUTH_TOKEN}\\"",
+      {
+        "command": "npm config set "//registry.npmjs.org/:_authToken" "\\\${NPM_AUTH_TOKEN}"",
         "dir": ".",
         "dryRun": false,
       }
     `);
     expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "npm publish --tag latest",
         "dir": ".",
         "dryRun": false,
@@ -81,7 +83,7 @@ describe('runPublish', () => {
       dryRun: false,
     });
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Publishing.",
         "Running the following at /package-a",
         "Running the following at /package-b",
@@ -89,21 +91,21 @@ describe('runPublish', () => {
     `);
     expect(run).toHaveBeenCalledTimes(3);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
-        "command": "npm config set \\"//registry.npmjs.org/:_authToken\\" \\"\\\\\${NPM_AUTH_TOKEN}\\"",
+      {
+        "command": "npm config set "//registry.npmjs.org/:_authToken" "\\\${NPM_AUTH_TOKEN}"",
         "dir": ".",
         "dryRun": false,
       }
     `);
     expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": "/package-a",
         "dryRun": false,
       }
     `);
     expect(run.mock.calls[2][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": "/package-b",
         "dryRun": false,

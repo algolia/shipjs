@@ -1,6 +1,6 @@
+import { mockPrint } from '../../../../tests/util/index.js';
 import { print } from '../../../util/index.js';
 import printHelp from '../printHelp.js';
-import { mockPrint } from '../../../../tests/util/index.js';
 
 describe('printHelp', () => {
   it('prints help', () => {
@@ -8,7 +8,7 @@ describe('printHelp', () => {
     mockPrint(print, output);
     printHelp();
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "NAME
       	shipjs setup - Setup Ship.js in your project.
 

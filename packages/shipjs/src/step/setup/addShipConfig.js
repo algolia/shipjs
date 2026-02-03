@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+
 import serialize from 'serialize-javascript';
-import runStep from '../runStep.js';
-import { runPrettier } from '../../helper/index.js';
+
 import { info } from '../../color.js';
+import { runPrettier } from '../../helper/index.js';
 import { print } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default async ({
   isScoped,
@@ -63,7 +65,7 @@ export default async ({
 
 function checkIfScriptsExist({ dir }) {
   const filePath = path.resolve(dir, 'package.json');
-  const json = JSON.parse(fs.readFileSync(filePath).toString());
+  const json = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
   const { build } = json.scripts || {};
   return {
     buildExists: Boolean(build),

@@ -1,6 +1,8 @@
-import { resolve } from 'path';
 import { readFileSync, writeFileSync } from 'fs';
+import { resolve } from 'path';
+
 import { print } from '../util/index.js';
+
 import { runPrettier } from './index.js';
 
 const typesOfDependencies = [
@@ -34,36 +36,33 @@ export function getListToUpdate(_nextVersion, list) {
                   currentVersion,
                   nextVersion,
                 };
-              } else {
-                return null;
               }
+              return null;
             })
             .filter(Boolean);
 
           if (dependenciesToUpdate.length === 0) {
             return null;
-          } else {
-            return {
-              type: dependencyType,
-              dependenciesToUpdate,
-            };
           }
+          return {
+            type: dependencyType,
+            dependenciesToUpdate,
+          };
         })
         .filter(Boolean);
 
       if (updates.length === 0) {
         return null;
-      } else {
-        return {
-          packagePath,
-          name: json.name,
-          updates: updates.reduce((acc, { type, dependenciesToUpdate }) => {
-            // eslint-disable-next-line no-param-reassign
-            acc[type] = dependenciesToUpdate;
-            return acc;
-          }, {}),
-        };
       }
+      return {
+        packagePath,
+        name: json.name,
+        updates: updates.reduce((acc, { type, dependenciesToUpdate }) => {
+          // eslint-disable-next-line no-param-reassign
+          acc[type] = dependenciesToUpdate;
+          return acc;
+        }, {}),
+      };
     })
     .filter(Boolean);
 }
@@ -86,7 +85,7 @@ export async function runUpdates(list) {
   list.forEach(({ name, packagePath, updates }) => {
     print(`  package: ${name} (${packagePath}}/package.json)`);
     const filePath = resolve(packagePath, 'package.json');
-    const json = JSON.parse(readFileSync(filePath).toString());
+    const json = JSON.parse(readFileSync(filePath, 'utf-8'));
     Object.keys(updates).forEach((dependencyType) => {
       print(`    ${dependencyType}:`);
       updates[dependencyType].forEach(
@@ -113,7 +112,7 @@ export function prepareJsons(packageList) {
   return packageList.map((packagePath) => ({
     packagePath,
     json: JSON.parse(
-      readFileSync(resolve(packagePath, 'package.json')).toString()
+      readFileSync(resolve(packagePath, 'package.json'), 'utf-8')
     ),
   }));
 }

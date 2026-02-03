@@ -1,5 +1,5 @@
-import runTest from '../runTest.js';
 import { run, print } from '../../../util/index.js';
+import runTest from '../runTest.js';
 
 describe('runTest', () => {
   it('works', () => {
@@ -12,7 +12,7 @@ describe('runTest', () => {
     });
     expect(run).toHaveBeenCalledTimes(1);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "yarn test",
         "dir": ".",
         "dryRun": false,
@@ -31,11 +31,11 @@ describe('runTest', () => {
     expect(run).toHaveBeenCalledTimes(0);
     expect(print).toHaveBeenCalledTimes(2);
     expect(print.mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
+      [
+        [
           "› Running test.",
         ],
-        Array [
+        [
           "Skipping test because it is not configured.",
         ],
       ]
@@ -53,11 +53,11 @@ describe('runTest', () => {
     expect(run).toHaveBeenCalledTimes(0);
     expect(print).toHaveBeenCalledTimes(2);
     expect(print.mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
+      [
+        [
           "› Running test.",
         ],
-        Array [
+        [
           "Skipping test because it is not configured.",
         ],
       ]

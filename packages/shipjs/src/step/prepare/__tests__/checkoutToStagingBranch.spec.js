@@ -1,5 +1,5 @@
-import checkoutToStagingBranch from '../checkoutToStagingBranch.js';
 import { run } from '../../../util/index.js';
+import checkoutToStagingBranch from '../checkoutToStagingBranch.js';
 
 describe('checkoutToStagingBranch', () => {
   it('works', () => {
@@ -10,7 +10,7 @@ describe('checkoutToStagingBranch', () => {
     });
     expect(run).toHaveBeenCalledTimes(1);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "git checkout -b abc",
         "dir": ".",
         "dryRun": false,

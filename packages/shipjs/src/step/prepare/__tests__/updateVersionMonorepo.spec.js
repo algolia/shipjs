@@ -1,21 +1,15 @@
 import { expandPackageList, updateVersion } from 'shipjs-lib';
-import { print } from '../../../util/index.js';
+
+import { mockPrint } from '../../../../tests/util/index.js';
 import { prepareJsons } from '../../../helper/dependencyUpdater.js';
+import { print } from '../../../util/index.js';
+import updateVersionMonorepo from '../updateVersionMonorepo.js';
 
 jest.mock('../../../helper/dependencyUpdater', () => {
   return {
     ...jest.requireActual('../../../helper/dependencyUpdater'),
     prepareJsons: jest.fn(() => []),
   };
-});
-
-import updateVersionMonorepo from '../updateVersionMonorepo.js';
-import { mockPrint } from '../../../../tests/util/index.js';
-
-jest.mock('../updateVersionMonorepo', () => {
-  const newModule = jest.requireActual('../updateVersionMonorepo');
-  newModule.prepareJsons = jest.fn(() => []);
-  return newModule;
 });
 
 describe('updateVersionMonorepo', () => {
@@ -39,8 +33,8 @@ describe('updateVersionMonorepo', () => {
     });
     expect(updateVersion).toHaveBeenCalledTimes(3);
     expect(updateVersion.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "dir": ".",
           "fileName": "lerna.json",
           "nextVersion": "1.2.3",
@@ -48,16 +42,16 @@ describe('updateVersionMonorepo', () => {
       ]
     `);
     expect(updateVersion.mock.calls[1]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "dir": "packages/a",
           "nextVersion": "1.2.3",
         },
       ]
     `);
     expect(updateVersion.mock.calls[2]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "dir": "packages/b",
           "nextVersion": "1.2.3",
         },
@@ -65,7 +59,7 @@ describe('updateVersionMonorepo', () => {
     `);
     expect(versionUpdated).toHaveBeenCalledTimes(1);
     expect(versionUpdated.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "dir": ".",
         "exec": undefined,
         "releaseType": "patch",
@@ -93,9 +87,9 @@ describe('updateVersionMonorepo', () => {
       dryRun: true,
     });
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Updating the versions on the monorepo.",
-        "Your configuration: [\\"packages/*\\"]",
+        "Your configuration: ["packages/*"]",
         "Main version file: lerna.json",
         "Actual packages to bump:",
         "-> packages/a/package.json",

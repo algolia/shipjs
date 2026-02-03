@@ -1,11 +1,13 @@
+import { inc, prerelease } from 'semver';
+
 import {
   GIT_COMMIT_PREFIX_PATCH,
   GIT_COMMIT_PREFIX_MINOR,
   GIT_COMMIT_BREAKING_CHANGE,
 } from '../const.js';
-import { inc, prerelease } from 'semver';
-import getCommitTitles from '../git/getCommitTitles.js';
 import getCommitBodies from '../git/getCommitBodies.js';
+import getCommitTitles from '../git/getCommitTitles.js';
+
 import getCommitNumbersPerType from './getCommitNumbersPerType.js';
 
 export function getNextVersionFromCommitMessages(version, titles, bodies) {
@@ -29,13 +31,14 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
   );
   if (minor) {
     return { version: inc(version, 'minor'), ignoredMessages };
-  } else if (patch) {
-    return { version: inc(version, 'patch'), ignoredMessages };
-  } else if (titles.trim().length === 0) {
-    return { version: null, ignoredMessages };
-  } else {
+  }
+  if (patch) {
     return { version: inc(version, 'patch'), ignoredMessages };
   }
+  if (titles.trim().length === 0) {
+    return { version: null, ignoredMessages };
+  }
+  return { version: inc(version, 'patch'), ignoredMessages };
 }
 
 export default function getNextVersion(
