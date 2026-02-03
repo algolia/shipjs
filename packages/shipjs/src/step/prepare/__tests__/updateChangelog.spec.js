@@ -21,7 +21,7 @@ describe('prepareParams', () => {
       dir: configDir,
       conventionalChangelogArgs: `-i CHANGELOG.md -s --config ${configPath}`,
       revisionRange: '1.0.0..1.0.1',
-      reject: () => {},
+      reject: () => { },
     });
     expect(args.config).toEqual(config);
   });
