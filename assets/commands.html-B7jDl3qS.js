@@ -1,4 +1,4 @@
-import{_ as n,c as e,a,o as i}from"./app-DsY0HySA.js";const l={};function d(p,s){return i(),e("div",null,[...s[0]||(s[0]=[a(`<h1 id="commands" tabindex="-1"><a class="header-anchor" href="#commands"><span>Commands</span></a></h1><h2 id="setup" tabindex="-1"><a class="header-anchor" href="#setup"><span><code>setup</code></span></a></h2><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">$ shipjs setup --help</span>
+import{_ as n,c as e,a,o as i}from"./app-D3DtFXkQ.js";const l={};function d(p,s){return i(),e("div",null,[...s[0]||(s[0]=[a(`<h1 id="commands" tabindex="-1"><a class="header-anchor" href="#commands"><span>Commands</span></a></h1><h2 id="setup" tabindex="-1"><a class="header-anchor" href="#setup"><span><code>setup</code></span></a></h2><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">$ shipjs setup --help</span>
 <span class="line">NAME</span>
 <span class="line">        shipjs setup - Setup Ship.js in your project.</span>
 <span class="line"></span>
