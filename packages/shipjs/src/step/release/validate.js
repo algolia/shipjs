@@ -3,9 +3,10 @@ import {
   getLatestCommitMessage,
   getCurrentBranch,
 } from 'shipjs-lib';
-import runStep from '../runStep.js';
-import { print, exitProcess } from '../../util/index.js';
+
 import { info, warning } from '../../color.js';
+import { print, exitProcess } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default ({ config, dir }) =>
   runStep({ title: 'Checking the current status.' }, () => {

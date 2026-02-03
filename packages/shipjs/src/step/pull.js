@@ -1,5 +1,6 @@
-import runStep from './runStep.js';
 import { run } from '../util/index.js';
+
+import runStep from './runStep.js';
 
 export default ({ remote, currentBranch, dir, dryRun }) =>
   runStep({ title: 'Updating from remote.' }, () => {

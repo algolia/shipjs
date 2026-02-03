@@ -1,20 +1,20 @@
 import { loadConfig } from 'shipjs-lib';
 
-import printHelp from '../step/release/printHelp.js';
-import printDryRunBanner from '../step/printDryRunBanner.js';
-import validate from '../step/release/validate.js';
-import gatherRepoInfo from '../step/release/gatherRepoInfo.js';
-import runTest from '../step/release/runTest.js';
-import runBuild from '../step/release/runBuild.js';
-import runBeforePublish from '../step/release/runBeforePublish.js';
-import runPublish from '../step/release/runPublish.js';
-import runAfterPublish from '../step/release/runAfterPublish.js';
-import createGitTag from '../step/release/createGitTag.js';
-import gitPush from '../step/release/gitPush.js';
-import createGitHubRelease from '../step/release/createGitHubRelease.js';
-import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess.js';
 import checkGitHubToken from '../step/checkGitHubToken.js';
+import printDryRunBanner from '../step/printDryRunBanner.js';
+import createGitHubRelease from '../step/release/createGitHubRelease.js';
+import createGitTag from '../step/release/createGitTag.js';
 import finished from '../step/release/finished.js';
+import gatherRepoInfo from '../step/release/gatherRepoInfo.js';
+import gitPush from '../step/release/gitPush.js';
+import notifyReleaseSuccess from '../step/release/notifyReleaseSuccess.js';
+import printHelp from '../step/release/printHelp.js';
+import runAfterPublish from '../step/release/runAfterPublish.js';
+import runBeforePublish from '../step/release/runBeforePublish.js';
+import runBuild from '../step/release/runBuild.js';
+import runPublish from '../step/release/runPublish.js';
+import runTest from '../step/release/runTest.js';
+import validate from '../step/release/validate.js';
 import { detectYarn } from '../util/index.js';
 
 async function release({ help = false, dir = '.', dryRun = false }) {
@@ -29,13 +29,8 @@ async function release({ help = false, dir = '.', dryRun = false }) {
   const config = await loadConfig(dir);
   const { remote } = config;
   const { currentVersion: version } = validate({ config, dir });
-  const {
-    appName,
-    latestCommitHash,
-    latestCommitUrl,
-    repoURL,
-    releaseTag,
-  } = await gatherRepoInfo({ remote, version, dir });
+  const { appName, latestCommitHash, latestCommitUrl, repoURL, releaseTag } =
+    await gatherRepoInfo({ remote, version, dir });
   const isYarn = detectYarn(dir);
   runTest({ isYarn, config, dir, dryRun });
   runBuild({ isYarn, config, version, dir, dryRun });

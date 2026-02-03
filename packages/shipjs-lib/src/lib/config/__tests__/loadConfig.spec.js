@@ -1,6 +1,7 @@
-import loadConfig from '../loadConfig.js';
-import defaultConfig from '../defaultConfig.js';
 import path from 'path';
+
+import defaultConfig from '../defaultConfig.js';
+import loadConfig from '../loadConfig.js';
 
 const baseConfig = expect.objectContaining({});
 

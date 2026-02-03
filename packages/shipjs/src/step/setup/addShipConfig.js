@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+
 import serialize from 'serialize-javascript';
-import runStep from '../runStep.js';
-import { runPrettier } from '../../helper/index.js';
+
 import { info } from '../../color.js';
+import { runPrettier } from '../../helper/index.js';
 import { print } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default async ({
   isScoped,

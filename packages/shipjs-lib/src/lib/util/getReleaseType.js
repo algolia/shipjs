@@ -8,10 +8,8 @@ export default function getReleaseType(nextVersion) {
   if (patch(nextVersion) === 0) {
     if (minor(nextVersion) === 0) {
       return 'major';
-    } else {
-      return 'minor';
     }
-  } else {
-    return 'patch';
+    return 'minor';
   }
+  return 'patch';
 }

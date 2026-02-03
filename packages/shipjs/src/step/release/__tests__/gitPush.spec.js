@@ -1,4 +1,5 @@
 import { getCurrentBranch } from 'shipjs-lib';
+
 import { gitPush as gitPushInternal } from '../../../helper/index.js';
 import gitPush from '../gitPush.js';
 

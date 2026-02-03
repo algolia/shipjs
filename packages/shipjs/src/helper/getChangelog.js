@@ -1,5 +1,6 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
+
 import { extractSpecificChangelog } from './index.js';
 
 export default function getChangelog({ version, dir }) {

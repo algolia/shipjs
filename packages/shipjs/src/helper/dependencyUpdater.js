@@ -1,6 +1,8 @@
-import { resolve } from 'path';
 import { readFileSync, writeFileSync } from 'fs';
+import { resolve } from 'path';
+
 import { print } from '../util/index.js';
+
 import { runPrettier } from './index.js';
 
 const typesOfDependencies = [
@@ -34,36 +36,33 @@ export function getListToUpdate(_nextVersion, list) {
                   currentVersion,
                   nextVersion,
                 };
-              } else {
-                return null;
               }
+              return null;
             })
             .filter(Boolean);
 
           if (dependenciesToUpdate.length === 0) {
             return null;
-          } else {
-            return {
-              type: dependencyType,
-              dependenciesToUpdate,
-            };
           }
+          return {
+            type: dependencyType,
+            dependenciesToUpdate,
+          };
         })
         .filter(Boolean);
 
       if (updates.length === 0) {
         return null;
-      } else {
-        return {
-          packagePath,
-          name: json.name,
-          updates: updates.reduce((acc, { type, dependenciesToUpdate }) => {
-            // eslint-disable-next-line no-param-reassign
-            acc[type] = dependenciesToUpdate;
-            return acc;
-          }, {}),
-        };
       }
+      return {
+        packagePath,
+        name: json.name,
+        updates: updates.reduce((acc, { type, dependenciesToUpdate }) => {
+          // eslint-disable-next-line no-param-reassign
+          acc[type] = dependenciesToUpdate;
+          return acc;
+        }, {}),
+      };
     })
     .filter(Boolean);
 }

@@ -1,5 +1,5 @@
-import { resolve, join, sep } from 'path';
 import { statSync, readdirSync, existsSync } from 'fs';
+import { resolve, join, sep } from 'path';
 
 const isDirectory = (dir) => statSync(dir).isDirectory();
 const getDirectories = (dir) =>
@@ -32,9 +32,8 @@ export default function expandPackageList(list, dir = '.') {
       if (item.endsWith('/*')) {
         const basePath = resolve(dir, item.slice(0, item.length - 2));
         return expandPackageList(getDirectories(basePath), dir);
-      } else {
-        return resolve(dir, item);
       }
+      return resolve(dir, item);
     })
   ).filter(hasPackageJson);
 }

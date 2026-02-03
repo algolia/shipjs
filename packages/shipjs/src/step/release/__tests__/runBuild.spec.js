@@ -1,5 +1,5 @@
-import runBuild from '../runBuild.js';
 import { run, print } from '../../../util/index.js';
+import runBuild from '../runBuild.js';
 
 describe('runBuild', () => {
   it('works', () => {

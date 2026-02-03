@@ -1,8 +1,7 @@
-import askCircleCI from './askCircleCI.js';
 import addCircleCIConfig from './addCircleCIConfig.js';
-
-import askGitHubActions from './askGitHubActions.js';
 import addGitHubActions from './addGitHubActions.js';
+import askCircleCI from './askCircleCI.js';
+import askGitHubActions from './askGitHubActions.js';
 
 const noop = () => ({});
 

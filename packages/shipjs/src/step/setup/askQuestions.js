@@ -1,21 +1,20 @@
-import inquirer from 'inquirer';
-import { getRemoteBranches, getCurrentBranch } from 'shipjs-lib';
 import fs from 'fs';
 import path from 'path';
-import formatMessage from './formatMessage.js';
-import integrations from './CI/index.js';
+
+import inquirer from 'inquirer';
+import { getRemoteBranches, getCurrentBranch } from 'shipjs-lib';
+
 import runStep from '../runStep.js';
+
+import integrations from './CI/index.js';
+import formatMessage from './formatMessage.js';
 
 export default async ({ dir }) =>
   await runStep({}, async () => {
     const { baseBranch } = await askBranches(dir);
     const { ciIntegration, ciConfig } = await askCI(dir);
-    const {
-      useMonorepo,
-      mainVersionFile,
-      packagesToBump,
-      packagesToPublish,
-    } = await askMonorepo(dir);
+    const { useMonorepo, mainVersionFile, packagesToBump, packagesToPublish } =
+      await askMonorepo(dir);
 
     const { isScoped, isPublic } = await askPackageAccess(dir);
 
@@ -95,56 +94,53 @@ async function askMonorepo(dir) {
   const mainVersionFileCandidate = getMainVersionFileCandidate(dir);
   const packagesCandidate = getMonorepoPackages(dir);
 
-  const {
-    mainVersionFile,
-    packagesToBump,
-    packagesToPublish,
-  } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'mainVersionFile',
-      message: 'What is your main version file?',
-      default: mainVersionFileCandidate,
-    },
-    {
-      type: 'input',
-      name: 'packagesToBump',
-      message: formatMessage(
-        'packagesToBump?',
-        [
-          'What are your packages that you want to bump version of?',
-          packagesCandidate
-            ? ''
-            : 'It should be an array of strings, for example: ["packages/*"]',
-        ]
-          .filter(Boolean)
-          .join('\n')
-      ),
-      validate: stringArrayValidator,
-      default: packagesCandidate ? JSON.stringify(packagesCandidate) : '',
-    },
-    {
-      type: 'input',
-      name: 'packagesToPublish',
-      message: formatMessage(
-        'packagesToPublish',
-        [
-          'What are your packages that you want to publish?',
-          'Among packagesToBump, there can be some packages you do not want to publish.',
-          'For example,',
-          '  - packagesToBump: ["packages/*", "examples/*"]',
-          '  - packagesToPublish: ["packages/*"]',
-          packagesCandidate
-            ? ''
-            : 'It should be an array of strings, for example: ["packages/*"]',
-        ]
-          .filter(Boolean)
-          .join('\n')
-      ),
-      validate: stringArrayValidator,
-      default: packagesCandidate ? JSON.stringify(packagesCandidate) : '',
-    },
-  ]);
+  const { mainVersionFile, packagesToBump, packagesToPublish } =
+    await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'mainVersionFile',
+        message: 'What is your main version file?',
+        default: mainVersionFileCandidate,
+      },
+      {
+        type: 'input',
+        name: 'packagesToBump',
+        message: formatMessage(
+          'packagesToBump?',
+          [
+            'What are your packages that you want to bump version of?',
+            packagesCandidate
+              ? ''
+              : 'It should be an array of strings, for example: ["packages/*"]',
+          ]
+            .filter(Boolean)
+            .join('\n')
+        ),
+        validate: stringArrayValidator,
+        default: packagesCandidate ? JSON.stringify(packagesCandidate) : '',
+      },
+      {
+        type: 'input',
+        name: 'packagesToPublish',
+        message: formatMessage(
+          'packagesToPublish',
+          [
+            'What are your packages that you want to publish?',
+            'Among packagesToBump, there can be some packages you do not want to publish.',
+            'For example,',
+            '  - packagesToBump: ["packages/*", "examples/*"]',
+            '  - packagesToPublish: ["packages/*"]',
+            packagesCandidate
+              ? ''
+              : 'It should be an array of strings, for example: ["packages/*"]',
+          ]
+            .filter(Boolean)
+            .join('\n')
+        ),
+        validate: stringArrayValidator,
+        default: packagesCandidate ? JSON.stringify(packagesCandidate) : '',
+      },
+    ]);
 
   return {
     useMonorepo,
@@ -206,7 +202,8 @@ function getMonorepoPackages(dir) {
   const packageJson = getJson(dir, 'package.json');
   if (Array.isArray(packageJson.workspaces)) {
     return packageJson.workspaces;
-  } else if (
+  }
+  if (
     typeof packageJson.workspaces === 'object' &&
     Array.isArray(packageJson.workspaces.packages)
   ) {
