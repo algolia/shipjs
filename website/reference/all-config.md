@@ -303,6 +303,31 @@ publishCommand: ({ isYarn, tag, defaultCommand, dir }) => {
 };
 ```
 
+## `useOidcTokenProvider`
+
+_used at_: `shipjs trigger`
+
+_default:_ `false`
+
+When `true`, Ship.js skips setting the `NPM_AUTH_TOKEN` via `npm config set`. Use this when publishing with [npm's OIDC trusted publishing](https://docs.npmjs.com/trusted-publishers) (e.g., via GitHub Actions' native npm publishing).
+
+```js
+// ship.config.js
+module.exports = {
+  useOidcTokenProvider: true,
+};
+```
+
+With OIDC trusted publishing, npm authenticates your GitHub Actions workflow directly without needing a classic npm token.
+
+Your GitHub Actions workflow job will need the following permissions:
+
+```yaml
+permissions:
+  id-token: write
+  contents: read
+```
+
 ## `afterPublish`
 
 _used at_: `shipjs trigger`

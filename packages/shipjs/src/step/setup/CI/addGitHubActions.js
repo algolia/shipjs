@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import ejs from 'ejs';
-import mkdirp from 'mkdirp';
+import { mkdirpSync } from 'mkdirp';
 
 import { info, warning } from '../../../color.js';
 import { print } from '../../../util/index.js';
@@ -71,7 +71,7 @@ function createGitHubAction({ content, actionPath, dir, dryRun }) {
     print(actionPath);
     print(content);
   } else {
-    mkdirp.sync(path.dirname(filePath));
+    mkdirpSync(path.dirname(filePath));
     fs.writeFileSync(filePath, content);
   }
   return () => {
