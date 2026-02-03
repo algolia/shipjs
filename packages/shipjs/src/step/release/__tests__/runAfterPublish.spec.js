@@ -1,10 +1,12 @@
+import { vi } from 'vitest';
+
 import { mockPrint } from '../../../../tests/util/index.js';
 import { print } from '../../../util/index.js';
 import runAfterPublish from '../runAfterPublish.js';
 
 describe('runAfterPublish', () => {
   it('works', async () => {
-    const afterPublish = jest.fn();
+    const afterPublish = vi.fn();
     await runAfterPublish({
       version: '1.2.3',
       releaseTag: 'latest',

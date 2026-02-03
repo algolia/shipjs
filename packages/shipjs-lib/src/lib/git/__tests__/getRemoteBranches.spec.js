@@ -1,7 +1,9 @@
+import { vi } from 'vitest';
+
 import silentExec from '../../shell/silentExec.js';
 import getRemoteBranches from '../getRemoteBranches.js';
 
-jest.mock('../../shell/silentExec.js');
+vi.mock('../../shell/silentExec.js');
 
 describe('getRemoteBranches', () => {
   it('works', () => {

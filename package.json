@@ -6,7 +6,7 @@
     "build": "yarn workspace shipjs-lib build",
     "lint": "lerna run lint --stream",
     "test": "lerna run test --stream",
-    "test:ci": "lerna run test --stream -- --maxWorkers=1",
+    "test:ci": "lerna run test --stream",
     "tw1": "yarn workspace shipjs-lib test:watch",
     "tw2": "yarn workspace shipjs test:watch",
     "web": "yarn workspace website dev",
@@ -31,11 +31,11 @@
   },
   "name": "shipjs",
   "devDependencies": {
-    "all-contributors-cli": "6.15.0",
+    "all-contributors-cli": "6.26.1",
     "lerna": "8.2.4"
   },
   "dependencies": {
-    "patch-package": "^6.2.2",
+    "patch-package": "^8.0.1",
     "postinstall-postinstall": "^2.1.0"
   },
   "packageManager": "yarn@1.22.19+sha512.ff4579ab459bb25aa7c0ff75b62acebe576f6084b36aa842971cf250a5d8c6cd3bc9420b22ce63c7f93a0857bc6ef29291db39c3e7a23aab5adfd5a4dd6c5d71"
