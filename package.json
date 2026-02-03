@@ -15,7 +15,7 @@
     "contributors:add": "all-contributors add"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "author": {
     "name": "Algolia",
