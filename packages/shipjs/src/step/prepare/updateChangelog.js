@@ -3,7 +3,8 @@ import path from 'path';
 
 import addStream from 'add-stream';
 import conventionalChangelogCore from 'conventional-changelog-core';
-import conventionalChangelogPresetLoader from 'conventional-changelog-preset-loader';
+// eslint-disable-next-line import/no-unresolved -- ESM-only package with exports field
+import { loadPreset } from 'conventional-changelog-preset-loader';
 import merge from 'deepmerge';
 import tempfile from 'tempfile';
 
@@ -134,10 +135,7 @@ export async function prepareParams({
     : {};
   if (args.preset) {
     try {
-      args.config = merge(
-        await conventionalChangelogPresetLoader(args.preset),
-        args.config
-      );
+      args.config = merge(await loadPreset(args.preset), args.config);
     } catch (err) {
       /* eslint-disable no-console */
       if (typeof args.preset === 'object') {
