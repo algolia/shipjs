@@ -8,7 +8,7 @@ describe('printHelp', () => {
     mockPrint(print, output);
     printHelp();
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "NAME
       	shipjs prepare - Prepare a release.
 

@@ -11,7 +11,7 @@ describe('installDependencies', () => {
       dryRun: false,
     });
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "yarn install",
         "dir": ".",
         "dryRun": false,

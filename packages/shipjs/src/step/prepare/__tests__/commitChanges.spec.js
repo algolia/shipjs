@@ -16,7 +16,7 @@ describe('commitChanges', () => {
       dryRun: true,
     });
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Committing the changes.",
         "$ git add .",
         "$ git commit",
@@ -66,16 +66,16 @@ describe('commitChanges', () => {
       })
     );
     expect(run.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "command": "git add .",
           "dir": ".",
         },
       ]
     `);
     expect(run.mock.calls[1]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "command": "git commit --file=/temp/file/path",
           "dir": ".",
         },

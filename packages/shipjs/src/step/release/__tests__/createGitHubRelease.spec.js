@@ -51,8 +51,8 @@ describe('createGitHubRelease', () => {
     await createGitHubRelease(getDefaultParams());
     expect(createRelease).toHaveBeenCalledTimes(1);
     expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "body": "",
           "name": "v1.2.3",
           "owner": "my",
@@ -74,8 +74,8 @@ describe('createGitHubRelease', () => {
     );
     expect(createRelease).toHaveBeenCalledTimes(1);
     expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "body": "",
           "name": "v1.2.3",
           "owner": "my",
@@ -86,9 +86,9 @@ describe('createGitHubRelease', () => {
     `);
     expect(uploadReleaseAsset).toHaveBeenCalledTimes(2);
     expect(uploadReleaseAsset.mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
-          Object {
+      [
+        [
+          {
             "data": undefined,
             "name": "path1",
             "owner": "my",
@@ -96,8 +96,8 @@ describe('createGitHubRelease', () => {
             "repo": "repo",
           },
         ],
-        Array [
-          Object {
+        [
+          {
             "data": undefined,
             "name": "path2",
             "owner": "my",
@@ -117,8 +117,8 @@ describe('createGitHubRelease', () => {
     );
     expect(createRelease).toHaveBeenCalledTimes(1);
     expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "body": "",
           "name": "v1.2.3",
           "owner": "my",
@@ -129,9 +129,9 @@ describe('createGitHubRelease', () => {
     `);
     expect(uploadReleaseAsset).toHaveBeenCalledTimes(2);
     expect(uploadReleaseAsset.mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
-          Object {
+      [
+        [
+          {
             "data": undefined,
             "name": "path1",
             "owner": "my",
@@ -139,8 +139,8 @@ describe('createGitHubRelease', () => {
             "repo": "repo",
           },
         ],
-        Array [
-          Object {
+        [
+          {
             "data": undefined,
             "name": "path2",
             "owner": "my",
@@ -160,8 +160,8 @@ describe('createGitHubRelease', () => {
     );
     expect(createRelease).toHaveBeenCalledTimes(1);
     expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "body": "",
           "name": "v1.2.3",
           "owner": "my",
@@ -172,9 +172,9 @@ describe('createGitHubRelease', () => {
     `);
     expect(uploadReleaseAsset).toHaveBeenCalledTimes(1);
     expect(uploadReleaseAsset.mock.calls).toMatchInlineSnapshot(`
-      Array [
-        Array [
-          Object {
+      [
+        [
+          {
             "data": undefined,
             "name": "path1",
             "owner": "my",
@@ -202,8 +202,8 @@ describe('createGitHubRelease', () => {
     });
     expect(createRelease).toHaveBeenCalledTimes(1);
     expect(createRelease.mock.calls[0]).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "body": "# v1.2.3 (.)",
           "name": "v1.2.3",
           "owner": "my",

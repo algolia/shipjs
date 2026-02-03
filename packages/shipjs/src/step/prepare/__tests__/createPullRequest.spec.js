@@ -42,7 +42,7 @@ describe('createPullRequest', () => {
   it('works in dry mode', async () => {
     const ret = await createPullRequest(getDefaultParams({ dryRun: true }));
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "git remote prune origin",
         "dir": ".",
         "dryRun": true,

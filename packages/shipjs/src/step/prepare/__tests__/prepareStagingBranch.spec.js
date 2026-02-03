@@ -31,9 +31,9 @@ describe('prepareStagingBranch', () => {
     expect(exitProcess).toHaveBeenCalledTimes(1);
     expect(exitProcess).toHaveBeenCalledWith(1);
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Preparing a staging branch",
-        "The branch \\"releases/v0.1.2\\" already exists locally.",
+        "The branch "releases/v0.1.2" already exists locally.",
         "Delete the local branch and try again. For example,",
         "  $ git branch -d releases/v0.1.2",
       ]
@@ -55,9 +55,9 @@ describe('prepareStagingBranch', () => {
     expect(exitProcess).toHaveBeenCalledTimes(1);
     expect(exitProcess).toHaveBeenCalledWith(1);
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Preparing a staging branch",
-        "The branch \\"releases/v0.1.2\\" already exists remotely.",
+        "The branch "releases/v0.1.2" already exists remotely.",
         "Delete the remote branch and try again. For example,",
         "  $ git push origin :releases/v0.1.2",
       ]
