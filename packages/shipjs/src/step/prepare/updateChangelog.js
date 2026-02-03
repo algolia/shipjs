@@ -126,9 +126,12 @@ export async function prepareParams({
   if (args.commitPath) {
     gitRawCommitsOpts.path = args.commitPath;
   }
-  const templateContext =
-    args.context && require(path.resolve(dir, args.context));
-  args.config = args.config ? require(path.resolve(dir, args.config)) : {};
+  const templateContext = args.context
+    ? (await import(path.resolve(dir, args.context))).default
+    : undefined;
+  args.config = args.config
+    ? (await import(path.resolve(dir, args.config))).default
+    : {};
   if (args.preset) {
     try {
       args.config = merge(
