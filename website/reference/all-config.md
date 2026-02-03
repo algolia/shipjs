@@ -320,6 +320,14 @@ module.exports = {
 
 With OIDC trusted publishing, npm authenticates your GitHub Actions workflow directly without needing a classic npm token.
 
+Your GitHub Actions workflow job will need the following permissions:
+
+```yaml
+permissions:
+  id-token: write
+  contents: read
+```
+
 ## `afterPublish`
 
 _used at_: `shipjs trigger`
