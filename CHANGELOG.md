@@ -1,3 +1,22 @@
+## 0.28.0 (2026-02-03)
+
+* docs: add CLAUDE.md for Claude Code guidance (#1015) ([9857300](https://github.com/algolia/shipjs/commit/9857300)), closes [#1015](https://github.com/algolia/shipjs/issues/1015)
+* docs: document forcePushBranches config option (#1030) ([bc24f36](https://github.com/algolia/shipjs/commit/bc24f36)), closes [#1030](https://github.com/algolia/shipjs/issues/1030)
+* feat: add useOidcTokenProvider config option (#1029) ([b54d736](https://github.com/algolia/shipjs/commit/b54d736)), closes [#1029](https://github.com/algolia/shipjs/issues/1029)
+* chore: fix CommonJS remnants in ESM codebase (#1020) ([3195b0a](https://github.com/algolia/shipjs/commit/3195b0a)), closes [#1020](https://github.com/algolia/shipjs/issues/1020)
+* chore: migrate VuePress 1.x to 2.x (#1022) ([08878dc](https://github.com/algolia/shipjs/commit/08878dc)), closes [#1022](https://github.com/algolia/shipjs/issues/1022)
+* chore: update eslint from 7.2.0 to 8.57.1 (#1019) ([3656ec9](https://github.com/algolia/shipjs/commit/3656ec9)), closes [#1019](https://github.com/algolia/shipjs/issues/1019)
+* chore: update jest to 29.7.0 and babel to 7.26.9 (#1017) ([12ce391](https://github.com/algolia/shipjs/commit/12ce391)), closes [#1017](https://github.com/algolia/shipjs/issues/1017)
+* chore: update lerna from 3.22.0 to 8.2.4 (#1016) ([80071fe](https://github.com/algolia/shipjs/commit/80071fe)), closes [#1016](https://github.com/algolia/shipjs/issues/1016)
+* chore: update Node.js to 20.x LTS (#1021) ([add8134](https://github.com/algolia/shipjs/commit/add8134)), closes [#1021](https://github.com/algolia/shipjs/issues/1021)
+* chore: update rollup from 2.14.0 to 4.34.8 (#1018) ([aab5dfb](https://github.com/algolia/shipjs/commit/aab5dfb)), closes [#1018](https://github.com/algolia/shipjs/issues/1018)
+* chore: update runtime dependencies (#1023) ([1fd3cf2](https://github.com/algolia/shipjs/commit/1fd3cf2)), closes [#1023](https://github.com/algolia/shipjs/issues/1023)
+* chore(test): fix mock ([559683c](https://github.com/algolia/shipjs/commit/559683c))
+* fix(site): update vuepress ([30a1e9f](https://github.com/algolia/shipjs/commit/30a1e9f))
+* fix(site): update vuepress, set legacy openssl (#1010) ([1c7e472](https://github.com/algolia/shipjs/commit/1c7e472)), closes [#1010](https://github.com/algolia/shipjs/issues/1010)
+
+
+
 # [0.27.0](https://github.com/algolia/shipjs/compare/v0.26.4...v0.27.0) (2024-12-10)
 
 
