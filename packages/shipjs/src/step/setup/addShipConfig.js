@@ -65,7 +65,7 @@ export default async ({
 
 function checkIfScriptsExist({ dir }) {
   const filePath = path.resolve(dir, 'package.json');
-  const json = JSON.parse(fs.readFileSync(filePath).toString());
+  const json = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
   const { build } = json.scripts || {};
   return {
     buildExists: Boolean(build),
