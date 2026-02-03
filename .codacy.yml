@@ -1,15 +1,17 @@
 ---
 engines:
-  # Disable path traversal checks for test files (false positives for test fixtures)
-  # and CLI config loading (intentional behavior)
+  # Disable path traversal checks - Ship.js is a CLI that intentionally
+  # works with user-provided directories and file paths
   semgrep:
     exclude_paths:
       - "**/__tests__/**"
       - "**/tests/**"
+      # CLI helper modules that legitimately work with file paths
+      - "packages/shipjs/src/helper/**"
+      - "packages/shipjs/src/step/**"
 
 exclude_paths:
-  # Ignore test directories for security-focused rules
-  # Tests legitimately use dynamic paths to load fixtures
+  # Test directories - legitimately use dynamic paths to load fixtures
   - "**/__tests__/**"
   - "**/tests/**"
   # Node modules should not be analyzed

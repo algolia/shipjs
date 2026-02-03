@@ -1,9 +1,13 @@
+import { vi } from 'vitest';
+
 import { mockPrint } from '../../../../tests/util/index.js';
 import { wrapExecWithDir, run, print } from '../../../util/index.js';
 import commitChanges from '../commitChanges.js';
 
-jest.mock('temp-write', () => ({
-  sync: () => '/temp/file/path',
+vi.mock('temp-write', () => ({
+  default: {
+    sync: () => '/temp/file/path',
+  },
 }));
 
 describe('commitChanges', () => {
@@ -29,11 +33,11 @@ describe('commitChanges', () => {
   });
 
   it('works', async () => {
-    const beforeCommitChanges = jest
+    const beforeCommitChanges = vi
       .fn()
       .mockImplementation(() => Promise.resolve());
-    wrapExecWithDir.mockImplementation(() => jest.fn());
-    const formatCommitMessage = jest
+    wrapExecWithDir.mockImplementation(() => vi.fn());
+    const formatCommitMessage = vi
       .fn()
       .mockImplementation(() => 'test message');
 

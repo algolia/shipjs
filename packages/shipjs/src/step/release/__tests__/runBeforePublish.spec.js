@@ -1,10 +1,12 @@
+import { vi } from 'vitest';
+
 import { mockPrint } from '../../../../tests/util/index.js';
 import { print } from '../../../util/index.js';
 import runBeforePublish from '../runBeforePublish.js';
 
 describe('runBeforePublish', () => {
   it('works', async () => {
-    const beforePublish = jest.fn();
+    const beforePublish = vi.fn();
     await runBeforePublish({
       config: {
         beforePublish,

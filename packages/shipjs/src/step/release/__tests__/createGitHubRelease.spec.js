@@ -1,16 +1,22 @@
-import fs from 'fs';
-
 import { Octokit } from '@octokit/rest';
-import globby from 'globby';
+import { globby } from 'globby';
 import { getRepoInfo } from 'shipjs-lib';
+import { vi } from 'vitest';
 
 import createGitHubRelease from '../createGitHubRelease.js';
 
-jest.mock('temp-write');
-jest.mock('@octokit/rest');
-jest.mock('globby');
-jest.mock('shipjs-lib');
-jest.mock('fs');
+vi.mock('temp-write');
+vi.mock('@octokit/rest');
+vi.mock('globby', () => ({
+  globby: vi.fn(),
+}));
+vi.mock('shipjs-lib');
+vi.mock('fs', () => ({
+  default: {
+    readFileSync: vi.fn(),
+    statSync: vi.fn(() => ({ size: 1024 })),
+  },
+}));
 
 const getDefaultParams = ({
   assetsToUpload,
@@ -26,8 +32,8 @@ const getDefaultParams = ({
   dryRun: false,
 });
 
-const createRelease = jest.fn();
-const uploadReleaseAsset = jest.fn();
+const createRelease = vi.fn();
+const uploadReleaseAsset = vi.fn();
 
 describe('createGitHubRelease', () => {
   beforeEach(() => {
@@ -45,8 +51,6 @@ describe('createGitHubRelease', () => {
       owner: 'my',
       name: 'repo',
     }));
-    jest.spyOn(fs, 'readFileSync').mockImplementation();
-    jest.spyOn(fs, 'statSync').mockImplementation(() => ({ size: 1024 }));
     globby.mockImplementation((path) => Promise.resolve([path]));
   });
 
@@ -190,7 +194,7 @@ describe('createGitHubRelease', () => {
   });
 
   it('works with extractChangelog', async () => {
-    const mockExtractChangelog = jest
+    const mockExtractChangelog = vi
       .fn()
       .mockImplementation(({ version, dir }) => `# v${version} (${dir})`);
     await createGitHubRelease(

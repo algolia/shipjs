@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { Octokit } from '@octokit/rest';
-import globby from 'globby';
+import { globby } from 'globby';
 import { getRepoInfo } from 'shipjs-lib';
 
 import { getChangelog } from '../../helper/index.js';

@@ -1,4 +1,5 @@
 import { updateVersion as updateVersionPackageJson } from 'shipjs-lib';
+import { vi } from 'vitest';
 
 import { mockPrint } from '../../../../tests/util/index.js';
 import { print } from '../../../util/index.js';
@@ -6,7 +7,7 @@ import updateVersion from '../updateVersion.js';
 
 describe('updateVersion', () => {
   it('works', () => {
-    const versionUpdated = jest.fn();
+    const versionUpdated = vi.fn();
     updateVersion({
       config: {
         versionUpdated,

@@ -1,4 +1,5 @@
 import { getRepoURLWithToken, getRepoURLWithTokenMasked } from 'shipjs-lib';
+import { vi } from 'vitest';
 
 import { mockPrint } from '../../../tests/util/index.js';
 import { print, run } from '../../util/index.js';
@@ -8,7 +9,7 @@ describe('gitPush', () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
-    jest.resetModules();
+    vi.resetModules();
     process.env = {};
   });
 
