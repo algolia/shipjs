@@ -1,20 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+import { execSync } from 'child_process';
 
-(async function () {
-  const configPath = path.resolve(__dirname, '..', '.vuepress', 'config.js');
-  const originalConfig = fs.readFileSync(configPath).toString();
-  const configWithBase = originalConfig.replace(
-    'module.exports = {',
-    `module.exports = {\n  base: "/shipjs/",`
-  );
-  fs.writeFileSync(configPath, configWithBase);
-  await exec('vuepress build');
-  await exec(`gh-pages -m "auto commit [ci skip]" -d .vuepress/dist`);
-
-  fs.writeFileSync(configPath, originalConfig);
-})();
+execSync('vuepress build', { stdio: 'inherit' });
+execSync('gh-pages -m "auto commit [ci skip]" -d .vuepress/dist', {
+  stdio: 'inherit',
+});
