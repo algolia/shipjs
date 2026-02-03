@@ -1,89 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Commands | Ship.js</title>
-    <meta name="generator" content="VuePress 1.9.10">
-    
-    <meta name="description" content="Take control of what is going to be your next release.">
-    
-    <link rel="preload" href="/shipjs/assets/css/0.styles.be6bb0ef.css" as="style"><link rel="preload" href="/shipjs/assets/js/app.b47dd1c9.js" as="script"><link rel="preload" href="/shipjs/assets/js/3.f75c1b27.js" as="script"><link rel="preload" href="/shipjs/assets/js/2.ea431e8b.js" as="script"><link rel="preload" href="/shipjs/assets/js/1.4f4c8b02.js" as="script"><link rel="preload" href="/shipjs/assets/js/29.987483b7.js" as="script"><link rel="prefetch" href="/shipjs/assets/js/11.b5b062f7.js"><link rel="prefetch" href="/shipjs/assets/js/12.0564259e.js"><link rel="prefetch" href="/shipjs/assets/js/13.7ea5f8dc.js"><link rel="prefetch" href="/shipjs/assets/js/14.1052e08c.js"><link rel="prefetch" href="/shipjs/assets/js/15.f2ae1d78.js"><link rel="prefetch" href="/shipjs/assets/js/16.97b5fb3a.js"><link rel="prefetch" href="/shipjs/assets/js/17.3fc7f006.js"><link rel="prefetch" href="/shipjs/assets/js/18.807d280e.js"><link rel="prefetch" href="/shipjs/assets/js/19.e4db893c.js"><link rel="prefetch" href="/shipjs/assets/js/20.3b5da8dd.js"><link rel="prefetch" href="/shipjs/assets/js/21.dc74cb28.js"><link rel="prefetch" href="/shipjs/assets/js/22.ecaf4050.js"><link rel="prefetch" href="/shipjs/assets/js/23.d5c4f546.js"><link rel="prefetch" href="/shipjs/assets/js/24.d30587a6.js"><link rel="prefetch" href="/shipjs/assets/js/25.38a594ea.js"><link rel="prefetch" href="/shipjs/assets/js/26.6c71fde4.js"><link rel="prefetch" href="/shipjs/assets/js/27.97e6db20.js"><link rel="prefetch" href="/shipjs/assets/js/28.e5d72948.js"><link rel="prefetch" href="/shipjs/assets/js/30.907c9767.js"><link rel="prefetch" href="/shipjs/assets/js/4.438ab530.js"><link rel="prefetch" href="/shipjs/assets/js/5.724eb271.js"><link rel="prefetch" href="/shipjs/assets/js/6.08faaecf.js"><link rel="prefetch" href="/shipjs/assets/js/7.f4debdc9.js"><link rel="prefetch" href="/shipjs/assets/js/8.8cdc7ba7.js"><link rel="prefetch" href="/shipjs/assets/js/vendors~docsearch.40afc43a.js">
-    <link rel="stylesheet" href="/shipjs/assets/css/0.styles.be6bb0ef.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.26" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      const useChoice = localStorage.getItem('vuepress-color-scheme')
+      const systemStatus =
+        'matchMedia' in window
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          : false
+
+      if (useChoice === 'light') {
+        document.documentElement.dataset.theme = 'light'
+      } else if (useChoice === 'dark' || systemStatus) {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    </script>
+    <title>Commands | Ship.js</title><meta name="description" content="Take control of what is going to be your next release.">
+    <link rel="preload" href="/shipjs/assets/style-DZu5yBEW.css" as="style"><link rel="stylesheet" href="/shipjs/assets/style-DZu5yBEW.css">
+    <link rel="modulepreload" href="/shipjs/assets/app-DsY0HySA.js"><link rel="modulepreload" href="/shipjs/assets/commands.html-D3IoAMIk.js">
+    <link rel="prefetch" href="/shipjs/assets/index.html-BxActb2b.js" as="script"><link rel="prefetch" href="/shipjs/assets/index.html-CYFFDPE9.js" as="script"><link rel="prefetch" href="/shipjs/assets/community.html-Di0WYF2z.js" as="script"><link rel="prefetch" href="/shipjs/assets/contributing.html-qUHhOvDJ.js" as="script"><link rel="prefetch" href="/shipjs/assets/getting-started.html-CE3RIoTm.js" as="script"><link rel="prefetch" href="/shipjs/assets/useful-config.html-BPblRn_v.js" as="script"><link rel="prefetch" href="/shipjs/assets/all-config.html-DROD6-7O.js" as="script"><link rel="prefetch" href="/shipjs/assets/resources.html-Cs7M7Wxf.js" as="script"><link rel="prefetch" href="/shipjs/assets/404.html-CgknB5-p.js" as="script"><link rel="prefetch" href="/shipjs/assets/index-BmuH0vca.js" as="script">
   </head>
   <body>
-    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/shipjs/" class="home-link router-link-active"><!----> <span class="site-name">Ship.js</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <nav class="nav-links can-hide"><div class="nav-item"><a href="/shipjs/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/shipjs/guide/" class="nav-link">
-  Guide
-</a></div><div class="nav-item"><a href="https://github.com/algolia/shipjs" target="_blank" rel="noopener noreferrer" class="nav-link external">
-  GitHub
-  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/shipjs/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/shipjs/guide/" class="nav-link">
-  Guide
-</a></div><div class="nav-item"><a href="https://github.com/algolia/shipjs" target="_blank" rel="noopener noreferrer" class="nav-link external">
-  GitHub
-  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><a href="/shipjs/guide/" class="sidebar-heading clickable"><span>Guide</span> <!----></a> <ul class="sidebar-links sidebar-group-items"><li><a href="/shipjs/guide/" class="sidebar-link">Introduction</a></li><li><a href="/shipjs/guide/getting-started.html" class="sidebar-link">Getting Started</a></li><li><a href="/shipjs/guide/useful-config.html" class="sidebar-link">Useful Configurations</a></li><li><a href="/shipjs/guide/contributing.html" class="sidebar-link">How to Contribute?</a></li><li><a href="/shipjs/guide/community.html" class="sidebar-link">Community</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Reference</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/shipjs/reference/all-config.html" class="sidebar-link">All Configurations</a></li><li><a href="/shipjs/reference/commands.html" aria-current="page" class="active sidebar-link">Commands</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/shipjs/reference/commands.html#setup" class="sidebar-link">setup</a></li><li class="sidebar-sub-header"><a href="/shipjs/reference/commands.html#prepare" class="sidebar-link">prepare</a></li><li class="sidebar-sub-header"><a href="/shipjs/reference/commands.html#trigger" class="sidebar-link">trigger</a></li></ul></li><li><a href="/shipjs/reference/resources.html" class="sidebar-link">Resources</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="commands"><a href="#commands" class="header-anchor">#</a> Commands</h1> <h2 id="setup"><a href="#setup" class="header-anchor">#</a> <code>setup</code></h2> <div class="language- extra-class"><pre class="language-text"><code>$ shipjs setup --help
-NAME
-        shipjs setup - Setup Ship.js in your project.
-
-USAGE
-        npx shipjs setup [--help] [--dir PATH] [--dry-run]
-
-OPTIONS
-        -h, --help
-          Print this help
-
-        -d, --dir PATH
-          Specify the PATH of the repository (default: the current directory).
-
-        -D, --dry-run
-          Displays the steps without actually doing them.
-</code></pre></div><h2 id="prepare"><a href="#prepare" class="header-anchor">#</a> <code>prepare</code></h2> <div class="language- extra-class"><pre class="language-text"><code>$ shipjs prepare --help
-NAME
-        shipjs prepare - Prepare a release.
-
-USAGE
-        shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run]
-
-OPTIONS
-        -h, --help
-          Print this help
-
-        -d, --dir PATH
-          Specify the PATH of the repository (default: the current directory).
-
-        -y, --yes
-          Skip all the interactive prompts and use the default values.
-
-        -D, --dry-run
-          Displays the steps without actually doing them.
-</code></pre></div><h2 id="trigger"><a href="#trigger" class="header-anchor">#</a> <code>trigger</code></h2> <div class="language- extra-class"><pre class="language-text"><code>$ shipjs trigger --help
-NAME
-        shipjs trigger - Trigger a release.
-
-USAGE
-        shipjs prepare [--help] [--dir PATH] [--dry-run]
-
-OPTIONS
-        -h, --help
-          Print this help
-
-        -d, --dir PATH
-          Specify the PATH of the repository (default: the current directory).
-
-        -D, --dry-run
-          Displays the steps without actually doing them.
-</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
-      ←
-      <a href="/shipjs/reference/all-config.html" class="prev">
-        All Configurations
-      </a></span> <span class="next"><a href="/shipjs/reference/resources.html">
-        Resources
-      </a>
-      →
-    </span></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/shipjs/assets/js/app.b47dd1c9.js" defer></script><script src="/shipjs/assets/js/3.f75c1b27.js" defer></script><script src="/shipjs/assets/js/2.ea431e8b.js" defer></script><script src="/shipjs/assets/js/1.4f4c8b02.js" defer></script><script src="/shipjs/assets/js/29.987483b7.js" defer></script>
+    <div id="app"><!--[--><div class="vp-theme-container external-link-icon" vp-container><!--[--><header class="vp-navbar" vp-navbar><div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0"><div class="icon" aria-hidden="true"><span></span><span></span><span></span></div></div><span><a class="route-link" href="/shipjs/"><!----><span class="vp-site-name" aria-hidden="true">Ship.js</span></a></span><div class="vp-navbar-items-wrapper" style=""><!--[--><!--]--><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><!--[--><div class="vp-navbar-item"><a class="route-link auto-link" href="/shipjs/" aria-label="Home"><!--[--><!--[--><!--]--><!--]-->Home<!--[--><!--[--><!--]--><!--]--></a></div><div class="vp-navbar-item"><a class="route-link auto-link" href="/shipjs/guide/" aria-label="Guide"><!--[--><!--[--><!--]--><!--]-->Guide<!--[--><!--[--><!--]--><!--]--></a></div><div class="vp-navbar-item"><a class="auto-link external-link" href="https://github.com/algolia/shipjs" aria-label="GitHub" rel="noopener noreferrer" target="_blank"><!--[--><!--[--><!--]--><!--]-->GitHub<!--[--><!--[--><!--]--><!--]--></a></div><!--]--></nav><!--[--><!--]--><button type="button" class="vp-toggle-color-mode-button" title="toggle color mode"><svg class="light-icon" viewbox="0 0 32 32" style=""><path d="M16 12.005a4 4 0 1 1-4 4a4.005 4.005 0 0 1 4-4m0-2a6 6 0 1 0 6 6a6 6 0 0 0-6-6z" fill="currentColor"></path><path d="M5.394 6.813l1.414-1.415l3.506 3.506L8.9 10.318z" fill="currentColor"></path><path d="M2 15.005h5v2H2z" fill="currentColor"></path><path d="M5.394 25.197L8.9 21.691l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 25.005h2v5h-2z" fill="currentColor"></path><path d="M21.687 23.106l1.414-1.415l3.506 3.506l-1.414 1.414z" fill="currentColor"></path><path d="M25 15.005h5v2h-5z" fill="currentColor"></path><path d="M21.687 8.904l3.506-3.506l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 2.005h2v5h-2z" fill="currentColor"></path></svg><svg class="dark-icon" viewbox="0 0 32 32" style="display:none;"><path d="M13.502 5.414a15.075 15.075 0 0 0 11.594 18.194a11.113 11.113 0 0 1-7.975 3.39c-.138 0-.278.005-.418 0a11.094 11.094 0 0 1-3.2-21.584M14.98 3a1.002 1.002 0 0 0-.175.016a13.096 13.096 0 0 0 1.825 25.981c.164.006.328 0 .49 0a13.072 13.072 0 0 0 10.703-5.555a1.01 1.01 0 0 0-.783-1.565A13.08 13.08 0 0 1 15.89 4.38A1.015 1.015 0 0 0 14.98 3z" fill="currentColor"></path></svg></button><!--[--><div id="docsearch-container" style="display:none;"></div><div class="docsearch-placeholder"><button type="button" aria-label="Search" aria-keyshortcuts="Control+k" class="DocSearch DocSearch-Button"><span class="DocSearch-Button-Container"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" class="DocSearch-Search-Icon"><circle cx="11" cy="11" r="8" stroke="currentColor" fill="none" stroke-width="1.4"></circle><path d="m21 21-4.3-4.3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="DocSearch-Button-Placeholder">Search</span></span><span class="DocSearch-Button-Keys"><kbd class="DocSearch-Button-Key DocSearch-Button-Key--ctrl">Ctrl</kbd><kbd class="DocSearch-Button-Key">K</kbd></span></button></div><!--]--></div></header><!--]--><div class="vp-sidebar-mask"></div><!--[--><aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><!--[--><div class="vp-navbar-item"><a class="route-link auto-link" href="/shipjs/" aria-label="Home"><!--[--><!--[--><!--]--><!--]-->Home<!--[--><!--[--><!--]--><!--]--></a></div><div class="vp-navbar-item"><a class="route-link auto-link" href="/shipjs/guide/" aria-label="Guide"><!--[--><!--[--><!--]--><!--]-->Guide<!--[--><!--[--><!--]--><!--]--></a></div><div class="vp-navbar-item"><a class="auto-link external-link" href="https://github.com/algolia/shipjs" aria-label="GitHub" rel="noopener noreferrer" target="_blank"><!--[--><!--[--><!--]--><!--]-->GitHub<!--[--><!--[--><!--]--><!--]--></a></div><!--]--></nav><!--[--><!--]--><ul class="vp-sidebar-items"><!--[--><li><a class="route-link auto-link vp-sidebar-item vp-sidebar-heading" href="/shipjs/guide/" aria-label="Guide"><!--[--><!--[--><!--]--><!--]-->Guide<!--[--><!--[--><!--]--><!--]--></a><ul class="vp-sidebar-children" style=""><!--[--><li><a class="route-link auto-link vp-sidebar-item" href="/shipjs/guide/" aria-label="Introduction"><!--[--><!--[--><!--]--><!--]-->Introduction<!--[--><!--[--><!--]--><!--]--></a><!----></li><li><a class="route-link auto-link vp-sidebar-item" href="/shipjs/guide/getting-started.html" aria-label="Getting Started"><!--[--><!--[--><!--]--><!--]-->Getting Started<!--[--><!--[--><!--]--><!--]--></a><!----></li><li><a class="route-link auto-link vp-sidebar-item" href="/shipjs/guide/useful-config.html" aria-label="Useful Configurations"><!--[--><!--[--><!--]--><!--]-->Useful Configurations<!--[--><!--[--><!--]--><!--]--></a><!----></li><li><a class="route-link auto-link vp-sidebar-item" href="/shipjs/guide/contributing.html" aria-label="How to Contribute?"><!--[--><!--[--><!--]--><!--]-->How to Contribute?<!--[--><!--[--><!--]--><!--]--></a><!----></li><li><a class="route-link auto-link vp-sidebar-item" href="/shipjs/guide/community.html" aria-label="Community"><!--[--><!--[--><!--]--><!--]-->Community<!--[--><!--[--><!--]--><!--]--></a><!----></li><!--]--></ul></li><li><p tabindex="0" class="vp-sidebar-item vp-sidebar-heading active">Reference <!----></p><ul class="vp-sidebar-children" style=""><!--[--><li><a class="route-link auto-link vp-sidebar-item" href="/shipjs/reference/all-config.html" aria-label="All Configurations"><!--[--><!--[--><!--]--><!--]-->All Configurations<!--[--><!--[--><!--]--><!--]--></a><!----></li><li><a class="route-link route-link-active auto-link vp-sidebar-item active" href="/shipjs/reference/commands.html" aria-label="Commands"><!--[--><!--[--><!--]--><!--]-->Commands<!--[--><!--[--><!--]--><!--]--></a><!----></li><li><a class="route-link auto-link vp-sidebar-item" href="/shipjs/reference/resources.html" aria-label="Resources"><!--[--><!--[--><!--]--><!--]-->Resources<!--[--><!--[--><!--]--><!--]--></a><!----></li><!--]--></ul></li><!--]--></ul><!--[--><!--]--></aside><!--]--><!--[--><main class="vp-page"><!--[--><!--]--><div vp-content><!--[--><!--]--><div id="content"><h1 id="commands" tabindex="-1"><a class="header-anchor" href="#commands"><span>Commands</span></a></h1><h2 id="setup" tabindex="-1"><a class="header-anchor" href="#setup"><span><code>setup</code></span></a></h2><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">$ shipjs setup --help</span>
+<span class="line">NAME</span>
+<span class="line">        shipjs setup - Setup Ship.js in your project.</span>
+<span class="line"></span>
+<span class="line">USAGE</span>
+<span class="line">        npx shipjs setup [--help] [--dir PATH] [--dry-run]</span>
+<span class="line"></span>
+<span class="line">OPTIONS</span>
+<span class="line">        -h, --help</span>
+<span class="line">          Print this help</span>
+<span class="line"></span>
+<span class="line">        -d, --dir PATH</span>
+<span class="line">          Specify the PATH of the repository (default: the current directory).</span>
+<span class="line"></span>
+<span class="line">        -D, --dry-run</span>
+<span class="line">          Displays the steps without actually doing them.</span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="prepare" tabindex="-1"><a class="header-anchor" href="#prepare"><span><code>prepare</code></span></a></h2><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">$ shipjs prepare --help</span>
+<span class="line">NAME</span>
+<span class="line">        shipjs prepare - Prepare a release.</span>
+<span class="line"></span>
+<span class="line">USAGE</span>
+<span class="line">        shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run]</span>
+<span class="line"></span>
+<span class="line">OPTIONS</span>
+<span class="line">        -h, --help</span>
+<span class="line">          Print this help</span>
+<span class="line"></span>
+<span class="line">        -d, --dir PATH</span>
+<span class="line">          Specify the PATH of the repository (default: the current directory).</span>
+<span class="line"></span>
+<span class="line">        -y, --yes</span>
+<span class="line">          Skip all the interactive prompts and use the default values.</span>
+<span class="line"></span>
+<span class="line">        -D, --dry-run</span>
+<span class="line">          Displays the steps without actually doing them.</span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="trigger" tabindex="-1"><a class="header-anchor" href="#trigger"><span><code>trigger</code></span></a></h2><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">$ shipjs trigger --help</span>
+<span class="line">NAME</span>
+<span class="line">        shipjs trigger - Trigger a release.</span>
+<span class="line"></span>
+<span class="line">USAGE</span>
+<span class="line">        shipjs prepare [--help] [--dir PATH] [--dry-run]</span>
+<span class="line"></span>
+<span class="line">OPTIONS</span>
+<span class="line">        -h, --help</span>
+<span class="line">          Print this help</span>
+<span class="line"></span>
+<span class="line">        -d, --dir PATH</span>
+<span class="line">          Specify the PATH of the repository (default: the current directory).</span>
+<span class="line"></span>
+<span class="line">        -D, --dry-run</span>
+<span class="line">          Displays the steps without actually doing them.</span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!--]--></div><footer class="vp-page-meta"><!----><div class="vp-meta-item git-info"><div class="vp-meta-item last-updated"><span class="meta-item-label">Last Updated: </span><time class="meta-item-info" datetime="2019-12-04T00:02:29.000Z" data-allow-mismatch>12/4/19, 12:02 AM</time></div><div class="vp-meta-item contributors"><span class="meta-item-label">Contributors: </span><span class="meta-item-info"><!--[--><!--[--><span class="contributor" title="email: eunjae.lee@algolia.com">Eunjae Lee</span><!----><!--]--><!--]--></span></div></div></footer><nav class="vp-page-nav" aria-label="page navigation"><a class="route-link auto-link prev" href="/shipjs/reference/all-config.html" aria-label="All Configurations"><!--[--><div class="hint"><span class="arrow left"></span> Prev</div><div class="link"><span class="external-link">All Configurations</span></div><!--]--></a><a class="route-link auto-link next" href="/shipjs/reference/resources.html" aria-label="Resources"><!--[--><div class="hint">Next <span class="arrow right"></span></div><div class="link"><span class="external-link">Resources</span></div><!--]--></a></nav><!--[--><!--]--></main><!--]--></div><!--[--><!----><!--]--><!--]--></div>
+    <script type="module" src="/shipjs/assets/app-DsY0HySA.js" defer></script>
   </body>
 </html>

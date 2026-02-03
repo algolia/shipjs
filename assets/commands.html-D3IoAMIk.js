@@ -1,0 +1,52 @@
+import{_ as n,c as e,a,o as i}from"./app-DsY0HySA.js";const l={};function d(p,s){return i(),e("div",null,[...s[0]||(s[0]=[a(`<h1 id="commands" tabindex="-1"><a class="header-anchor" href="#commands"><span>Commands</span></a></h1><h2 id="setup" tabindex="-1"><a class="header-anchor" href="#setup"><span><code>setup</code></span></a></h2><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">$ shipjs setup --help</span>
+<span class="line">NAME</span>
+<span class="line">        shipjs setup - Setup Ship.js in your project.</span>
+<span class="line"></span>
+<span class="line">USAGE</span>
+<span class="line">        npx shipjs setup [--help] [--dir PATH] [--dry-run]</span>
+<span class="line"></span>
+<span class="line">OPTIONS</span>
+<span class="line">        -h, --help</span>
+<span class="line">          Print this help</span>
+<span class="line"></span>
+<span class="line">        -d, --dir PATH</span>
+<span class="line">          Specify the PATH of the repository (default: the current directory).</span>
+<span class="line"></span>
+<span class="line">        -D, --dry-run</span>
+<span class="line">          Displays the steps without actually doing them.</span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="prepare" tabindex="-1"><a class="header-anchor" href="#prepare"><span><code>prepare</code></span></a></h2><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">$ shipjs prepare --help</span>
+<span class="line">NAME</span>
+<span class="line">        shipjs prepare - Prepare a release.</span>
+<span class="line"></span>
+<span class="line">USAGE</span>
+<span class="line">        shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run]</span>
+<span class="line"></span>
+<span class="line">OPTIONS</span>
+<span class="line">        -h, --help</span>
+<span class="line">          Print this help</span>
+<span class="line"></span>
+<span class="line">        -d, --dir PATH</span>
+<span class="line">          Specify the PATH of the repository (default: the current directory).</span>
+<span class="line"></span>
+<span class="line">        -y, --yes</span>
+<span class="line">          Skip all the interactive prompts and use the default values.</span>
+<span class="line"></span>
+<span class="line">        -D, --dry-run</span>
+<span class="line">          Displays the steps without actually doing them.</span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="trigger" tabindex="-1"><a class="header-anchor" href="#trigger"><span><code>trigger</code></span></a></h2><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">$ shipjs trigger --help</span>
+<span class="line">NAME</span>
+<span class="line">        shipjs trigger - Trigger a release.</span>
+<span class="line"></span>
+<span class="line">USAGE</span>
+<span class="line">        shipjs prepare [--help] [--dir PATH] [--dry-run]</span>
+<span class="line"></span>
+<span class="line">OPTIONS</span>
+<span class="line">        -h, --help</span>
+<span class="line">          Print this help</span>
+<span class="line"></span>
+<span class="line">        -d, --dir PATH</span>
+<span class="line">          Specify the PATH of the repository (default: the current directory).</span>
+<span class="line"></span>
+<span class="line">        -D, --dry-run</span>
+<span class="line">          Displays the steps without actually doing them.</span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div>`,7)])])}const c=n(l,[["render",d]]),t=JSON.parse('{"path":"/reference/commands.html","title":"Commands","lang":"en-US","frontmatter":{},"git":{"updatedTime":1575417749000,"contributors":[{"name":"Eunjae Lee","username":"","email":"eunjae.lee@algolia.com","commits":1}],"changelog":[{"hash":"6ddec2f625568e956b0820fac6f770984e52d4a4","time":1575417749000,"email":"eunjae.lee@algolia.com","author":"Eunjae Lee","message":"docs: add website (#397)"}]},"filePathRelative":"reference/commands.md"}');export{c as comp,t as data};
