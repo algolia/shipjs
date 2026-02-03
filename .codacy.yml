@@ -1,0 +1,17 @@
+---
+engines:
+  # Disable path traversal checks for test files (false positives for test fixtures)
+  # and CLI config loading (intentional behavior)
+  semgrep:
+    exclude_paths:
+      - "**/__tests__/**"
+      - "**/tests/**"
+
+exclude_paths:
+  # Ignore test directories for security-focused rules
+  # Tests legitimately use dynamic paths to load fixtures
+  - "**/__tests__/**"
+  - "**/tests/**"
+  # Node modules should not be analyzed
+  - "node_modules/**"
+  - "**/node_modules/**"
