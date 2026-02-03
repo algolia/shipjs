@@ -1,0 +1,30 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Configure git
+        run: |
+          git config --global user.email "instantsearch-bot@algolia.com"
+          git config --global user.name "Algolia"
+
+      - name: Deploy to GitHub Pages
+        run: yarn workspace website deploy:gh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
