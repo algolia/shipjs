@@ -1,7 +1,9 @@
 ---
 home: true
-actionText: Introduction →
-actionLink: /guide/
+actions:
+  - text: Introduction
+    link: /guide/
+    type: primary
 features:
   - title: Automated
     details: Minimize your effort for release and make less mistakes.
