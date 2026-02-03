@@ -28,7 +28,7 @@ aliases:
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: cimg/node:20.18
+    - image: cimg/node:20.19
 
 version: 2
 jobs:
