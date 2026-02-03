@@ -26,7 +26,6 @@ jobs:
           key: node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
-        if: steps.cache-modules.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
       - name: Lint
@@ -49,7 +48,6 @@ jobs:
           key: node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
-        if: steps.cache-modules.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
       - name: Unit Tests
@@ -76,7 +74,6 @@ jobs:
           key: node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
-        if: steps.cache-modules.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
       - name: Configure git
