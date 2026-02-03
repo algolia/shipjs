@@ -32,7 +32,7 @@
   "name": "shipjs",
   "devDependencies": {
     "all-contributors-cli": "6.15.0",
-    "lerna": "3.22.0"
+    "lerna": "8.2.4"
   },
   "dependencies": {
     "patch-package": "^6.2.2",
