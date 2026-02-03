@@ -1,6 +1,7 @@
 import { createRequire } from 'module';
-import resolve from '@rollup/plugin-node-resolve';
+
 import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 
 const require = createRequire(import.meta.url);
 const pkg = require('./package.json');

@@ -1,5 +1,5 @@
-import runTest from '../runTest.js';
 import { run, print } from '../../../util/index.js';
+import runTest from '../runTest.js';
 
 describe('runTest', () => {
   it('works', () => {

@@ -1,6 +1,7 @@
-import extractSpecificChangelog from '../extractSpecificChangelog.js';
 import fs from 'fs';
 import path from 'path';
+
+import extractSpecificChangelog from '../extractSpecificChangelog.js';
 
 const shipjsChangelogExample = fs
   .readFileSync(path.resolve(__dirname, 'shipjs-changelog.md'))

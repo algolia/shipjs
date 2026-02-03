@@ -1,7 +1,9 @@
 import { isWorkingTreeClean } from 'shipjs-lib';
+
+import { mockPrint } from '../../../../tests/util/index.js';
 import { print, exitProcess } from '../../../util/index.js';
 import validate from '../validate.js';
-import { mockPrint } from '../../../../tests/util/index.js';
+
 jest.mock('../../../helper');
 
 describe('validate', () => {

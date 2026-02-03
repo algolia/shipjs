@@ -1,6 +1,7 @@
-import prettier from 'prettier';
 import fs from 'fs';
 import path from 'path';
+
+import prettier from 'prettier';
 
 export default async function runPrettier({ filePath, dir }) {
   const text = fs.readFileSync(filePath).toString();

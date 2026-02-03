@@ -1,7 +1,8 @@
 import { hasLocalBranch, hasRemoteBranch } from 'shipjs-lib';
+
+import { mockPrint } from '../../../../tests/util/index.js';
 import { print, exitProcess } from '../../../util/index.js';
 import prepareStagingBranch from '../prepareStagingBranch.js';
-import { mockPrint } from '../../../../tests/util/index.js';
 
 describe('prepareStagingBranch', () => {
   it('returns staging branch', () => {
@@ -13,7 +14,7 @@ describe('prepareStagingBranch', () => {
       },
       dir: '.',
     });
-    expect(stagingBranch).toEqual(`releases/v0.1.2`);
+    expect(stagingBranch).toBe(`releases/v0.1.2`);
     expect(exitProcess).toHaveBeenCalledTimes(0);
   });
 
