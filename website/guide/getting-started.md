@@ -154,6 +154,14 @@ If you are using GitHub Actions, you need to setup the NPM token to release pack
    - Name: `NPM_AUTH_TOKEN`
    - Value: Paste the token from clipboard.
 
+If you use [`useOidcTokenProvider`](/reference/all-config.html#useoidctokenprovider) for npm's OIDC trusted publishing, add the following permissions to your workflow job:
+
+```yaml
+permissions:
+  id-token: write
+  contents: read
+```
+
 ## Setup with 'Nothing'
 
 If you never use any CI environment, you need to use NPM token to release package to NPM:
