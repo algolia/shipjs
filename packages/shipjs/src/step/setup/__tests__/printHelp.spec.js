@@ -8,7 +8,7 @@ describe('printHelp', () => {
     mockPrint(print, output);
     printHelp();
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "NAME
       	shipjs setup - Setup Ship.js in your project.
 

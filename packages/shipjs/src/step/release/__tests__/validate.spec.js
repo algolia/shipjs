@@ -25,7 +25,7 @@ describe('validate', () => {
       dir: '.',
     });
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Checking the current status.",
         "Skipping a release due to the following reason:",
         "  > conditions aren't met!",

@@ -44,7 +44,7 @@ describe('getNextVersion', () => {
     }));
     getNextVersionStep({ config: {} });
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Calculating the next version.",
         "The following commit messages out of convention are ignored:",
         "  hello world",

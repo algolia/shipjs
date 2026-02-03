@@ -21,14 +21,14 @@ describe('runPublish', () => {
     });
     expect(run).toHaveBeenCalledTimes(2);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
-        "command": "npm config set \\"//registry.npmjs.org/:_authToken\\" \\"\\\\\${NPM_AUTH_TOKEN}\\"",
+      {
+        "command": "npm config set "//registry.npmjs.org/:_authToken" "\\\${NPM_AUTH_TOKEN}"",
         "dir": ".",
         "dryRun": false,
       }
     `);
     expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": ".",
         "dryRun": false,
@@ -48,14 +48,14 @@ describe('runPublish', () => {
     });
     expect(run).toHaveBeenCalledTimes(2);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
-        "command": "npm config set \\"//registry.npmjs.org/:_authToken\\" \\"\\\\\${NPM_AUTH_TOKEN}\\"",
+      {
+        "command": "npm config set "//registry.npmjs.org/:_authToken" "\\\${NPM_AUTH_TOKEN}"",
         "dir": ".",
         "dryRun": false,
       }
     `);
     expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "npm publish --tag latest",
         "dir": ".",
         "dryRun": false,
@@ -81,7 +81,7 @@ describe('runPublish', () => {
       dryRun: false,
     });
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Publishing.",
         "Running the following at /package-a",
         "Running the following at /package-b",
@@ -89,21 +89,21 @@ describe('runPublish', () => {
     `);
     expect(run).toHaveBeenCalledTimes(3);
     expect(run.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
-        "command": "npm config set \\"//registry.npmjs.org/:_authToken\\" \\"\\\\\${NPM_AUTH_TOKEN}\\"",
+      {
+        "command": "npm config set "//registry.npmjs.org/:_authToken" "\\\${NPM_AUTH_TOKEN}"",
         "dir": ".",
         "dryRun": false,
       }
     `);
     expect(run.mock.calls[1][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": "/package-a",
         "dryRun": false,
       }
     `);
     expect(run.mock.calls[2][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "command": "npm_config_registry=https://registry.npmjs.org/ npm publish --tag latest",
         "dir": "/package-b",
         "dryRun": false,

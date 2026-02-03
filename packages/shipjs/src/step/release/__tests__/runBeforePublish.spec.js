@@ -14,7 +14,7 @@ describe('runBeforePublish', () => {
     });
     expect(beforePublish).toHaveBeenCalledTimes(1);
     expect(beforePublish.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "dir": ".",
         "exec": undefined,
       }
@@ -32,8 +32,8 @@ describe('runBeforePublish', () => {
       dryRun: true,
     });
     expect(output).toMatchInlineSnapshot(`
-      Array [
-        "› Running \\"beforePublish\\" callback.",
+      [
+        "› Running "beforePublish" callback.",
         "-> execute beforePublish() callback.",
       ]
     `);

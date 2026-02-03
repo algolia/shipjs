@@ -16,7 +16,7 @@ describe('runAfterPublish', () => {
     });
     expect(afterPublish).toHaveBeenCalledTimes(1);
     expect(afterPublish.mock.calls[0][0]).toMatchInlineSnapshot(`
-      Object {
+      {
         "dir": ".",
         "exec": undefined,
         "releaseTag": "latest",
@@ -36,8 +36,8 @@ describe('runAfterPublish', () => {
       dryRun: true,
     });
     expect(output).toMatchInlineSnapshot(`
-      Array [
-        "› Running \\"afterPublish\\" callback.",
+      [
+        "› Running "afterPublish" callback.",
         "-> execute afterPublish() callback.",
       ]
     `);

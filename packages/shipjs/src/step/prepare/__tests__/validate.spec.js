@@ -21,7 +21,7 @@ describe('validate', () => {
     expect(exitProcess).toHaveBeenCalledTimes(1);
     expect(exitProcess).toHaveBeenCalledWith(1);
     expect(output).toMatchInlineSnapshot(`
-      Array [
+      [
         "› Checking the current status.",
         "Failed to prepare a release.",
         "  - The working tree is not clean.",
