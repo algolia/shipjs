@@ -1,8 +1,9 @@
-import runStep from '../runStep.js';
-import { detectYarn, run, print } from '../../util/index.js';
-import { info } from '../../color.js';
 import fs from 'fs';
 import path from 'path';
+
+import { info } from '../../color.js';
+import { detectYarn, run, print } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default ({ dependencies, dir, dryRun }) =>
   runStep({ title: 'Installing Ship.js' }, () => {

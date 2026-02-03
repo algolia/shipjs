@@ -1,12 +1,14 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
+
+import addStream from 'add-stream';
 import conventionalChangelogCore from 'conventional-changelog-core';
 import conventionalChangelogPresetLoader from 'conventional-changelog-preset-loader';
-import tempfile from 'tempfile';
-import addStream from 'add-stream';
 import merge from 'deepmerge';
-import runStep from '../runStep.js';
+import tempfile from 'tempfile';
+
 import { parseArgs } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default ({
   config,

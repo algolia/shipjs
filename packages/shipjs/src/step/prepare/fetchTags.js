@@ -1,5 +1,5 @@
-import runStep from '../runStep.js';
 import { run } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default ({ dir, dryRun }) =>
   runStep({ title: 'Fetching tags.' }, () => {

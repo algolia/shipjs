@@ -1,8 +1,9 @@
 import inquirer from 'inquirer';
 import { hasTag, silentExec } from 'shipjs-lib';
-import runStep from '../runStep.js';
-import { print, exitProcess } from '../../util/index.js';
+
 import { info, warning, error } from '../../color.js';
+import { print, exitProcess } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default async ({ yes, commitFrom, currentTag, dir }) =>
   await runStep(

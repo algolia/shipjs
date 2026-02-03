@@ -3,9 +3,10 @@ import {
   getCommitTitles,
   getCommitNumbersPerType,
 } from 'shipjs-lib';
-import runStep from '../runStep.js';
-import { print, exitProcess } from '../../util/index.js';
+
 import { info } from '../../color.js';
+import { print, exitProcess } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default async ({
   config,
@@ -23,9 +24,8 @@ export default async ({
       const { shouldPrepare } = config;
       const releaseTag = getReleaseTag(nextVersion);
       const commits = getCommitTitles(revisionRange, dir);
-      const { numbers: commitNumbersPerType } = getCommitNumbersPerType(
-        commits
-      );
+      const { numbers: commitNumbersPerType } =
+        getCommitNumbersPerType(commits);
 
       const result = await shouldPrepare({
         commits,

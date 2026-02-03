@@ -1,11 +1,13 @@
-import { getGitConfig } from 'shipjs-lib';
-import runStep from '../../runStep.js';
 import fs from 'fs';
 import path from 'path';
+
 import ejs from 'ejs';
 import mkdirp from 'mkdirp';
-import { print } from '../../../util/index.js';
+import { getGitConfig } from 'shipjs-lib';
+
 import { info, warning } from '../../../color.js';
+import { print } from '../../../util/index.js';
+import runStep from '../../runStep.js';
 
 export default ({ baseBranch, schedulePrepare, cronExpr, dir, dryRun }) =>
   runStep(

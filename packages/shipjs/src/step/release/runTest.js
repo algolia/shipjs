@@ -1,6 +1,6 @@
-import runStep from '../runStep.js';
-import { run, print } from '../../util/index.js';
 import { warning } from '../../color.js';
+import { run, print } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default ({ isYarn, config, dir, dryRun }) =>
   runStep({ title: 'Running test.' }, () => {

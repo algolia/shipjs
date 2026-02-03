@@ -1,8 +1,11 @@
-import globby from 'globby';
 import fs from 'fs';
-import { getRepoInfo } from 'shipjs-lib';
+
 import { Octokit } from '@octokit/rest';
+import globby from 'globby';
+import { getRepoInfo } from 'shipjs-lib';
+
 import createGitHubRelease from '../createGitHubRelease.js';
+
 jest.mock('temp-write');
 jest.mock('@octokit/rest');
 jest.mock('globby');
@@ -42,8 +45,8 @@ describe('createGitHubRelease', () => {
       owner: 'my',
       name: 'repo',
     }));
-    fs.readFileSync = jest.fn();
-    fs.statSync = jest.fn().mockImplementation(() => ({ size: 1024 }));
+    jest.spyOn(fs, 'readFileSync').mockImplementation();
+    jest.spyOn(fs, 'statSync').mockImplementation(() => ({ size: 1024 }));
     globby.mockImplementation((path) => Promise.resolve([path]));
   });
 

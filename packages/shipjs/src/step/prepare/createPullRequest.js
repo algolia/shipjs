@@ -1,9 +1,10 @@
-import { expandPackageList, getRepoInfo, getReleaseTag } from 'shipjs-lib';
-import open from 'open';
 import { Octokit } from '@octokit/rest';
-import runStep from '../runStep.js';
+import open from 'open';
+import { expandPackageList, getRepoInfo, getReleaseTag } from 'shipjs-lib';
+
 import { getPublishCommand, getPackageDirName } from '../../helper/index.js';
 import { print, run, detectYarn } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default async ({
   baseBranch,
@@ -114,7 +115,6 @@ function getPublishCommands({ isYarn, tag, monorepo, publishCommand, dir }) {
         command,
       };
     });
-  } else {
-    return getPublishCommand({ isYarn, publishCommand, tag, dir });
   }
+  return getPublishCommand({ isYarn, publishCommand, tag, dir });
 }

@@ -1,6 +1,7 @@
 import { getCurrentVersion } from 'shipjs-lib';
-import { print, exitProcess } from '../../../util/index.js';
+
 import { mockPrint } from '../../../../tests/util/index.js';
+import { print, exitProcess } from '../../../util/index.js';
 import validate from '../validate.js';
 
 describe('validate', () => {
@@ -12,7 +13,7 @@ describe('validate', () => {
       },
       dir: '.',
     });
-    expect(currentVersion).toEqual('1.2.3');
+    expect(currentVersion).toBe('1.2.3');
   });
 
   it('skips when conditions are not met', () => {

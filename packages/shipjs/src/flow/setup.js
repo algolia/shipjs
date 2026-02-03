@@ -1,11 +1,11 @@
-import printHelp from '../step/setup/printHelp.js';
+import { success, bold } from '../color.js';
 import printDryRunBanner from '../step/printDryRunBanner.js';
-import askQuestions from '../step/setup/askQuestions.js';
 import addDevDependencies from '../step/setup/addDevDependencies.js';
 import addScriptsToPackageJson from '../step/setup/addScriptsToPackageJson.js';
 import addShipConfig from '../step/setup/addShipConfig.js';
+import askQuestions from '../step/setup/askQuestions.js';
+import printHelp from '../step/setup/printHelp.js';
 import { print } from '../util/index.js';
-import { success, bold } from '../color.js';
 
 async function setup({ help = false, dir = '.', dryRun = false }) {
   if (help) {

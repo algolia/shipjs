@@ -1,7 +1,9 @@
 import { exec } from 'shipjs-lib';
-import print from './print.js';
-import exitProcess from './exitProcess.js';
+
 import { error } from '../color.js';
+
+import exitProcess from './exitProcess.js';
+import print from './print.js';
 
 export default ({
   command,

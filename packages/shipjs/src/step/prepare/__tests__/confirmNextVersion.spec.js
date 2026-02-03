@@ -1,5 +1,7 @@
 import inquirer from 'inquirer';
+
 import confirmNextVersion from '../confirmNextVersion.js';
+
 jest.mock('inquirer');
 
 describe('confirmNextVersion', () => {
@@ -8,7 +10,7 @@ describe('confirmNextVersion', () => {
       nextVersion: '1.2.3',
       dryRun: true,
     });
-    expect(nextVersion).toEqual('1.2.3');
+    expect(nextVersion).toBe('1.2.3');
   });
 
   it('works when yes=true', async () => {
@@ -16,7 +18,7 @@ describe('confirmNextVersion', () => {
       nextVersion: '1.2.3',
       yes: true,
     });
-    expect(nextVersion).toEqual('1.2.3');
+    expect(nextVersion).toBe('1.2.3');
   });
 
   it('works', async () => {
@@ -26,7 +28,7 @@ describe('confirmNextVersion', () => {
     const nextVersion = await confirmNextVersion({
       nextVersion: '1.2.3',
     });
-    expect(nextVersion).toEqual('1.2.3');
+    expect(nextVersion).toBe('1.2.3');
   });
 
   it('works when user types', async () => {
@@ -38,6 +40,6 @@ describe('confirmNextVersion', () => {
     const nextVersion = await confirmNextVersion({
       nextVersion: '1.2.3',
     });
-    expect(nextVersion).toEqual('1.2.4');
+    expect(nextVersion).toBe('1.2.4');
   });
 });

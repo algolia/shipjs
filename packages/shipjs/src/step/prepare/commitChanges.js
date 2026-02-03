@@ -1,7 +1,8 @@
 import tempWrite from 'temp-write';
-import runStep from '../runStep.js';
-import { wrapExecWithDir, run, print } from '../../util/index.js';
+
 import { info } from '../../color.js';
+import { wrapExecWithDir, run, print } from '../../util/index.js';
+import runStep from '../runStep.js';
 
 export default async ({
   nextVersion,

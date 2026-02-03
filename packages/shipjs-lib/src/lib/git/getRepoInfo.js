@@ -1,5 +1,6 @@
-import getRemoteOriginUrl from './getRemoteOriginUrl.js';
 import gh from 'parse-github-url';
+
+import getRemoteOriginUrl from './getRemoteOriginUrl.js';
 
 export default function getRepoInfo(remote, dir) {
   const remoteOriginalUrl = getRemoteOriginUrl(remote, dir);

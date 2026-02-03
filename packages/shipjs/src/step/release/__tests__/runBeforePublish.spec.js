@@ -1,6 +1,6 @@
+import { mockPrint } from '../../../../tests/util/index.js';
 import { print } from '../../../util/index.js';
 import runBeforePublish from '../runBeforePublish.js';
-import { mockPrint } from '../../../../tests/util/index.js';
 
 describe('runBeforePublish', () => {
   it('works', async () => {
