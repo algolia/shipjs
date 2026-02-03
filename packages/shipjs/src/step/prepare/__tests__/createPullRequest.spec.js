@@ -1,10 +1,11 @@
 import { Octokit } from '@octokit/rest';
 import { getRepoInfo } from 'shipjs-lib';
+import { vi } from 'vitest';
 
 import { run } from '../../../util/index.js';
 import createPullRequest from '../createPullRequest.js';
 
-jest.mock('@octokit/rest');
+vi.mock('@octokit/rest');
 
 const getDefaultParams = ({
   currentVersion = '1.2.2',
@@ -55,23 +56,23 @@ describe('createPullRequest', () => {
   });
 
   it('returns pr url', async () => {
-    const create = jest.fn().mockImplementationOnce(() => ({
+    const create = vi.fn().mockImplementationOnce(() => ({
       data: { number: 13, html_url: 'https://github.com/my/repo/pull/13' }, // eslint-disable-line camelcase
     }));
     Octokit.mockImplementationOnce(function () {
-      this.pulls = { create, requestReviewers: jest.fn() };
+      this.pulls = { create, requestReviewers: vi.fn() };
     });
     const { pullRequestUrl } = await createPullRequest(getDefaultParams());
     expect(pullRequestUrl).toBe('https://github.com/my/repo/pull/13');
   });
 
   it('pass releaseType to hooks', () => {
-    const mockFormatPullRequestTitle = jest
+    const mockFormatPullRequestTitle = vi
       .fn()
       .mockImplementation(
         ({ version, releaseType }) => `# v${version} (${releaseType})`
       );
-    const mockFormatPullRequestMessage = jest
+    const mockFormatPullRequestMessage = vi
       .fn()
       .mockImplementation(({ title, nextVersion, releaseType }) =>
         [title, nextVersion, releaseType].join('\n')

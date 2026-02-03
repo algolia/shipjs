@@ -1,10 +1,11 @@
 import { isWorkingTreeClean } from 'shipjs-lib';
+import { vi } from 'vitest';
 
 import { mockPrint } from '../../../../tests/util/index.js';
 import { print, exitProcess } from '../../../util/index.js';
 import validate from '../validate.js';
 
-jest.mock('../../../helper');
+vi.mock('../../../helper');
 
 describe('validate', () => {
   it('works', () => {

@@ -1,13 +1,15 @@
 import path from 'path';
 
 import tempWrite from 'temp-write';
+import { vi } from 'vitest';
 
 import { parseArgs } from '../../../util/index.js';
 import { prepareParams } from '../updateChangelog.js';
 
 describe('prepareParams', () => {
   it('loads configuration from --config option', async () => {
-    parseArgs.mockImplementation(jest.requireActual('../../../util').parseArgs);
+    const actualUtil = await vi.importActual('../../../util/index.js');
+    parseArgs.mockImplementation(actualUtil.parseArgs);
     const config = {
       writerOpts: {
         headerPartial: '## {{version}}',

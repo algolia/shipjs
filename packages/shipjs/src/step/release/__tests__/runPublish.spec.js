@@ -1,10 +1,11 @@
 import { expandPackageList } from 'shipjs-lib';
+import { vi } from 'vitest';
 
 import { mockPrint } from '../../../../tests/util/index.js';
 import { run, print } from '../../../util/index.js';
 import runPublish from '../runPublish.js';
 
-jest.unmock('../../../helper');
+vi.unmock('../../../helper');
 // if `unmock` causes any trouble in the future,
 // we might try this: https://github.com/facebook/jest/issues/2649#issuecomment-360467278
 // `runPublish` depends on `getPublishCommand` from `helper`

@@ -1,16 +1,17 @@
 import { expandPackageList, updateVersion } from 'shipjs-lib';
+import { vi } from 'vitest';
 
 import { mockPrint } from '../../../../tests/util/index.js';
 import { prepareJsons } from '../../../helper/dependencyUpdater.js';
 import { print } from '../../../util/index.js';
 import updateVersionMonorepo from '../updateVersionMonorepo.js';
 
-jest.mock('../../../helper/dependencyUpdater', () => {
-  return {
-    ...jest.requireActual('../../../helper/dependencyUpdater'),
-    prepareJsons: jest.fn(() => []),
-  };
-});
+vi.mock('../../../helper/dependencyUpdater', () => ({
+  prepareJsons: vi.fn(() => []),
+  getListToUpdate: vi.fn(() => []),
+  printListToUpdate: vi.fn(),
+  runUpdates: vi.fn(),
+}));
 
 describe('updateVersionMonorepo', () => {
   it('works', () => {
@@ -18,7 +19,7 @@ describe('updateVersionMonorepo', () => {
       'packages/a',
       'packages/b',
     ]);
-    const versionUpdated = jest.fn();
+    const versionUpdated = vi.fn();
     updateVersionMonorepo({
       config: {
         versionUpdated,

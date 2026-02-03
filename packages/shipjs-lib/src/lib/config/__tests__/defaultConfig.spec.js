@@ -1,6 +1,8 @@
+import { vi } from 'vitest';
+
 import defaultConfig from '../defaultConfig.js';
 
-jest.mock('../../../version', () => '0.5.2');
+vi.mock('../../../version', () => ({ default: '0.5.2' }));
 const {
   formatCommitMessage,
   formatPullRequestTitle,

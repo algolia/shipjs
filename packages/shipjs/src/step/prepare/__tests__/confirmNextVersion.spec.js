@@ -1,8 +1,9 @@
 import inquirer from 'inquirer';
+import { vi } from 'vitest';
 
 import confirmNextVersion from '../confirmNextVersion.js';
 
-jest.mock('inquirer');
+vi.mock('inquirer');
 
 describe('confirmNextVersion', () => {
   it('works in dry mode', async () => {

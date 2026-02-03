@@ -1,12 +1,9 @@
 module.exports = {
-  parser: '@babel/eslint-parser',
   parserOptions: {
-    requireConfigFile: false,
-    babelOptions: {
-      presets: ['@babel/preset-env'],
-    },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
-  extends: ['algolia', 'algolia/jest'],
+  extends: ['algolia'],
   rules: {
     'import/no-commonjs': 'off',
     'import/extensions': ['error', 'ignorePackages'],
@@ -15,9 +12,19 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['jest.setup.js'],
+      files: ['**/__tests__/**/*.js', '*.config.js', '*.setup.js'],
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        vi: 'readonly',
+      },
       rules: {
-        'jest/require-top-level-describe': 'off',
+        'import/no-unresolved': 'off',
       },
     },
   ],
