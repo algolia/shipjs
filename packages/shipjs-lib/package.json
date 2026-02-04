@@ -42,7 +42,6 @@
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
-    "parse-github-url": "1.0.2",
     "semver": "7.7.1",
     "execa": "^9.6.1"
   }
