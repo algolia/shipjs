@@ -52,7 +52,9 @@ describe('parseGitHubURL', () => {
   });
 
   it('parses GitHub Enterprise SSH URL', () => {
-    const result = parseGitHubURL('git@github.mycompany.com:algolia/shipjs.git');
+    const result = parseGitHubURL(
+      'git@github.mycompany.com:algolia/shipjs.git'
+    );
     expect(result).toEqual({
       owner: 'algolia',
       name: 'shipjs',

@@ -39,7 +39,9 @@ export default function parseGitHubURL(url) {
 
       return { owner, name, repo, branch };
     }
-  } catch {}
+  } catch {
+    // Invalid URL
+  }
 
   return { owner: null, name: null, repo: null, branch: null };
 }
