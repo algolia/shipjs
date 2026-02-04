@@ -13,24 +13,7 @@
 
 ### Documentation
 
-* add CLAUDE.md for Claude Code guidance ([#1015](https://github.com/algolia/shipjs/issues/1015)) ([9857300](https://github.com/algolia/shipjs/commit/9857300))
 * document forcePushBranches config option ([#1030](https://github.com/algolia/shipjs/issues/1030)) ([bc24f36](https://github.com/algolia/shipjs/commit/bc24f36))
-
-
-### Dependency Updates
-
-* update Node.js to 20.x LTS ([#1021](https://github.com/algolia/shipjs/issues/1021)) ([add8134](https://github.com/algolia/shipjs/commit/add8134))
-* update lerna from 3.22.0 to 8.2.4 ([#1016](https://github.com/algolia/shipjs/issues/1016)) ([80071fe](https://github.com/algolia/shipjs/commit/80071fe))
-* update jest to 29.7.0 and babel to 7.26.9 ([#1017](https://github.com/algolia/shipjs/issues/1017)) ([12ce391](https://github.com/algolia/shipjs/commit/12ce391))
-* update rollup from 2.14.0 to 4.34.8 ([#1018](https://github.com/algolia/shipjs/issues/1018)) ([aab5dfb](https://github.com/algolia/shipjs/commit/aab5dfb))
-* update eslint from 7.2.0 to 8.57.1 ([#1019](https://github.com/algolia/shipjs/issues/1019)) ([3656ec9](https://github.com/algolia/shipjs/commit/3656ec9))
-* update runtime dependencies ([#1023](https://github.com/algolia/shipjs/issues/1023)) ([1fd3cf2](https://github.com/algolia/shipjs/commit/1fd3cf2))
-* migrate VuePress 1.x to 2.x ([#1022](https://github.com/algolia/shipjs/issues/1022)) ([08878dc](https://github.com/algolia/shipjs/commit/08878dc))
-
-
-### Internal
-
-* fix CommonJS remnants in ESM codebase ([#1020](https://github.com/algolia/shipjs/issues/1020)) ([3195b0a](https://github.com/algolia/shipjs/commit/3195b0a))
 
 
 
