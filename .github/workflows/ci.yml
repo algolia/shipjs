@@ -54,6 +54,9 @@ jobs:
         run: yarn test:ci
 
   release:
+    permissions:
+      id-token: write
+      contents: write
     needs: [lint, test]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
