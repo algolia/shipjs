@@ -1,27 +1,35 @@
 import { execaCommandSync } from 'execa';
 
-export default function exec(command, { dir = '.', ignoreError = false } = {}) {
+export default function exec(
+  command,
+  { dir = '.', ignoreError = false, silent = false } = {}
+) {
   try {
     const result = execaCommandSync(command, {
       cwd: dir,
       shell: true,
       reject: false,
+      stdio: silent ? 'pipe' : 'inherit',
     });
+
+    // When stdio is 'inherit', stdout/stderr are not captured
+    const stdout = result.stdout ?? '';
+    const stderr = result.stderr ?? '';
 
     if (result.exitCode === 0) {
       return {
         code: 0,
-        stdout: result.stdout,
-        stderr: result.stderr,
-        toString: () => result.stdout,
+        stdout,
+        stderr,
+        toString: () => stdout,
       };
     }
 
     if (ignoreError) {
       return {
         code: result.exitCode,
-        stdout: result.stdout,
-        stderr: result.stderr,
+        stdout,
+        stderr,
         toString: () => '',
       };
     }
@@ -33,8 +41,8 @@ export default function exec(command, { dir = '.', ignoreError = false } = {}) {
           command,
           result: {
             code: result.exitCode,
-            stdout: result.stdout,
-            stderr: result.stderr,
+            stdout,
+            stderr,
           },
         },
         null,
