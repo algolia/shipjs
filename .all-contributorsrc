@@ -134,6 +134,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sarahdayan",
+      "name": "Sarah Dayan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5370675?v=4",
+      "profile": "https://github.com/sarahdayan",
+      "contributions": [
+        "code",
+        "doc",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7
