@@ -1,0 +1,38 @@
+name: Prepare Release
+
+on:
+  schedule:
+    # Every Tuesday at 09:00 UTC
+    - cron: '0 9 * * 2'
+  workflow_dispatch:
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: '**/node_modules'
+          key: node-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Configure git
+        run: |
+          git config --global user.email "instantsearch-bot@algolia.com"
+          git config --global user.name "Algolia"
+
+      - name: Prepare release
+        run: yarn run release --yes --no-browse
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
