@@ -26,8 +26,8 @@ yarn workspace shipjs test:watch       # CLI package
 yarn workspace shipjs-lib test:watch   # Library package
 
 # Run a single test file
-yarn workspace shipjs jest path/to/test.js
-yarn workspace shipjs-lib jest path/to/test.js
+yarn workspace shipjs vitest path/to/test.js
+yarn workspace shipjs-lib vitest path/to/test.js
 
 # Test CLI commands against a real repository
 yarn workspace shipjs test:run:prepare --dir ~/path/to/test-repo
@@ -65,7 +65,7 @@ This is a Yarn workspaces monorepo with Lerna for cross-package commands.
 
 ## Development Notes
 
-- Node.js 18+ required
+- Node.js 20+ required
 - ES modules throughout (uses `import/export`)
 - ESLint with `eslint-config-algolia` (includes Prettier)
-- Tests use Jest with `babel-jest` transform
+- Tests use Vitest
