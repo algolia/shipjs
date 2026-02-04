@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 import ejs from 'ejs';
-import { mkdirpSync } from 'mkdirp';
 import { getGitConfig } from 'shipjs-lib';
 
 import { info, warning } from '../../../color.js';
@@ -41,7 +40,7 @@ export default ({ baseBranch, schedulePrepare, cronExpr, dir, dryRun }) =>
         print(`.circleci/config.yml`);
         print(content);
       } else {
-        mkdirpSync(path.dirname(filePath));
+        fs.mkdirSync(path.dirname(filePath), { recursive: true });
         fs.writeFileSync(filePath, content);
       }
       return () => {
