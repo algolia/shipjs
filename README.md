@@ -4,7 +4,7 @@
   <a href="http://npmjs.com/package/shipjs"><img alt="npm" src="https://img.shields.io/npm/v/shipjs"></a>
   <a href="https://circleci.com/gh/algolia/shipjs"><img alt="CircleCI" src="https://img.shields.io/circleci/build/gh/algolia/shipjs"></a>
   <a href="https://github.com/algolia/shipjs/blob/master/LICENSE"><img alt="NPM" src="https://img.shields.io/npm/l/shipjs"></a>
-  <a href="https://github.com/algolia/shipjs#contributors-"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-13-orange.svg"></a>
+  <a href="https://github.com/algolia/shipjs#contributors-"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-14-orange.svg"></a>
   <a href="https://join.slack.com/t/shipjs/shared_invite/enQtODc3OTc3NjQ0NDg3LTU3ZDgyMzlkNzY2YTMxMGQ1MzE3OGMzZjMzYjU5Y2NmZDQ5Mzk1ZWUxZjk3NWFjMDIwYmI0ZGUyY2E2YTZkYzk"><img alt="Chat on Slack" src="https://img.shields.io/badge/chat-on%20Slack-orange"></a>
 </p>
 
@@ -142,6 +142,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/miyajan"><img src="https://avatars1.githubusercontent.com/u/945853?v=4" width="100px;" alt=""/><br /><sub><b>Miyata Jumpei</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=miyajan" title="Code">💻</a></td>
     <td align="center"><a href="https://riotz.works"><img src="https://avatars.githubusercontent.com/u/31102213?v=4" width="100px;" alt=""/><br /><sub><b>lulzneko</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=lulzneko" title="Code">💻</a> <a href="https://github.com/algolia/shipjs/commits?author=lulzneko" title="Documentation">📖</a></td>
     <td align="center"><a href="https://vinayakkulkarni.dev"><img src="https://avatars.githubusercontent.com/u/19776877?v=4" width="100px;" alt=""/><br /><sub><b>Vinayak Kulkarni</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=vinayakkulkarni" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/sarahdayan"><img src="https://avatars.githubusercontent.com/u/5370675?v=4" width="100px;" alt=""/><br /><sub><b>Sarah Dayan</b></sub></a><br /><a href="https://github.com/algolia/shipjs/commits?author=sarahdayan" title="Code">💻</a> <a href="https://github.com/algolia/shipjs/commits?author=sarahdayan" title="Documentation">📖</a> <a href="#maintenance-sarahdayan" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
