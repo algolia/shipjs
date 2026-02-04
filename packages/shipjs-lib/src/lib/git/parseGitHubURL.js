@@ -5,8 +5,20 @@ export default function parseGitHubURL(url) {
 
   let normalized = url.trim();
 
-  if (normalized.startsWith('git@')) {
-    normalized = normalized.replace('git@github.com:', 'https://github.com/');
+  const sshMatch = normalized.match(/^git@([^:]+):(.+)$/);
+  if (sshMatch) {
+    const [, host, path] = sshMatch;
+    normalized = `https://${host}/${path}`;
+  }
+
+  if (normalized.startsWith('ssh://')) {
+    normalized = normalized
+      .replace('ssh://', 'https://')
+      .replace(/git@([^/]+)/, '$1');
+  }
+
+  if (normalized.startsWith('git://')) {
+    normalized = normalized.replace('git://', 'https://');
   }
 
   normalized = normalized.replace(/\.git$/, '');
@@ -27,9 +39,7 @@ export default function parseGitHubURL(url) {
 
       return { owner, name, repo, branch };
     }
-  } catch {
-    // URL parsing failed
-  }
+  } catch {}
 
   return { owner: null, name: null, repo: null, branch: null };
 }

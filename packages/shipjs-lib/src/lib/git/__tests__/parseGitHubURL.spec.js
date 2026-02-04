@@ -31,6 +31,36 @@ describe('parseGitHubURL', () => {
     });
   });
 
+  it('parses git:// protocol URL', () => {
+    const result = parseGitHubURL('git://github.com/algolia/shipjs.git');
+    expect(result).toEqual({
+      owner: 'algolia',
+      name: 'shipjs',
+      repo: 'algolia/shipjs',
+      branch: null,
+    });
+  });
+
+  it('parses ssh:// protocol URL', () => {
+    const result = parseGitHubURL('ssh://git@github.com/algolia/shipjs.git');
+    expect(result).toEqual({
+      owner: 'algolia',
+      name: 'shipjs',
+      repo: 'algolia/shipjs',
+      branch: null,
+    });
+  });
+
+  it('parses GitHub Enterprise SSH URL', () => {
+    const result = parseGitHubURL('git@github.mycompany.com:algolia/shipjs.git');
+    expect(result).toEqual({
+      owner: 'algolia',
+      name: 'shipjs',
+      repo: 'algolia/shipjs',
+      branch: null,
+    });
+  });
+
   it('parses URL without protocol', () => {
     const result = parseGitHubURL('github.com/algolia/shipjs');
     expect(result).toEqual({
