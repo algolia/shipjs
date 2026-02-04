@@ -1,6 +1,6 @@
 {
   "name": "shipjs",
-  "version": "0.27.0",
+  "version": "0.28.0",
   "description": "Take control of what is going to be your next release.",
   "main": "index.js",
   "type": "module",
@@ -51,7 +51,7 @@
     "prettier": "^3.5.3",
     "serialize-javascript": "^6.0.2",
     "shell-quote": "^1.8.2",
-    "shipjs-lib": "0.27.0",
+    "shipjs-lib": "0.28.0",
     "temp-write": "^6.0.0",
     "tempfile": "^5.0.0"
   },

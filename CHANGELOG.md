@@ -1,3 +1,22 @@
+# [0.28.0](https://github.com/algolia/shipjs/compare/v0.27.0...v0.28.0) (2026-02-03)
+
+
+### Features
+
+* add useOidcTokenProvider config option ([#1029](https://github.com/algolia/shipjs/issues/1029)) ([b54d736](https://github.com/algolia/shipjs/commit/b54d736))
+
+
+### Bug Fixes
+
+* **site:** update vuepress, set legacy openssl ([#1010](https://github.com/algolia/shipjs/issues/1010)) ([1c7e472](https://github.com/algolia/shipjs/commit/1c7e472))
+
+
+### Documentation
+
+* document forcePushBranches config option ([#1030](https://github.com/algolia/shipjs/issues/1030)) ([bc24f36](https://github.com/algolia/shipjs/commit/bc24f36))
+
+
+
 # [0.27.0](https://github.com/algolia/shipjs/compare/v0.26.4...v0.27.0) (2024-12-10)
 
 
