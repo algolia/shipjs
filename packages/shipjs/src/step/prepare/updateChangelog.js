@@ -1,11 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import addStream from 'add-stream';
-import conventionalChangelogCore from 'conventional-changelog-core';
 // eslint-disable-next-line import/no-unresolved -- ESM-only package with exports field
-import { loadPreset } from 'conventional-changelog-preset-loader';
-import merge from 'deepmerge';
+import { ConventionalChangelog } from 'conventional-changelog';
 import tempfile from 'tempfile';
 
 import { parseArgs } from '../../util/index.js';
@@ -25,38 +22,29 @@ export default ({
       title: 'Updating the changelog.',
       skipIf: () => config.updateChangelog !== true,
     },
-    () => {
+    async () => {
       if (dryRun) {
-        return Promise.resolve();
+        return;
       }
-      return new Promise((resolve, reject) => {
-        const { conventionalChangelogArgs } = config;
-        prepareParams({
-          dir,
-          conventionalChangelogArgs,
-          releaseCount,
-          firstRelease,
-          revisionRange,
-          reject,
-        }).then(({ args, gitRawCommitsOpts, templateContext }) => {
-          runConventionalChangelog({
-            args,
-            templateContext: {
-              ...templateContext,
-              version: nextVersion,
-            },
-            gitRawCommitsOpts,
-            resolve,
-            reject,
-            dir,
-          });
-        });
+
+      const { conventionalChangelogArgs } = config;
+      const { args, gitCommitsParams } = prepareParams({
+        dir,
+        conventionalChangelogArgs,
+        releaseCount,
+        firstRelease,
+        revisionRange,
+      });
+
+      await runConventionalChangelog({
+        args,
+        gitCommitsParams,
+        nextVersion,
+        dir,
       });
     }
   );
 
-// The following implementation is mostly based on this file:
-// https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-cli/cli.js
 const argSpec = {
   '--infile': String,
   '--outfile': String,
@@ -89,127 +77,117 @@ const argSpec = {
   '-t': '--tag-prefix',
 };
 
-export async function prepareParams({
+export function prepareParams({
   dir,
   conventionalChangelogArgs,
   releaseCount,
   firstRelease,
   revisionRange,
-  reject,
 }) {
   const args = parseArgs(argSpec, (conventionalChangelogArgs || '').split(' '));
+
   if (args.infile && args.infile === args.outfile) {
     args.sameFile = true;
   } else if (args.sameFile) {
     if (args.infile) {
       args.outfile = args.infile;
     } else {
-      reject(new Error('infile must be provided if same-file flag presents.'));
-      return undefined;
+      throw new Error('infile must be provided if same-file flag presents.');
     }
   }
+
   args.infile = path.resolve(dir, args.infile);
   args.outfile = path.resolve(dir, args.outfile);
+
   if (releaseCount !== undefined) {
     args.releaseCount = releaseCount;
   }
   if (firstRelease !== undefined) {
     args.firstRelease = firstRelease;
   }
-  args.pkg = {
-    path: args.pkg || dir,
-  };
+
   const [from, to] = revisionRange.split('..');
-  const gitRawCommitsOpts = {
-    from,
-    to,
-  };
+  const gitCommitsParams = { from, to };
+
   if (args.commitPath) {
-    gitRawCommitsOpts.path = args.commitPath;
-  }
-  const templateContext = args.context
-    ? (await import(path.resolve(dir, args.context))).default
-    : undefined;
-  args.config = args.config
-    ? (await import(path.resolve(dir, args.config))).default
-    : {};
-  if (args.preset) {
-    try {
-      args.config = merge(await loadPreset(args.preset), args.config);
-    } catch (err) {
-      /* eslint-disable no-console */
-      if (typeof args.preset === 'object') {
-        console.error(`Preset: "${args.preset.name}" ${err.message}`);
-      } else if (typeof args.preset === 'string') {
-        console.error(`Preset: "${args.preset}" ${err.message}`);
-      } else {
-        console.error(`Preset: ${err.message}`);
-      }
-      /* eslint-enable no-console */
-    }
+    gitCommitsParams.path = args.commitPath;
   }
 
-  return { args, gitRawCommitsOpts, templateContext };
+  return { args, gitCommitsParams };
 }
 
-function runConventionalChangelog({
+async function runConventionalChangelog({
   args,
-  templateContext,
-  gitRawCommitsOpts,
-  resolve,
-  reject,
+  gitCommitsParams,
+  nextVersion,
   dir,
 }) {
   if (!fs.existsSync(args.outfile)) {
     fs.writeFileSync(args.outfile, '');
   }
 
-  const changelogStream = conventionalChangelogCore(
-    args,
-    templateContext,
-    { ...gitRawCommitsOpts, path: dir },
-    undefined,
-    undefined,
-    { path: dir, cwd: dir }
-  ).on('error', reject);
+  const generator = new ConventionalChangelog(dir).readPackage(args.pkg || dir);
 
-  const readStream = fs.createReadStream(args.infile).on('error', reject);
+  if (args.preset) {
+    generator.loadPreset(args.preset);
+  }
+
+  if (args.config) {
+    const customConfig = (await import(path.resolve(dir, args.config))).default;
+    generator.config(customConfig);
+  }
+
+  if (args.context) {
+    const context = (await import(path.resolve(dir, args.context))).default;
+    generator.context({ ...context, version: nextVersion });
+  } else {
+    generator.context({ version: nextVersion });
+  }
+
+  if (args.tagPrefix) {
+    generator.tags(args.tagPrefix);
+  }
+
+  if (args.lernaPackage) {
+    generator.lernaPackage(args.lernaPackage);
+  }
+
+  generator.commits(gitCommitsParams);
+
+  generator.options({
+    releaseCount: args.releaseCount,
+    outputUnreleased: args.outputUnreleased,
+  });
+
+  // Collect changelog content
+  let newChangelog = '';
+  for await (const chunk of generator.write()) {
+    newChangelog += chunk;
+  }
+
+  // Read existing changelog
+  const existingChangelog = fs.existsSync(args.infile)
+    ? fs.readFileSync(args.infile, 'utf-8')
+    : '';
+
+  // Write combined changelog
   if (args.sameFile) {
     if (args.append) {
-      changelogStream
-        .pipe(
-          fs.createWriteStream(args.outfile, {
-            flags: 'a',
-          })
-        )
-        .on('finish', resolve);
+      fs.appendFileSync(args.outfile, newChangelog);
     } else {
+      // Prepend new changelog to existing
       const tmp = tempfile();
-
-      changelogStream
-        .pipe(addStream(readStream))
-        .pipe(fs.createWriteStream(tmp))
-        .on('finish', () => {
-          fs.createReadStream(tmp)
-            .pipe(fs.createWriteStream(args.outfile))
-            .on('finish', resolve);
-        });
+      fs.writeFileSync(tmp, newChangelog + existingChangelog);
+      fs.copyFileSync(tmp, args.outfile);
+      fs.unlinkSync(tmp);
     }
   } else {
-    let outStream;
-    if (args.outfile) {
-      outStream = fs.createWriteStream(args.outfile);
-    } else {
-      outStream = process.stdout;
-    }
-
-    let stream;
+    let content;
     if (args.append) {
-      stream = readStream.pipe(addStream(changelogStream));
+      content = existingChangelog + newChangelog;
     } else {
-      stream = changelogStream.pipe(addStream(readStream));
+      content = newChangelog + existingChangelog;
     }
-
-    stream.pipe(outStream).on('finish', resolve);
+    fs.writeFileSync(args.outfile, content);
   }
 }
