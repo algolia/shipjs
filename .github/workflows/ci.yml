@@ -54,6 +54,9 @@ jobs:
         run: yarn test:ci
 
   release:
+    permissions:
+      id-token: write
+      contents: write
     needs: [lint, test]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -85,4 +88,3 @@ jobs:
         run: yarn shipjs trigger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
