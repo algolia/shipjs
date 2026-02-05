@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
+// eslint-disable-next-line import/no-unresolved -- ESM-only package with exports field
 import { ConventionalChangelog } from 'conventional-changelog';
 import tempfile from 'tempfile';
 
@@ -27,7 +28,7 @@ export default ({
       }
 
       const { conventionalChangelogArgs } = config;
-      const { args, gitCommitsParams } = await prepareParams({
+      const { args, gitCommitsParams } = prepareParams({
         dir,
         conventionalChangelogArgs,
         releaseCount,
@@ -76,7 +77,7 @@ const argSpec = {
   '-t': '--tag-prefix',
 };
 
-export async function prepareParams({
+export function prepareParams({
   dir,
   conventionalChangelogArgs,
   releaseCount,
@@ -125,9 +126,7 @@ async function runConventionalChangelog({
     fs.writeFileSync(args.outfile, '');
   }
 
-  const generator = new ConventionalChangelog(dir).readPackage(
-    args.pkg || dir
-  );
+  const generator = new ConventionalChangelog(dir).readPackage(args.pkg || dir);
 
   if (args.preset) {
     generator.loadPreset(args.preset);
