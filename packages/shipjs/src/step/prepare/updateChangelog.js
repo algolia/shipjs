@@ -169,8 +169,8 @@ function runConventionalChangelog({
     args,
     templateContext,
     { ...gitRawCommitsOpts, path: dir },
-    parserOpts,
-    writerOpts,
+    parserOpts ? { ...parserOpts } : undefined,
+    writerOpts ? { ...writerOpts } : undefined,
     { path: dir, cwd: dir }
   ).on('error', reject);
 
