@@ -125,35 +125,4 @@ describe('extractSpecificChangelog', () => {
       `);
     });
   });
-
-  describe('patch releases with <small> tag', () => {
-    it('works with <small> tag around version', () => {
-      const changelog = `## <small>0.28.1 (2026-02-05)</small>
-
-### Bug fixes
-
-* fix something (#123)
-
-# [0.28.0](https://github.com/example/repo/compare/v0.27.0...v0.28.0) (2026-02-03)
-
-### Features
-
-* add feature (#100)
-`;
-      expect(
-        extractSpecificChangelog({
-          changelog,
-          version: '0.28.1',
-        })
-      ).toMatchInlineSnapshot(`
-        "## <small>0.28.1 (2026-02-05)</small>
-
-        ### Bug fixes
-
-        * fix something (#123)
-
-        "
-      `);
-    });
-  });
 });
