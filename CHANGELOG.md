@@ -1,3 +1,14 @@
+## [0.28.2](https://github.com/algolia/shipjs/compare/v0.28.1...v0.28.2) (2026-02-05)
+
+
+### Bug Fixes
+
+* **changelog:** handle frozen commit objects from conventional-changelog-writer ([4a65f39](https://github.com/algolia/shipjs/commit/4a65f39eac7d7d68f838dfeda82423fc48bb5fbe))
+* pass preset parserOpts and writerOpts to conventional-changelog ([#1045](https://github.com/algolia/shipjs/issues/1045)) ([447dd87](https://github.com/algolia/shipjs/commit/447dd87c8e95155464d543fb79849d55d4996adb))
+* spread parserOpts and writerOpts to avoid immutable object error ([b91c297](https://github.com/algolia/shipjs/commit/b91c297a75d219879ba87f1f23d0dd40e18b6b52))
+
+
+
 ## [0.28.1](https://github.com/algolia/shipjs/compare/v0.28.0...v0.28.1) (2026-02-05)
 
 ### Bug fixes
