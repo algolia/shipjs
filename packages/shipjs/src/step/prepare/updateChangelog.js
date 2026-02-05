@@ -152,6 +152,21 @@ export async function prepareParams({
   return { args, gitRawCommitsOpts, templateContext };
 }
 
+// Wraps a transform function to clone commits before modification.
+// This is needed because conventional-changelog-writer freezes commit objects,
+// but presets like angular expect to mutate them.
+function wrapTransform(originalTransform) {
+  if (!originalTransform) {
+    return undefined;
+  }
+
+  return (commit, context) => {
+    const mutableCommit = JSON.parse(JSON.stringify(commit));
+
+    return originalTransform(mutableCommit, context);
+  };
+}
+
 function runConventionalChangelog({
   args,
   templateContext,
@@ -165,12 +180,15 @@ function runConventionalChangelog({
   }
 
   const { parserOpts, writerOpts } = args.config || {};
+  const wrappedWriterOpts = writerOpts
+    ? { ...writerOpts, transform: wrapTransform(writerOpts.transform) }
+    : undefined;
   const changelogStream = conventionalChangelogCore(
     args,
     templateContext,
     { ...gitRawCommitsOpts, path: dir },
-    parserOpts,
-    writerOpts,
+    parserOpts ? { ...parserOpts } : undefined,
+    wrappedWriterOpts,
     { path: dir, cwd: dir }
   ).on('error', reject);
 
