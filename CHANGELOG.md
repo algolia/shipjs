@@ -1,14 +1,9 @@
 ## <small>0.28.1 (2026-02-05)</small>
 
+### Bug fixes
+
 * fix: await prettier.format() for Prettier 3.x compatibility (#1038) ([86d6963](https://github.com/algolia/shipjs/commit/86d6963)), closes [#1038](https://github.com/algolia/shipjs/issues/1038)
 * fix: enable npm OIDC trusted publishing (#1042) ([70b8b80](https://github.com/algolia/shipjs/commit/70b8b80)), closes [#1042](https://github.com/algolia/shipjs/issues/1042)
-* fix: enable OIDC token provider for npm publishing (#1037) ([f471e07](https://github.com/algolia/shipjs/commit/f471e07)), closes [#1037](https://github.com/algolia/shipjs/issues/1037)
-* fix(gh-pages): use GITHUB_TOKEN for authentication (#1036) ([54ee34a](https://github.com/algolia/shipjs/commit/54ee34a)), closes [#pages](https://github.com/algolia/shipjs/issues/pages) [#1036](https://github.com/algolia/shipjs/issues/1036) [#pages](https://github.com/algolia/shipjs/issues/pages)
-* chore: migrate from CircleCI to GitHub Actions (#1031) ([ac22b73](https://github.com/algolia/shipjs/commit/ac22b73)), closes [#1031](https://github.com/algolia/shipjs/issues/1031)
-* chore: release v0.28.1 (#1039) ([dd4adac](https://github.com/algolia/shipjs/commit/dd4adac)), closes [#1039](https://github.com/algolia/shipjs/issues/1039)
-* chore: revert v0.28.1 release (#1043) ([5cdf937](https://github.com/algolia/shipjs/commit/5cdf937)), closes [#1043](https://github.com/algolia/shipjs/issues/1043)
-
-
 
 # [0.28.0](https://github.com/algolia/shipjs/compare/v0.27.0...v0.28.0) (2026-02-03)
 
