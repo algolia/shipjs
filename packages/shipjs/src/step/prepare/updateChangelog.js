@@ -164,12 +164,13 @@ function runConventionalChangelog({
     fs.writeFileSync(args.outfile, '');
   }
 
+  const { parserOpts, writerOpts } = args.config || {};
   const changelogStream = conventionalChangelogCore(
     args,
     templateContext,
     { ...gitRawCommitsOpts, path: dir },
-    undefined,
-    undefined,
+    parserOpts,
+    writerOpts,
     { path: dir, cwd: dir }
   ).on('error', reject);
 
