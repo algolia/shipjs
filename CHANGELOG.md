@@ -1,4 +1,4 @@
-## <small>0.28.1 (2026-02-05)</small>
+## [0.28.1](https://github.com/algolia/shipjs/compare/v0.28.0...v0.28.1) (2026-02-05)
 
 ### Bug fixes
 
