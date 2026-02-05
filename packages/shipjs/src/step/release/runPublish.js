@@ -29,6 +29,7 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
           publishCommand,
           tag,
           dir: packageDir,
+          useOidcTokenProvider,
         });
         if (command) {
           print(`Running the following at ${info(packageDir)}`);
@@ -38,7 +39,13 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
         }
       });
     } else {
-      const command = getPublishCommand({ isYarn, publishCommand, tag, dir });
+      const command = getPublishCommand({
+        isYarn,
+        publishCommand,
+        tag,
+        dir,
+        useOidcTokenProvider,
+      });
       run({ command, dir, dryRun });
     }
   });
