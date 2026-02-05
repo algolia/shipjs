@@ -6,7 +6,7 @@ import prettier from 'prettier';
 export default async function runPrettier({ filePath, dir }) {
   const text = fs.readFileSync(filePath, 'utf-8');
   const options = await prettier.resolveConfig(dir);
-  const formatted = prettier.format(text, {
+  const formatted = await prettier.format(text, {
     ...(options || {}),
     parser: getParser(filePath),
   });
