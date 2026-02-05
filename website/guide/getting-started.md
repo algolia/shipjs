@@ -162,6 +162,8 @@ permissions:
   contents: read
 ```
 
+Note: OIDC trusted publishing requires npm v11.5.1 or later.
+
 ## Setup with 'Nothing'
 
 If you never use any CI environment, you need to use NPM token to release package to NPM:

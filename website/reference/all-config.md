@@ -328,6 +328,10 @@ permissions:
   contents: read
 ```
 
+::: warning npm version requirement
+OIDC trusted publishing requires npm v11.5.1 or later.
+:::
+
 ## `afterPublish`
 
 _used at_: `shipjs trigger`
