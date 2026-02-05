@@ -1,3 +1,10 @@
+## <small>0.28.1 (2026-02-05)</small>
+
+### Bug fixes
+
+* fix: await prettier.format() for Prettier 3.x compatibility (#1038) ([86d6963](https://github.com/algolia/shipjs/commit/86d6963)), closes [#1038](https://github.com/algolia/shipjs/issues/1038)
+* fix: enable npm OIDC trusted publishing (#1042) ([70b8b80](https://github.com/algolia/shipjs/commit/70b8b80)), closes [#1042](https://github.com/algolia/shipjs/issues/1042)
+
 # [0.28.0](https://github.com/algolia/shipjs/compare/v0.27.0...v0.28.0) (2026-02-03)
 
 
