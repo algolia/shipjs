@@ -16,7 +16,7 @@ export default function getCommitNumbersPerType(commitTitles) {
       ignoredMessages.push(title);
       return;
     }
-    const prefix = match[1].toLowerCase();
+    const prefix = match[1].replace(/!$/, '').toLowerCase();
     if (
       GIT_COMMIT_PREFIX_PATCH.has(prefix) ||
       GIT_COMMIT_PREFIX_MINOR.has(prefix)

@@ -97,6 +97,55 @@ describe('getNextVersionFromCommitMessages', () => {
     expect(actual).toBe('1.0.0');
   });
 
+  it('detects major from BREAKING-CHANGE with hyphen', () => {
+    const version = '1.2.3';
+    const titles = 'feat: abc';
+    const bodies = 'BREAKING-CHANGE: this also breaks things.';
+    const { version: actual } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
+    expect(actual).toBe('2.0.0');
+  });
+
+  it('does not trigger major from prose mentioning breaking changes', () => {
+    const version = '1.2.3';
+    const titles = 'feat: upgrade storybook';
+    const bodies =
+      'This PR includes breaking changes around package consolidation.';
+    const { version: actual } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
+    expect(actual).toBe('1.3.0');
+  });
+
+  it('detects major from ! suffix in title', () => {
+    const version = '1.2.3';
+    const titles = 'feat!: remove deprecated API';
+    const bodies = '';
+    const { version: actual } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
+    expect(actual).toBe('2.0.0');
+  });
+
+  it('detects major from scoped ! suffix in title', () => {
+    const version = '1.2.3';
+    const titles = 'fix(auth)!: change token format';
+    const bodies = '';
+    const { version: actual } = getNextVersionFromCommitMessages(
+      version,
+      titles,
+      bodies
+    );
+    expect(actual).toBe('2.0.0');
+  });
+
   it('gets a null with no commit messages', () => {
     const version = '0.0.1';
     const titles = '';
