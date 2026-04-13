@@ -18,8 +18,11 @@ export function getNextVersionFromCommitMessages(version, titles, bodies) {
     bodies
       .toUpperCase()
       .split('\n')
-      .some((line) => line.startsWith(GIT_COMMIT_BREAKING_CHANGE))
+      .some((line) => GIT_COMMIT_BREAKING_CHANGE.test(line.trim()))
   ) {
+    return { version: inc(version, 'major') };
+  }
+  if (titles.split('\n').some((line) => /^\w+(\(.*?\))?!:/.test(line.trim()))) {
     return { version: inc(version, 'major') };
   }
   const { numbers, ignoredMessages } = getCommitNumbersPerType(titles);

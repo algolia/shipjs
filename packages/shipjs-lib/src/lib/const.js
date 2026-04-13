@@ -11,6 +11,6 @@ export const GIT_COMMIT_PREFIX_PATCH = new Set([
 
 export const GIT_COMMIT_PREFIX_MINOR = new Set(['feat']);
 
-export const GIT_COMMIT_BREAKING_CHANGE = 'BREAKING CHANGE';
+export const GIT_COMMIT_BREAKING_CHANGE = /^BREAKING[ -]CHANGE\s*:/;
 
 export const RELEASE_BRANCH = 'releases';
