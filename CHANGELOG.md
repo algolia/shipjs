@@ -1,3 +1,12 @@
+## [0.28.3](https://github.com/algolia/shipjs/compare/v0.28.2...v0.28.3) (2026-04-13)
+
+
+### Bug Fixes
+
+* prevent false-positive major bumps from breaking change detection ([#1048](https://github.com/algolia/shipjs/issues/1048)) ([5c086e5](https://github.com/algolia/shipjs/commit/5c086e5bdcb809603c3c1a259d279fd31a8b18a7))
+
+
+
 ## [0.28.2](https://github.com/algolia/shipjs/compare/v0.28.1...v0.28.2) (2026-02-05)
 
 
