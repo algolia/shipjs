@@ -3,9 +3,9 @@ export default function getPublishCommand({
   publishCommand,
   tag,
   dir,
-  useOidcTokenProvider,
+  generateProvenance,
 }) {
-  const provenance = useOidcTokenProvider ? ' --provenance' : '';
+  const provenance = generateProvenance ? ' --provenance' : '';
   const npmPublish = `npm publish --tag ${tag}${provenance}`;
   const setRegistry = 'npm_config_registry=https://registry.npmjs.org/';
   const defaultCommand = isYarn ? `${setRegistry} ${npmPublish}` : npmPublish;
