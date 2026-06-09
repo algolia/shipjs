@@ -7,7 +7,12 @@ import runStep from '../runStep.js';
 
 export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
   runStep({ title: 'Publishing.' }, () => {
-    const { publishCommand, monorepo, useOidcTokenProvider } = config;
+    const {
+      publishCommand,
+      monorepo,
+      useOidcTokenProvider,
+      generateProvenance,
+    } = config;
 
     // This adds the following line to ~/.npmrc
     // > registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}
@@ -29,7 +34,7 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
           publishCommand,
           tag,
           dir: packageDir,
-          useOidcTokenProvider,
+          generateProvenance,
         });
         if (command) {
           print(`Running the following at ${info(packageDir)}`);
@@ -44,7 +49,7 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
         publishCommand,
         tag,
         dir,
-        useOidcTokenProvider,
+        generateProvenance,
       });
       run({ command, dir, dryRun });
     }

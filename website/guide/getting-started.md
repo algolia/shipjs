@@ -164,6 +164,8 @@ permissions:
 
 Note: OIDC trusted publishing requires npm v11.5.1 or later.
 
+To attach a [provenance statement](https://docs.npmjs.com/generating-provenance-statements) to your package, set [`generateProvenance`](/reference/all-config.html#generateprovenance) to `true` (off by default). It requires the same `id-token: write` permission and only works for public repositories. This is independent from `useOidcTokenProvider`: you can generate provenance whether you authenticate with a classic npm token or with OIDC trusted publishing.
+
 ## Setup with 'Nothing'
 
 If you never use any CI environment, you need to use NPM token to release package to NPM:

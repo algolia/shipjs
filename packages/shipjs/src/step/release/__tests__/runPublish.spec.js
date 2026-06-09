@@ -81,6 +81,34 @@ describe('runPublish', () => {
     expect(run.mock.calls[0][0].command).not.toContain('npm config set');
   });
 
+  it('adds --provenance when generateProvenance is true', () => {
+    runPublish({
+      isYarn: true,
+      config: {
+        publishCommand: ({ defaultCommand }) => defaultCommand,
+        generateProvenance: true,
+      },
+      releaseTag: 'latest',
+      dir: '.',
+      dryRun: false,
+    });
+    expect(run.mock.calls[1][0].command).toContain('--provenance');
+  });
+
+  it('does not add --provenance when only useOidcTokenProvider is true', () => {
+    runPublish({
+      isYarn: true,
+      config: {
+        publishCommand: ({ defaultCommand }) => defaultCommand,
+        useOidcTokenProvider: true,
+      },
+      releaseTag: 'latest',
+      dir: '.',
+      dryRun: false,
+    });
+    expect(run.mock.calls[0][0].command).not.toContain('--provenance');
+  });
+
   it('works with monorepo', () => {
     const output = [];
     mockPrint(print, output);

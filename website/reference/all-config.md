@@ -332,6 +332,37 @@ permissions:
 OIDC trusted publishing requires npm v11.5.1 or later.
 :::
 
+This option only controls authentication. To attach a provenance attestation to your published package, use [`generateProvenance`](#generateprovenance).
+
+## `generateProvenance`
+
+_used at_: `shipjs trigger`
+
+_default:_ `false`
+
+When `true`, Ship.js adds `--provenance` to `npm publish` so npm generates a [provenance statement](https://docs.npmjs.com/generating-provenance-statements) linking the published package to the CI workflow that built it.
+
+```js
+// ship.config.js
+module.exports = {
+  generateProvenance: true,
+};
+```
+
+This is independent from [`useOidcTokenProvider`](#useoidctokenprovider): provenance works whether you authenticate with a classic npm token or with OIDC trusted publishing.
+
+Provenance signing relies on the CI's OIDC token, so your GitHub Actions workflow job needs the `id-token: write` permission:
+
+```yaml
+permissions:
+  id-token: write
+  contents: read
+```
+
+::: warning Public repositories only
+npm rejects provenance for packages built from private or internal repositories. Enabling this on a private/internal repo will make the publish step fail.
+:::
+
 ## `afterPublish`
 
 _used at_: `shipjs trigger`
