@@ -1,3 +1,12 @@
+## [0.28.4](https://github.com/algolia/shipjs/compare/v0.28.3...v0.28.4) (2026-06-09)
+
+
+### Bug Fixes
+
+* decouple npm provenance from OIDC trusted publishing ([#1050](https://github.com/algolia/shipjs/issues/1050)) ([aaa9d32](https://github.com/algolia/shipjs/commit/aaa9d3252ba29fdd4a4851be6ca30cc8f49f8422))
+
+
+
 ## [0.28.3](https://github.com/algolia/shipjs/compare/v0.28.2...v0.28.3) (2026-04-13)
 
 
