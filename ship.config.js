@@ -38,7 +38,8 @@ module.exports = {
     }
     return true;
   },
-  useOidcTokenProvider: true
+  useOidcTokenProvider: true,
+  generateProvenance: true,
 };
 
 const updateJson = (dir, fileName, fn) => {
