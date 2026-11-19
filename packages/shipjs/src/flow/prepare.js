@@ -16,6 +16,7 @@ import prepareStagingBranch from '../step/prepare/prepareStagingBranch.js';
 import printHelp from '../step/prepare/printHelp.js';
 import push from '../step/prepare/push.js';
 import pushToStagingBranch from '../step/prepare/pushToStagingBranch.js';
+import runVersionHook from '../step/prepare/runVersionHook.js';
 import updateChangelog from '../step/prepare/updateChangelog.js';
 import updateVersion from '../step/prepare/updateVersion.js';
 import updateVersionMonorepo from '../step/prepare/updateVersionMonorepo.js';
@@ -23,12 +24,7 @@ import validate from '../step/prepare/validate.js';
 import validatePreparationConditions from '../step/prepare/validatePreparationConditions.js';
 import printDryRunBanner from '../step/printDryRunBanner.js';
 import pull from '../step/pull.js';
-import {
-  arrayify,
-  exitProcess,
-  print,
-  wrapExecWithDir,
-} from '../util/index.js';
+import { arrayify, exitProcess, print } from '../util/index.js';
 
 async function prepare({
   help = false,
@@ -40,6 +36,7 @@ async function prepare({
   noBrowse = false,
   commitFrom,
   preid,
+  graduate = false,
 }) {
   if (help) {
     printHelp();
@@ -50,6 +47,7 @@ async function prepare({
   }
   printDeprecated({ firstRelease, releaseCount });
   const prerelease = getPrerelease(preid);
+  validateGraduate({ graduate, prerelease });
   checkGitHubToken({ dryRun });
   const config = await loadConfig(dir);
   const { currentVersion, baseBranch } = validate({ config, dir });
@@ -60,12 +58,15 @@ async function prepare({
   )[0];
   let nextVersion;
   let releaseType;
+  // `[{ name, version }]` when the `version` hook releases several packages.
+  let packages = null;
 
   if (version) {
-    ({ nextVersion } = await version({
-      exec: wrapExecWithDir(dir),
+    ({ nextVersion, packages } = await runVersionHook({
+      version,
       dir,
       prerelease,
+      graduate,
     }));
     releaseType = getReleaseType(nextVersion);
   } else {
@@ -83,6 +84,7 @@ async function prepare({
       revisionRange,
       currentVersion,
       prerelease,
+      graduate,
       dir,
     }));
     nextVersion = await confirmNextVersion({
@@ -130,6 +132,7 @@ async function prepare({
     nextVersion,
     releaseType,
     prerelease,
+    packages,
     dir,
   });
   checkoutToStagingBranch({ stagingBranch, dir, dryRun });
@@ -137,6 +140,7 @@ async function prepare({
     nextVersion,
     releaseType,
     prerelease,
+    packages,
     dir,
     config,
     baseBranch,
@@ -151,6 +155,7 @@ async function prepare({
     nextVersion,
     releaseType,
     prerelease,
+    packages,
     noBrowse,
     config,
     dir,
@@ -161,6 +166,7 @@ async function prepare({
     config,
     appName,
     version: nextVersion,
+    packages,
     pullRequestUrl,
   });
 
@@ -177,6 +183,7 @@ const arg = {
   '--no-browse': Boolean,
   '--commit-from': String,
   '--preid': String,
+  '--graduate': Boolean,
 
   // Aliases
   '-d': '--dir',
@@ -203,6 +210,13 @@ function getPrerelease(preid) {
     exitProcess(1);
   }
   return { preid };
+}
+
+function validateGraduate({ graduate, prerelease }) {
+  if (graduate && prerelease) {
+    print(error('--graduate and --preid cannot be used together.'));
+    exitProcess(1);
+  }
 }
 
 function printDeprecated({ firstRelease, releaseCount }) {

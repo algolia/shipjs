@@ -8,6 +8,7 @@ export default async ({
   nextVersion,
   releaseType,
   prerelease = null,
+  packages = null,
   dir,
   config,
   baseBranch,
@@ -20,6 +21,7 @@ export default async ({
       releaseType,
       baseBranch,
       prerelease,
+      packages,
     });
     if (dryRun) {
       print('$', info('git add .'));
@@ -34,6 +36,7 @@ export default async ({
         nextVersion,
         releaseType,
         prerelease,
+        packages,
         exec: wrapExecWithDir(dir),
         dir,
       });

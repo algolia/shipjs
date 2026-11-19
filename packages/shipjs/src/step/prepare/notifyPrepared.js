@@ -1,7 +1,13 @@
 import { notifyPrepared } from '../../util/index.js';
 import runStep from '../runStep.js';
 
-export default async ({ config, appName, version, pullRequestUrl }) =>
+export default async ({
+  config,
+  appName,
+  version,
+  packages = null,
+  pullRequestUrl,
+}) =>
   await runStep(
     {
       title: 'Notifying notifyPrepared to Slack',
@@ -15,6 +21,7 @@ export default async ({ config, appName, version, pullRequestUrl }) =>
         config,
         appName,
         version,
+        packages,
         pullRequestUrl,
       });
     }

@@ -13,7 +13,7 @@ describe('printHelp', () => {
       	shipjs prepare - Prepare a release.
 
       USAGE
-      	shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run] [--no-browse] [--commit-from SHA] [--preid ID]
+      	shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run] [--no-browse] [--commit-from SHA] [--preid ID] [--graduate]
 
       OPTIONS
       	-h, --help
@@ -36,7 +36,10 @@ describe('printHelp', () => {
 
       	--preid ID
       	  Prepare a prerelease on the ID channel (e.g. beta, alpha, rc, next).
-      	  It is published under the npm dist-tag of the same name.",
+      	  It is published under the npm dist-tag of the same name.
+
+      	--graduate
+      	  Release the current prerelease as its stable version (e.g. 5.0.0-rc.2 -> 5.0.0).",
       ]
     `);
   });

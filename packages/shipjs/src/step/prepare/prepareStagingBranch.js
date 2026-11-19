@@ -4,13 +4,21 @@ import { error } from '../../color.js';
 import { print, exitProcess } from '../../util/index.js';
 import runStep from '../runStep.js';
 
-export default ({ config, nextVersion, releaseType, prerelease = null, dir }) =>
+export default ({
+  config,
+  nextVersion,
+  releaseType,
+  prerelease = null,
+  packages = null,
+  dir,
+}) =>
   runStep({ title: 'Preparing a staging branch' }, () => {
     const { getStagingBranchName, remote } = config;
     const stagingBranch = getStagingBranchName({
       nextVersion,
       releaseType,
       prerelease,
+      packages,
     });
     if (hasLocalBranch(stagingBranch, dir)) {
       print(error(`The branch "${stagingBranch}" already exists locally.`));

@@ -13,7 +13,8 @@ export default () =>
     const noBrowse = `--no-browse`;
     const commitFrom = `--commit-from ${underline('SHA')}`;
     const preid = `--preid ${underline('ID')}`;
-    const all = [help, dir, yes, dryRun, noBrowse, commitFrom, preid]
+    const graduate = `--graduate`;
+    const all = [help, dir, yes, dryRun, noBrowse, commitFrom, preid, graduate]
       .map((x) => `[${x}]`)
       .join(' ');
 
@@ -54,6 +55,11 @@ export default () =>
         )} channel (e.g. beta, alpha, rc, next).`
       ),
       indent('  It is published under the npm dist-tag of the same name.'),
+      '',
+      indent(graduate),
+      indent(
+        '  Release the current prerelease as its stable version (e.g. 5.0.0-rc.2 -> 5.0.0).'
+      ),
     ];
     print(messages.join('\n'));
   });

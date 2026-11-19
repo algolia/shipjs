@@ -70,18 +70,41 @@ version: ({ exec }) => {
 }
 ```
 
-It receives `prerelease`, which is `{ preid }` (e.g. `{ preid: 'beta' }`) when running `shipjs prepare --preid beta`, and `null` otherwise:
+It receives `prerelease`, which is `{ preid }` (e.g. `{ preid: 'beta' }`) when running `shipjs prepare --preid beta`, and `null` otherwise, and `graduate`, which is `true` when running `shipjs prepare --graduate`:
 
 ```js
-version: ({ exec, prerelease }) => {
-  const flags = prerelease
-    ? `--conventional-prerelease --preid ${prerelease.preid}`
-    : '--conventional-graduate';
+version: ({ exec, prerelease, graduate }) => {
+  let flags = '';
+  if (prerelease) {
+    flags = `--conventional-prerelease --preid ${prerelease.preid}`;
+  } else if (graduate) {
+    flags = '--conventional-graduate';
+  }
   exec(`yarn lerna version --no-push --no-git-tag-version --yes --conventional-commits ${flags}`);
 }
 ```
 
-`getNextVersion`, `shouldPrepare`, `versionUpdated`, `beforeCommitChanges`, `getStagingBranchName`, `formatCommitMessage`, `formatPullRequestTitle` and `formatPullRequestMessage` receive the same `prerelease`.
+`getNextVersion`, `shouldPrepare`, `versionUpdated`, `beforeCommitChanges`, `getStagingBranchName`, `formatCommitMessage`, `formatPullRequestTitle` and `formatPullRequestMessage` receive the same `prerelease`. `getNextVersion` also receives `graduate`.
+
+It returns `{ nextVersion }`. With independent versioning, where there is no single next version, return the packages it versioned instead:
+
+```js
+// import { execSync } from 'child_process';
+version: async ({ exec, dir }) => {
+  const changed = JSON.parse(
+    execSync('yarn --silent lerna changed --json', { cwd: dir }).toString()
+  );
+  exec('yarn lerna version --no-push --no-git-tag-version --yes --conventional-commits');
+  const packages = JSON.parse(
+    execSync('yarn --silent lerna list --json', { cwd: dir }).toString()
+  ).filter(({ name }) => changed.some((pkg) => pkg.name === name));
+  return { packages: packages.map(({ name, version }) => ({ name, version })) };
+}
+```
+
+- `nextVersion` defaults to the first package's version.
+- `getStagingBranchName`, `formatCommitMessage`, `beforeCommitChanges`, `formatPullRequestTitle`, `formatPullRequestMessage` and `slack.prepared` receive `packages` (`[{ name, version }]`, or `null` when the hook doesn't return it). The default pull request message lists them.
+- Returning neither a `nextVersion` nor any package stops `shipjs prepare` with "Nothing to release!".
 
 ## `shouldPrepare`
 

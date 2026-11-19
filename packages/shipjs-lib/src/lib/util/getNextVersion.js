@@ -67,12 +67,27 @@ function getNextPrereleaseVersion(version, titles, bodies, preid) {
   return { version: nextVersion, ignoredMessages };
 }
 
+// `graduate` releases a prerelease as its stable version, whatever the
+// commits say: `5.0.0-rc.2` -> `5.0.0`.
+function getGraduatedVersion(version) {
+  if (!prerelease(version)) {
+    throw new Error(`Cannot graduate \`${version}\`: it is not a prerelease.`);
+  }
+  return { version: inc(version, 'patch') };
+}
+
 export function getNextVersionFromCommitMessages(
   version,
   titles,
   bodies,
-  { preid } = {}
+  { preid, graduate = false } = {}
 ) {
+  if (preid && graduate) {
+    throw new Error('`preid` and `graduate` cannot be used together.');
+  }
+  if (graduate) {
+    return getGraduatedVersion(version);
+  }
   if (preid) {
     return getNextPrereleaseVersion(version, titles, bodies, preid);
   }
@@ -93,11 +108,12 @@ export default function getNextVersion(
   revisionRange,
   currentVersion,
   dir = '.',
-  { preid } = {}
+  { preid, graduate } = {}
 ) {
   const titles = getCommitTitles(revisionRange, dir);
   const bodies = getCommitBodies(revisionRange, dir);
   return getNextVersionFromCommitMessages(currentVersion, titles, bodies, {
     preid,
+    graduate,
   });
 }
