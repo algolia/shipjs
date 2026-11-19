@@ -10,7 +10,14 @@ import {
 import { wrapExecWithDir, print } from '../../util/index.js';
 import runStep from '../runStep.js';
 
-export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
+export default async ({
+  config,
+  nextVersion,
+  releaseType,
+  prerelease = null,
+  dir,
+  dryRun,
+}) =>
   await runStep(
     { title: 'Updating the versions on the monorepo.' },
     async () => {
@@ -62,6 +69,7 @@ export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
         await versionUpdated({
           version: nextVersion,
           releaseType,
+          prerelease,
           dir,
           exec: wrapExecWithDir(dir),
         });

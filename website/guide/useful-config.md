@@ -117,6 +117,46 @@ One thing you need to be aware of is, you cannot assign yourself as a reviewer. 
 
 The assignees will receive a notification from GitHub when the PR is created. Whenever they review and merge the PR, it will be automatically released by the prior configuration you've done [here](../guide/getting-started.html#automate-part-3-trigger).
 
+## Prereleases
+
+Run `shipjs prepare --preid <id>` to prepare a prerelease on the `<id>` channel (`beta`, `alpha`, `rc`, `next`, …):
+
+| Current version | Commits | `--preid` | Next version |
+|---|---|---|---|
+| `4.80.0` | `feat!: …` | `beta` | `5.0.0-beta.0` |
+| `4.80.0` | `feat: …` | `beta` | `4.81.0-beta.0` |
+| `5.0.0-beta.0` | any | `beta` | `5.0.0-beta.1` |
+| `5.0.0-beta.3` | any | `rc` | `5.0.0-rc.0` |
+| `5.0.0-rc.0` | any | `beta` | refused (it would go back) |
+
+When the pull request is merged, `shipjs trigger` publishes it under the npm dist-tag named after the channel (`beta` for `5.0.0-beta.1`), and creates a GitHub release marked as a prerelease. It refuses to publish a prerelease under `latest` (see [`guardPublishTag`](../reference/all-config.md#guardpublishtag)).
+
+To graduate, run `shipjs prepare` without `--preid` and answer "no" to "Is this next version correct?" to type the stable version (`5.0.0`). Without that, Ship.js keeps incrementing the prerelease (`5.0.0-beta.2`), or use the [`getNextVersion`](../reference/all-config.md#getnextversion) hook.
+
+With a [`version`](../reference/all-config.md#version) hook (for example Lerna with independent versioning), pass the channel to your tool, and pick the dist-tags with [`getPublishTag`](../reference/all-config.md#getpublishtag):
+
+```js
+export default {
+  version({ exec, prerelease }) {
+    const flags = prerelease
+      ? `--conventional-prerelease --preid ${prerelease.preid}`
+      : '--conventional-graduate';
+    exec(`yarn lerna version --no-git-tag-version --no-push --exact --conventional-commits ${flags} --yes`);
+    // …
+  },
+  formatPullRequestTitle: ({ prerelease }) =>
+    prerelease ? `chore: release (${prerelease.preid})` : 'chore: release',
+  getPublishTag: ({ prerelease }) => ({
+    tag: 'latest',
+    prereleaseTag: prerelease ? prerelease.preid : 'latest',
+  }),
+  publishCommand: ({ tag, prereleaseTag }) =>
+    `yarn lerna publish from-package --yes --dist-tag ${tag} --pre-dist-tag ${prereleaseTag}`,
+};
+```
+
+Keep the stable title (`formatPullRequestTitle` without `prerelease`) as a prefix of the prerelease one: `shipjs trigger` checks that the latest commit starts with it.
+
 ## Release Snapshot
 
 If you want to maintain a branch for release snapshot, you can use `afterPublish` hook.

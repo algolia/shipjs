@@ -2,7 +2,12 @@ import { Octokit } from '@octokit/rest';
 import open from 'open';
 import { expandPackageList, getRepoInfo, getReleaseTag } from 'shipjs-lib';
 
-import { getPublishCommand, getPackageDirName } from '../../helper/index.js';
+import {
+  getPublishCommand,
+  getPackageDirName,
+  getTagForDir,
+  resolvePublishTags,
+} from '../../helper/index.js';
 import { print, run, detectYarn } from '../../util/index.js';
 import runStep from '../runStep.js';
 
@@ -13,6 +18,7 @@ export default async ({
   currentTag,
   nextVersion,
   releaseType,
+  prerelease = null,
   noBrowse,
   config,
   dir,
@@ -32,15 +38,27 @@ export default async ({
     const { url: repoURL, owner, name: repo } = getRepoInfo(remote, dir);
 
     const diffURL = `${repoURL}/compare/${currentTag}...${stagingBranch}`;
+    const tags = resolvePublishTags({
+      config,
+      version: nextVersion,
+      releaseTag: getReleaseTag(nextVersion),
+      prerelease,
+      branch: baseBranch,
+    });
     const publishCommands = getPublishCommands({
       isYarn: detectYarn(dir),
-      tag: getReleaseTag(nextVersion),
+      tags,
+      prerelease,
       monorepo,
       publishCommand,
       dir,
     });
 
-    const title = formatPullRequestTitle({ version: nextVersion, releaseType });
+    const title = formatPullRequestTitle({
+      version: nextVersion,
+      releaseType,
+      prerelease,
+    });
     const message = formatPullRequestMessage({
       repo,
       repoURL,
@@ -53,6 +71,7 @@ export default async ({
       nextVersion,
       publishCommands,
       title,
+      prerelease,
     });
     run({ command: `git remote prune ${remote}`, dir, dryRun });
 
@@ -98,7 +117,16 @@ export default async ({
     return { pullRequestUrl: url };
   });
 
-function getPublishCommands({ isYarn, tag, monorepo, publishCommand, dir }) {
+// The same commands `shipjs trigger` will run (see `runPublish`): each package
+// gets the tag matching the version it now has on disk.
+function getPublishCommands({
+  isYarn,
+  tags,
+  prerelease,
+  monorepo,
+  publishCommand,
+  dir,
+}) {
   if (monorepo) {
     const { packagesToPublish } = monorepo;
     const packageList = expandPackageList(packagesToPublish, dir);
@@ -107,7 +135,9 @@ function getPublishCommands({ isYarn, tag, monorepo, publishCommand, dir }) {
       const command = getPublishCommand({
         isYarn,
         publishCommand,
-        tag,
+        tag: getTagForDir(packageDir, tags),
+        prereleaseTag: tags.prereleaseTag,
+        prerelease,
         dir: packageDir,
       });
       return {
@@ -116,5 +146,12 @@ function getPublishCommands({ isYarn, tag, monorepo, publishCommand, dir }) {
       };
     });
   }
-  return getPublishCommand({ isYarn, publishCommand, tag, dir });
+  return getPublishCommand({
+    isYarn,
+    publishCommand,
+    tag: getTagForDir(dir, tags),
+    prereleaseTag: tags.prereleaseTag,
+    prerelease,
+    dir,
+  });
 }

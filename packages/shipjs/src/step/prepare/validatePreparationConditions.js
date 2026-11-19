@@ -13,6 +13,7 @@ export default async ({
   releaseType,
   nextVersion,
   revisionRange,
+  prerelease,
   dir,
 }) =>
   await runStep(
@@ -33,6 +34,7 @@ export default async ({
         releaseType,
         releaseTag,
         commitNumbersPerType,
+        prerelease,
       });
       if (!result) {
         print(

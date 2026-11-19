@@ -2,6 +2,8 @@ export default function getPublishCommand({
   isYarn,
   publishCommand,
   tag,
+  prereleaseTag = tag,
+  prerelease = null,
   dir,
   generateProvenance,
 }) {
@@ -10,5 +12,12 @@ export default function getPublishCommand({
   const setRegistry = 'npm_config_registry=https://registry.npmjs.org/';
   const defaultCommand = isYarn ? `${setRegistry} ${npmPublish}` : npmPublish;
 
-  return publishCommand({ isYarn, tag, defaultCommand, dir });
+  return publishCommand({
+    isYarn,
+    tag,
+    prereleaseTag,
+    prerelease,
+    defaultCommand,
+    dir,
+  });
 }

@@ -1,11 +1,19 @@
 import { expandPackageList } from 'shipjs-lib';
 
 import { info } from '../../color.js';
-import { getPublishCommand } from '../../helper/index.js';
+import { getPublishCommand, getTagForDir } from '../../helper/index.js';
 import { run, print } from '../../util/index.js';
 import runStep from '../runStep.js';
 
-export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
+export default ({
+  isYarn,
+  config,
+  releaseTag: tag,
+  prereleaseTag = tag,
+  prerelease = null,
+  dir,
+  dryRun,
+}) =>
   runStep({ title: 'Publishing.' }, () => {
     const {
       publishCommand,
@@ -32,7 +40,9 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
         const command = getPublishCommand({
           isYarn,
           publishCommand,
-          tag,
+          tag: getTagForDir(packageDir, { tag, prereleaseTag }),
+          prereleaseTag,
+          prerelease,
           dir: packageDir,
           generateProvenance,
         });
@@ -47,7 +57,9 @@ export default ({ isYarn, config, releaseTag: tag, dir, dryRun }) =>
       const command = getPublishCommand({
         isYarn,
         publishCommand,
-        tag,
+        tag: getTagForDir(dir, { tag, prereleaseTag }),
+        prereleaseTag,
+        prerelease,
         dir,
         generateProvenance,
       });

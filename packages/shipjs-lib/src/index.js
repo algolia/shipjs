@@ -5,6 +5,7 @@ export { default as updateVersion } from './lib/util/updateVersion.js';
 export { default as isValidVersion } from './lib/util/isValidVersion.js';
 export { default as getReleaseTag } from './lib/util/getReleaseTag.js';
 export { default as getReleaseType } from './lib/util/getReleaseType.js';
+export { default as getPrereleaseId } from './lib/util/getPrereleaseId.js';
 
 /* git */
 export { default as getCommitTitles } from './lib/git/getCommitTitles.js';

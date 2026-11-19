@@ -2,6 +2,7 @@ import { Octokit } from '@octokit/rest';
 import { getRepoInfo } from 'shipjs-lib';
 import { vi } from 'vitest';
 
+import { getTagForDir, resolvePublishTags } from '../../../helper/index.js';
 import { run } from '../../../util/index.js';
 import createPullRequest from '../createPullRequest.js';
 
@@ -40,6 +41,11 @@ describe('createPullRequest', () => {
       branch: 'master',
       url: 'https://github.com/my/repo',
     }));
+    resolvePublishTags.mockImplementation(() => ({
+      tag: 'latest',
+      prereleaseTag: 'latest',
+    }));
+    getTagForDir.mockImplementation(() => 'latest');
   });
 
   it('works in dry mode', async () => {
@@ -87,6 +93,7 @@ describe('createPullRequest', () => {
     expect(mockFormatPullRequestTitle).toHaveBeenCalledWith({
       version: '1.2.3',
       releaseType: 'patch',
+      prerelease: null,
     });
     expect(mockFormatPullRequestMessage).toHaveBeenCalled();
     expect(mockFormatPullRequestMessage.mock.calls[0][0]).toMatchObject({
