@@ -13,7 +13,7 @@ describe('printHelp', () => {
       	shipjs prepare - Prepare a release.
 
       USAGE
-      	shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run] [--no-browse] [--commit-from SHA]
+      	shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run] [--no-browse] [--commit-from SHA] [--preid ID]
 
       OPTIONS
       	-h, --help
@@ -32,7 +32,11 @@ describe('printHelp', () => {
       	  Do not open a browser after creating a pull request.
 
       	-c, --commit-from SHA
-      	  Specify from which commit you want to release.",
+      	  Specify from which commit you want to release.
+
+      	--preid ID
+      	  Prepare a prerelease on the ID channel (e.g. beta, alpha, rc, next).
+      	  It is published under the npm dist-tag of the same name.",
       ]
     `);
   });

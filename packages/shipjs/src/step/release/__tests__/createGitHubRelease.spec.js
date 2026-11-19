@@ -220,4 +220,48 @@ describe('createGitHubRelease', () => {
       ]
     `);
   });
+  describe('release flags', () => {
+    const tagged = (getTagName, version, tags = {}) => ({
+      ...getDefaultParams(),
+      version,
+      ...tags,
+      config: { ...getDefaultParams().config, getTagName },
+    });
+
+    it('marks a prerelease and does not make it the latest release', async () => {
+      await createGitHubRelease(
+        tagged(() => 'v2.0.0-beta.0', '2.0.0-beta.0', {
+          tag: 'beta',
+          prereleaseTag: 'beta',
+        })
+      );
+      expect(createRelease.mock.calls[0][0]).toMatchObject({
+        tag_name: 'v2.0.0-beta.0', // eslint-disable-line camelcase
+        prerelease: true,
+        make_latest: 'false', // eslint-disable-line camelcase
+      });
+    });
+
+    it('reads the version of each tag in a monorepo', async () => {
+      await createGitHubRelease(
+        tagged(() => ['a@5.0.0-beta.1', 'b@3.1.0'], '0.0.0', {
+          tag: 'latest',
+          prereleaseTag: 'beta',
+        })
+      );
+      expect(createRelease.mock.calls[0][0].prerelease).toBe(true);
+      expect(createRelease.mock.calls[1][0]).not.toHaveProperty('prerelease');
+      expect(createRelease.mock.calls[1][0]).not.toHaveProperty('make_latest');
+    });
+
+    it('does not make a release on another dist-tag the latest', async () => {
+      await createGitHubRelease(
+        tagged(() => 'v4.80.1', '4.80.1', { tag: 'v4', prereleaseTag: 'v4' })
+      );
+      expect(createRelease.mock.calls[0][0]).toMatchObject({
+        make_latest: 'false', // eslint-disable-line camelcase
+      });
+      expect(createRelease.mock.calls[0][0]).not.toHaveProperty('prerelease');
+    });
+  });
 });

@@ -4,7 +4,7 @@ import { info, warning } from '../../color.js';
 import { print, exitProcess } from '../../util/index.js';
 import runStep from '../runStep.js';
 
-export default ({ config, revisionRange, currentVersion, dir }) =>
+export default ({ config, revisionRange, currentVersion, prerelease, dir }) =>
   runStep({ title: 'Calculating the next version.' }, () => {
     let nextVersion;
     if (typeof config.getNextVersion === 'function') {
@@ -16,12 +16,14 @@ export default ({ config, revisionRange, currentVersion, dir }) =>
         commitBodies,
         currentVersion,
         dir,
+        prerelease,
       });
     } else {
       const { version, ignoredMessages = [] } = getNextVersion(
         revisionRange,
         currentVersion,
-        dir
+        dir,
+        { preid: prerelease ? prerelease.preid : undefined }
       );
       if (ignoredMessages.length > 0) {
         print(

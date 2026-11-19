@@ -4,3 +4,9 @@ export { default as gitPush } from './gitPush.js';
 export { default as runPrettier } from './runPrettier.js';
 export { default as getPublishCommand } from './getPublishCommand.js';
 export { default as getPackageDirName } from './getPackageDirName.js';
+export { default as getPackagesToPublish } from './getPackagesToPublish.js';
+export {
+  resolvePublishTags,
+  getTagForVersion,
+  getTagForDir,
+} from './resolvePublishTags.js';

@@ -7,6 +7,7 @@ import runStep from '../runStep.js';
 export default async ({
   nextVersion,
   releaseType,
+  prerelease = null,
   dir,
   config,
   baseBranch,
@@ -18,6 +19,7 @@ export default async ({
       version: nextVersion,
       releaseType,
       baseBranch,
+      prerelease,
     });
     if (dryRun) {
       print('$', info('git add .'));
@@ -31,6 +33,7 @@ export default async ({
       await beforeCommitChanges({
         nextVersion,
         releaseType,
+        prerelease,
         exec: wrapExecWithDir(dir),
         dir,
       });

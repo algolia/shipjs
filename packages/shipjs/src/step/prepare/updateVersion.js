@@ -4,7 +4,14 @@ import { info } from '../../color.js';
 import { print, wrapExecWithDir } from '../../util/index.js';
 import runStep from '../runStep.js';
 
-export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
+export default async ({
+  config,
+  nextVersion,
+  releaseType,
+  prerelease = null,
+  dir,
+  dryRun,
+}) =>
   await runStep({ title: 'Updating the version.' }, async () => {
     const { versionUpdated } = config;
     if (dryRun) {
@@ -19,6 +26,7 @@ export default async ({ config, nextVersion, releaseType, dir, dryRun }) =>
       await versionUpdated({
         version: nextVersion,
         releaseType,
+        prerelease,
         dir,
         exec: wrapExecWithDir(dir),
       });

@@ -2,7 +2,14 @@ import { info } from '../../color.js';
 import { wrapExecWithDir, print } from '../../util/index.js';
 import runStep from '../runStep.js';
 
-export default ({ version, releaseTag, config, dir, dryRun }) =>
+export default ({
+  version,
+  releaseTag,
+  prerelease = null,
+  config,
+  dir,
+  dryRun,
+}) =>
   runStep(
     {
       title: 'Running "afterPublish" callback.',
@@ -19,6 +26,7 @@ export default ({ version, releaseTag, config, dir, dryRun }) =>
         dir,
         version,
         releaseTag,
+        prerelease,
       });
     }
   );

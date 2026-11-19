@@ -12,7 +12,8 @@ export default () =>
     const dryRun = `--dry-run`;
     const noBrowse = `--no-browse`;
     const commitFrom = `--commit-from ${underline('SHA')}`;
-    const all = [help, dir, yes, dryRun, noBrowse, commitFrom]
+    const preid = `--preid ${underline('ID')}`;
+    const all = [help, dir, yes, dryRun, noBrowse, commitFrom, preid]
       .map((x) => `[${x}]`)
       .join(' ');
 
@@ -45,6 +46,14 @@ export default () =>
       '',
       indent(`-c, ${commitFrom}`),
       indent('  Specify from which commit you want to release.'),
+      '',
+      indent(preid),
+      indent(
+        `  Prepare a prerelease on the ${underline(
+          'ID'
+        )} channel (e.g. beta, alpha, rc, next).`
+      ),
+      indent('  It is published under the npm dist-tag of the same name.'),
     ];
     print(messages.join('\n'));
   });

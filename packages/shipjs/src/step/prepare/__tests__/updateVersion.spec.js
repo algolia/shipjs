@@ -26,6 +26,7 @@ describe('updateVersion', () => {
       {
         "dir": ".",
         "exec": undefined,
+        "prerelease": null,
         "releaseType": "patch",
         "version": "1.2.3",
       }

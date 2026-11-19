@@ -21,6 +21,7 @@ describe('runAfterPublish', () => {
       {
         "dir": ".",
         "exec": undefined,
+        "prerelease": null,
         "releaseTag": "latest",
         "version": "1.2.3",
       }

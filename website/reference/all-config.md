@@ -70,6 +70,19 @@ version: ({ exec }) => {
 }
 ```
 
+It receives `prerelease`, which is `{ preid }` (e.g. `{ preid: 'beta' }`) when running `shipjs prepare --preid beta`, and `null` otherwise:
+
+```js
+version: ({ exec, prerelease }) => {
+  const flags = prerelease
+    ? `--conventional-prerelease --preid ${prerelease.preid}`
+    : '--conventional-graduate';
+  exec(`yarn lerna version --no-push --no-git-tag-version --yes --conventional-commits ${flags}`);
+}
+```
+
+`getNextVersion`, `shouldPrepare`, `versionUpdated`, `beforeCommitChanges`, `getStagingBranchName`, `formatCommitMessage`, `formatPullRequestTitle` and `formatPullRequestMessage` receive the same `prerelease`.
+
 ## `shouldPrepare`
 
 _used at_: `shipjs prepare`
@@ -267,8 +280,11 @@ _used at_: `shipjs trigger`
 _default:_
 
 ```js
-publishCommand: ({ isYarn, tag, defaultCommand, dir }) => defaultCommand;
+publishCommand: ({ isYarn, tag, prereleaseTag, prerelease, defaultCommand, dir }) =>
+  defaultCommand;
 ```
+
+`tag` is the npm dist-tag from [`getPublishTag`](#getpublishtag). When `getPublishTag` returns `{ tag, prereleaseTag }`, `prereleaseTag` is the one for prerelease versions (for example, for `lerna publish from-package --dist-tag ${tag} --pre-dist-tag ${prereleaseTag}`).
 
 `defaultCommand`:
 
@@ -302,6 +318,60 @@ publishCommand: ({ isYarn, tag, defaultCommand, dir }) => {
   }
 };
 ```
+
+## `getPackagesToPublish`
+
+_used at_: `shipjs trigger`
+
+_default_: the root `package.json`, or every non-private package in `monorepo.packagesToPublish`.
+
+The packages that are about to be published, as `[{ name, version }]`. Ship.js uses them to find the prerelease channel (all prerelease versions must share one `preid`), to pick the dist-tag, and to run the checks of [`guardPublishTag`](#guardpublishtag). Provide it when another tool decides what gets published, for example with Lerna's independent versioning:
+
+```js
+getPackagesToPublish: () =>
+  JSON.parse(execSync('yarn --silent lerna list --json'))
+    .filter(({ name, version }) => !tagExists(`${name}@${version}`)),
+```
+
+## `getPublishTag`
+
+_used at_: `shipjs prepare` (pull request body), `shipjs trigger`
+
+_default:_
+
+```js
+getPublishTag: ({ releaseTag, prerelease, branch, packages }) => releaseTag;
+```
+
+- `releaseTag`: `beta` for `1.0.0-beta.0`, `latest` for `1.0.0` (from the version in `package.json` or `monorepo.mainVersionFile`).
+- `prerelease`: `{ preid }` if any package to publish is a prerelease, otherwise `null`.
+- `branch`: the current branch.
+- `packages`: from [`getPackagesToPublish`](#getpackagestopublish) (`undefined` in `shipjs prepare`).
+
+Return a string to publish every package under it, or `{ tag, prereleaseTag }` to publish stable versions under `tag` and prerelease versions under `prereleaseTag`.
+
+For example, to publish fixes on an older major under `v4` instead of `latest`:
+
+```js
+getPublishTag: ({ branch, prerelease }) => ({
+  tag: branch === 'v4' ? 'v4' : 'latest',
+  prereleaseTag: prerelease ? prerelease.preid : 'next',
+}),
+```
+
+## `guardPublishTag`
+
+_used at_: `shipjs trigger`
+
+_default_: `true`
+
+Before building and publishing, `shipjs trigger` refuses to:
+
+- publish a prerelease version under `latest`;
+- publish a version under `latest` that is lower than the one `latest` points to on npm (checked with `npm view <name> dist-tags.latest`);
+- use an empty dist-tag, or one that is a version.
+
+Set it to `false` to skip these checks.
 
 ## `useOidcTokenProvider`
 
