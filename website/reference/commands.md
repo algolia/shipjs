@@ -29,7 +29,7 @@ NAME
         shipjs prepare - Prepare a release.
 
 USAGE
-        shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run] [--no-browse] [--commit-from SHA] [--preid ID]
+        shipjs prepare [--help] [--dir PATH] [--yes] [--dry-run] [--no-browse] [--commit-from SHA] [--preid ID] [--graduate]
 
 OPTIONS
         -h, --help
@@ -53,9 +53,12 @@ OPTIONS
         --preid ID
           Prepare a prerelease on the ID channel (e.g. beta, alpha, rc, next).
           It is published under the npm dist-tag of the same name.
+
+        --graduate
+          Release the current prerelease as its stable version (e.g. 5.0.0-rc.2 -> 5.0.0).
 ```
 
-See [Prereleases](../guide/useful-config.md#prereleases) for how `--preid` computes versions and picks the npm dist-tag.
+See [Prereleases](../guide/useful-config.md#prereleases) for how `--preid` and `--graduate` compute versions and pick the npm dist-tag.
 
 ## `trigger`
 

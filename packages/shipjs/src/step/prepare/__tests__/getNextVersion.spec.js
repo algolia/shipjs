@@ -1,4 +1,5 @@
 import { getNextVersion } from 'shipjs-lib';
+import { vi } from 'vitest';
 
 import { mockPrint } from '../../../../tests/util/index.js';
 import { print, exitProcess } from '../../../util/index.js';
@@ -53,5 +54,49 @@ describe('getNextVersion', () => {
         "  out of convention",
       ]
     `);
+  });
+});
+
+describe('getNextVersion with graduate', () => {
+  it('passes graduate to the built-in logic', () => {
+    getNextVersion.mockImplementationOnce(() => ({ version: '5.0.0' }));
+    const { nextVersion } = getNextVersionStep({
+      config: {},
+      currentVersion: '5.0.0-rc.1',
+      graduate: true,
+    });
+    expect(nextVersion).toBe('5.0.0');
+    expect(getNextVersion).toHaveBeenLastCalledWith(
+      undefined,
+      '5.0.0-rc.1',
+      undefined,
+      { preid: undefined, graduate: true }
+    );
+  });
+
+  it('passes graduate to the getNextVersion hook', () => {
+    const hook = vi.fn(() => '5.0.0');
+    getNextVersionStep({
+      config: { getNextVersion: hook },
+      graduate: true,
+    });
+    expect(hook).toHaveBeenCalledWith(
+      expect.objectContaining({ graduate: true })
+    );
+  });
+
+  it('exits when the version cannot graduate', () => {
+    const output = [];
+    mockPrint(print, output);
+    getNextVersion.mockImplementationOnce(() => {
+      throw new Error('Cannot graduate `4.80.0`: it is not a prerelease.');
+    });
+    getNextVersionStep({
+      config: {},
+      currentVersion: '4.80.0',
+      graduate: true,
+    });
+    expect(exitProcess).toHaveBeenCalledWith(1);
+    expect(output.join('\n')).toContain('it is not a prerelease');
   });
 });

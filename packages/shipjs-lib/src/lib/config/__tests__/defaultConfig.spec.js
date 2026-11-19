@@ -78,6 +78,38 @@ describe('defaultConfig', () => {
       `);
   });
 
+  it('formatPullRequestMessage lists the packages', () => {
+    const message = formatPullRequestMessage({
+      repo: 'instantsearch',
+      repoURL: 'https://github.com/algolia/instantsearch',
+      baseBranch: 'master',
+      stagingBranch: 'releases/v5.0.0-beta.0',
+      destinationBranch: 'master',
+      releaseType: 'prerelease',
+      diffURL: 'https://github.com/algolia/instantsearch/compare/a...b',
+      currentVersion: '0.0.0',
+      nextVersion: '5.0.0-beta.0',
+      publishCommands,
+      title: 'chore: release (beta)',
+      prerelease: { preid: 'beta' },
+      packages: [
+        { name: 'instantsearch.js', version: '5.0.0-beta.0' },
+        { name: 'react-instantsearch', version: '8.0.0-beta.0' },
+      ],
+    });
+    expect(message).toContain(
+      [
+        '### Packages',
+        '| Package | Version |',
+        '|---|---|',
+        '| instantsearch.js | `5.0.0-beta.0` |',
+        '| react-instantsearch | `8.0.0-beta.0` |',
+        '',
+        '### Release Summary',
+      ].join('\n')
+    );
+  });
+
   describe('shouldRelease', () => {
     const currentVersion = '0.1.2';
     const commitMessage = 'chore: release v0.1.2';

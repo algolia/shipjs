@@ -19,6 +19,7 @@ export default async ({
   nextVersion,
   releaseType,
   prerelease = null,
+  packages = null,
   noBrowse,
   config,
   dir,
@@ -58,6 +59,7 @@ export default async ({
       version: nextVersion,
       releaseType,
       prerelease,
+      packages,
     });
     const message = formatPullRequestMessage({
       repo,
@@ -72,6 +74,7 @@ export default async ({
       publishCommands,
       title,
       prerelease,
+      packages,
     });
     run({ command: `git remote prune ${remote}`, dir, dryRun });
 

@@ -131,18 +131,23 @@ Run `shipjs prepare --preid <id>` to prepare a prerelease on the `<id>` channel 
 
 When the pull request is merged, `shipjs trigger` publishes it under the npm dist-tag named after the channel (`beta` for `5.0.0-beta.1`), and creates a GitHub release marked as a prerelease. It refuses to publish a prerelease under `latest` (see [`guardPublishTag`](../reference/all-config.md#guardpublishtag)).
 
-To graduate, run `shipjs prepare` without `--preid` and answer "no" to "Is this next version correct?" to type the stable version (`5.0.0`). Without that, Ship.js keeps incrementing the prerelease (`5.0.0-beta.2`), or use the [`getNextVersion`](../reference/all-config.md#getnextversion) hook.
+To graduate, run `shipjs prepare --graduate`: `5.0.0-rc.2` becomes `5.0.0`, whatever the commits are. It refuses a version that isn't a prerelease, and can't be combined with `--preid`. Without `--graduate` or `--preid`, Ship.js keeps incrementing the prerelease (`5.0.0-beta.2`), as before.
 
 With a [`version`](../reference/all-config.md#version) hook (for example Lerna with independent versioning), pass the channel to your tool, and pick the dist-tags with [`getPublishTag`](../reference/all-config.md#getpublishtag):
 
 ```js
 export default {
-  version({ exec, prerelease }) {
-    const flags = prerelease
-      ? `--conventional-prerelease --preid ${prerelease.preid}`
-      : '--conventional-graduate';
+  version({ exec, prerelease, graduate }) {
+    let flags = '';
+    if (prerelease) {
+      flags = `--conventional-prerelease --preid ${prerelease.preid}`;
+    } else if (graduate) {
+      flags = '--conventional-graduate';
+    }
     exec(`yarn lerna version --no-git-tag-version --no-push --exact --conventional-commits ${flags} --yes`);
     // …
+    // Return the versioned packages: there is no single next version.
+    return { packages: changedPackages.map(({ name, version }) => ({ name, version })) };
   },
   formatPullRequestTitle: ({ prerelease }) =>
     prerelease ? `chore: release (${prerelease.preid})` : 'chore: release',

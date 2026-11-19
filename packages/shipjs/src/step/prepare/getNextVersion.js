@@ -1,10 +1,17 @@
 import { getNextVersion, getCommitTitles, getCommitBodies } from 'shipjs-lib';
 
-import { info, warning } from '../../color.js';
+import { error, info, warning } from '../../color.js';
 import { print, exitProcess } from '../../util/index.js';
 import runStep from '../runStep.js';
 
-export default ({ config, revisionRange, currentVersion, prerelease, dir }) =>
+export default ({
+  config,
+  revisionRange,
+  currentVersion,
+  prerelease,
+  graduate = false,
+  dir,
+}) =>
   runStep({ title: 'Calculating the next version.' }, () => {
     let nextVersion;
     if (typeof config.getNextVersion === 'function') {
@@ -17,14 +24,21 @@ export default ({ config, revisionRange, currentVersion, prerelease, dir }) =>
         currentVersion,
         dir,
         prerelease,
+        graduate,
       });
     } else {
-      const { version, ignoredMessages = [] } = getNextVersion(
-        revisionRange,
-        currentVersion,
-        dir,
-        { preid: prerelease ? prerelease.preid : undefined }
-      );
+      let result;
+      try {
+        result = getNextVersion(revisionRange, currentVersion, dir, {
+          preid: prerelease ? prerelease.preid : undefined,
+          graduate,
+        });
+      } catch (err) {
+        print(error(err.message));
+        exitProcess(1);
+        return {};
+      }
+      const { version, ignoredMessages = [] } = result;
       if (ignoredMessages.length > 0) {
         print(
           warning(

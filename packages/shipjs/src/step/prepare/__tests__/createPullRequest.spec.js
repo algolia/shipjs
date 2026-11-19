@@ -94,6 +94,7 @@ describe('createPullRequest', () => {
       version: '1.2.3',
       releaseType: 'patch',
       prerelease: null,
+      packages: null,
     });
     expect(mockFormatPullRequestMessage).toHaveBeenCalled();
     expect(mockFormatPullRequestMessage.mock.calls[0][0]).toMatchObject({

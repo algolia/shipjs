@@ -18,6 +18,7 @@ export async function notifyPrepared({
   config,
   appName,
   version,
+  packages = null,
   pullRequestUrl,
 }) {
   const { slack = {} } = config;
@@ -28,7 +29,7 @@ export async function notifyPrepared({
 
   const sendArguments =
     typeof prepared === 'function'
-      ? prepared({ appName, version, pullRequestUrl })
+      ? prepared({ appName, version, packages, pullRequestUrl })
       : prepared;
 
   await sendSlackMessage({

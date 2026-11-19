@@ -87,4 +87,25 @@ describe('commitChanges', () => {
       ]
     `);
   });
+
+  it('passes packages to the hooks', async () => {
+    wrapExecWithDir.mockImplementation(() => vi.fn());
+    const formatCommitMessage = vi.fn(() => 'chore: release (beta)');
+    const beforeCommitChanges = vi.fn(() => Promise.resolve());
+    const packages = [{ name: 'a', version: '5.0.0-beta.0' }];
+    await commitChanges({
+      config: { formatCommitMessage, beforeCommitChanges },
+      dryRun: false,
+      dir: '.',
+      nextVersion: '5.0.0-beta.0',
+      prerelease: { preid: 'beta' },
+      packages,
+    });
+    expect(formatCommitMessage).toHaveBeenCalledWith(
+      expect.objectContaining({ packages, prerelease: { preid: 'beta' } })
+    );
+    expect(beforeCommitChanges).toHaveBeenCalledWith(
+      expect.objectContaining({ packages })
+    );
+  });
 });
